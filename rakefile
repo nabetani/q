@@ -1,10 +1,14 @@
+pages=[]
 
-Dir.glob( "src/*" ) do |fn|
+Dir.glob( "qsrc/*" ) do |fn|
+  next unless File.directory?(fn)
   name = File.split(fn).last
   dest = "pages/#{name}.html"
 
   desc "create #{dest}"
   task name.to_sym=>dest
+
+  pages << name.to_sym
   
   desc "create #{dest}"
   file dest do
@@ -13,5 +17,5 @@ Dir.glob( "src/*" ) do |fn|
 end
 
 desc "default task"
-task :default do
+task :default => pages do
 end
