@@ -1,0 +1,3 @@
+[submodule "qsrc"]
+	path = qsrc
+	url = https://github.com/nabetani/qsrc.git
