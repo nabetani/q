@@ -1,0 +1,17 @@
+
+Dir.glob( "src/*" ) do |fn|
+  name = File.split(fn).last
+  dest = "pages/#{name}.html"
+
+  desc "create #{dest}"
+  task name.to_sym=>dest
+  
+  desc "create #{dest}"
+  file dest do
+    sh "haml render -r ./#{fn}/page.rb ./#{fn}/page.haml > #{dest}"
+  end
+end
+
+desc "default task"
+task :default do
+end
