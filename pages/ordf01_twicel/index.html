@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>ふたマスの領域の数 横へな2017.1.18 問題</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+      }
+      div.svg{
+       float:right;
+       background-color:#ddd;
+       padding:10px 10px 10px 10px;
+      }
+      div.src{
+        border:solid black 1px;
+        background-color:#f8f8f8;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ふたマスの領域の数 横へな2017.1.18 問題</h1>
+    <h2>問題の概要</h2>
+    <div class='svg'>
+      <svg height='320px' width='320px'>
+        <g>
+          <rect fill='#000' height='38' width='38' x='1' y='1'></rect>
+          <rect fill='#000' height='38' width='38' x='41' y='1'></rect>
+          <rect fill='#fff' height='38' width='38' x='81' y='1'></rect>
+          <rect fill='#000' height='38' width='38' x='121' y='1'></rect>
+          <rect fill='#000' height='38' width='38' x='161' y='1'></rect>
+          <rect fill='#000' height='38' width='38' x='201' y='1'></rect>
+          <rect fill='#fff' height='38' width='38' x='241' y='1'></rect>
+          <rect fill='#fff' height='38' width='38' x='281' y='1'></rect>
+          <rect fill='#000' height='38' width='38' x='1' y='41'></rect>
+          <rect fill='#fff' height='38' width='38' x='41' y='41'></rect>
+          <rect fill='#000' height='38' width='38' x='81' y='41'></rect>
+          <rect fill='#000' height='38' width='38' x='121' y='41'></rect>
+          <rect fill='#000' height='38' width='38' x='161' y='41'></rect>
+          <rect fill='#000' height='38' width='38' x='201' y='41'></rect>
+          <rect fill='#fff' height='38' width='38' x='241' y='41'></rect>
+          <rect fill='#fff' height='38' width='38' x='281' y='41'></rect>
+          <rect fill='#000' height='38' width='38' x='1' y='81'></rect>
+          <rect fill='#fff' height='38' width='38' x='41' y='81'></rect>
+          <rect fill='#000' height='38' width='38' x='81' y='81'></rect>
+          <rect fill='#fff' height='38' width='38' x='121' y='81'></rect>
+          <rect fill='#fff' height='38' width='38' x='161' y='81'></rect>
+          <rect fill='#000' height='38' width='38' x='201' y='81'></rect>
+          <rect fill='#000' height='38' width='38' x='241' y='81'></rect>
+          <rect fill='#000' height='38' width='38' x='281' y='81'></rect>
+          <rect fill='#fff' height='38' width='38' x='1' y='121'></rect>
+          <rect fill='#000' height='38' width='38' x='41' y='121'></rect>
+          <rect fill='#fff' height='38' width='38' x='81' y='121'></rect>
+          <rect fill='#000' height='38' width='38' x='121' y='121'></rect>
+          <rect fill='#000' height='38' width='38' x='161' y='121'></rect>
+          <rect fill='#fff' height='38' width='38' x='201' y='121'></rect>
+          <rect fill='#fff' height='38' width='38' x='241' y='121'></rect>
+          <rect fill='#000' height='38' width='38' x='281' y='121'></rect>
+          <rect fill='#fff' height='38' width='38' x='1' y='161'></rect>
+          <rect fill='#fff' height='38' width='38' x='41' y='161'></rect>
+          <rect fill='#fff' height='38' width='38' x='81' y='161'></rect>
+          <rect fill='#fff' height='38' width='38' x='121' y='161'></rect>
+          <rect fill='#fff' height='38' width='38' x='161' y='161'></rect>
+          <rect fill='#fff' height='38' width='38' x='201' y='161'></rect>
+          <rect fill='#000' height='38' width='38' x='241' y='161'></rect>
+          <rect fill='#000' height='38' width='38' x='281' y='161'></rect>
+          <rect fill='#000' height='38' width='38' x='1' y='201'></rect>
+          <rect fill='#000' height='38' width='38' x='41' y='201'></rect>
+          <rect fill='#fff' height='38' width='38' x='81' y='201'></rect>
+          <rect fill='#000' height='38' width='38' x='121' y='201'></rect>
+          <rect fill='#fff' height='38' width='38' x='161' y='201'></rect>
+          <rect fill='#000' height='38' width='38' x='201' y='201'></rect>
+          <rect fill='#fff' height='38' width='38' x='241' y='201'></rect>
+          <rect fill='#000' height='38' width='38' x='281' y='201'></rect>
+          <rect fill='#000' height='38' width='38' x='1' y='241'></rect>
+          <rect fill='#000' height='38' width='38' x='41' y='241'></rect>
+          <rect fill='#fff' height='38' width='38' x='81' y='241'></rect>
+          <rect fill='#000' height='38' width='38' x='121' y='241'></rect>
+          <rect fill='#fff' height='38' width='38' x='161' y='241'></rect>
+          <rect fill='#000' height='38' width='38' x='201' y='241'></rect>
+          <rect fill='#fff' height='38' width='38' x='241' y='241'></rect>
+          <rect fill='#fff' height='38' width='38' x='281' y='241'></rect>
+          <rect fill='#000' height='38' width='38' x='1' y='281'></rect>
+          <rect fill='#000' height='38' width='38' x='41' y='281'></rect>
+          <rect fill='#000' height='38' width='38' x='81' y='281'></rect>
+          <rect fill='#fff' height='38' width='38' x='121' y='281'></rect>
+          <rect fill='#000' height='38' width='38' x='161' y='281'></rect>
+          <rect fill='#fff' height='38' width='38' x='201' y='281'></rect>
+          <rect fill='#000' height='38' width='38' x='241' y='281'></rect>
+          <rect fill='#fff' height='38' width='38' x='281' y='281'></rect>
+          <rect fill='none' height='64' stroke-width='2' stroke='red' width='24' x='48' y='48'></rect>
+          <rect fill='none' height='24' stroke-width='2' stroke='red' width='64' x='128' y='88'></rect>
+          <rect fill='none' height='24' stroke-width='2' stroke='red' width='64' x='128' y='128'></rect>
+          <rect fill='none' height='64' stroke-width='2' stroke='red' width='24' x='128' y='208'></rect>
+          <rect fill='none' height='64' stroke-width='2' stroke='red' width='24' x='208' y='208'></rect>
+        </g>
+      </svg>
+    </div>
+    <p>
+      8×8 の マス目があり、白または黒で塗られている。
+      <br>
+      ふたマスの大きさになっている白および黒の領域の数を数えるプログラムを書け。
+      <br>
+      もうちょっと詳しく書くと。
+      <br>
+      白いマスがちょうど2つだけつながった領域が何個あるのか、黒いマスがちょうど2つだけつながった領域が何個あるのか、を、それぞれ数えれば良い。別に詳しくなってないか。
+      <br>
+      要するに。右図の赤い枠が書かれているようなパターンの数を数えれば良い。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は、各行の白を0、黒を1とした2進数の16進数表現をスラッシュで繋いだものになっている。
+      <br>
+      右にある図を示す入力は
+      <br>
+      <code>dc/bc/a7/59/03/d5/d4/ea</code>
+      <br>
+      こんな感じ。
+    </p>
+    <h2>出力</h2>
+    <p>
+      白い領域の数と黒い領域の数をコンマ区切りでならべたものを出力する。
+      <br>
+      具体的にはこんな
+      <br>
+      <code>2,3</code>
+      <br>
+      感じ。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/8e02ede04315b4eadd6d'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2017年1月18日に開催される オフラインリアルタイムどう書くF01 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/55292'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況へのリンク</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>dc/bc/a7/59/03/d5/d4/ea</code>
+        </td>
+        <td>
+          <code class='expected'>2,3</code>
+        </td>
+        <td>
+          <a href='figs.html#0'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>ff/ff/ff/ff/ff/ff/ff/ff</code>
+        </td>
+        <td>
+          <code class='expected'>0,0</code>
+        </td>
+        <td>
+          <a href='figs.html#1'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>00/00/00/00/00/00/00/00</code>
+        </td>
+        <td>
+          <code class='expected'>0,0</code>
+        </td>
+        <td>
+          <a href='figs.html#2'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>cc/33/cc/33/cc/33/cc/33</code>
+        </td>
+        <td>
+          <code class='expected'>16,16</code>
+        </td>
+        <td>
+          <a href='figs.html#3'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>aa/aa/55/55/aa/aa/55/55</code>
+        </td>
+        <td>
+          <code class='expected'>16,16</code>
+        </td>
+        <td>
+          <a href='figs.html#4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>ac/a3/5c/53/ca/3a/c5/35</code>
+        </td>
+        <td>
+          <code class='expected'>8,8</code>
+        </td>
+        <td>
+          <a href='figs.html#5'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>db/00/db/00/db/00/aa/aa</code>
+        </td>
+        <td>
+          <code class='expected'>0,13</code>
+        </td>
+        <td>
+          <a href='figs.html#6'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>24/24/db/24/24/db/24/24</code>
+        </td>
+        <td>
+          <code class='expected'>0,12</code>
+        </td>
+        <td>
+          <a href='figs.html#7'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>d7/d7/e9/f1/f7/de/60/56</code>
+        </td>
+        <td>
+          <code class='expected'>3,2</code>
+        </td>
+        <td>
+          <a href='figs.html#8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>17/7d/64/9b/a5/39/53/a6</code>
+        </td>
+        <td>
+          <code class='expected'>2,2</code>
+        </td>
+        <td>
+          <a href='figs.html#9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>bb/8f/18/fb/89/c2/c7/35</code>
+        </td>
+        <td>
+          <code class='expected'>1,2</code>
+        </td>
+        <td>
+          <a href='figs.html#10'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>6d/63/20/08/54/cd/32/4f</code>
+        </td>
+        <td>
+          <code class='expected'>2,2</code>
+        </td>
+        <td>
+          <a href='figs.html#11'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>a9/ca/cd/46/99/e6/f0/30</code>
+        </td>
+        <td>
+          <code class='expected'>2,2</code>
+        </td>
+        <td>
+          <a href='figs.html#12'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>5b/70/fd/45/e2/a1/ab/9a</code>
+        </td>
+        <td>
+          <code class='expected'>1,2</code>
+        </td>
+        <td>
+          <a href='figs.html#13'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>24/e4/a8/12/e1/a6/3f/f3</code>
+        </td>
+        <td>
+          <code class='expected'>2,1</code>
+        </td>
+        <td>
+          <a href='figs.html#14'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>79/32/2e/07/d5/10/e7/9d</code>
+        </td>
+        <td>
+          <code class='expected'>2,2</code>
+        </td>
+        <td>
+          <a href='figs.html#15'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>60/bc/ab/ec/1f/eb/63/2c</code>
+        </td>
+        <td>
+          <code class='expected'>4,2</code>
+        </td>
+        <td>
+          <a href='figs.html#16'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>a5/dd/92/4e/67/c6/dc/34</code>
+        </td>
+        <td>
+          <code class='expected'>6,1</code>
+        </td>
+        <td>
+          <a href='figs.html#17'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>aa/96/6d/67/d2/a8/ac/90</code>
+        </td>
+        <td>
+          <code class='expected'>3,2</code>
+        </td>
+        <td>
+          <a href='figs.html#18'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>95/72/7d/5c/47/dc/ef/99</code>
+        </td>
+        <td>
+          <code class='expected'>4,0</code>
+        </td>
+        <td>
+          <a href='figs.html#19'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>17/d6/6a/27/1f/25/26/b8</code>
+        </td>
+        <td>
+          <code class='expected'>2,1</code>
+        </td>
+        <td>
+          <a href='figs.html#20'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>f0/f3/76/c5/31/ca/6b/ae</code>
+        </td>
+        <td>
+          <code class='expected'>1,2</code>
+        </td>
+        <td>
+          <a href='figs.html#21'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>01/59/26/fa/8c/70/12/cd</code>
+        </td>
+        <td>
+          <code class='expected'>1,4</code>
+        </td>
+        <td>
+          <a href='figs.html#22'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>1a/c3/1f/0b/83/b6/81/0d</code>
+        </td>
+        <td>
+          <code class='expected'>0,5</code>
+        </td>
+        <td>
+          <a href='figs.html#23'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>4c/49/05/cf/54/bb/1f/da</code>
+        </td>
+        <td>
+          <code class='expected'>1,2</code>
+        </td>
+        <td>
+          <a href='figs.html#24'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>eb/7c/d5/09/2a/c2/14/6b</code>
+        </td>
+        <td>
+          <code class='expected'>0,7</code>
+        </td>
+        <td>
+          <a href='figs.html#25'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>b4/d3/4c/c4/ed/19/e8/63</code>
+        </td>
+        <td>
+          <code class='expected'>1,3</code>
+        </td>
+        <td>
+          <a href='figs.html#26'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>bd/bc/6d/60/9b/00/9a/32</code>
+        </td>
+        <td>
+          <code class='expected'>2,4</code>
+        </td>
+        <td>
+          <a href='figs.html#27'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>94/97/3f/e3/c7/06/15/c0</code>
+        </td>
+        <td>
+          <code class='expected'>2,2</code>
+        </td>
+        <td>
+          <a href='figs.html#28'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>5f/1d/67/16/b8/f7/0a/2a</code>
+        </td>
+        <td>
+          <code class='expected'>2,2</code>
+        </td>
+        <td>
+          <a href='figs.html#29'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>df/e6/f9/4f/59/e9/1f/ee</code>
+        </td>
+        <td>
+          <code class='expected'>3,0</code>
+        </td>
+        <td>
+          <a href='figs.html#30'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>5a/53/9a/9a/73/b4/37/07</code>
+        </td>
+        <td>
+          <code class='expected'>3,2</code>
+        </td>
+        <td>
+          <a href='figs.html#31'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>bd/87/7c/e7/c0/37/82/da</code>
+        </td>
+        <td>
+          <code class='expected'>2,3</code>
+        </td>
+        <td>
+          <a href='figs.html#32'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>3d/c0/13/ac/57/3d/15/78</code>
+        </td>
+        <td>
+          <code class='expected'>2,2</code>
+        </td>
+        <td>
+          <a href='figs.html#33'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>63/64/54/3a/40/28/4e/4e</code>
+        </td>
+        <td>
+          <code class='expected'>0,3</code>
+        </td>
+        <td>
+          <a href='figs.html#34'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>f6/81/c9/15/00/4c/a0/a8</code>
+        </td>
+        <td>
+          <code class='expected'>1,4</code>
+        </td>
+        <td>
+          <a href='figs.html#35'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>19/41/df/f8/e3/74/6b/9b</code>
+        </td>
+        <td>
+          <code class='expected'>4,2</code>
+        </td>
+        <td>
+          <a href='figs.html#36'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code class='src'>d5/0b/dd/35/3b/d2/0b/6b</code>
+        </td>
+        <td>
+          <code class='expected'>1,5</code>
+        </td>
+        <td>
+          <a href='figs.html#37'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code class='src'>08/b7/91/f3/6e/3c/74/a0</code>
+        </td>
+        <td>
+          <code class='expected'>0,0</code>
+        </td>
+        <td>
+          <a href='figs.html#38'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code class='src'>b8/a8/b4/a6/93/2c/94/3f</code>
+        </td>
+        <td>
+          <code class='expected'>0,0</code>
+        </td>
+        <td>
+          <a href='figs.html#39'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code class='src'>88/22/21/ee/dc/19/43/01</code>
+        </td>
+        <td>
+          <code class='expected'>0,0</code>
+        </td>
+        <td>
+          <a href='figs.html#40'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code class='src'>e1/ee/35/bc/fc/00/8e/fe</code>
+        </td>
+        <td>
+          <code class='expected'>0,0</code>
+        </td>
+        <td>
+          <a href='figs.html#41'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code class='src'>3c/42/63/5f/27/47/07/90</code>
+        </td>
+        <td>
+          <code class='expected'>0,0</code>
+        </td>
+        <td>
+          <a href='figs.html#42'>リンク</a>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "dc/bc/a7/59/03/d5/d4/ea", "2,3" );    
+/*1*/ test( "ff/ff/ff/ff/ff/ff/ff/ff", "0,0" );    
+/*2*/ test( "00/00/00/00/00/00/00/00", "0,0" );    
+/*3*/ test( "cc/33/cc/33/cc/33/cc/33", "16,16" );    
+/*4*/ test( "aa/aa/55/55/aa/aa/55/55", "16,16" );    
+/*5*/ test( "ac/a3/5c/53/ca/3a/c5/35", "8,8" );    
+/*6*/ test( "db/00/db/00/db/00/aa/aa", "0,13" );    
+/*7*/ test( "24/24/db/24/24/db/24/24", "0,12" );    
+/*8*/ test( "d7/d7/e9/f1/f7/de/60/56", "3,2" );    
+/*9*/ test( "17/7d/64/9b/a5/39/53/a6", "2,2" );    
+/*10*/ test( "bb/8f/18/fb/89/c2/c7/35", "1,2" );    
+/*11*/ test( "6d/63/20/08/54/cd/32/4f", "2,2" );    
+/*12*/ test( "a9/ca/cd/46/99/e6/f0/30", "2,2" );    
+/*13*/ test( "5b/70/fd/45/e2/a1/ab/9a", "1,2" );    
+/*14*/ test( "24/e4/a8/12/e1/a6/3f/f3", "2,1" );    
+/*15*/ test( "79/32/2e/07/d5/10/e7/9d", "2,2" );    
+/*16*/ test( "60/bc/ab/ec/1f/eb/63/2c", "4,2" );    
+/*17*/ test( "a5/dd/92/4e/67/c6/dc/34", "6,1" );    
+/*18*/ test( "aa/96/6d/67/d2/a8/ac/90", "3,2" );    
+/*19*/ test( "95/72/7d/5c/47/dc/ef/99", "4,0" );    
+/*20*/ test( "17/d6/6a/27/1f/25/26/b8", "2,1" );    
+/*21*/ test( "f0/f3/76/c5/31/ca/6b/ae", "1,2" );    
+/*22*/ test( "01/59/26/fa/8c/70/12/cd", "1,4" );    
+/*23*/ test( "1a/c3/1f/0b/83/b6/81/0d", "0,5" );    
+/*24*/ test( "4c/49/05/cf/54/bb/1f/da", "1,2" );    
+/*25*/ test( "eb/7c/d5/09/2a/c2/14/6b", "0,7" );    
+/*26*/ test( "b4/d3/4c/c4/ed/19/e8/63", "1,3" );    
+/*27*/ test( "bd/bc/6d/60/9b/00/9a/32", "2,4" );    
+/*28*/ test( "94/97/3f/e3/c7/06/15/c0", "2,2" );    
+/*29*/ test( "5f/1d/67/16/b8/f7/0a/2a", "2,2" );    
+/*30*/ test( "df/e6/f9/4f/59/e9/1f/ee", "3,0" );    
+/*31*/ test( "5a/53/9a/9a/73/b4/37/07", "3,2" );    
+/*32*/ test( "bd/87/7c/e7/c0/37/82/da", "2,3" );    
+/*33*/ test( "3d/c0/13/ac/57/3d/15/78", "2,2" );    
+/*34*/ test( "63/64/54/3a/40/28/4e/4e", "0,3" );    
+/*35*/ test( "f6/81/c9/15/00/4c/a0/a8", "1,4" );    
+/*36*/ test( "19/41/df/f8/e3/74/6b/9b", "4,2" );    
+/*37*/ test( "d5/0b/dd/35/3b/d2/0b/6b", "1,5" );    
+/*38*/ test( "08/b7/91/f3/6e/3c/74/a0", "0,0" );    
+/*39*/ test( "b8/a8/b4/a6/93/2c/94/3f", "0,0" );    
+/*40*/ test( "88/22/21/ee/dc/19/43/01", "0,0" );    
+/*41*/ test( "e1/ee/35/bc/fc/00/8e/fe", "0,0" );    
+/*42*/ test( "3c/42/63/5f/27/47/07/90", "0,0" );</textarea>
+    <h2>C言語の雛形</h2>
+    <div class='src'>
+      <pre>#include &lt;stdio.h&gt;&#x000A;#include &lt;stdlib.h&gt;&#x000A;#include &lt;string.h&gt;&#x000A;&#x000A;struct result&#x000A;{&#x000A;  int success;&#x000A;  int testcount;&#x000A;};&#x000A;&#x000A;// caller should free return value memory.&#x000A;char const * solve( char const * src )&#x000A;{&#x000A;  int w=0;&#x000A;  int b=0;&#x000A;  char buffer[ 10 ] = {0};&#x000A;  sprintf( buffer, &quot;%d,%d&quot;, w, b );&#x000A;  return strdup(buffer);&#x000A;}&#x000A;&#x000A;void test_( struct result * r, char const * src, char const * expected )&#x000A;{&#x000A;  char const * actual = solve( src );&#x000A;  int okay = 0==strcmp(actual, expected );&#x000A;  if ( okay ){&#x000A;    ++r-&gt;success;&#x000A;  }&#x000A;  ++r-&gt;testcount;&#x000A;  printf( &quot;%s : %s-&gt;%s(%s)\n&quot;, (okay?&quot;ok&quot; : &quot;**NG**&quot;), src, actual, expected );&#x000A;  free( (void*)actual );&#x000A;}&#x000A;&#x000A;int main(void)&#x000A;{&#x000A;  struct result r={0};&#x000A;  #define test(src, expected) test_( &amp;r, src, expected )&#x000A;  /*0*/ test( &quot;dc/bc/a7/59/03/d5/d4/ea&quot;, &quot;2,3&quot; );&#x000A;  /*1*/ test( &quot;ff/ff/ff/ff/ff/ff/ff/ff&quot;, &quot;0,0&quot; );&#x000A;  /*2*/ test( &quot;00/00/00/00/00/00/00/00&quot;, &quot;0,0&quot; );&#x000A;  /*3*/ test( &quot;cc/33/cc/33/cc/33/cc/33&quot;, &quot;16,16&quot; );&#x000A;  /*4*/ test( &quot;aa/aa/55/55/aa/aa/55/55&quot;, &quot;16,16&quot; );&#x000A;  /*5*/ test( &quot;ac/a3/5c/53/ca/3a/c5/35&quot;, &quot;8,8&quot; );&#x000A;  /*6*/ test( &quot;db/00/db/00/db/00/aa/aa&quot;, &quot;0,13&quot; );&#x000A;  /*7*/ test( &quot;24/24/db/24/24/db/24/24&quot;, &quot;0,12&quot; );&#x000A;  /*8*/ test( &quot;d7/d7/e9/f1/f7/de/60/56&quot;, &quot;3,2&quot; );&#x000A;  /*9*/ test( &quot;17/7d/64/9b/a5/39/53/a6&quot;, &quot;2,2&quot; );&#x000A;  /*10*/ test( &quot;bb/8f/18/fb/89/c2/c7/35&quot;, &quot;1,2&quot; );&#x000A;  /*11*/ test( &quot;6d/63/20/08/54/cd/32/4f&quot;, &quot;2,2&quot; );&#x000A;  /*12*/ test( &quot;a9/ca/cd/46/99/e6/f0/30&quot;, &quot;2,2&quot; );&#x000A;  /*13*/ test( &quot;5b/70/fd/45/e2/a1/ab/9a&quot;, &quot;1,2&quot; );&#x000A;  /*14*/ test( &quot;24/e4/a8/12/e1/a6/3f/f3&quot;, &quot;2,1&quot; );&#x000A;  /*15*/ test( &quot;79/32/2e/07/d5/10/e7/9d&quot;, &quot;2,2&quot; );&#x000A;  /*16*/ test( &quot;60/bc/ab/ec/1f/eb/63/2c&quot;, &quot;4,2&quot; );&#x000A;  /*17*/ test( &quot;a5/dd/92/4e/67/c6/dc/34&quot;, &quot;6,1&quot; );&#x000A;  /*18*/ test( &quot;aa/96/6d/67/d2/a8/ac/90&quot;, &quot;3,2&quot; );&#x000A;  /*19*/ test( &quot;95/72/7d/5c/47/dc/ef/99&quot;, &quot;4,0&quot; );&#x000A;  /*20*/ test( &quot;17/d6/6a/27/1f/25/26/b8&quot;, &quot;2,1&quot; );&#x000A;  /*21*/ test( &quot;f0/f3/76/c5/31/ca/6b/ae&quot;, &quot;1,2&quot; );&#x000A;  /*22*/ test( &quot;01/59/26/fa/8c/70/12/cd&quot;, &quot;1,4&quot; );&#x000A;  /*23*/ test( &quot;1a/c3/1f/0b/83/b6/81/0d&quot;, &quot;0,5&quot; );&#x000A;  /*24*/ test( &quot;4c/49/05/cf/54/bb/1f/da&quot;, &quot;1,2&quot; );&#x000A;  /*25*/ test( &quot;eb/7c/d5/09/2a/c2/14/6b&quot;, &quot;0,7&quot; );&#x000A;  /*26*/ test( &quot;b4/d3/4c/c4/ed/19/e8/63&quot;, &quot;1,3&quot; );&#x000A;  /*27*/ test( &quot;bd/bc/6d/60/9b/00/9a/32&quot;, &quot;2,4&quot; );&#x000A;  /*28*/ test( &quot;94/97/3f/e3/c7/06/15/c0&quot;, &quot;2,2&quot; );&#x000A;  /*29*/ test( &quot;5f/1d/67/16/b8/f7/0a/2a&quot;, &quot;2,2&quot; );&#x000A;  /*30*/ test( &quot;df/e6/f9/4f/59/e9/1f/ee&quot;, &quot;3,0&quot; );&#x000A;  /*31*/ test( &quot;5a/53/9a/9a/73/b4/37/07&quot;, &quot;3,2&quot; );&#x000A;  /*32*/ test( &quot;bd/87/7c/e7/c0/37/82/da&quot;, &quot;2,3&quot; );&#x000A;  /*33*/ test( &quot;3d/c0/13/ac/57/3d/15/78&quot;, &quot;2,2&quot; );&#x000A;  /*34*/ test( &quot;63/64/54/3a/40/28/4e/4e&quot;, &quot;0,3&quot; );&#x000A;  /*35*/ test( &quot;f6/81/c9/15/00/4c/a0/a8&quot;, &quot;1,4&quot; );&#x000A;  /*36*/ test( &quot;19/41/df/f8/e3/74/6b/9b&quot;, &quot;4,2&quot; );&#x000A;  /*37*/ test( &quot;d5/0b/dd/35/3b/d2/0b/6b&quot;, &quot;1,5&quot; );&#x000A;  /*38*/ test( &quot;08/b7/91/f3/6e/3c/74/a0&quot;, &quot;0,0&quot; );&#x000A;  /*39*/ test( &quot;b8/a8/b4/a6/93/2c/94/3f&quot;, &quot;0,0&quot; );&#x000A;  /*40*/ test( &quot;88/22/21/ee/dc/19/43/01&quot;, &quot;0,0&quot; );&#x000A;  /*41*/ test( &quot;e1/ee/35/bc/fc/00/8e/fe&quot;, &quot;0,0&quot; );&#x000A;  /*42*/ test( &quot;3c/42/63/5f/27/47/07/90&quot;, &quot;0,0&quot; );&#x000A;  #undef test&#x000A;  printf( &quot;%d / %d\n&quot;, r.success, r.testcount );&#x000A;  return r.testcount==r.success ? 0 : 1;&#x000A;}</pre>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>辞書順に数を並べる 2018.3.3</title>
+<style>
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  img.large{
+    width:400px;
+  }
+  
+  td.center{ text-align:center; }
+  
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    border-radius:4px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Courier New";
+  }
+  img.sample{
+  width:150px;
+  height:150px;
+  }
+  img.top{
+  width:320px;
+  }
+  .weight{
+    font-family:"Georgia";
+    padding-left:8px;
+    padding-right:8px;
+  }
+  table.float_right
+  {
+    float: right;
+  }
+  table.float_right td{
+    background-color:white;
+    text-align:center;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  float_right{
+   float:right;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  td.bigcell{
+    width:25mm;
+    height:25mm;
+    font-size:18mm;
+    border:solid black 0.5mm
+  }
+  table.big td{
+    font-size:9mm;
+    border:solid black 0.5mm
+  }
+  div.top img{
+    width:80px;
+  }
+  table.big img{
+    width:120px;
+    height:120px;
+   }
+   td.sample{
+   }
+  table.nabenum tr td
+  {
+    background-color:#444;
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+  }
+  table.nabenum
+  {
+    padding:1mm 2mm 1mm 2mm;
+    background-color:#444;
+  }
+  table.nabenum .c0{
+    width:4px;
+  }
+  table.nabenum .c1{
+    width:15px;
+  }
+  table.nabenum .c2{
+    width:4px;
+  }
+  table.nabenum tr.n0 td{
+    height:4px;
+  }
+  table.nabenum tr.n1 td{
+    height:15px;
+  }
+  table.nabenum tr.n2 td{
+    height:4px;
+  }
+  table.nabenum tr.n3 td{
+    height:15px;
+  }
+  table.nabenum tr.n4 td{
+    height:4px;
+  }
+  table.nabenum td.off{
+    background-color:black;
+  }
+  table.nabenum td.on{
+    background-color:white;
+  }
+  table.nabenum td.nazo{
+    background-color:#f00;
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+</style>
+</head>
+<body>
+<h1>辞書順に数を並べる 2018.3.3</h1>
+<h2>問題の概要</h2>
+<p>
+4つの数 m, n, b, x を指定する。
+<br>
+m 以上 n 以下の整数を b 進数で表記した文字列を考える。
+<br>
+これらの文字列を辞書順に整列したとき、若い方から x 番目になる数を 10 進数で答えよ。
+</p>
+<p>
+例えば。
+</p>
+<p>
+(m, n, b, x) = ( 2, 15, 3, 8 )
+のとき。
+<br>
+2 以上 15 以下の整数を 3 進数で表記した結果を辞書順に整列すると
+</p>
+<table>
+<tr>
+<th>順序</th>
+<th>文字列(3進数)</th>
+<th>値(10進数)</th>
+</tr>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100</td>
+<td>9</td>
+</tr>
+<tr>
+<td>3</td>
+<td>101</td>
+<td>10</td>
+</tr>
+<tr>
+<td>4</td>
+<td>102</td>
+<td>11</td>
+</tr>
+<tr>
+<td>5</td>
+<td>11</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>110</td>
+<td>12</td>
+</tr>
+<tr>
+<td>7</td>
+<td>111</td>
+<td>13</td>
+</tr>
+<tr>
+<td>8</td>
+<td>112</td>
+<td>14</td>
+</tr>
+<tr>
+<td>9</td>
+<td>12</td>
+<td>5</td>
+</tr>
+<tr>
+<td>10</td>
+<td>120</td>
+<td>15</td>
+</tr>
+<tr>
+<td>11</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>12</td>
+<td>20</td>
+<td>6</td>
+</tr>
+<tr>
+<td>13</td>
+<td>21</td>
+<td>7</td>
+</tr>
+<tr>
+<td>14</td>
+<td>22</td>
+<td>8</td>
+</tr>
+</table>
+<p>
+となる。
+</p>
+<p>
+8 番目は 10進数で 14 なので「
+<code>14</code>
+」を出力すれば良い。
+</p>
+<h2>入力</h2>
+<p>
+入力は、m, n, b, x をコンマ区切りで並べたもの。いずれも 10進数。
+</p>
+<h2>出力</h2>
+<p>
+出力は、b 進数で表現したときに辞書順で x 番目になる値を、10進数で。
+</p>
+<h2>補足</h2>
+<ul>
+<li>順序の先頭は 1。0 ではない。</li>
+<li>0＜m≦n≦一億 で、0＜x≦(n-m+1) 。2≦b≦36。いずれも整数。</li>
+<li>不正な入力に対処する必要はない。</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/99e38a39165e1905b415'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+この問題は2018年3月3日に開催される オフラインリアルタイムどう書くE22 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/70488'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+</tr>
+<tr>
+<td>0</td>
+<td class='sample'>
+<code class='src'>2,15,3,8</code>
+</td>
+<td>
+<code class='expected'>14</code>
+</td>
+</tr>
+<tr>
+<td>1</td>
+<td class='sample'>
+<code class='src'>6,8,8,1</code>
+</td>
+<td>
+<code class='expected'>8</code>
+</td>
+</tr>
+<tr>
+<td>2</td>
+<td class='sample'>
+<code class='src'>6,6,5,1</code>
+</td>
+<td>
+<code class='expected'>6</code>
+</td>
+</tr>
+<tr>
+<td>3</td>
+<td class='sample'>
+<code class='src'>4,11,5,2</code>
+</td>
+<td>
+<code class='expected'>6</code>
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td class='sample'>
+<code class='src'>9,17,8,2</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+</tr>
+<tr>
+<td>5</td>
+<td class='sample'>
+<code class='src'>73,82,18,5</code>
+</td>
+<td>
+<code class='expected'>77</code>
+</td>
+</tr>
+<tr>
+<td>6</td>
+<td class='sample'>
+<code class='src'>70,149,2,48</code>
+</td>
+<td>
+<code class='expected'>95</code>
+</td>
+</tr>
+<tr>
+<td>7</td>
+<td class='sample'>
+<code class='src'>82,119,15,26</code>
+</td>
+<td>
+<code class='expected'>107</code>
+</td>
+</tr>
+<tr>
+<td>8</td>
+<td class='sample'>
+<code class='src'>40,127,26,47</code>
+</td>
+<td>
+<code class='expected'>86</code>
+</td>
+</tr>
+<tr>
+<td>9</td>
+<td class='sample'>
+<code class='src'>851,950,31,89</code>
+</td>
+<td>
+<code class='expected'>939</code>
+</td>
+</tr>
+<tr>
+<td>10</td>
+<td class='sample'>
+<code class='src'>660,807,34,143</code>
+</td>
+<td>
+<code class='expected'>802</code>
+</td>
+</tr>
+<tr>
+<td>11</td>
+<td class='sample'>
+<code class='src'>962,1227,34,186</code>
+</td>
+<td>
+<code class='expected'>1075</code>
+</td>
+</tr>
+<tr>
+<td>12</td>
+<td class='sample'>
+<code class='src'>544,1258,25,245</code>
+</td>
+<td>
+<code class='expected'>869</code>
+</td>
+</tr>
+<tr>
+<td>13</td>
+<td class='sample'>
+<code class='src'>1208,7380,2,803</code>
+</td>
+<td>
+<code class='expected'>4630</code>
+</td>
+</tr>
+<tr>
+<td>14</td>
+<td class='sample'>
+<code class='src'>2,100000000,10,1</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+</tr>
+<tr>
+<td>15</td>
+<td class='sample'>
+<code class='src'>1642,6626,3,4354</code>
+</td>
+<td>
+<code class='expected'>2029</code>
+</td>
+</tr>
+<tr>
+<td>16</td>
+<td class='sample'>
+<code class='src'>8623,15873,2,4188</code>
+</td>
+<td>
+<code class='expected'>12810</code>
+</td>
+</tr>
+<tr>
+<td>17</td>
+<td class='sample'>
+<code class='src'>7013,16409,17,3919</code>
+</td>
+<td>
+<code class='expected'>10931</code>
+</td>
+</tr>
+<tr>
+<td>18</td>
+<td class='sample'>
+<code class='src'>7222,13243,19,3623</code>
+</td>
+<td>
+<code class='expected'>10844</code>
+</td>
+</tr>
+<tr>
+<td>19</td>
+<td class='sample'>
+<code class='src'>4421,87412,5,62080</code>
+</td>
+<td>
+<code class='expected'>60697</code>
+</td>
+</tr>
+<tr>
+<td>20</td>
+<td class='sample'>
+<code class='src'>51812,61593,22,2957</code>
+</td>
+<td>
+<code class='expected'>54768</code>
+</td>
+</tr>
+<tr>
+<td>21</td>
+<td class='sample'>
+<code class='src'>44260,67742,17,15128</code>
+</td>
+<td>
+<code class='expected'>59387</code>
+</td>
+</tr>
+<tr>
+<td>22</td>
+<td class='sample'>
+<code class='src'>90929,696974,36,84356</code>
+</td>
+<td>
+<code class='expected'>175284</code>
+</td>
+</tr>
+<tr>
+<td>23</td>
+<td class='sample'>
+<code class='src'>1,100000000,2,50000000</code>
+</td>
+<td>
+<code class='expected'>92108858</code>
+</td>
+</tr>
+<tr>
+<td>24</td>
+<td class='sample'>
+<code class='src'>101262,924931,7,341846</code>
+</td>
+<td>
+<code class='expected'>358105</code>
+</td>
+</tr>
+<tr>
+<td>25</td>
+<td class='sample'>
+<code class='src'>211114,675661,33,312769</code>
+</td>
+<td>
+<code class='expected'>523882</code>
+</td>
+</tr>
+<tr>
+<td>26</td>
+<td class='sample'>
+<code class='src'>1,100000000,36,50000000</code>
+</td>
+<td>
+<code class='expected'>11855060</code>
+</td>
+</tr>
+<tr>
+<td>27</td>
+<td class='sample'>
+<code class='src'>1,100000000,10,100000000</code>
+</td>
+<td>
+<code class='expected'>99999999</code>
+</td>
+</tr>
+<tr>
+<td>28</td>
+<td class='sample'>
+<code class='src'>826566,1444644,36,186226</code>
+</td>
+<td>
+<code class='expected'>1012791</code>
+</td>
+</tr>
+<tr>
+<td>29</td>
+<td class='sample'>
+<code class='src'>6687091,6985458,4,251580</code>
+</td>
+<td>
+<code class='expected'>6938670</code>
+</td>
+</tr>
+<tr>
+<td>30</td>
+<td class='sample'>
+<code class='src'>4219082,6179401,12,538113</code>
+</td>
+<td>
+<code class='expected'>4757194</code>
+</td>
+</tr>
+<tr>
+<td>31</td>
+<td class='sample'>
+<code class='src'>7781931,8634872,23,217457</code>
+</td>
+<td>
+<code class='expected'>7999387</code>
+</td>
+</tr>
+<tr>
+<td>32</td>
+<td class='sample'>
+<code class='src'>818218,64845924,12,57752258</code>
+</td>
+<td>
+<code class='expected'>30039084</code>
+</td>
+</tr>
+<tr>
+<td>33</td>
+<td class='sample'>
+<code class='src'>4987258,11760092,32,6741567</code>
+</td>
+<td>
+<code class='expected'>11728824</code>
+</td>
+</tr>
+<tr>
+<td>34</td>
+<td class='sample'>
+<code class='src'>7075964,28431054,22,11548591</code>
+</td>
+<td>
+<code class='expected'>18624554</code>
+</td>
+</tr>
+<tr>
+<td>35</td>
+<td class='sample'>
+<code class='src'>26065964,66252692,18,29196596</code>
+</td>
+<td>
+<code class='expected'>63208819</code>
+</td>
+</tr>
+<tr>
+<td>36</td>
+<td class='sample'>
+<code class='src'>66097362,104618756,16,32740764</code>
+</td>
+<td>
+<code class='expected'>98838125</code>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "2,15,3,8", "14" );
+/*1*/ test( "6,8,8,1", "8" );
+/*2*/ test( "6,6,5,1", "6" );
+/*3*/ test( "4,11,5,2", "6" );
+/*4*/ test( "9,17,8,2", "10" );
+/*5*/ test( "73,82,18,5", "77" );
+/*6*/ test( "70,149,2,48", "95" );
+/*7*/ test( "82,119,15,26", "107" );
+/*8*/ test( "40,127,26,47", "86" );
+/*9*/ test( "851,950,31,89", "939" );
+/*10*/ test( "660,807,34,143", "802" );
+/*11*/ test( "962,1227,34,186", "1075" );
+/*12*/ test( "544,1258,25,245", "869" );
+/*13*/ test( "1208,7380,2,803", "4630" );
+/*14*/ test( "2,100000000,10,1", "10" );
+/*15*/ test( "1642,6626,3,4354", "2029" );
+/*16*/ test( "8623,15873,2,4188", "12810" );
+/*17*/ test( "7013,16409,17,3919", "10931" );
+/*18*/ test( "7222,13243,19,3623", "10844" );
+/*19*/ test( "4421,87412,5,62080", "60697" );
+/*20*/ test( "51812,61593,22,2957", "54768" );
+/*21*/ test( "44260,67742,17,15128", "59387" );
+/*22*/ test( "90929,696974,36,84356", "175284" );
+/*23*/ test( "1,100000000,2,50000000", "92108858" );
+/*24*/ test( "101262,924931,7,341846", "358105" );
+/*25*/ test( "211114,675661,33,312769", "523882" );
+/*26*/ test( "1,100000000,36,50000000", "11855060" );
+/*27*/ test( "1,100000000,10,100000000", "99999999" );
+/*28*/ test( "826566,1444644,36,186226", "1012791" );
+/*29*/ test( "6687091,6985458,4,251580", "6938670" );
+/*30*/ test( "4219082,6179401,12,538113", "4757194" );
+/*31*/ test( "7781931,8634872,23,217457", "7999387" );
+/*32*/ test( "818218,64845924,12,57752258", "30039084" );
+/*33*/ test( "4987258,11760092,32,6741567", "11728824" );
+/*34*/ test( "7075964,28431054,22,11548591", "18624554" );
+/*35*/ test( "26065964,66252692,18,29196596", "63208819" );
+/*36*/ test( "66097362,104618756,16,32740764", "98838125" );</textarea>
+</body>
+</html>

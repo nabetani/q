@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>縦横ローテーション 2017.1.31 問題</title>
+<style>
+  body, textarea {
+      font-family: sans-serif;
+      font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  img.large{
+    width:400px;
+  }
+  
+  td.center{ text-align:center; }
+  
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    border-radius:4px;
+    margin:1pt 1pt 1pt 1pt;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Courier New";
+    padding:1pt 1pt 1pt 1pt;
+  }
+  img.sample{
+  width:150px;
+  height:150px;
+  }
+  img.top{
+  width:320px;
+  }
+  .weight{
+    font-family:"Georgia";
+    padding-left:8px;
+    padding-right:8px;
+  }
+  table.float_right
+  {
+    float: right;
+  }
+  table.float_right td{
+    background-color:white;
+    text-align:center;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  float_right{
+   float:right;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  td.bigcell{
+    width:25mm;
+    height:25mm;
+    font-size:18mm;
+    border:solid black 0.5mm
+  }
+  table.big td{
+    font-size:9mm;
+    border:solid black 0.5mm
+  }
+  div.top img{
+    width:80px;
+  }
+  table.big img{
+    width:120px;
+    height:120px;
+   }
+   td.sample{
+   }
+  table.nabenum tr td
+  {
+    background-color:#444;
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+  }
+  table.nabenum
+  {
+    padding:1mm 2mm 1mm 2mm;
+    background-color:#444;
+  }
+  table.nabenum .c0{
+    width:4px;
+  }
+  table.nabenum .c1{
+    width:15px;
+  }
+  table.nabenum .c2{
+    width:4px;
+  }
+  table.nabenum tr.n0 td{
+    height:4px;
+  }
+  table.nabenum tr.n1 td{
+    height:15px;
+  }
+  table.nabenum tr.n2 td{
+    height:4px;
+  }
+  table.nabenum tr.n3 td{
+    height:15px;
+  }
+  table.nabenum tr.n4 td{
+    height:4px;
+  }
+  table.nabenum td.off{
+    background-color:black;
+  }
+  table.nabenum td.on{
+    background-color:white;
+  }
+  table.nabenum td.nazo{
+    background-color:#f00;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+  table.cells{
+    margin:10pt 10pt 10pt 10pt;
+  }
+  table.cells tr td{
+    border:solid #888 1px;
+    background-color:white;
+    width:20pt;
+    height:20pt;
+    text-align:center;
+    font-size:18pt;
+  }
+  table.scell tr td{
+    border:solid #888 1px;
+    width:10pt;
+    height:10pt;
+    text-align:center;
+    font-size:9pt;
+  }
+  table.scell tr td.vis{
+    background-color:#fcc;
+  }
+  table.scell tr td.not_vis{
+    background-color:white;
+  }
+</style>
+</head>
+<body>
+<div class='main_fig'>
+<img src='sample_aegj.gif' width='400'>
+</div>
+<h1>縦横ローテーション 2017.1.31 問題</h1>
+<h2>問題の概要</h2>
+<p>
+最初は 1〜9 が順番通りに並んでいる。
+<br>
+<code>a</code>
+から
+<code>l</code>
+(エル)
+までのコマンドがある。
+<br>
+コマンドの効果は右図の通り。
+<br>
+コマンドを全て実行した後のマス目の状態を計算せよ。
+</p>
+<h2>入力</h2>
+<p>
+入力は
+<br>
+<code>aegj</code>
+<br>
+こんな感じ。区切り文字なしでコマンドが並んでいる。
+</p>
+<h2>出力</h2>
+<p>
+出力は、終了状態のマス目の番号を、上の行から順に。行内は左から順に。
+<br>
+行と行の区切りはスラッシュ。行内の区切り文字は無し。
+</p>
+<p>
+先ほどの入力の場合、最終的には下図のようになるので、
+</p>
+<p>
+<code>286/435/971</code>
+<br>
+と出力すればよい。
+</p>
+<h2>補足</h2>
+<ul>
+<li>不正な入力に対処する必要はない。</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/61e13fa5cf0abe5979be'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+入力も出力も文字列ないしは標準入出力にするのが望ましい。パースも仕事のうち。
+</li>
+<li>
+この問題は2017年1月31日に開催される オフラインリアルタイムどう書くF09 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/69649'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+<th>状況へのリンク</th>
+</tr>
+<tr>
+<td>0</td>
+<td class='sample'>
+<code class='src'>aegj</code>
+</td>
+<td>
+<code class='expected'>286/435/971</code>
+</td>
+<td>
+<a href='figs.html#0'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>1</td>
+<td class='sample'>
+<code class='src'>a</code>
+</td>
+<td>
+<code class='expected'>231/456/789</code>
+</td>
+<td>
+<a href='figs.html#1'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>2</td>
+<td class='sample'>
+<code class='src'>e</code>
+</td>
+<td>
+<code class='expected'>183/426/759</code>
+</td>
+<td>
+<a href='figs.html#2'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>3</td>
+<td class='sample'>
+<code class='src'>g</code>
+</td>
+<td>
+<code class='expected'>123/456/978</code>
+</td>
+<td>
+<a href='figs.html#3'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td class='sample'>
+<code class='src'>j</code>
+</td>
+<td>
+<code class='expected'>126/459/783</code>
+</td>
+<td>
+<a href='figs.html#4'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>5</td>
+<td class='sample'>
+<code class='src'>bb</code>
+</td>
+<td>
+<code class='expected'>123/645/789</code>
+</td>
+<td>
+<a href='figs.html#5'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>6</td>
+<td class='sample'>
+<code class='src'>jjj</code>
+</td>
+<td>
+<code class='expected'>123/456/789</code>
+</td>
+<td>
+<a href='figs.html#6'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>7</td>
+<td class='sample'>
+<code class='src'>bd</code>
+</td>
+<td>
+<code class='expected'>723/164/589</code>
+</td>
+<td>
+<a href='figs.html#7'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>8</td>
+<td class='sample'>
+<code class='src'>ah</code>
+</td>
+<td>
+<code class='expected'>231/645/789</code>
+</td>
+<td>
+<a href='figs.html#8'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>9</td>
+<td class='sample'>
+<code class='src'>bj</code>
+</td>
+<td>
+<code class='expected'>124/569/783</code>
+</td>
+<td>
+<a href='figs.html#9'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>10</td>
+<td class='sample'>
+<code class='src'>db</code>
+</td>
+<td>
+<code class='expected'>723/561/489</code>
+</td>
+<td>
+<a href='figs.html#10'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>11</td>
+<td class='sample'>
+<code class='src'>dh</code>
+</td>
+<td>
+<code class='expected'>723/615/489</code>
+</td>
+<td>
+<a href='figs.html#11'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>12</td>
+<td class='sample'>
+<code class='src'>dl</code>
+</td>
+<td>
+<code class='expected'>123/456/789</code>
+</td>
+<td>
+<a href='figs.html#12'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>13</td>
+<td class='sample'>
+<code class='src'>hc</code>
+</td>
+<td>
+<code class='expected'>123/645/897</code>
+</td>
+<td>
+<a href='figs.html#13'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>14</td>
+<td class='sample'>
+<code class='src'>gf</code>
+</td>
+<td>
+<code class='expected'>128/453/976</code>
+</td>
+<td>
+<a href='figs.html#14'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>15</td>
+<td class='sample'>
+<code class='src'>hl</code>
+</td>
+<td>
+<code class='expected'>623/745/189</code>
+</td>
+<td>
+<a href='figs.html#15'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>16</td>
+<td class='sample'>
+<code class='src'>ja</code>
+</td>
+<td>
+<code class='expected'>261/459/783</code>
+</td>
+<td>
+<a href='figs.html#16'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>17</td>
+<td class='sample'>
+<code class='src'>ld</code>
+</td>
+<td>
+<code class='expected'>123/456/789</code>
+</td>
+<td>
+<a href='figs.html#17'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>18</td>
+<td class='sample'>
+<code class='src'>ki</code>
+</td>
+<td>
+<code class='expected'>315/486/729</code>
+</td>
+<td>
+<a href='figs.html#18'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>19</td>
+<td class='sample'>
+<code class='src'>lfa</code>
+</td>
+<td>
+<code class='expected'>294/753/186</code>
+</td>
+<td>
+<a href='figs.html#19'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>20</td>
+<td class='sample'>
+<code class='src'>kga</code>
+</td>
+<td>
+<code class='expected'>531/486/972</code>
+</td>
+<td>
+<a href='figs.html#20'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>21</td>
+<td class='sample'>
+<code class='src'>dbi</code>
+</td>
+<td>
+<code class='expected'>372/561/489</code>
+</td>
+<td>
+<a href='figs.html#21'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>22</td>
+<td class='sample'>
+<code class='src'>che</code>
+</td>
+<td>
+<code class='expected'>193/625/847</code>
+</td>
+<td>
+<a href='figs.html#22'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>23</td>
+<td class='sample'>
+<code class='src'>iea</code>
+</td>
+<td>
+<code class='expected'>823/416/759</code>
+</td>
+<td>
+<a href='figs.html#23'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>24</td>
+<td class='sample'>
+<code class='src'>gbl</code>
+</td>
+<td>
+<code class='expected'>523/964/178</code>
+</td>
+<td>
+<a href='figs.html#24'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>25</td>
+<td class='sample'>
+<code class='src'>egj</code>
+</td>
+<td>
+<code class='expected'>186/425/973</code>
+</td>
+<td>
+<a href='figs.html#25'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>26</td>
+<td class='sample'>
+<code class='src'>jcf</code>
+</td>
+<td>
+<code class='expected'>127/456/839</code>
+</td>
+<td>
+<a href='figs.html#26'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>27</td>
+<td class='sample'>
+<code class='src'>djh</code>
+</td>
+<td>
+<code class='expected'>726/915/483</code>
+</td>
+<td>
+<a href='figs.html#27'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>28</td>
+<td class='sample'>
+<code class='src'>hld</code>
+</td>
+<td>
+<code class='expected'>123/645/789</code>
+</td>
+<td>
+<a href='figs.html#28'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>29</td>
+<td class='sample'>
+<code class='src'>leeh</code>
+</td>
+<td>
+<code class='expected'>453/678/129</code>
+</td>
+<td>
+<a href='figs.html#29'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>30</td>
+<td class='sample'>
+<code class='src'>heja</code>
+</td>
+<td>
+<code class='expected'>851/629/743</code>
+</td>
+<td>
+<a href='figs.html#30'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>31</td>
+<td class='sample'>
+<code class='src'>cakh</code>
+</td>
+<td>
+<code class='expected'>251/649/837</code>
+</td>
+<td>
+<a href='figs.html#31'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>32</td>
+<td class='sample'>
+<code class='src'>bhjik</code>
+</td>
+<td>
+<code class='expected'>652/489/713</code>
+</td>
+<td>
+<a href='figs.html#32'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>33</td>
+<td class='sample'>
+<code class='src'>eabji</code>
+</td>
+<td>
+<code class='expected'>483/269/751</code>
+</td>
+<td>
+<a href='figs.html#33'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>34</td>
+<td class='sample'>
+<code class='src'>cdbch</code>
+</td>
+<td>
+<code class='expected'>823/156/974</code>
+</td>
+<td>
+<a href='figs.html#34'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>35</td>
+<td class='sample'>
+<code class='src'>ckgajc</code>
+</td>
+<td>
+<code class='expected'>536/492/817</code>
+</td>
+<td>
+<a href='figs.html#35'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>36</td>
+<td class='sample'>
+<code class='src'>ggchha</code>
+</td>
+<td>
+<code class='expected'>231/564/978</code>
+</td>
+<td>
+<a href='figs.html#36'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>37</td>
+<td class='sample'>
+<code class='src'>gfbkeg</code>
+</td>
+<td>
+<code class='expected'>128/534/697</code>
+</td>
+<td>
+<a href='figs.html#37'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>38</td>
+<td class='sample'>
+<code class='src'>agfbcbf</code>
+</td>
+<td>
+<code class='expected'>239/148/765</code>
+</td>
+<td>
+<a href='figs.html#38'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>39</td>
+<td class='sample'>
+<code class='src'>ekahijf</code>
+</td>
+<td>
+<code class='expected'>123/645/789</code>
+</td>
+<td>
+<a href='figs.html#39'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>40</td>
+<td class='sample'>
+<code class='src'>hajdjbe</code>
+</td>
+<td>
+<code class='expected'>789/432/615</code>
+</td>
+<td>
+<a href='figs.html#40'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>41</td>
+<td class='sample'>
+<code class='src'>elgililj</code>
+</td>
+<td>
+<code class='expected'>976/325/814</code>
+</td>
+<td>
+<a href='figs.html#41'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>42</td>
+<td class='sample'>
+<code class='src'>chffefif</code>
+</td>
+<td>
+<code class='expected'>317/629/845</code>
+</td>
+<td>
+<a href='figs.html#42'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>43</td>
+<td class='sample'>
+<code class='src'>ilbbihak</code>
+</td>
+<td>
+<code class='expected'>462/587/319</code>
+</td>
+<td>
+<a href='figs.html#43'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>44</td>
+<td class='sample'>
+<code class='src'>abcdefghijkl</code>
+</td>
+<td>
+<code class='expected'>123/456/789</code>
+</td>
+<td>
+<a href='figs.html#44'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>45</td>
+<td class='sample'>
+<code class='src'>hkijbglfaced</code>
+</td>
+<td>
+<code class='expected'>768/125/493</code>
+</td>
+<td>
+<a href='figs.html#45'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>46</td>
+<td class='sample'>
+<code class='src'>dfkbjiechlga</code>
+</td>
+<td>
+<code class='expected'>256/387/419</code>
+</td>
+<td>
+<a href='figs.html#46'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>47</td>
+<td class='sample'>
+<code class='src'>hgfkbidlajce</code>
+</td>
+<td>
+<code class='expected'>186/745/239</code>
+</td>
+<td>
+<a href='figs.html#47'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>48</td>
+<td class='sample'>
+<code class='src'>baciefjhgkdl</code>
+</td>
+<td>
+<code class='expected'>153/482/796</code>
+</td>
+<td>
+<a href='figs.html#48'>リンク</a>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "aegj", "286/435/971" );
+/*1*/ test( "a", "231/456/789" );
+/*2*/ test( "e", "183/426/759" );
+/*3*/ test( "g", "123/456/978" );
+/*4*/ test( "j", "126/459/783" );
+/*5*/ test( "bb", "123/645/789" );
+/*6*/ test( "jjj", "123/456/789" );
+/*7*/ test( "bd", "723/164/589" );
+/*8*/ test( "ah", "231/645/789" );
+/*9*/ test( "bj", "124/569/783" );
+/*10*/ test( "db", "723/561/489" );
+/*11*/ test( "dh", "723/615/489" );
+/*12*/ test( "dl", "123/456/789" );
+/*13*/ test( "hc", "123/645/897" );
+/*14*/ test( "gf", "128/453/976" );
+/*15*/ test( "hl", "623/745/189" );
+/*16*/ test( "ja", "261/459/783" );
+/*17*/ test( "ld", "123/456/789" );
+/*18*/ test( "ki", "315/486/729" );
+/*19*/ test( "lfa", "294/753/186" );
+/*20*/ test( "kga", "531/486/972" );
+/*21*/ test( "dbi", "372/561/489" );
+/*22*/ test( "che", "193/625/847" );
+/*23*/ test( "iea", "823/416/759" );
+/*24*/ test( "gbl", "523/964/178" );
+/*25*/ test( "egj", "186/425/973" );
+/*26*/ test( "jcf", "127/456/839" );
+/*27*/ test( "djh", "726/915/483" );
+/*28*/ test( "hld", "123/645/789" );
+/*29*/ test( "leeh", "453/678/129" );
+/*30*/ test( "heja", "851/629/743" );
+/*31*/ test( "cakh", "251/649/837" );
+/*32*/ test( "bhjik", "652/489/713" );
+/*33*/ test( "eabji", "483/269/751" );
+/*34*/ test( "cdbch", "823/156/974" );
+/*35*/ test( "ckgajc", "536/492/817" );
+/*36*/ test( "ggchha", "231/564/978" );
+/*37*/ test( "gfbkeg", "128/534/697" );
+/*38*/ test( "agfbcbf", "239/148/765" );
+/*39*/ test( "ekahijf", "123/645/789" );
+/*40*/ test( "hajdjbe", "789/432/615" );
+/*41*/ test( "elgililj", "976/325/814" );
+/*42*/ test( "chffefif", "317/629/845" );
+/*43*/ test( "ilbbihak", "462/587/319" );
+/*44*/ test( "abcdefghijkl", "123/456/789" );
+/*45*/ test( "hkijbglfaced", "768/125/493" );
+/*46*/ test( "dfkbjiechlga", "256/387/419" );
+/*47*/ test( "hgfkbidlajce", "186/745/239" );
+/*48*/ test( "baciefjhgkdl", "153/482/796" );</textarea>
+</body>
+</html>

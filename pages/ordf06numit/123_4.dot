@@ -1,0 +1,116 @@
+digraph graph_name {
+ graph[nodesep = 0.1];
+ edge[dir=none, style=bold];
+ node[ fontname = "Helvetica", shape = plaintext, width = 0.25, height = 0.25, fontsize=30];
+b[label="123" ];
+b->c
+c[label="51" ];
+c->d
+d[label="15" ];
+d->e
+e[label="10" ];
+e->f
+f[label="6" ];
+f->g
+g[label="4" ;shape=box];
+g->h
+h[label="2" ];
+h->i
+i[label="1" ];
+c->j
+j[label="34" ];
+j->k
+k[label="7" ];
+k->l
+l[label="4" ;shape=box];
+l->m
+m[label="2" ];
+m->n
+n[label="1" ];
+j->o
+o[label="22" ];
+o->p
+p[label="1" ];
+o->q
+q[label="14" ];
+q->r
+r[label="9" ];
+r->s
+s[label="6" ];
+s->t
+t[label="4" ;shape=box];
+t->u
+u[label="2" ];
+u->v
+v[label="1" ];
+b->w
+w[label="82" ];
+w->x
+x[label="31" ];
+x->y
+y[label="5" ];
+y->z
+z[label="3" ];
+z->aa
+aa[label="2" ];
+aa->ab
+ab[label="1" ];
+x->ac
+ac[label="20" ];
+ac->ad
+ad[label="13" ];
+ad->ae
+ae[label="8" ];
+ae->af
+af[label="5" ];
+af->ag
+ag[label="3" ];
+ag->ah
+ah[label="2" ];
+ah->ai
+ai[label="1" ];
+w->aj
+aj[label="54" ];
+aj->ak
+ak[label="17" ];
+ak->al
+al[label="11" ];
+al->am
+am[label="7" ];
+am->an
+an[label="4" ;shape=box];
+an->ao
+ao[label="2" ];
+ao->ap
+ap[label="1" ];
+aj->aq
+aq[label="36" ];
+aq->ar
+ar[label="8" ];
+ar->as
+as[label="5" ];
+as->at
+at[label="3" ];
+at->au
+au[label="2" ];
+au->av
+av[label="1" ];
+aq->aw
+aw[label="24" ];
+aw->ax
+ax[label="2" ];
+ax->ay
+ay[label="1" ];
+aw->az
+az[label="16" ];
+az->ba
+ba[label="10" ];
+ba->bb
+bb[label="6" ];
+bb->bc
+bc[label="4" ;shape=box];
+bc->bd
+bd[label="2" ];
+bd->be
+be[label="1" ];
+}

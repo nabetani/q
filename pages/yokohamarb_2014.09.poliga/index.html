@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<head>
+  <meta charset='UTF-8'>
+  <title>カードゲームの役の判定</title>
+  <style>
+    p,  td, code, li {  font-size:10pt }
+    .red{   color:red;  }
+    tr th { background-color: #ddd }
+    tr { background-color: #f8f8f8 }
+    tr:nth-child(even) { background-color: #f0f0f0 }
+    code {
+      border:solid #ccc 1px
+    }
+    h1{
+      border-top : solid 2px #bbb;
+      border-left : solid 16px #bbb;
+      background-color: #f8f8f8;
+    }
+    h2{
+      border-top : solid 2px #bbb;
+      border-left : solid 8px #bbb;
+      background-color: #f8f8f8;
+    }
+    h3{
+      border-top : solid 1px #bbb;
+      border-left : solid 4px #bbb;
+      background-color: #f8f8f8;
+    }
+    h4{
+      border-top : solid 1px #bbb;
+      border-left : solid 2px #bbb;
+      background-color: #f8f8f8;
+    }
+  </style>
+</head>
+<body>
+  <h1>カードゲームの役の判定</h1>
+  <h2>概要</h2>
+  <p>
+    6枚のカードを使って行うカードゲームがあります。その役を判定するプログラムを書いて下さい。
+    <br>
+    役は下表のとおりです。
+  </p>
+  <table>
+    <tr>
+      <th>役名</th>
+      <th>記号</th>
+      <th>意味</th>
+      <th>例</th>
+    </tr>
+    <tr>
+      <td>アンサー</td>
+      <td>An</td>
+      <td>同一ランクの4枚組と、同一ランクの2枚組</td>
+      <td><span class="red">♥2</span>, ♠2, <span class="red">♦2</span>, ♣2, ♠A, <span class="red">♥A</span></td>
+    </tr>
+    <tr>
+      <td>シンクダブルトリオ</td>
+      <td>sDT</td>
+      <td>
+        同一ランクの3枚組が、2組。
+        <br>
+        各3枚組は、スートの組み合わせが同一。
+      </td>
+      <td>♠10, <span class="red">♥10</span>, <span class="red">♦10</span>, ♠Q, <span class="red">♥Q</span>, <span class="red">♦Q</span></td>
+    </tr>
+    <tr>
+      <td>ダブルトリオ</td>
+      <td>DT</td>
+      <td>
+        同一ランクの3枚組が、2組。
+        <br>
+        sDT ではない。
+      </td>
+      <td>♠10, ♣10, <span class="red">♦10</span>, ♠Q, <span class="red">♥Q</span>, <span class="red">♦Q</span></td>
+    </tr>
+    <tr>
+      <td>シンクコントトリプルペア</td>
+      <td>scTP</td>
+      <td>
+        同一ランクの2枚組が、3組。
+        <br>
+        各2枚組はスートの組み合わせが同一。
+        <br>
+        3つのランクが連続している。
+      </td>
+      <td>♠9, <span class="red">♥9</span>, ♠10, <span class="red">♥10</span>, ♠J, <span class="red">♥J</span></td>
+    </tr>
+    <tr>
+      <td>コントトリプルペア</td>
+      <td>cTP</td>
+      <td>
+        同一ランクの2枚組が、3組。
+        <br>
+        3つのランクが連続している。
+        <br>
+        scTP ではない。
+      </td>
+      <td>♠9, ♣9, ♠10, <span class="red">♥10</span>, <span class="red">♦J</span>, <span class="red">♥J</span></td>
+    </tr>
+    <tr>
+      <td>シンクトリプルペア</td>
+      <td>sTP</td>
+      <td>
+        同一ランクの2枚組が、3組。
+        <br>
+        各2枚組はスートの組み合わせが同一。
+        <br>
+        scTP ではない。
+      </td>
+      <td>♠9, <span class="red">♥9</span>, ♠10, <span class="red">♥10</span>, ♠A, <span class="red">♥A</span></td>
+    </tr>
+    <tr>
+      <td>トリプルペア</td>
+      <td>TP</td>
+      <td>
+        同一ランクの2枚組が、3組。
+        <br>
+        scTP, sTP, cTP のいずれでもない。
+      </td>
+      <td>♠3, <span class="red">♥3</span>, <span class="red">♦10</span>, <span class="red">♥10</span>, ♠A, ♣A</td>
+    </tr>
+  </table>
+  <p>
+    役名が長いので、以下、上表の記号を使います。
+  </p>
+  <h2>ルールの詳細</h2>
+  <h3>カード</h3>
+  <p>
+    カードはいわゆる普通のトランプです。ランクは2〜10、J、Q、K、A の 13種類。スートは
+    ♠、<span class="red">♥</span>、<span class="red">♦</span>、♣
+    の 4 種類です。都合、52種類のカードを使います。Joker は使いません。また、手札には全く同じカードは含まれません（つまり、手札に
+    <span class="red">♥A</span>
+    が2枚ある、というような状況は起こりません）。
+    <br>
+    手札は必ず6枚です。
+  </p>
+  <h3>ランクの連続</h3>
+  <p>
+    ランクは
+    A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
+    のように並んでいると考えます。つまり、「A, 2, 3」や、「9, 10, J」、「J, Q, K」、「Q, K, A」などは連続したランクですが、「2, 4, 6」、「7, 10, K」 などは連続したランクではありません。
+    <br>
+    なお、「K, A, 2」は連続したランクとはみなされません。通常のポーカーと同じです。
+  </p>
+  <h3>手札の順序</h3>
+  <p>
+    手札にあるカードの順序は役に影響しません。例えば手札が
+    <span class="red">♥J</span>, <span class="red">♦10</span>, <span class="red">♥2</span>, <span class="red">♥10</span>, ♠2, ♣J
+    の場合、役は
+    TP
+    となります。
+  </p>
+  <h3>入力</h3>
+  <p>
+    入力は
+    <br>
+    <code>HJ,D10,H2,H10,S2,CJ</code>
+    <br>
+    のような形式の文字列です。見ての通り、各カードがコンマで区切られています。
+    <br>
+    各カードは
+    <code>HJ</code>
+    や
+    <code>D10</code>
+    のような形式です。最初の文字がスートを表しています。スートは
+    <br>
+    <code>S</code>, <code>H</code>, <code>D</code>, <code>C</code>
+    <br>
+    のいずれかの文字で、それぞれ
+    <br>
+    ♠, <span class="red">♥</span>, <span class="red">♦</span>, ♣
+    <br>
+    を表しています。
+    <br>
+    スートを除いた部分（つまり、
+    <code>J</code>
+    や
+    <code>10</code>
+    ）がランクを表しており、ランクは
+    <br>
+    <code>A</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code>, <code>7</code>, <code>8</code>, <code>9</code>, <code>10</code>, <code>J</code>, <code>Q</code>, <code>K</code>
+    <br>
+    のいずれかの文字列で、見た通りのものを表しています。
+  </p>
+  <h2>出力</h2>
+  <p>
+    メソッドは、役がある場合は
+    <code>:An</code>
+    や
+    <code>:scTP</code>
+    のようなシンボルを返します。
+    <br>
+    役がない場合は
+    <code>nil</code>
+    を返します。
+  </p>
+  <h2>課題</h2>
+  <p>
+    上記の仕様をチェックするための spec と、全てテストが通っているソースコードが
+    <br>
+    <a href='src.zip'>src.zip</a>
+    <br>
+    内にあります。
+    <br>
+    リファクタリングしてください。
+  </p>
+  <h2>補足</h2>
+  <ul>
+    <li>不正な入力に対するチェックは今のところありません。そのままでもいいですし、チェックを追加しても構いません。</li>
+    <li>spec 側をリファクタリングしたり、テストを 追加/削除 するのも OK です。</li>
+    <li>
+      カードの
+      ♠, <span class="red">♥</span>, <span class="red">♦</span>, ♣
+      のことを、「スート」と呼びます。
+    </li>
+    <li>
+      カードの
+      A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K
+      のことを「ランク」と呼びます。
+    </li>
+  </ul>
+</body>

@@ -1,0 +1,42 @@
+@charset "UTF-8";
+body, textarea {
+  font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+  font-size: 11pt; }
+
+input, select {
+  font-family: Arial, "ＭＳ Ｐゴシック", sans-serif;
+  font-size: 11pt; }
+
+pre {
+  margin: 0;
+  padding: 0; }
+
+code {
+  background-color: #eee;
+  font-family: monospace; }
+
+table.calc {
+  padding-left: 2em; }
+  table.calc td, table.calc th {
+    background-color: #eee;
+    border-top: solid 1px #ccc; }
+  table.calc td {
+    padding-left: 1em;
+    padding-right: 1em; }
+
+table.exa {
+  padding-left: 2em; }
+  table.exa td, table.exa th {
+    background-color: #eee;
+    border-top: solid 1px #ccc; }
+  table.exa td.num {
+    font-family: "Georgia";
+    color: #888;
+    text-align: right; }
+  table.exa td.data {
+    font-family: monospace;
+    padding-left: 1em;
+    padding-right: 1em; }
+
+textarea {
+  width: 80%; }

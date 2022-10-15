@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Rails on Tiles 〜 横へな 2012.11.9の参考問題</title>
+    <link href='style.css' rel='stylesheet' />
+  </head>
+  <body>
+    <h1>Rails on Tiles 〜 横へな 2012.11.9の参考問題</h1>
+    <h2>問題</h2>
+    <p>
+      レールの書かれたタイルがある。レールにそって進んだ場合に通過するタイルの位置を計算する。<br/>
+      入力は、タイルの名前（タイルの名前は 0, 1, 2 のいずれか）を左上から順に並べた、
+      <code>101221102</code>
+      のような9 文字の文字列。タイルの名前と形状の関係は下図の通り：
+    </p>
+    <p>
+      <table class='samples'>
+        <tr>
+          <th>名前</th>
+          <td>0</td>
+          <td>1</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <th>形状</th>
+          <td>
+            <img src='t0.png' />
+          </td>
+          <td>
+            <img src='t1.png' />
+          </td>
+          <td>
+            <img src='t2.png' />
+          </td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      入力
+      <code>101221102</code>
+      は、下図のようなタイルの配置を意味する。<br/>
+      スタートは、B のマスの上からとする。<br/>
+      この場合
+      B→E→D→G→H→I→F→E→H
+      の順に移動したところでマスの外に出てしまう。<br/>
+      したがって、
+      <code>BEDGHIFEH</code>
+      という文字列を出力すればよい。
+    </p>
+    <p>
+      <table class='tiles'>
+        <tr><td style="width:87px;height:87px;background-image:url( t1.png )"><span>&nbsp;A</span></td><td style="width:87px;height:87px;background-image:url( t0.png )"><span>&nbsp;B</span></td><td style="width:87px;height:87px;background-image:url( t1.png )"><span>&nbsp;C</span></td></tr>
+        <tr><td style="width:87px;height:87px;background-image:url( t2.png )"><span>&nbsp;D</span></td><td style="width:87px;height:87px;background-image:url( t2.png )"><span>&nbsp;E</span></td><td style="width:87px;height:87px;background-image:url( t1.png )"><span>&nbsp;F</span></td></tr>
+        <tr><td style="width:87px;height:87px;background-image:url( t1.png )"><span>&nbsp;G</span></td><td style="width:87px;height:87px;background-image:url( t0.png )"><span>&nbsp;H</span></td><td style="width:87px;height:87px;background-image:url( t2.png )"><span>&nbsp;I</span></td></tr>
+      </table>
+    </p>
+    <p>
+      実装ができた方は
+      <a href='http://qiita.com/items/0ddde0164a745cd09c34'>Qiitaの記事</a>
+      のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+    </p>
+    <h2>サンプルデータ</h2>
+    <table class='data'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <th>#0</th>
+        <td>101221102</td>
+        <td>BEDGHIFEH</td>
+      </tr>
+      <tr>
+        <th>#1</th>
+        <td>000000000</td>
+        <td>BEH</td>
+      </tr>
+      <tr>
+        <th>#2</th>
+        <td>111111111</td>
+        <td>BCF</td>
+      </tr>
+      <tr>
+        <th>#3</th>
+        <td>222222222</td>
+        <td>BAD</td>
+      </tr>
+      <tr>
+        <th>#4</th>
+        <td>000211112</td>
+        <td>BEFIHEDGH</td>
+      </tr>
+      <tr>
+        <th>#5</th>
+        <td>221011102</td>
+        <td>BADGHIFEBCF</td>
+      </tr>
+      <tr>
+        <th>#6</th>
+        <td>201100112</td>
+        <td>BEHIFCBADEF</td>
+      </tr>
+      <tr>
+        <th>#7</th>
+        <td>000111222</td>
+        <td>BEFIH</td>
+      </tr>
+      <tr>
+        <th>#8</th>
+        <td>012012012</td>
+        <td>BC</td>
+      </tr>
+      <tr>
+        <th>#9</th>
+        <td>201120111</td>
+        <td>BEDABCFI</td>
+      </tr>
+      <tr>
+        <th>#10</th>
+        <td>220111122</td>
+        <td>BADEHGD</td>
+      </tr>
+      <tr>
+        <th>#11</th>
+        <td>221011022</td>
+        <td>BADG</td>
+      </tr>
+      <tr>
+        <th>#12</th>
+        <td>111000112</td>
+        <td>BCFIHEBA</td>
+      </tr>
+      <tr>
+        <th>#13</th>
+        <td>001211001</td>
+        <td>BEFI</td>
+      </tr>
+      <tr>
+        <th>#14</th>
+        <td>111222012</td>
+        <td>BCFEHIF</td>
+      </tr>
+      <tr>
+        <th>#15</th>
+        <td>220111211</td>
+        <td>BADEHI</td>
+      </tr>
+      <tr>
+        <th>#16</th>
+        <td>211212212</td>
+        <td>BCFEBAD</td>
+      </tr>
+      <tr>
+        <th>#17</th>
+        <td>002112210</td>
+        <td>BEFC</td>
+      </tr>
+      <tr>
+        <th>#18</th>
+        <td>001010221</td>
+        <td>BEF</td>
+      </tr>
+      <tr>
+        <th>#19</th>
+        <td>100211002</td>
+        <td>BEFIHG</td>
+      </tr>
+      <tr>
+        <th>#20</th>
+        <td>201212121</td>
+        <td>BEFCBAD</td>
+      </tr>
+    </table>
+  </body>
+</html>

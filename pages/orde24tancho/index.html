@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>単調増加数 2018.5.26</title>
+<style>
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  img.large{
+    width:400px;
+  }
+  td.center{ text-align:center; }
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    border-radius:4px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Courier New";
+  }
+  img.sample{
+  width:150px;
+  height:150px;
+  }
+  img.top{
+  width:320px;
+  }
+  .weight{
+    font-family:"Georgia";
+    padding-left:8px;
+    padding-right:8px;
+  }
+  table.float_right
+  {
+    float: right;
+  }
+  table.float_right td{
+    background-color:white;
+    text-align:center;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  float_right{
+   float:right;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  td.bigcell{
+    width:25mm;
+    height:25mm;
+    font-size:18mm;
+    border:solid black 0.5mm
+  }
+  table.big td{
+    font-size:9mm;
+    border:solid black 0.5mm
+  }
+  div.top img{
+    width:80px;
+  }
+  table.big img{
+    width:120px;
+    height:120px;
+   }
+   td.sample{
+   }
+  table.nabenum tr td
+  {
+    background-color:#444;
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+  }
+  table.nabenum
+  {
+    padding:1mm 2mm 1mm 2mm;
+    background-color:#444;
+  }
+  table.nabenum .c0{
+    width:4px;
+  }
+  table.nabenum .c1{
+    width:15px;
+  }
+  table.nabenum .c2{
+    width:4px;
+  }
+  table.nabenum tr.n0 td{
+    height:4px;
+  }
+  table.nabenum tr.n1 td{
+    height:15px;
+  }
+  table.nabenum tr.n2 td{
+    height:4px;
+  }
+  table.nabenum tr.n3 td{
+    height:15px;
+  }
+  table.nabenum tr.n4 td{
+    height:4px;
+  }
+  table.nabenum td.off{
+    background-color:black;
+  }
+  table.nabenum td.on{
+    background-color:white;
+  }
+  table.nabenum td.nazo{
+    background-color:#f00;
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+</style>
+</head>
+<body>
+<h1>単調増加数 2018.5.26</h1>
+<h2>問題の概要</h2>
+<p>
+正の整数のうち、b進数表示した時に各桁が左隣の数字よりも大きいような数のことを「基数bの単調増加数」と呼ぶ。
+<br>
+※ 一桁の数は全て単調増加数である。
+<br>
+例えば下表のような感じ。
+</p>
+<table>
+<tr>
+<th>数(n)</th>
+<th>基数(b)</th>
+<th>n の b進数表示</th>
+<th>基数bの単調増加数？</th>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>10</td>
+<td>1</td>
+<td>true</td>
+</tr>
+<tr>
+<td>
+123
+</td>
+<td>10</td>
+<td>123</td>
+<td>true</td>
+</tr>
+<tr>
+<td>
+410
+</td>
+<td>16</td>
+<td>19a</td>
+<td>true</td>
+</tr>
+<tr>
+<td>
+9
+</td>
+<td>8</td>
+<td>11</td>
+<td>false</td>
+</tr>
+<tr>
+<td>
+123
+</td>
+<td>4</td>
+<td>1323</td>
+<td>false</td>
+</tr>
+</table>
+<p>
+ちなみに。
+<br>
+例えば 10進数だと、
+<br>
+123456789
+<br>
+よりも大きな単調増加数はない。
+</p>
+<p>
+で。
+<br>
+基数 b と 正の整数 m を指定する。
+<br>
+小さい方から m 番目の「基数bの単調増加数」がいくつなのかを計算せよ。
+</p>
+<h2>入力</h2>
+<p>
+入力は、b と m がコンマ区切りで並んでいる。
+<br>
+<code>16,333</code>
+<br>
+は、小さい方から 333 番目の「基数16の単調増加数」を求めよということ。
+</p>
+<h2>出力</h2>
+<p>
+出力は、求める単調増加数を、b 進数で。
+<br>
+先ほどの例だと、小さい方から 333 番目の 単調増加数は 16 進数のままで表示すると 38e なので、
+<br>
+<code>38e</code>
+<br>
+を出力すれば良い。
+<br>
+ただ。2,100 のように、単調増加数の数よりも n が大きい場合には
+<br>
+<code>-</code>
+<br>
+を出力すること。
+</p>
+<h2>補足</h2>
+<ul>
+<li>不正な入力に対処する必要はない。</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/928d6a94d83c21ef64d7'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+この問題は2018年5月26日に開催される オフラインリアルタイムどう書くE24 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/73080'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+<li>基数 b は、2以上36以下の整数である。</li>
+<li>最小の単調増加数は、1番目。0番目ではないことに注意。</li>
+<li>数字としては、小さい順に 0123456789abcdefghijklmnopqrstuvwxyz を使うこと。</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+</tr>
+<tr>
+<td>0</td>
+<td class='sample'>
+<code class='src'>16,333</code>
+</td>
+<td>
+<code class='expected'>38e</code>
+</td>
+</tr>
+<tr>
+<td>1</td>
+<td class='sample'>
+<code class='src'>2,100</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>2</td>
+<td class='sample'>
+<code class='src'>2,1</code>
+</td>
+<td>
+<code class='expected'>1</code>
+</td>
+</tr>
+<tr>
+<td>3</td>
+<td class='sample'>
+<code class='src'>2,2</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td class='sample'>
+<code class='src'>11,8</code>
+</td>
+<td>
+<code class='expected'>8</code>
+</td>
+</tr>
+<tr>
+<td>5</td>
+<td class='sample'>
+<code class='src'>14,9</code>
+</td>
+<td>
+<code class='expected'>9</code>
+</td>
+</tr>
+<tr>
+<td>6</td>
+<td class='sample'>
+<code class='src'>11,12</code>
+</td>
+<td>
+<code class='expected'>13</code>
+</td>
+</tr>
+<tr>
+<td>7</td>
+<td class='sample'>
+<code class='src'>7,16</code>
+</td>
+<td>
+<code class='expected'>34</code>
+</td>
+</tr>
+<tr>
+<td>8</td>
+<td class='sample'>
+<code class='src'>20,16</code>
+</td>
+<td>
+<code class='expected'>g</code>
+</td>
+</tr>
+<tr>
+<td>9</td>
+<td class='sample'>
+<code class='src'>2,17</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>10</td>
+<td class='sample'>
+<code class='src'>8,26</code>
+</td>
+<td>
+<code class='expected'>56</code>
+</td>
+</tr>
+<tr>
+<td>11</td>
+<td class='sample'>
+<code class='src'>16,51</code>
+</td>
+<td>
+<code class='expected'>3c</code>
+</td>
+</tr>
+<tr>
+<td>12</td>
+<td class='sample'>
+<code class='src'>3,77</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>13</td>
+<td class='sample'>
+<code class='src'>2,100</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>14</td>
+<td class='sample'>
+<code class='src'>9,110</code>
+</td>
+<td>
+<code class='expected'>1347</code>
+</td>
+</tr>
+<tr>
+<td>15</td>
+<td class='sample'>
+<code class='src'>22,127</code>
+</td>
+<td>
+<code class='expected'>78</code>
+</td>
+</tr>
+<tr>
+<td>16</td>
+<td class='sample'>
+<code class='src'>24,142</code>
+</td>
+<td>
+<code class='expected'>79</code>
+</td>
+</tr>
+<tr>
+<td>17</td>
+<td class='sample'>
+<code class='src'>30,158</code>
+</td>
+<td>
+<code class='expected'>5s</code>
+</td>
+</tr>
+<tr>
+<td>18</td>
+<td class='sample'>
+<code class='src'>20,213</code>
+</td>
+<td>
+<code class='expected'>139</code>
+</td>
+</tr>
+<tr>
+<td>19</td>
+<td class='sample'>
+<code class='src'>6,216</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>20</td>
+<td class='sample'>
+<code class='src'>9,244</code>
+</td>
+<td>
+<code class='expected'>235678</code>
+</td>
+</tr>
+<tr>
+<td>21</td>
+<td class='sample'>
+<code class='src'>13,253</code>
+</td>
+<td>
+<code class='expected'>57c</code>
+</td>
+</tr>
+<tr>
+<td>22</td>
+<td class='sample'>
+<code class='src'>19,265</code>
+</td>
+<td>
+<code class='expected'>19c</code>
+</td>
+</tr>
+<tr>
+<td>23</td>
+<td class='sample'>
+<code class='src'>24,314</code>
+</td>
+<td>
+<code class='expected'>13k</code>
+</td>
+</tr>
+<tr>
+<td>24</td>
+<td class='sample'>
+<code class='src'>16,333</code>
+</td>
+<td>
+<code class='expected'>38e</code>
+</td>
+</tr>
+<tr>
+<td>25</td>
+<td class='sample'>
+<code class='src'>32,353</code>
+</td>
+<td>
+<code class='expected'>eo</code>
+</td>
+</tr>
+<tr>
+<td>26</td>
+<td class='sample'>
+<code class='src'>25,490</code>
+</td>
+<td>
+<code class='expected'>1dg</code>
+</td>
+</tr>
+<tr>
+<td>27</td>
+<td class='sample'>
+<code class='src'>26,498</code>
+</td>
+<td>
+<code class='expected'>1bd</code>
+</td>
+</tr>
+<tr>
+<td>28</td>
+<td class='sample'>
+<code class='src'>10,500</code>
+</td>
+<td>
+<code class='expected'>2456789</code>
+</td>
+</tr>
+<tr>
+<td>29</td>
+<td class='sample'>
+<code class='src'>10,543</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>30</td>
+<td class='sample'>
+<code class='src'>3,897</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>31</td>
+<td class='sample'>
+<code class='src'>11,1000</code>
+</td>
+<td>
+<code class='expected'>1345789a</code>
+</td>
+</tr>
+<tr>
+<td>32</td>
+<td class='sample'>
+<code class='src'>9,1307</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>33</td>
+<td class='sample'>
+<code class='src'>9,1412</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>34</td>
+<td class='sample'>
+<code class='src'>26,1678</code>
+</td>
+<td>
+<code class='expected'>79e</code>
+</td>
+</tr>
+<tr>
+<td>35</td>
+<td class='sample'>
+<code class='src'>8,1942</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>36</td>
+<td class='sample'>
+<code class='src'>12,1950</code>
+</td>
+<td>
+<code class='expected'>234589ab</code>
+</td>
+</tr>
+<tr>
+<td>37</td>
+<td class='sample'>
+<code class='src'>2,2245</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>38</td>
+<td class='sample'>
+<code class='src'>18,2670</code>
+</td>
+<td>
+<code class='expected'>5ace</code>
+</td>
+</tr>
+<tr>
+<td>39</td>
+<td class='sample'>
+<code class='src'>5,3013</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>40</td>
+<td class='sample'>
+<code class='src'>5,3048</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>41</td>
+<td class='sample'>
+<code class='src'>14,3099</code>
+</td>
+<td>
+<code class='expected'>157acd</code>
+</td>
+</tr>
+<tr>
+<td>42</td>
+<td class='sample'>
+<code class='src'>27,3440</code>
+</td>
+<td>
+<code class='expected'>13hm</code>
+</td>
+</tr>
+<tr>
+<td>43</td>
+<td class='sample'>
+<code class='src'>13,3698</code>
+</td>
+<td>
+<code class='expected'>235689ab</code>
+</td>
+</tr>
+<tr>
+<td>44</td>
+<td class='sample'>
+<code class='src'>36,5592</code>
+</td>
+<td>
+<code class='expected'>dqs</code>
+</td>
+</tr>
+<tr>
+<td>45</td>
+<td class='sample'>
+<code class='src'>10,9505</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr>
+<td>46</td>
+<td class='sample'>
+<code class='src'>27,9833</code>
+</td>
+<td>
+<code class='expected'>49ej</code>
+</td>
+</tr>
+<tr>
+<td>47</td>
+<td class='sample'>
+<code class='src'>16,10000</code>
+</td>
+<td>
+<code class='expected'>123467e</code>
+</td>
+</tr>
+<tr>
+<td>48</td>
+<td class='sample'>
+<code class='src'>24,14090</code>
+</td>
+<td>
+<code class='expected'>14bfk</code>
+</td>
+</tr>
+<tr>
+<td>49</td>
+<td class='sample'>
+<code class='src'>29,15270</code>
+</td>
+<td>
+<code class='expected'>5mnq</code>
+</td>
+</tr>
+<tr>
+<td>50</td>
+<td class='sample'>
+<code class='src'>17,20000</code>
+</td>
+<td>
+<code class='expected'>23458cg</code>
+</td>
+</tr>
+<tr>
+<td>51</td>
+<td class='sample'>
+<code class='src'>36,20000</code>
+</td>
+<td>
+<code class='expected'>37bc</code>
+</td>
+</tr>
+<tr>
+<td>52</td>
+<td class='sample'>
+<code class='src'>25,24346</code>
+</td>
+<td>
+<code class='expected'>256bk</code>
+</td>
+</tr>
+<tr>
+<td>53</td>
+<td class='sample'>
+<code class='src'>21,27815</code>
+</td>
+<td>
+<code class='expected'>146adi</code>
+</td>
+</tr>
+<tr>
+<td>54</td>
+<td class='sample'>
+<code class='src'>25,28030</code>
+</td>
+<td>
+<code class='expected'>2aflm</code>
+</td>
+</tr>
+<tr>
+<td>55</td>
+<td class='sample'>
+<code class='src'>25,34448</code>
+</td>
+<td>
+<code class='expected'>3cefi</code>
+</td>
+</tr>
+<tr>
+<td>56</td>
+<td class='sample'>
+<code class='src'>36,44811</code>
+</td>
+<td>
+<code class='expected'>abpu</code>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "16,333", "38e" );
+/*1*/ test( "2,100", "-" );
+/*2*/ test( "2,1", "1" );
+/*3*/ test( "2,2", "-" );
+/*4*/ test( "11,8", "8" );
+/*5*/ test( "14,9", "9" );
+/*6*/ test( "11,12", "13" );
+/*7*/ test( "7,16", "34" );
+/*8*/ test( "20,16", "g" );
+/*9*/ test( "2,17", "-" );
+/*10*/ test( "8,26", "56" );
+/*11*/ test( "16,51", "3c" );
+/*12*/ test( "3,77", "-" );
+/*13*/ test( "2,100", "-" );
+/*14*/ test( "9,110", "1347" );
+/*15*/ test( "22,127", "78" );
+/*16*/ test( "24,142", "79" );
+/*17*/ test( "30,158", "5s" );
+/*18*/ test( "20,213", "139" );
+/*19*/ test( "6,216", "-" );
+/*20*/ test( "9,244", "235678" );
+/*21*/ test( "13,253", "57c" );
+/*22*/ test( "19,265", "19c" );
+/*23*/ test( "24,314", "13k" );
+/*24*/ test( "16,333", "38e" );
+/*25*/ test( "32,353", "eo" );
+/*26*/ test( "25,490", "1dg" );
+/*27*/ test( "26,498", "1bd" );
+/*28*/ test( "10,500", "2456789" );
+/*29*/ test( "10,543", "-" );
+/*30*/ test( "3,897", "-" );
+/*31*/ test( "11,1000", "1345789a" );
+/*32*/ test( "9,1307", "-" );
+/*33*/ test( "9,1412", "-" );
+/*34*/ test( "26,1678", "79e" );
+/*35*/ test( "8,1942", "-" );
+/*36*/ test( "12,1950", "234589ab" );
+/*37*/ test( "2,2245", "-" );
+/*38*/ test( "18,2670", "5ace" );
+/*39*/ test( "5,3013", "-" );
+/*40*/ test( "5,3048", "-" );
+/*41*/ test( "14,3099", "157acd" );
+/*42*/ test( "27,3440", "13hm" );
+/*43*/ test( "13,3698", "235689ab" );
+/*44*/ test( "36,5592", "dqs" );
+/*45*/ test( "10,9505", "-" );
+/*46*/ test( "27,9833", "49ej" );
+/*47*/ test( "16,10000", "123467e" );
+/*48*/ test( "24,14090", "14bfk" );
+/*49*/ test( "29,15270", "5mnq" );
+/*50*/ test( "17,20000", "23458cg" );
+/*51*/ test( "36,20000", "37bc" );
+/*52*/ test( "25,24346", "256bk" );
+/*53*/ test( "21,27815", "146adi" );
+/*54*/ test( "25,28030", "2aflm" );
+/*55*/ test( "25,34448", "3cefi" );
+/*56*/ test( "36,44811", "abpu" );</textarea>
+<h2>JSON 形式のテストデータ</h2>
+<p>
+<a href='data.json'>data.json</a>
+</p>
+</body>
+</html>

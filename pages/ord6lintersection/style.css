@@ -1,0 +1,42 @@
+table.tiles
+{
+    padding-left:3em;
+}
+table.tiles td{
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+    vertical-align: top;
+    font-family: sans-serif;
+    font-size: 25px;
+}
+table.tiles td span
+{
+    color:#000;
+    text-shadow: 2px 2px 5px #000; /*CSS3*/
+    -moz-text-shadow: 2px 2px 5px #000; /* Firefox用*/
+    -webkit-text-shadow: 2px 2px 5px #000; /* Google Chrome, Safari用*/
+}
+
+table.samples
+{
+    padding-left:3em;
+}
+
+table.samples th
+{
+    background-color: #eee;
+}
+table.samples tr td
+{
+    text-align: center;
+    padding-right: 1em;
+    padding-left: 1em;
+    background-color: #eee;
+}
+table.samples  tr:nth-child(even) td, table.samples  tr:nth-child(even) th{
+    background-color: #f8f8f8;    
+}
+table.samples td img
+{
+    padding: 10px 10px 10px 10px;
+}

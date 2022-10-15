@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>ギャスケット 2017.7.1</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        background-color: #d8d8d8;
+        font-family:monospace;
+        padding:2pt 2pt 2pt 2pt ;
+        border-radius:4px;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      float_right{
+       float:right;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+      td.bigcell{
+        width:25mm;
+        height:25mm;
+        font-size:18mm;
+        border:solid black 0.5mm
+      }
+      table.big td{
+        font-size:9mm;
+        border:solid black 0.5mm
+      }
+      div.top img{
+        width:80px;
+      }
+      table.big img{
+        width:120px;
+        height:120px;
+       }
+       td.sample{
+       }
+      table.nabenum tr td
+      {
+        background-color:#444;
+        padding:0 0 0 0;
+        margin:0 0 0 0;
+      }
+      table.nabenum
+      {
+        padding:1mm 2mm 1mm 2mm;
+        background-color:#444;
+      }
+      table.nabenum .c0{
+        width:4px;
+      }
+      table.nabenum .c1{
+        width:15px;
+      }
+      table.nabenum .c2{
+        width:4px;
+      }
+      table.nabenum tr.n0 td{
+        height:4px;
+      }
+      table.nabenum tr.n1 td{
+        height:15px;
+      }
+      table.nabenum tr.n2 td{
+        height:4px;
+      }
+      table.nabenum tr.n3 td{
+        height:15px;
+      }
+      table.nabenum tr.n4 td{
+        height:4px;
+      }
+      table.nabenum td.off{
+        background-color:black;
+      }
+      table.nabenum td.on{
+        background-color:white;
+      }
+      table.nabenum td.nazo{
+        background-color:#f00;
+      }
+      table.outer > tbody > tr > td{
+        border-left: black solid 1px;
+        vertical-align:top;
+      }
+      table.tet tr{
+        background-color:white;
+      }
+      div.nabe{
+        float:right;
+        width:200px;
+        background-color:#eee;
+        text-align:center;
+      }
+      .nabe_c{
+        text-align:center;
+        }
+      div.main_fig{
+       float:right;
+       background-color:white;
+      }
+    </style>
+    <body></body>
+    <h1>ギャスケット 2017.7.1</h1>
+    <div class='main_fig'>
+      <svg height='480px' width='480px'>
+        <g font-family='Arial' font-size='20' text-anchor='middle'>
+          <rect fill='#eee' height='18' width='18' x='21' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='16.0'>0</text>
+          <rect fill='#eee' height='18' width='18' x='41' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='50.0' y='16.0'>1</text>
+          <rect fill='#eee' height='18' width='18' x='61' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='70.0' y='16.0'>3</text>
+          <rect fill='#eee' height='18' width='18' x='81' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='90.0' y='16.0'>4</text>
+          <rect fill='#eee' height='18' width='18' x='101' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='110.0' y='16.0'>9</text>
+          <rect fill='#eee' height='18' width='18' x='121' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='130.0' y='16.0'>10</text>
+          <rect fill='#eee' height='18' width='18' x='141' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='150.0' y='16.0'>12</text>
+          <rect fill='#eee' height='18' width='18' x='161' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='170.0' y='16.0'>13</text>
+          <rect fill='#eee' height='18' width='18' x='181' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='190.0' y='16.0'>27</text>
+          <rect fill='#eee' height='18' width='18' x='201' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='210.0' y='16.0'>28</text>
+          <rect fill='#eee' height='18' width='18' x='221' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='230.0' y='16.0'>30</text>
+          <rect fill='#eee' height='18' width='18' x='241' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='250.0' y='16.0'>31</text>
+          <rect fill='#eee' height='18' width='18' x='261' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='270.0' y='16.0'>36</text>
+          <rect fill='#eee' height='18' width='18' x='281' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='290.0' y='16.0'>37</text>
+          <rect fill='#eee' height='18' width='18' x='301' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='310.0' y='16.0'>39</text>
+          <rect fill='#eee' height='18' width='18' x='321' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='330.0' y='16.0'>40</text>
+          <rect fill='#eee' height='18' width='18' x='341' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='350.0' y='16.0'>81</text>
+          <rect fill='#eee' height='18' width='18' x='361' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='370.0' y='16.0'>82</text>
+          <rect fill='#eee' height='18' width='18' x='381' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='390.0' y='16.0'>84</text>
+          <rect fill='#eee' height='18' width='18' x='401' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='410.0' y='16.0'>85</text>
+          <rect fill='#eee' height='18' width='18' x='421' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='430.0' y='16.0'>90</text>
+          <rect fill='#eee' height='18' width='18' x='441' y='1'></rect>
+          <text fill='#000' font-size='14.0px' x='450.0' y='16.0'>91</text>
+          <rect fill='#eee' height='18' width='18' x='21' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='36.0'>2</text>
+          <rect fill='#888' height='18' width='18' x='41' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='61' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='70.0' y='36.0'>5</text>
+          <rect fill='#888' height='18' width='18' x='81' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='110.0' y='36.0'>11</text>
+          <rect fill='#888' height='18' width='18' x='121' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='141' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='150.0' y='36.0'>14</text>
+          <rect fill='#888' height='18' width='18' x='161' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='190.0' y='36.0'>29</text>
+          <rect fill='#888' height='18' width='18' x='201' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='221' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='230.0' y='36.0'>32</text>
+          <rect fill='#888' height='18' width='18' x='241' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='261' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='270.0' y='36.0'>38</text>
+          <rect fill='#888' height='18' width='18' x='281' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='301' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='310.0' y='36.0'>41</text>
+          <rect fill='#888' height='18' width='18' x='321' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='350.0' y='36.0'>83</text>
+          <rect fill='#888' height='18' width='18' x='361' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='381' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='390.0' y='36.0'>86</text>
+          <rect fill='#888' height='18' width='18' x='401' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='421' y='21'></rect>
+          <text fill='#000' font-size='14.0px' x='430.0' y='36.0'>92</text>
+          <rect fill='#888' height='18' width='18' x='441' y='21'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='56.0'>6</text>
+          <rect fill='#eee' height='18' width='18' x='41' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='50.0' y='56.0'>7</text>
+          <rect fill='#888' height='18' width='18' x='61' y='41'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='41'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='110.0' y='56.0'>15</text>
+          <rect fill='#eee' height='18' width='18' x='121' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='130.0' y='56.0'>16</text>
+          <rect fill='#888' height='18' width='18' x='141' y='41'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='41'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='190.0' y='56.0'>33</text>
+          <rect fill='#eee' height='18' width='18' x='201' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='210.0' y='56.0'>34</text>
+          <rect fill='#888' height='18' width='18' x='221' y='41'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='41'></rect>
+          <rect fill='#eee' height='18' width='18' x='261' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='270.0' y='56.0'>42</text>
+          <rect fill='#eee' height='18' width='18' x='281' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='290.0' y='56.0'>43</text>
+          <rect fill='#888' height='18' width='18' x='301' y='41'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='41'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='350.0' y='56.0'>87</text>
+          <rect fill='#eee' height='18' width='18' x='361' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='370.0' y='56.0'>88</text>
+          <rect fill='#888' height='18' width='18' x='381' y='41'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='41'></rect>
+          <rect fill='#eee' height='18' width='18' x='421' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='430.0' y='56.0'>96</text>
+          <rect fill='#eee' height='18' width='18' x='441' y='41'></rect>
+          <text fill='#000' font-size='14.0px' x='450.0' y='56.0'>97</text>
+          <rect fill='#eee' height='18' width='18' x='21' y='61'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='76.0'>8</text>
+          <rect fill='#888' height='18' width='18' x='41' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='61' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='61'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='61'></rect>
+          <text fill='#000' font-size='14.0px' x='110.0' y='76.0'>17</text>
+          <rect fill='#888' height='18' width='18' x='121' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='61'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='61'></rect>
+          <text fill='#000' font-size='14.0px' x='190.0' y='76.0'>35</text>
+          <rect fill='#888' height='18' width='18' x='201' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='61'></rect>
+          <rect fill='#eee' height='18' width='18' x='261' y='61'></rect>
+          <text fill='#000' font-size='14.0px' x='270.0' y='76.0'>44</text>
+          <rect fill='#888' height='18' width='18' x='281' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='61'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='61'></rect>
+          <text fill='#000' font-size='14.0px' x='350.0' y='76.0'>89</text>
+          <rect fill='#888' height='18' width='18' x='361' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='61'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='61'></rect>
+          <rect fill='#eee' height='18' width='18' x='421' y='61'></rect>
+          <text fill='#000' font-size='14.0px' x='430.0' y='76.0'>98</text>
+          <rect fill='#888' height='18' width='18' x='441' y='61'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='96.0'>18</text>
+          <rect fill='#eee' height='18' width='18' x='41' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='50.0' y='96.0'>19</text>
+          <rect fill='#eee' height='18' width='18' x='61' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='70.0' y='96.0'>21</text>
+          <rect fill='#eee' height='18' width='18' x='81' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='90.0' y='96.0'>22</text>
+          <rect fill='#888' height='18' width='18' x='101' y='81'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='81'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='81'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='81'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='190.0' y='96.0'>45</text>
+          <rect fill='#eee' height='18' width='18' x='201' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='210.0' y='96.0'>46</text>
+          <rect fill='#eee' height='18' width='18' x='221' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='230.0' y='96.0'>48</text>
+          <rect fill='#eee' height='18' width='18' x='241' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='250.0' y='96.0'>49</text>
+          <rect fill='#888' height='18' width='18' x='261' y='81'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='81'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='81'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='81'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='81'></rect>
+          <text fill='#000' font-size='14.0px' x='350.0' y='96.0'>99</text>
+          <rect fill='#eee' height='18' width='18' x='361' y='81'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='555.0' y='96.0'>100</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='381' y='81'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='585.0' y='96.0'>102</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='401' y='81'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='615.0' y='96.0'>103</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='421' y='81'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='81'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='101'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='116.0'>20</text>
+          <rect fill='#888' height='18' width='18' x='41' y='101'></rect>
+          <rect fill='#eee' height='18' width='18' x='61' y='101'></rect>
+          <text fill='#000' font-size='14.0px' x='70.0' y='116.0'>23</text>
+          <rect fill='#888' height='18' width='18' x='81' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='101' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='101'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='101'></rect>
+          <text fill='#000' font-size='14.0px' x='190.0' y='116.0'>47</text>
+          <rect fill='#888' height='18' width='18' x='201' y='101'></rect>
+          <rect fill='#eee' height='18' width='18' x='221' y='101'></rect>
+          <text fill='#000' font-size='14.0px' x='230.0' y='116.0'>50</text>
+          <rect fill='#888' height='18' width='18' x='241' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='101'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='101'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='116.0'>101</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='361' y='101'></rect>
+          <rect fill='#eee' height='18' width='18' x='381' y='101'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='585.0' y='116.0'>104</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='401' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='101'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='101'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='121'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='136.0'>24</text>
+          <rect fill='#eee' height='18' width='18' x='41' y='121'></rect>
+          <text fill='#000' font-size='14.0px' x='50.0' y='136.0'>25</text>
+          <rect fill='#888' height='18' width='18' x='61' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='101' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='121'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='121'></rect>
+          <text fill='#000' font-size='14.0px' x='190.0' y='136.0'>51</text>
+          <rect fill='#eee' height='18' width='18' x='201' y='121'></rect>
+          <text fill='#000' font-size='14.0px' x='210.0' y='136.0'>52</text>
+          <rect fill='#888' height='18' width='18' x='221' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='121'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='121'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='136.0'>105</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='361' y='121'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='555.0' y='136.0'>106</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='381' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='121'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='121'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='141'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='156.0'>26</text>
+          <rect fill='#888' height='18' width='18' x='41' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='61' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='101' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='141'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='141'></rect>
+          <text fill='#000' font-size='14.0px' x='190.0' y='156.0'>53</text>
+          <rect fill='#888' height='18' width='18' x='201' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='141'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='141'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='156.0'>107</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='361' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='141'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='141'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='161'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='176.0'>54</text>
+          <rect fill='#eee' height='18' width='18' x='41' y='161'></rect>
+          <text fill='#000' font-size='14.0px' x='50.0' y='176.0'>55</text>
+          <rect fill='#eee' height='18' width='18' x='61' y='161'></rect>
+          <text fill='#000' font-size='14.0px' x='70.0' y='176.0'>57</text>
+          <rect fill='#eee' height='18' width='18' x='81' y='161'></rect>
+          <text fill='#000' font-size='14.0px' x='90.0' y='176.0'>58</text>
+          <rect fill='#eee' height='18' width='18' x='101' y='161'></rect>
+          <text fill='#000' font-size='14.0px' x='110.0' y='176.0'>63</text>
+          <rect fill='#eee' height='18' width='18' x='121' y='161'></rect>
+          <text fill='#000' font-size='14.0px' x='130.0' y='176.0'>64</text>
+          <rect fill='#eee' height='18' width='18' x='141' y='161'></rect>
+          <text fill='#000' font-size='14.0px' x='150.0' y='176.0'>66</text>
+          <rect fill='#eee' height='18' width='18' x='161' y='161'></rect>
+          <text fill='#000' font-size='14.0px' x='170.0' y='176.0'>67</text>
+          <rect fill='#888' height='18' width='18' x='181' y='161'></rect>
+          <rect fill='#888' height='18' width='18' x='201' y='161'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='161'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='161'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='161'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='161'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='161'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='161'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='161'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='176.0'>135</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='361' y='161'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='555.0' y='176.0'>136</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='381' y='161'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='585.0' y='176.0'>138</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='401' y='161'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='615.0' y='176.0'>139</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='421' y='161'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='645.0' y='176.0'>144</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='441' y='161'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='675.0' y='176.0'>145</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='21' y='181'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='196.0'>56</text>
+          <rect fill='#888' height='18' width='18' x='41' y='181'></rect>
+          <rect fill='#eee' height='18' width='18' x='61' y='181'></rect>
+          <text fill='#000' font-size='14.0px' x='70.0' y='196.0'>59</text>
+          <rect fill='#888' height='18' width='18' x='81' y='181'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='181'></rect>
+          <text fill='#000' font-size='14.0px' x='110.0' y='196.0'>65</text>
+          <rect fill='#888' height='18' width='18' x='121' y='181'></rect>
+          <rect fill='#eee' height='18' width='18' x='141' y='181'></rect>
+          <text fill='#000' font-size='14.0px' x='150.0' y='196.0'>68</text>
+          <rect fill='#888' height='18' width='18' x='161' y='181'></rect>
+          <rect fill='#888' height='18' width='18' x='181' y='181'></rect>
+          <rect fill='#888' height='18' width='18' x='201' y='181'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='181'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='181'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='181'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='181'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='181'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='181'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='181'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='196.0'>137</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='361' y='181'></rect>
+          <rect fill='#eee' height='18' width='18' x='381' y='181'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='585.0' y='196.0'>140</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='401' y='181'></rect>
+          <rect fill='#eee' height='18' width='18' x='421' y='181'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='645.0' y='196.0'>146</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='441' y='181'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='201'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='216.0'>60</text>
+          <rect fill='#eee' height='18' width='18' x='41' y='201'></rect>
+          <text fill='#000' font-size='14.0px' x='50.0' y='216.0'>61</text>
+          <rect fill='#888' height='18' width='18' x='61' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='201'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='201'></rect>
+          <text fill='#000' font-size='14.0px' x='110.0' y='216.0'>69</text>
+          <rect fill='#eee' height='18' width='18' x='121' y='201'></rect>
+          <text fill='#000' font-size='14.0px' x='130.0' y='216.0'>70</text>
+          <rect fill='#888' height='18' width='18' x='141' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='181' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='201' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='201'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='201'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='216.0'>141</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='361' y='201'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='555.0' y='216.0'>142</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='381' y='201'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='201'></rect>
+          <rect fill='#eee' height='18' width='18' x='421' y='201'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='645.0' y='216.0'>150</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='441' y='201'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='675.0' y='216.0'>151</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='21' y='221'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='236.0'>62</text>
+          <rect fill='#888' height='18' width='18' x='41' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='61' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='221'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='221'></rect>
+          <text fill='#000' font-size='14.0px' x='110.0' y='236.0'>71</text>
+          <rect fill='#888' height='18' width='18' x='121' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='181' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='201' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='221'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='221'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='236.0'>143</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='361' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='221'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='221'></rect>
+          <rect fill='#eee' height='18' width='18' x='421' y='221'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='645.0' y='236.0'>152</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='441' y='221'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='241'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='256.0'>72</text>
+          <rect fill='#eee' height='18' width='18' x='41' y='241'></rect>
+          <text fill='#000' font-size='14.0px' x='50.0' y='256.0'>73</text>
+          <rect fill='#eee' height='18' width='18' x='61' y='241'></rect>
+          <text fill='#000' font-size='14.0px' x='70.0' y='256.0'>75</text>
+          <rect fill='#eee' height='18' width='18' x='81' y='241'></rect>
+          <text fill='#000' font-size='14.0px' x='90.0' y='256.0'>76</text>
+          <rect fill='#888' height='18' width='18' x='101' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='181' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='201' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='241'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='241'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='256.0'>153</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='361' y='241'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='555.0' y='256.0'>154</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='381' y='241'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='585.0' y='256.0'>156</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='401' y='241'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='615.0' y='256.0'>157</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='421' y='241'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='241'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='261'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='276.0'>74</text>
+          <rect fill='#888' height='18' width='18' x='41' y='261'></rect>
+          <rect fill='#eee' height='18' width='18' x='61' y='261'></rect>
+          <text fill='#000' font-size='14.0px' x='70.0' y='276.0'>77</text>
+          <rect fill='#888' height='18' width='18' x='81' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='101' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='181' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='201' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='261'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='261'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='276.0'>155</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='361' y='261'></rect>
+          <rect fill='#eee' height='18' width='18' x='381' y='261'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='585.0' y='276.0'>158</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='401' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='261'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='261'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='281'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='296.0'>78</text>
+          <rect fill='#eee' height='18' width='18' x='41' y='281'></rect>
+          <text fill='#000' font-size='14.0px' x='50.0' y='296.0'>79</text>
+          <rect fill='#888' height='18' width='18' x='61' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='101' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='181' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='201' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='281'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='281'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='296.0'>159</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='361' y='281'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='555.0' y='296.0'>160</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='381' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='281'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='281'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='301'></rect>
+          <text fill='#000' font-size='14.0px' x='30.0' y='316.0'>80</text>
+          <rect fill='#888' height='18' width='18' x='41' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='61' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='101' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='181' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='201' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='301'></rect>
+          <rect fill='#eee' height='18' width='18' x='341' y='301'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='525.0' y='316.0'>161</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='361' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='301'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='301'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='45.0' y='336.0'>162</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='41' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='75.0' y='336.0'>163</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='61' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='105.0' y='336.0'>165</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='81' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='135.0' y='336.0'>166</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='101' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='165.0' y='336.0'>171</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='121' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='195.0' y='336.0'>172</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='141' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='225.0' y='336.0'>174</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='161' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='255.0' y='336.0'>175</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='181' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='285.0' y='336.0'>189</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='201' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='315.0' y='336.0'>190</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='221' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='345.0' y='336.0'>192</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='241' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='375.0' y='336.0'>193</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='261' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='405.0' y='336.0'>198</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='281' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='435.0' y='336.0'>199</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='301' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='465.0' y='336.0'>201</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='321' y='321'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='495.0' y='336.0'>202</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='341' y='321'></rect>
+          <rect fill='#888' height='18' width='18' x='361' y='321'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='321'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='321'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='321'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='321'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='341'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='45.0' y='356.0'>164</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='41' y='341'></rect>
+          <rect fill='#eee' height='18' width='18' x='61' y='341'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='105.0' y='356.0'>167</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='81' y='341'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='341'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='165.0' y='356.0'>173</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='121' y='341'></rect>
+          <rect fill='#eee' height='18' width='18' x='141' y='341'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='225.0' y='356.0'>176</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='161' y='341'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='341'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='285.0' y='356.0'>191</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='201' y='341'></rect>
+          <rect fill='#eee' height='18' width='18' x='221' y='341'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='345.0' y='356.0'>194</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='241' y='341'></rect>
+          <rect fill='#eee' height='18' width='18' x='261' y='341'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='405.0' y='356.0'>200</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='281' y='341'></rect>
+          <rect fill='#eee' height='18' width='18' x='301' y='341'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='465.0' y='356.0'>203</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='321' y='341'></rect>
+          <rect fill='#888' height='18' width='18' x='341' y='341'></rect>
+          <rect fill='#888' height='18' width='18' x='361' y='341'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='341'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='341'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='341'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='341'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='361'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='45.0' y='376.0'>168</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='41' y='361'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='75.0' y='376.0'>169</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='61' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='361'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='361'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='165.0' y='376.0'>177</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='121' y='361'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='195.0' y='376.0'>178</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='141' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='361'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='361'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='285.0' y='376.0'>195</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='201' y='361'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='315.0' y='376.0'>196</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='221' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='361'></rect>
+          <rect fill='#eee' height='18' width='18' x='261' y='361'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='405.0' y='376.0'>204</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='281' y='361'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='435.0' y='376.0'>205</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='301' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='341' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='361' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='361'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='361'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='381'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='45.0' y='396.0'>170</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='41' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='61' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='81' y='381'></rect>
+          <rect fill='#eee' height='18' width='18' x='101' y='381'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='165.0' y='396.0'>179</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='121' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='381'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='381'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='285.0' y='396.0'>197</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='201' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='221' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='241' y='381'></rect>
+          <rect fill='#eee' height='18' width='18' x='261' y='381'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='405.0' y='396.0'>206</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='281' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='341' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='361' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='381'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='381'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='401'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='45.0' y='416.0'>180</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='41' y='401'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='75.0' y='416.0'>181</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='61' y='401'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='105.0' y='416.0'>183</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='81' y='401'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='135.0' y='416.0'>184</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='101' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='401'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='401'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='285.0' y='416.0'>207</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='201' y='401'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='315.0' y='416.0'>208</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='221' y='401'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='345.0' y='416.0'>210</text>
+          </g>
+          <rect fill='#eee' height='18' width='18' x='241' y='401'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='375.0' y='416.0'>211</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='261' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='341' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='361' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='401'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='401'></rect>
+          <rect fill='#eee' height='18' width='18' x='21' y='421'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='45.0' y='436.0'>182</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='41' y='421'></rect>
+          <rect fill='#eee' height='18' width='18' x='61' y='421'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='105.0' y='436.0'>185</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='81' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='101' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='121' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='141' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='161' y='421'></rect>
+          <rect fill='#eee' height='18' width='18' x='181' y='421'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='285.0' y='436.0'>209</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='201' y='421'></rect>
+          <rect fill='#eee' height='18' width='18' x='221' y='421'></rect>
+          <g transform='scale(0.6666666666666666,1)'>
+            <text fill='#000' font-size='14.0px' x='345.0' y='436.0'>212</text>
+          </g>
+          <rect fill='#888' height='18' width='18' x='241' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='261' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='281' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='301' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='321' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='341' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='361' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='381' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='401' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='421' y='421'></rect>
+          <rect fill='#888' height='18' width='18' x='441' y='421'></rect>
+        </g>
+      </svg>
+    </div>
+    <h2>問題の概要</h2>
+    <p>
+      右図のように(
+      あるいは
+      <a href='big.html'>大きな図</a>
+      のように)、0以上の整数が全て並んでいる。
+      <br>
+      並び方は
+    </p>
+    <ul>
+      <li>1×1 の集まりは、0→右へ→1→左下へ→2。3→右へ→4→左下へ→5。6→略</li>
+      <li>2×2 の集まりは、(0〜2)→右へ→(3〜5)→左下へ→(6〜8)。(9〜11)→略</li>
+      <li>4×4 の集まりは、(0〜8)→右へ→(9〜17)→左下へ→(18〜26)。(27〜35)→略</li>
+      <li>8×8 の集まりは、(0〜26)→右へ→(27〜53)→左下へ→(54〜80)。(81〜107)→略</li>
+      <li>16×16の集まり以降は略。</li>
+    </ul>
+    <p>
+      という具合。
+      <br>
+      で。
+      <br>
+      数を指定する。
+      <br>
+      その数の上下左右の隣の値を昇順に出力せよ。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>21</code>
+      <br>
+      こんな感じ。
+      <br>
+      ふつうに 10進数。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、入力で指定されたマスの隣接マスの数字を集めて、昇順にコンマ区切りで。
+      <br>
+      数字の入っていないマスは無視で。
+    </p>
+    <p>
+      先ほどの入力の場合、
+      <br>
+      <code>19,22,23</code>
+      <br>
+      と出力すればよい。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/705fa83cfbf20377b92f'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2017年7月1日に開催される オフラインリアルタイムどう書くE15 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/61418'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況へのリンク</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>21</code>
+        </td>
+        <td>
+          <code class='expected'>19,22,23</code>
+        </td>
+        <td>
+          <a href='figs.html#0'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>0</code>
+        </td>
+        <td>
+          <code class='expected'>1,2</code>
+        </td>
+        <td>
+          <a href='figs.html#1'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>1</code>
+        </td>
+        <td>
+          <code class='expected'>0,3</code>
+        </td>
+        <td>
+          <a href='figs.html#2'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>2</code>
+        </td>
+        <td>
+          <code class='expected'>0,6</code>
+        </td>
+        <td>
+          <a href='figs.html#3'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>3</code>
+        </td>
+        <td>
+          <code class='expected'>1,4,5</code>
+        </td>
+        <td>
+          <a href='figs.html#4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>4</code>
+        </td>
+        <td>
+          <code class='expected'>3,9</code>
+        </td>
+        <td>
+          <a href='figs.html#5'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>9</code>
+        </td>
+        <td>
+          <code class='expected'>4,10,11</code>
+        </td>
+        <td>
+          <a href='figs.html#6'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>15</code>
+        </td>
+        <td>
+          <code class='expected'>11,16,17</code>
+        </td>
+        <td>
+          <a href='figs.html#7'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>27</code>
+        </td>
+        <td>
+          <code class='expected'>13,28,29</code>
+        </td>
+        <td>
+          <a href='figs.html#8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>32</code>
+        </td>
+        <td>
+          <code class='expected'>30</code>
+        </td>
+        <td>
+          <a href='figs.html#9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>47</code>
+        </td>
+        <td>
+          <code class='expected'>45,51</code>
+        </td>
+        <td>
+          <a href='figs.html#10'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>65</code>
+        </td>
+        <td>
+          <code class='expected'>63,69</code>
+        </td>
+        <td>
+          <a href='figs.html#11'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>80</code>
+        </td>
+        <td>
+          <code class='expected'>78,162</code>
+        </td>
+        <td>
+          <a href='figs.html#12'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>199</code>
+        </td>
+        <td>
+          <code class='expected'>198,201</code>
+        </td>
+        <td>
+          <a href='figs.html#13'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>204</code>
+        </td>
+        <td>
+          <code class='expected'>200,205,206</code>
+        </td>
+        <td>
+          <a href='figs.html#14'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>243</code>
+        </td>
+        <td>
+          <code class='expected'>121,244,245</code>
+        </td>
+        <td>
+          <a href='figs.html#15'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>493</code>
+        </td>
+        <td>
+          <code class='expected'>492</code>
+        </td>
+        <td>
+          <a href='figs.html#16'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>508</code>
+        </td>
+        <td>
+          <code class='expected'>507</code>
+        </td>
+        <td>
+          <a href='figs.html#17'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>728</code>
+        </td>
+        <td>
+          <code class='expected'>726,1458</code>
+        </td>
+        <td>
+          <a href='figs.html#18'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>793</code>
+        </td>
+        <td>
+          <code class='expected'>792,795</code>
+        </td>
+        <td>
+          <a href='figs.html#19'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>902</code>
+        </td>
+        <td>
+          <code class='expected'>900,906</code>
+        </td>
+        <td>
+          <a href='figs.html#20'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>981</code>
+        </td>
+        <td>
+          <code class='expected'>976,982,983</code>
+        </td>
+        <td>
+          <a href='figs.html#21'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>1093</code>
+        </td>
+        <td>
+          <code class='expected'>1092,2187</code>
+        </td>
+        <td>
+          <a href='figs.html#22'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>1202</code>
+        </td>
+        <td>
+          <code class='expected'>1200</code>
+        </td>
+        <td>
+          <a href='figs.html#23'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>1300</code>
+        </td>
+        <td>
+          <code class='expected'>1299,1305</code>
+        </td>
+        <td>
+          <a href='figs.html#24'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>1962</code>
+        </td>
+        <td>
+          <code class='expected'>1952,1963,1964</code>
+        </td>
+        <td>
+          <a href='figs.html#25'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>2188</code>
+        </td>
+        <td>
+          <code class='expected'>2187,2190</code>
+        </td>
+        <td>
+          <a href='figs.html#26'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>2405</code>
+        </td>
+        <td>
+          <code class='expected'>2403,2409</code>
+        </td>
+        <td>
+          <a href='figs.html#27'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>3326</code>
+        </td>
+        <td>
+          <code class='expected'>3324</code>
+        </td>
+        <td>
+          <a href='figs.html#28'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>6561</code>
+        </td>
+        <td>
+          <code class='expected'>3280,6562,6563</code>
+        </td>
+        <td>
+          <a href='figs.html#29'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>6612</code>
+        </td>
+        <td>
+          <code class='expected'>6608,6613,6614</code>
+        </td>
+        <td>
+          <a href='figs.html#30'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>7058</code>
+        </td>
+        <td>
+          <code class='expected'>7056,7062</code>
+        </td>
+        <td>
+          <a href='figs.html#31'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>8444</code>
+        </td>
+        <td>
+          <code class='expected'>8442,8448</code>
+        </td>
+        <td>
+          <a href='figs.html#32'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>9841</code>
+        </td>
+        <td>
+          <code class='expected'>9840,19683</code>
+        </td>
+        <td>
+          <a href='figs.html#33'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>15243</code>
+        </td>
+        <td>
+          <code class='expected'>15239,15244,15245</code>
+        </td>
+        <td>
+          <a href='figs.html#34'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>19946</code>
+        </td>
+        <td>
+          <code class='expected'>19944,19950</code>
+        </td>
+        <td>
+          <a href='figs.html#35'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>21148</code>
+        </td>
+        <td>
+          <code class='expected'>21147</code>
+        </td>
+        <td>
+          <a href='figs.html#36'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code class='src'>39365</code>
+        </td>
+        <td>
+          <code class='expected'>39363</code>
+        </td>
+        <td>
+          <a href='figs.html#37'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code class='src'>39366</code>
+        </td>
+        <td>
+          <code class='expected'>19682,39367,39368</code>
+        </td>
+        <td>
+          <a href='figs.html#38'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code class='src'>55694</code>
+        </td>
+        <td>
+          <code class='expected'>55692,55698</code>
+        </td>
+        <td>
+          <a href='figs.html#39'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code class='src'>57245</code>
+        </td>
+        <td>
+          <code class='expected'>57243</code>
+        </td>
+        <td>
+          <a href='figs.html#40'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code class='src'>66430</code>
+        </td>
+        <td>
+          <code class='expected'>66429,66432</code>
+        </td>
+        <td>
+          <a href='figs.html#41'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code class='src'>92740</code>
+        </td>
+        <td>
+          <code class='expected'>92739</code>
+        </td>
+        <td>
+          <a href='figs.html#42'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code class='src'>115250</code>
+        </td>
+        <td>
+          <code class='expected'>115248</code>
+        </td>
+        <td>
+          <a href='figs.html#43'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code class='src'>163031</code>
+        </td>
+        <td>
+          <code class='expected'>163029</code>
+        </td>
+        <td>
+          <a href='figs.html#44'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code class='src'>221143</code>
+        </td>
+        <td>
+          <code class='expected'>221142,221157</code>
+        </td>
+        <td>
+          <a href='figs.html#45'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code class='src'>410353</code>
+        </td>
+        <td>
+          <code class='expected'>410352</code>
+        </td>
+        <td>
+          <a href='figs.html#46'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td class='sample'>
+          <code class='src'>412649</code>
+        </td>
+        <td>
+          <code class='expected'>412647,412659</code>
+        </td>
+        <td>
+          <a href='figs.html#47'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td class='sample'>
+          <code class='src'>550391</code>
+        </td>
+        <td>
+          <code class='expected'>550389</code>
+        </td>
+        <td>
+          <a href='figs.html#48'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td class='sample'>
+          <code class='src'>699921</code>
+        </td>
+        <td>
+          <code class='expected'>699880,699922,699923</code>
+        </td>
+        <td>
+          <a href='figs.html#49'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td class='sample'>
+          <code class='src'>797161</code>
+        </td>
+        <td>
+          <code class='expected'>797160,1594323</code>
+        </td>
+        <td>
+          <a href='figs.html#50'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td class='sample'>
+          <code class='src'>1000000</code>
+        </td>
+        <td>
+          <code class='expected'>999999,1000002</code>
+        </td>
+        <td>
+          <a href='figs.html#51'>リンク</a>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "21", "19,22,23" );    
+/*1*/ test( "0", "1,2" );    
+/*2*/ test( "1", "0,3" );    
+/*3*/ test( "2", "0,6" );    
+/*4*/ test( "3", "1,4,5" );    
+/*5*/ test( "4", "3,9" );    
+/*6*/ test( "9", "4,10,11" );    
+/*7*/ test( "15", "11,16,17" );    
+/*8*/ test( "27", "13,28,29" );    
+/*9*/ test( "32", "30" );    
+/*10*/ test( "47", "45,51" );    
+/*11*/ test( "65", "63,69" );    
+/*12*/ test( "80", "78,162" );    
+/*13*/ test( "199", "198,201" );    
+/*14*/ test( "204", "200,205,206" );    
+/*15*/ test( "243", "121,244,245" );    
+/*16*/ test( "493", "492" );    
+/*17*/ test( "508", "507" );    
+/*18*/ test( "728", "726,1458" );    
+/*19*/ test( "793", "792,795" );    
+/*20*/ test( "902", "900,906" );    
+/*21*/ test( "981", "976,982,983" );    
+/*22*/ test( "1093", "1092,2187" );    
+/*23*/ test( "1202", "1200" );    
+/*24*/ test( "1300", "1299,1305" );    
+/*25*/ test( "1962", "1952,1963,1964" );    
+/*26*/ test( "2188", "2187,2190" );    
+/*27*/ test( "2405", "2403,2409" );    
+/*28*/ test( "3326", "3324" );    
+/*29*/ test( "6561", "3280,6562,6563" );    
+/*30*/ test( "6612", "6608,6613,6614" );    
+/*31*/ test( "7058", "7056,7062" );    
+/*32*/ test( "8444", "8442,8448" );    
+/*33*/ test( "9841", "9840,19683" );    
+/*34*/ test( "15243", "15239,15244,15245" );    
+/*35*/ test( "19946", "19944,19950" );    
+/*36*/ test( "21148", "21147" );    
+/*37*/ test( "39365", "39363" );    
+/*38*/ test( "39366", "19682,39367,39368" );    
+/*39*/ test( "55694", "55692,55698" );    
+/*40*/ test( "57245", "57243" );    
+/*41*/ test( "66430", "66429,66432" );    
+/*42*/ test( "92740", "92739" );    
+/*43*/ test( "115250", "115248" );    
+/*44*/ test( "163031", "163029" );    
+/*45*/ test( "221143", "221142,221157" );    
+/*46*/ test( "410353", "410352" );    
+/*47*/ test( "412649", "412647,412659" );    
+/*48*/ test( "550391", "550389" );    
+/*49*/ test( "699921", "699880,699922,699923" );    
+/*50*/ test( "797161", "797160,1594323" );    
+/*51*/ test( "1000000", "999999,1000002" );</textarea>
+  </head>
+</html>

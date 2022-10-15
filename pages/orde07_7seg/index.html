@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>7セグパネルがよく見えない 横へな2016.9.3 問題</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      float_right{
+       float:right;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+      td.bigcell{
+        width:25mm;
+        height:25mm;
+        font-size:18mm;
+        border:solid black 0.5mm
+      }
+      table.big td{
+        font-size:9mm;
+        border:solid black 0.5mm
+      }
+      div.top img{
+        width:80px;
+      }
+      table.big img{
+        width:120px;
+        height:120px;
+       }
+       td.sample img{
+        width:60px;
+        height:60px;
+       }
+      table.nabenum tr td
+      {
+        background-color:#444;
+        padding:0 0 0 0;
+        margin:0 0 0 0;
+      }
+      table.nabenum
+      {
+        padding:1mm 2mm 1mm 2mm;
+        background-color:#444;
+      }
+      table.nabenum .c0{
+        width:4px;
+      }
+      table.nabenum .c1{
+        width:15px;
+      }
+      table.nabenum .c2{
+        width:4px;
+      }
+      table.nabenum tr.n0 td{
+        height:4px;
+      }
+      table.nabenum tr.n1 td{
+        height:15px;
+      }
+      table.nabenum tr.n2 td{
+        height:4px;
+      }
+      table.nabenum tr.n3 td{
+        height:15px;
+      }
+      table.nabenum tr.n4 td{
+        height:4px;
+      }
+      table.nabenum td.off{
+        background-color:black;
+      }
+      table.nabenum td.on{
+        background-color:white;
+      }
+      table.nabenum td.nazo{
+        background-color:#f00;
+      }
+      div.nabe{
+        float:right;
+        width:200px;
+        background-color:#eee;
+        text-align:center;
+      }
+      .nabe_c{
+        text-align:center;
+        }
+    </style>
+    <body></body>
+    <h1>7セグパネルがよく見えない 横へな2016.9.3 問題</h1>
+    <h2>問題の概要</h2>
+    <div class='nabe'>
+      ランプの位置と
+      <br>
+      ビットの対応関係
+      <br>
+      <img class='nabe' src='data:image/png;base64,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' style='width:160px'>
+      <br>
+      図中の数字は 16進数
+    </div>
+    <p>
+      あなたは、遠くの塔の上にある 7セグのパネルを望遠鏡で観察しています。
+      <br>
+      パネルの一部は木の影になっていてよく見えません。
+      <br>
+      それでもあなたはパネルに何が表示されているのかを推測しなくてはいけません。
+    </p>
+    <h2>詳細</h2>
+    <p>
+      パネルには
+      <a href='https://ja.wikipedia.org/wiki/7%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4'>7セグ</a>
+      の表示装置があります。桁数は入力によって異なります。
+      <br>
+      7セグ の部品には7つのランプがあります。
+      <br>
+      各部品は
+    </p>
+    <ul>
+      <li>点灯</li>
+      <li>非点灯</li>
+    </ul>
+    <p>
+      の状態のいずれかになっているはずですが、観察しているあなたから見ると「不明」であることもあります。
+    </p>
+    <p>
+      ランプの点灯/非点灯 の状態は 16進数2桁で表現されます。ランプと各ビットの対応関係は右図のとおりです：
+    </p>
+    <p>
+      各数字は、正しく表示されると下表のようになります：
+    </p>
+    <table class='nabe'>
+      <tr>
+        <th>数字</th>
+        <td class='nabe_c'>0</td>
+        <td class='nabe_c'>1</td>
+        <td class='nabe_c'>2</td>
+        <td class='nabe_c'>3</td>
+        <td class='nabe_c'>4</td>
+        <td class='nabe_c'>5</td>
+        <td class='nabe_c'>6</td>
+        <td class='nabe_c'>7</td>
+        <td class='nabe_c'>8</td>
+        <td class='nabe_c'>9</td>
+      </tr>
+      <tr>
+        <th>表示（点灯が白）</th>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+        <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+          <colgroup class='c1'></colgroup>
+          <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+      </tr>
+      <tr>
+        <th>点灯箇所の ビットパターン (16進数)</th>
+        <td class='nabe_c'>3f</td>
+        <td class='nabe_c'>06</td>
+        <td class='nabe_c'>5b</td>
+        <td class='nabe_c'>4f</td>
+        <td class='nabe_c'>66</td>
+        <td class='nabe_c'>6d</td>
+        <td class='nabe_c'>7d</td>
+        <td class='nabe_c'>27</td>
+        <td class='nabe_c'>7f</td>
+        <td class='nabe_c'>6f</td>
+      </tr>
+      <tr>
+        <th>非点灯箇所の ビットパターン (16進数)</th>
+        <td class='nabe_c'>40</td>
+        <td class='nabe_c'>79</td>
+        <td class='nabe_c'>24</td>
+        <td class='nabe_c'>30</td>
+        <td class='nabe_c'>19</td>
+        <td class='nabe_c'>12</td>
+        <td class='nabe_c'>02</td>
+        <td class='nabe_c'>58</td>
+        <td class='nabe_c'>00</td>
+        <td class='nabe_c'>10</td>
+      </tr>
+    </table>
+    <p>
+      数字は、右詰めで空白なしで表示されています。右端には空白はありませんが、左端には空白があるかもしれません。
+      <br>
+      一桁の「0」の場合を除いて、先頭に 0 が来ることはありません。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>06:4b:46:64:6d,79:20:10:10:02</code>
+      <br>
+      こんな感じ。コンマの前で立っているビットが「点灯」を示し、コンマの後で立っているビットが「非点灯」を示します。
+      <br>
+      各部はコロン区切りになっていて、16進数2桁で7セグの部品ひとつを示しています。
+      <br>
+      「点灯」と「非点灯」の両方でビットが立っていない箇所は「不明」です。
+      <br>
+      「点灯」と「非点灯」の両方でビットが立っている箇所は、ないはずです。もしあったら出題者のミスです。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、表示されれている可能性がある数値のうち、最大値と最小値をコンマ区切りで。
+      <br>
+      <code>12345,13996</code>
+      <br>
+      こんな感じ。
+      <br>
+      ただし、表示されている可能性がある数値がひとつもない場合には、
+      <code>-</code>
+      を出力して下さい。
+      <br>
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>先頭に符号がついたりはしません。小数点もありません。</li>
+      <li>不正な入力に対処する必要はありません。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/6e7a6fadbfaa4ae20e89'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2016年9月3日に開催される オフラインリアルタイムどう書くE07 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/50652'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <p>
+      黒が非点灯、白が点灯、赤が不明 を意味します。
+    </p>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>06:4b:46:64:6d,79:20:10:10:02</code>
+        </td>
+        <td>
+          <code class='expected'>12345,13996</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>41:00,3e:01</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>00:00,79:79</code>
+        </td>
+        <td>
+          <code class='expected'>1,11</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>02:4b:46:64,20:20:10:10</code>
+        </td>
+        <td>
+          <code class='expected'>1234,3399</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>06:2f:3f:27,40:00:00:40</code>
+        </td>
+        <td>
+          <code class='expected'>1000,7987</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>00:3d:2d:26,00:00:00:00</code>
+        </td>
+        <td>
+          <code class='expected'>600,9899</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>40:20:10,00:00:00</code>
+        </td>
+        <td>
+          <code class='expected'>200,998</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>00:00:00,40:20:10</code>
+        </td>
+        <td>
+          <code class='expected'>1,739</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>08:04:02:01,00:00:00:00</code>
+        </td>
+        <td>
+          <code class='expected'>2000,9999</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>00:00:00:00,08:04:02:01</code>
+        </td>
+        <td>
+          <code class='expected'>1,7264</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>08:04:02:01,01:02:04:08</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>04:02:01,02:04:08</code>
+        </td>
+        <td>
+          <code class='expected'>527,627</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>04:02:01:40:10,02:04:08:10:20</code>
+        </td>
+        <td>
+          <code class='expected'>52732,62792</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>00:30:07,00:01:10</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>37,00</code>
+        </td>
+        <td>
+          <code class='expected'>0,8</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>3f,40</code>
+        </td>
+        <td>
+          <code class='expected'>0,0</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>3f:3f,40:40</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>00:3f,40:40</code>
+        </td>
+        <td>
+          <code class='expected'>0,70</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>00:3f,38:00</code>
+        </td>
+        <td>
+          <code class='expected'>0,18</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>18,07</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>08,10</code>
+        </td>
+        <td>
+          <code class='expected'>3,9</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>42,11</code>
+        </td>
+        <td>
+          <code class='expected'>4,4</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>18,05</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>10:00,0b:33</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>14:02,00:30</code>
+        </td>
+        <td>
+          <code class='expected'>61,83</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>00:1a,3d:04</code>
+        </td>
+        <td>
+          <code class='expected'>2,2</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>00:28,38:40</code>
+        </td>
+        <td>
+          <code class='expected'>0,10</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>20:08:12,4f:37:24</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>02:4c:18,00:00:04</code>
+        </td>
+        <td>
+          <code class='expected'>132,992</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>4a:7a:02,10:00:30</code>
+        </td>
+        <td>
+          <code class='expected'>381,983</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>00:00:06,0b:11:08</code>
+        </td>
+        <td>
+          <code class='expected'>1,47</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>04:20:2c:14,39:08:50:09</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>02:06:02:02,00:31:18:11</code>
+        </td>
+        <td>
+          <code class='expected'>1111,9174</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>00:04:48:50,03:02:20:02</code>
+        </td>
+        <td>
+          <code class='expected'>526,636</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>00:58:42:40,00:20:08:12</code>
+        </td>
+        <td>
+          <code class='expected'>245,9245</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>08:08:60:00:32,76:67:02:16:04</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>00:00:00:08:02,06:1a:3b:20:11</code>
+        </td>
+        <td>
+          <code class='expected'>21,34</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code class='src'>08:58:12:06:12,10:20:20:00:04</code>
+        </td>
+        <td>
+          <code class='expected'>32202,92292</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code class='src'>00:10:74:4e:10,10:04:02:00:24</code>
+        </td>
+        <td>
+          <code class='expected'>2632,92692</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code class='src'>44:76:0a:00:0c:44,39:08:11:09:02:11</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code class='src'>00:00:44:0a:04:00,79:06:02:04:79:28</code>
+        </td>
+        <td>
+          <code class='expected'>5211,6211</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code class='src'>30:02:02:2c:0e:02,00:08:04:02:20:01</code>
+        </td>
+        <td>
+          <code class='expected'>612531,872634</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code class='src'>00:00:04:10:00:60,25:19:01:02:24:00</code>
+        </td>
+        <td>
+          <code class='expected'>1624,44629</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code class='src'>04:18:54:38:00:14:70,10:65:09:01:6c:00:0d</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code class='src'>18:04:26:20:04:24:1a,02:21:50:48:02:08:00</code>
+        </td>
+        <td>
+          <code class='expected'>6177540,6177678</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code class='src'>00:08:34:00:00:64:06,18:24:02:00:61:08:61</code>
+        </td>
+        <td>
+          <code class='expected'>260141,7269141</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='on'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code class='src'>00:02:0a:04:4a:00:20,18:21:24:02:04:60:19</code>
+        </td>
+        <td>
+          <code class='expected'>125214,7126214</code>
+        </td>
+        <td class='sample'>
+          <table>
+            <tr>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='nazo'></td><td class='nolamp'></td><td class='on'></td></tr><tr class='n2'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='off'></td></tr><tr class='n4'><td class='nolamp'></td><td class='on'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n1'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n3'><td class='nazo'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr></table></td>
+              <td class='nabe_digiback'><table class='nabenum'><colgroup class='c0'></colgroup>
+                <colgroup class='c1'></colgroup>
+                <colgroup class='c2'></colgroup><tr class='n0'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr><tr class='n1'><td class='on'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n2'><td class='nolamp'></td><td class='nazo'></td><td class='nolamp'></td></tr><tr class='n3'><td class='off'></td><td class='nolamp'></td><td class='nazo'></td></tr><tr class='n4'><td class='nolamp'></td><td class='off'></td><td class='nolamp'></td></tr></table></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "06:4b:46:64:6d,79:20:10:10:02", "12345,13996" );    
+/*1*/ test( "41:00,3e:01", "-" );    
+/*2*/ test( "00:00,79:79", "1,11" );    
+/*3*/ test( "02:4b:46:64,20:20:10:10", "1234,3399" );    
+/*4*/ test( "06:2f:3f:27,40:00:00:40", "1000,7987" );    
+/*5*/ test( "00:3d:2d:26,00:00:00:00", "600,9899" );    
+/*6*/ test( "40:20:10,00:00:00", "200,998" );    
+/*7*/ test( "00:00:00,40:20:10", "1,739" );    
+/*8*/ test( "08:04:02:01,00:00:00:00", "2000,9999" );    
+/*9*/ test( "00:00:00:00,08:04:02:01", "1,7264" );    
+/*10*/ test( "08:04:02:01,01:02:04:08", "-" );    
+/*11*/ test( "04:02:01,02:04:08", "527,627" );    
+/*12*/ test( "04:02:01:40:10,02:04:08:10:20", "52732,62792" );    
+/*13*/ test( "00:30:07,00:01:10", "-" );    
+/*14*/ test( "37,00", "0,8" );    
+/*15*/ test( "3f,40", "0,0" );    
+/*16*/ test( "3f:3f,40:40", "-" );    
+/*17*/ test( "00:3f,40:40", "0,70" );    
+/*18*/ test( "00:3f,38:00", "0,18" );    
+/*19*/ test( "18,07", "-" );    
+/*20*/ test( "08,10", "3,9" );    
+/*21*/ test( "42,11", "4,4" );    
+/*22*/ test( "18,05", "-" );    
+/*23*/ test( "10:00,0b:33", "-" );    
+/*24*/ test( "14:02,00:30", "61,83" );    
+/*25*/ test( "00:1a,3d:04", "2,2" );    
+/*26*/ test( "00:28,38:40", "0,10" );    
+/*27*/ test( "20:08:12,4f:37:24", "-" );    
+/*28*/ test( "02:4c:18,00:00:04", "132,992" );    
+/*29*/ test( "4a:7a:02,10:00:30", "381,983" );    
+/*30*/ test( "00:00:06,0b:11:08", "1,47" );    
+/*31*/ test( "04:20:2c:14,39:08:50:09", "-" );    
+/*32*/ test( "02:06:02:02,00:31:18:11", "1111,9174" );    
+/*33*/ test( "00:04:48:50,03:02:20:02", "526,636" );    
+/*34*/ test( "00:58:42:40,00:20:08:12", "245,9245" );    
+/*35*/ test( "08:08:60:00:32,76:67:02:16:04", "-" );    
+/*36*/ test( "00:00:00:08:02,06:1a:3b:20:11", "21,34" );    
+/*37*/ test( "08:58:12:06:12,10:20:20:00:04", "32202,92292" );    
+/*38*/ test( "00:10:74:4e:10,10:04:02:00:24", "2632,92692" );    
+/*39*/ test( "44:76:0a:00:0c:44,39:08:11:09:02:11", "-" );    
+/*40*/ test( "00:00:44:0a:04:00,79:06:02:04:79:28", "5211,6211" );    
+/*41*/ test( "30:02:02:2c:0e:02,00:08:04:02:20:01", "612531,872634" );    
+/*42*/ test( "00:00:04:10:00:60,25:19:01:02:24:00", "1624,44629" );    
+/*43*/ test( "04:18:54:38:00:14:70,10:65:09:01:6c:00:0d", "-" );    
+/*44*/ test( "18:04:26:20:04:24:1a,02:21:50:48:02:08:00", "6177540,6177678" );    
+/*45*/ test( "00:08:34:00:00:64:06,18:24:02:00:61:08:61", "260141,7269141" );    
+/*46*/ test( "00:02:0a:04:4a:00:20,18:21:24:02:04:60:19", "125214,7126214" );</textarea>
+  </head>
+</html>

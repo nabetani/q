@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>めぐるセル 横へな 2014.9.6 問題</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img{ width:120px }
+      img.large{ width:360px }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+        max-height:80px;
+        max-width:80px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>めぐるセル 横へな 2014.9.6 問題</h1>
+    <h2>問題</h2>
+    <p>
+      5×5 の盤面に、左上から順に a〜y の文字が振られている。
+      <br>
+      <code>cq</code>
+      のように2つの文字を指定する。
+      <br>
+      この2文字を頂点とした矩形を考える。
+      <br>
+      この矩形に隣接（斜め含む）するセルを、時計回りに回す。
+      <br>
+      ……という操作を繰り返す。
+      <br>
+      下図のような感じ：
+      <br>
+      <img class='large' src='Lab_gg_uj_pt_an_ir_rr.gif'>
+      <br>
+      で。
+      <br>
+      最後の操作によっと位置が変わったセルの名前を、アルファベット順に答えよ。
+    </p>
+    <h2>入力と詳細</h2>
+    <p>
+      入力は
+      <br>
+      <code>ab,gg,uj,pt,an,ir,rr</code>
+      <br>
+      こんな感じ。この入力は上記のアニメーションに対応している。
+      <br>
+      見ての通り、コンマ区切りで、アルファベット2文字で表現された操作が並んでいる。
+    </p>
+    <h2>出力</h2>
+    <p>
+      最後の操作によっと位置が変わったセルの名前を、アルファベット順に整列したもの。
+      <br>
+      ただし、最後の操作でひとつも動かなかった場合は、
+      <code>none</code>
+      を返す。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        操作は必ずひとつ以上ある。
+      </li>
+      <li>
+        操作が
+        <code>aa</code>
+        のように同じ文字が2つの場合は、その文字のあるひとマスだけの矩形となる。
+      </li>
+      <li>
+        初期盤面で
+        <code>eu</code>
+        と指定された場合などは、回すべきマスがない。
+      </li>
+      <li>
+        <code>ab,zz</code>
+        や
+        <code>a,b,cde</code>
+        のような不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/636fce060e1ebbc95f9b'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2014年9月6日に開催される 第25回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='http://yhpg.doorkeeper.jp/events/13947'>
+          Doorkeeper のページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code>ab,gg,uj,pt,an,ir,rr</code>
+        </td>
+        <td>
+          <code class='expected'>hpqsvwxy</code>
+        </td>
+        <td>
+          <button id='ab_gg_uj_pt_an_ir_rr.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code>gs,ok</code>
+        </td>
+        <td>
+          <code class='expected'>abcdftvwxy</code>
+        </td>
+        <td>
+          <button id='gs_ok.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code>gs,sg,ok</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+        <td>
+          <button id='gs_sg_ok.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code>aa,bb,hh,nn</code>
+        </td>
+        <td>
+          <code class='expected'>hiostwxy</code>
+        </td>
+        <td>
+          <button id='aa_bb_hh_nn.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code>ae,ko,uy,cw</code>
+        </td>
+        <td>
+          <code class='expected'>bdgilnqsvx</code>
+        </td>
+        <td>
+          <button id='ae_ko_uy_cw.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code>am,gs,am,gs,am,gs,am,gs</code>
+        </td>
+        <td>
+          <code class='expected'>cfhkmqrvwx</code>
+        </td>
+        <td>
+          <button id='am_gs_am_gs_am_gs_am_gs.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code>ay</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+        <td>
+          <button id='ay.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code>gs,ay</code>
+        </td>
+        <td>
+          <code class='expected'>defjkoptuv</code>
+        </td>
+        <td>
+          <button id='gs_ay.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code>bx,ay</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+        <td>
+          <button id='bx_ay.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code>ft,ay</code>
+        </td>
+        <td>
+          <code class='expected'>defjkoptuv</code>
+        </td>
+        <td>
+          <button id='ft_ay.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code>ab,cd,ef,gh,ij,kl,mn,op,qr,st,uv,wx</code>
+        </td>
+        <td>
+          <code class='expected'>cdjmnry</code>
+        </td>
+        <td>
+          <button id='ab_cd_ef_gh_ij_kl_mn_op_qr_st_uv_wx.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code>wx,uv,st,qr,op,mn,kl,ij,gh,ef,cd,ab</code>
+        </td>
+        <td>
+          <code class='expected'>kmoxy</code>
+        </td>
+        <td>
+          <button id='wx_uv_st_qr_op_mn_kl_ij_gh_ef_cd_ab.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code>am,cj,ac,em,ss,cy,aa,ee,ff,vp</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+        <td>
+          <button id='am_cj_ac_em_ss_cy_aa_ee_ff_vp.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code>uf,oq,gn,ss,ca,hv,ej</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+        <td>
+          <button id='uf_oq_gn_ss_ca_hv_ej.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code>cc,wk,uu,ws,bk,aa,vv</code>
+        </td>
+        <td>
+          <code class='expected'>bei</code>
+        </td>
+        <td>
+          <button id='cc_wk_uu_ws_bk_aa_vv.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code>tr,ou,ll,pp,jh,vf,yy,nr,rr,oo</code>
+        </td>
+        <td>
+          <code class='expected'>rxy</code>
+        </td>
+        <td>
+          <button id='tr_ou_ll_pp_jh_vf_yy_nr_rr_oo.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code>ky,ov,ri,qm,nn,ee,ws,em,ca,ak</code>
+        </td>
+        <td>
+          <code class='expected'>biju</code>
+        </td>
+        <td>
+          <button id='ky_ov_ri_qm_nn_ee_ws_em_ca_ak.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code>ty</code>
+        </td>
+        <td>
+          <code class='expected'>nosx</code>
+        </td>
+        <td>
+          <button id='ty.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code>ll,uh,hq,ss,nx,ry,ku,ab,jj</code>
+        </td>
+        <td>
+          <code class='expected'>efouv</code>
+        </td>
+        <td>
+          <button id='ll_uh_hq_ss_nx_ry_ku_ab_jj.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code>yl,mu,qj,ss,ep</code>
+        </td>
+        <td>
+          <code class='expected'>mnqru</code>
+        </td>
+        <td>
+          <button id='yl_mu_qj_ss_ep.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code>kj,ee,qk</code>
+        </td>
+        <td>
+          <code class='expected'>fglruv</code>
+        </td>
+        <td>
+          <button id='kj_ee_qk.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code>xi,wd,hf</code>
+        </td>
+        <td>
+          <code class='expected'>ciknqr</code>
+        </td>
+        <td>
+          <button id='xi_wd_hf.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code>fx,ak,cc,ce</code>
+        </td>
+        <td>
+          <code class='expected'>bdhijnp</code>
+        </td>
+        <td>
+          <button id='fx_ak_cc_ce.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code>li,jf,pp,qm,hg,sf</code>
+        </td>
+        <td>
+          <code class='expected'>akntuwx</code>
+        </td>
+        <td>
+          <button id='li_jf_pp_qm_hg_sf.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code>jw</code>
+        </td>
+        <td>
+          <code class='expected'>bcdeglqv</code>
+        </td>
+        <td>
+          <button id='jw.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code>uk,oe,xr</code>
+        </td>
+        <td>
+          <code class='expected'>dglmoqsy</code>
+        </td>
+        <td>
+          <button id='uk_oe_xr.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code>bb,ov,pd,dd,xk,is,hh,xd,xx,kq,pp,ku</code>
+        </td>
+        <td>
+          <code class='expected'>cfhjopqvy</code>
+        </td>
+        <td>
+          <button id='bb_ov_pd_dd_xk_is_hh_xd_xx_kq_pp_ku.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code>iq,fn,il,ww,ox,la,or,ga,wg,ef,us</code>
+        </td>
+        <td>
+          <code class='expected'>cfgjopvxy</code>
+        </td>
+        <td>
+          <button id='iq_fn_il_ww_ox_la_or_ga_wg_ef_us.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code>km,po</code>
+        </td>
+        <td>
+          <code class='expected'>abcdenqrst</code>
+        </td>
+        <td>
+          <button id='km_po.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code>tc,mh,cw</code>
+        </td>
+        <td>
+          <code class='expected'>abefjkoptu</code>
+        </td>
+        <td>
+          <button id='tc_mh_cw.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code>fm,jx,xx,pi,gs,au,uq,ut,ap,vb</code>
+        </td>
+        <td>
+          <code class='expected'>cdghjmortux</code>
+        </td>
+        <td>
+          <button id='fm_jx_xx_pi_gs_au_uq_ut_ap_vb.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code>ik,xl,si</code>
+        </td>
+        <td>
+          <code class='expected'>abcdflorvwx</code>
+        </td>
+        <td>
+          <button id='ik_xl_si.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code>nu,cc,lv,bu,tt,ww,xk,ia,in,sa,my</code>
+        </td>
+        <td>
+          <code class='expected'>abcefgpqrstu</code>
+        </td>
+        <td>
+          <button id='nu_cc_lv_bu_tt_ww_xk_ia_in_sa_my.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code>tt,ak,xh,tk,oo,yr,na,yv,gm,vh</code>
+        </td>
+        <td>
+          <code class='expected'>degiklmnquwx</code>
+        </td>
+        <td>
+          <button id='tt_ak_xh_tk_oo_yr_na_yv_gm_vh.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code>kk,ob,kk,fm,xk</code>
+        </td>
+        <td>
+          <code class='expected'>acdegjlopqruy</code>
+        </td>
+        <td>
+          <button id='kk_ob_kk_fm_xk.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code>uq,ko,pf,yy,ig,tu,ve,ve,qy,mh,oo,dv</code>
+        </td>
+        <td>
+          <code class='expected'>befjkoqrtuwxy</code>
+        </td>
+        <td>
+          <button id='uq_ko_pf_yy_ig_tu_ve_ve_qy_mh_oo_dv.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code>aj,hb,ar,ii,np,ki,hg,vd</code>
+        </td>
+        <td>
+          <code class='expected'>cefhjlmopqtwxy</code>
+        </td>
+        <td>
+          <button id='aj_hb_ar_ii_np_ki_hg_vd.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code>vv,sf,ww,my,mm,sq,fb,ly,fu,ls</code>
+        </td>
+        <td>
+          <code class='expected'>bfghkmnptuvwxy</code>
+        </td>
+        <td>
+          <button id='vv_sf_ww_my_mm_sq_fb_ly_fu_ls.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code>jj,bp,gs</code>
+        </td>
+        <td>
+          <code class='expected'>abdefijkprtuvwxy</code>
+        </td>
+        <td>
+          <button id='jj_bp_gs.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code>sv,sn,mn,gn,gi</code>
+        </td>
+        <td>
+          <code class='expected'>abcdefhjnpqtuvxy</code>
+        </td>
+        <td>
+          <button id='sv_sn_mn_gn_gi.gif' onclick='show(this)'>GIF を表示</button>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "ab,gg,uj,pt,an,ir,rr", "hpqsvwxy" );    
+/*1*/ test( "gs,ok", "abcdftvwxy" );    
+/*2*/ test( "gs,sg,ok", "none" );    
+/*3*/ test( "aa,bb,hh,nn", "hiostwxy" );    
+/*4*/ test( "ae,ko,uy,cw", "bdgilnqsvx" );    
+/*5*/ test( "am,gs,am,gs,am,gs,am,gs", "cfhkmqrvwx" );    
+/*6*/ test( "ay", "none" );    
+/*7*/ test( "gs,ay", "defjkoptuv" );    
+/*8*/ test( "bx,ay", "none" );    
+/*9*/ test( "ft,ay", "defjkoptuv" );    
+/*10*/ test( "ab,cd,ef,gh,ij,kl,mn,op,qr,st,uv,wx", "cdjmnry" );    
+/*11*/ test( "wx,uv,st,qr,op,mn,kl,ij,gh,ef,cd,ab", "kmoxy" );    
+/*12*/ test( "am,cj,ac,em,ss,cy,aa,ee,ff,vp", "none" );    
+/*13*/ test( "uf,oq,gn,ss,ca,hv,ej", "none" );    
+/*14*/ test( "cc,wk,uu,ws,bk,aa,vv", "bei" );    
+/*15*/ test( "tr,ou,ll,pp,jh,vf,yy,nr,rr,oo", "rxy" );    
+/*16*/ test( "ky,ov,ri,qm,nn,ee,ws,em,ca,ak", "biju" );    
+/*17*/ test( "ty", "nosx" );    
+/*18*/ test( "ll,uh,hq,ss,nx,ry,ku,ab,jj", "efouv" );    
+/*19*/ test( "yl,mu,qj,ss,ep", "mnqru" );    
+/*20*/ test( "kj,ee,qk", "fglruv" );    
+/*21*/ test( "xi,wd,hf", "ciknqr" );    
+/*22*/ test( "fx,ak,cc,ce", "bdhijnp" );    
+/*23*/ test( "li,jf,pp,qm,hg,sf", "akntuwx" );    
+/*24*/ test( "jw", "bcdeglqv" );    
+/*25*/ test( "uk,oe,xr", "dglmoqsy" );    
+/*26*/ test( "bb,ov,pd,dd,xk,is,hh,xd,xx,kq,pp,ku", "cfhjopqvy" );    
+/*27*/ test( "iq,fn,il,ww,ox,la,or,ga,wg,ef,us", "cfgjopvxy" );    
+/*28*/ test( "km,po", "abcdenqrst" );    
+/*29*/ test( "tc,mh,cw", "abefjkoptu" );    
+/*30*/ test( "fm,jx,xx,pi,gs,au,uq,ut,ap,vb", "cdghjmortux" );    
+/*31*/ test( "ik,xl,si", "abcdflorvwx" );    
+/*32*/ test( "nu,cc,lv,bu,tt,ww,xk,ia,in,sa,my", "abcefgpqrstu" );    
+/*33*/ test( "tt,ak,xh,tk,oo,yr,na,yv,gm,vh", "degiklmnquwx" );    
+/*34*/ test( "kk,ob,kk,fm,xk", "acdegjlopqruy" );    
+/*35*/ test( "uq,ko,pf,yy,ig,tu,ve,ve,qy,mh,oo,dv", "befjkoqrtuwxy" );    
+/*36*/ test( "aj,hb,ar,ii,np,ki,hg,vd", "cefhjlmopqtwxy" );    
+/*37*/ test( "vv,sf,ww,my,mm,sq,fb,ly,fu,ls", "bfghkmnptuvwxy" );    
+/*38*/ test( "jj,bp,gs", "abdefijkprtuvwxy" );    
+/*39*/ test( "sv,sn,mn,gn,gi", "abcdefhjnpqtuvxy" );</textarea>
+  </body>
+</html>

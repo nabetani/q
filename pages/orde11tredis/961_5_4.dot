@@ -1,0 +1,28 @@
+digraph graph_name {
+ graph[nodesep = 0.1];
+ edge[dir=none, style=bold];
+ node[ fontname = "Helvetica", shape = plaintext, width = 0.25, height = 0.25, fontsize=30];
+s961;
+s961_32;
+s961_32_3;
+s961_32_5;
+s961_32_9;
+s961_32_9_4;
+s961_32_9_4_3;
+s961_32_17;
+s961[label="961" ];
+s961->s961_32;
+s961_32[label="32" ];
+s961_32->s961_32_3;
+s961_32_3[label="3" ];
+s961_32->s961_32_5;
+s961_32_5[label="5" ;shape=box];
+s961_32->s961_32_9;
+s961_32_9[label="9" ];
+s961_32_9->s961_32_9_4;
+s961_32_9_4[label="4" ;shape=box];
+s961_32_9_4->s961_32_9_4_3;
+s961_32_9_4_3[label="3" ];
+s961_32->s961_32_17;
+s961_32_17[label="17" ];
+}

@@ -1,0 +1,78 @@
+digraph graph_name {
+ graph[nodesep = 0.1];
+ edge[dir=none, style=bold];
+ node[ fontname = "Helvetica", shape = plaintext, width = 0.25, height = 0.25, fontsize=30];
+bt[label="88" ];
+bt->bu
+bu[label="34" ];
+bu->bv
+bv[label="7" ];
+bv->bw
+bw[label="4" ];
+bw->bx
+bx[label="2" ];
+bx->by
+by[label="1" ];
+bu->bz
+bz[label="22" ];
+bz->ca
+ca[label="1" ];
+bz->cb
+cb[label="14" ];
+cb->cc
+cc[label="9" ];
+cc->cd
+cd[label="6" ];
+cd->ce
+ce[label="4" ];
+ce->cf
+cf[label="2" ];
+cf->cg
+cg[label="1" ];
+bt->ch
+ch[label="58" ];
+ch->ci
+ci[label="19" ];
+ci->cj
+cj[label="12" ;shape=box];
+cj->ck
+ck[label="8" ];
+ck->cl
+cl[label="5" ];
+cl->cm
+cm[label="3" ];
+cm->cn
+cn[label="2" ];
+cn->co
+co[label="1" ];
+ch->cp
+cp[label="38" ];
+cp->cq
+cq[label="9" ];
+cq->cr
+cr[label="6" ];
+cr->cs
+cs[label="4" ];
+cs->ct
+ct[label="2" ];
+ct->cu
+cu[label="1" ];
+cp->cv
+cv[label="25" ];
+cv->cw
+cw[label="2" ];
+cw->cx
+cx[label="1" ];
+cv->cy
+cy[label="16" ];
+cy->cz
+cz[label="10" ];
+cz->da
+da[label="6" ];
+da->db
+db[label="4" ];
+db->dc
+dc[label="2" ];
+dc->dd
+dd[label="1" ];
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>遠い世界の数式 - 実装例</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img{ width:600px }
+      img.large{ width:360px }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+        max-height:80px;
+        max-width:80px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+      .weight{
+      font-family:"Georgia";
+      padding-left:8px;
+      padding-right:8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>遠い世界の数式 - 実装例</h1>
+    <h2>鍋谷による実装</h2>
+    <ul>
+      <li>
+        <a href='a0.html'>優先順位の高いものから順に処理する</a>
+      </li>
+      <li>
+        <a href='a1.html'>優先順位の低いもので分割する</a>
+      </li>
+      <li>
+        <a href='a2.html'>ruby に字句解析させる</a>
+      </li>
+    </ul>
+    <h2>鍋谷以外による実装</h2>
+    <p>
+      面白かったもの、目立ったもの、気になったものを適当に選んでみた。
+    </p>
+    <h3>神奈川Ruby01参加者の実装例</h3>
+    <ul>
+      <li>
+        <a href='https://gist.github.com/lhside/6f4f4a13473f7717bcb1'>https://gist.github.com/lhside/6f4f4a13473f7717bcb1</a>
+        <br>
+        シンプルで美しい、オープンクラスの悪用。
+      </li>
+      <li>
+        <a href='https://gist.github.com/joker1007/0852ab2f8e9e744a78ee'>https://gist.github.com/joker1007/0852ab2f8e9e744a78ee</a>
+        <br>
+        オブジェクト指向で。再帰的に。
+      </li>
+      <li>
+        <a href='https://gist.github.com/track8/af7e48b9dcc44cd09bda'>https://gist.github.com/track8/af7e48b9dcc44cd09bda</a>
+        <br>
+        優先順位順に処理。私（鍋谷）のものより読みやすい感じ。
+      </li>
+      <li>
+        <a href='https://github.com/ryonext/kanagawa_ruby'>https://github.com/ryonext/kanagawa_ruby</a>
+        <br>
+        私（鍋谷）にはちょっと意外な実装方針。
+      </li>
+      <li>
+        <a href='https://gist.github.com/kwappa/c77b4104e00eff10c54a'>https://gist.github.com/kwappa/c77b4104e00eff10c54a</a>
+        <br>
+        なんとなく迫力が。
+      </li>
+    </ul>
+    <h3>神奈川Ruby01参加者以外の実装例</h3>
+    <ul>
+      <li>
+        <a href='http://qiita.com/cielavenir/items/cadbc5e24525b6a86cf8'>http://qiita.com/cielavenir/items/cadbc5e24525b6a86cf8</a>
+        <br>
+        邪悪さの頂点へ！
+      </li>
+      <li>
+        <a href='http://dora.bk.tsukuba.ac.jp/~takeuchi/index.php?%A5%D7%A5%ED%A5%B0%A5%E9%A5%DF%A5%F3%A5%B0%2Fruby%2F%B1%F3%A4%A4%C0%A4%B3%A6%A4%CE%BF%F4%B3%D8'>http://dora.bk.tsukuba.ac.jp/~takeuchi/index.php?略</a>
+        <br>
+        さまざまな実装例があります。
+      </li>
+    </ul>
+    <h2>観測されている全実装例</h2>
+    <ul>
+      <a href='http://togetter.com/li/771580'>神奈川Ruby会議ペアプロ回答まとめ #kana01</a>
+    </ul>
+  </body>
+</html>

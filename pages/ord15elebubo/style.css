@@ -1,0 +1,70 @@
+@charset "UTF-8";
+body, textarea {
+  font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+  font-size: 11pt; }
+
+input, select {
+  font-family: Arial, "ＭＳ Ｐゴシック", sans-serif;
+  font-size: 11pt; }
+
+h1 {
+  border-left: solid 5pt #888;
+  padding-left: 5pt;
+  border-top: solid 1pt #888; }
+
+h2 {
+  border-left: solid 3pt #888;
+  padding-left: 3pt;
+  border-top: solid 1pt #888; }
+
+th {
+  background-color: #ddd; }
+
+table.letters {
+  margin-left: 5pt;
+  margin-right: 5pt; }
+
+table.bibo, table.bibo_s, table.letters {
+  border-collapse: collapse;
+  border: none;
+  border-spacing: 0; }
+
+td.pix0, td.pix1 {
+  width: 14px;
+  height: 14px;
+  border: solid 1px #888;
+  font-size: 1pt; }
+
+td.pix_s0, td.pix_s1 {
+  width: 4px;
+  height: 4px;
+  border: solid 1px #ccc;
+  font-size: 3pt; 
+  overflow: :none;
+}
+
+td.pix0, td.pix_s0 {
+  background-color: #fff; }
+
+td.pix1, td.pix_s1 {
+  background-color: #000; }
+
+pre {
+  margin: 0;
+  padding: 0; }
+
+code {
+  background-color: #eef;
+  border: solid 1px #ccc;
+  margin-left: 3px;
+  margin-right: 3px;
+  padding-left: 3px;
+  padding-right: 3px; }
+
+td code {
+  background-color: inherit;
+  border: inherit; }
+
+textarea {
+  width: 80%;
+  height: 7em; }
