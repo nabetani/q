@@ -1,9 +1,11 @@
+require "fileutils"
+
 pages=[]
 
-Dir.glob( "qsrc/*" ) do |fn|
-  next unless File.directory?(fn)
-  name = File.split(fn).last
-  dest = "pages/#{name}.html"
+Dir.glob( "qsrc/*" ) do |dir|
+  next unless File.directory?(dir)
+  name = File.split(dir).last
+  dest = "pages/#{name}/index.html"
 
   desc "create #{dest}"
   task name.to_sym=>dest
@@ -11,8 +13,9 @@ Dir.glob( "qsrc/*" ) do |fn|
   pages << name.to_sym
   
   desc "create #{dest}"
-  file dest do
-    sh "haml render -r ./#{fn}/page.rb ./#{fn}/page.haml > #{dest}"
+  file dest => [ "#{dir}/page.rb", "#{dir}/page.haml" ] do
+    FileUtils.mkdir_p File.split(dest).first
+    sh "haml render -r ./#{dir}/page.rb ./#{dir}/page.haml > #{dest}"
   end
 end
 
