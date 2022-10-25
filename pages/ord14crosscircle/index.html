@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>円周上のCrossing 〜 横へな 2013.9.28 参考問題</title>
+    <link href='style.css' rel='stylesheet'>
+  </head>
+  <body>
+    <h1>円周上のCrossing 〜 横へな 2013.9.28 参考問題</h1>
+    <h2>問題</h2>
+    <p>
+      円周上に名前のついた点がある。同じ名前の点を直線で結ぶ。直線と直線の交点のうち、円の内部にあるものの数を数えよ。
+    </p>
+    <p>
+      ただし、3本以上の直線が1点で交わっているような気がする場合には交点がほんのちょっとずれているものとして数えること。(つまり、3本が１点で交わっていたら交点は3個。4本なら6個と数える。)
+    </p>
+    <p>
+      点の数は、高々100個程度と思ってよい。
+    </p>
+    <h2>入力と出力</h2>
+    <p>
+      点の名前は英数字1文字。大文字と小文字を区別する。
+    </p>
+    <p>
+      入力は、点の名前を区切り文字なしで
+      <code>aabbca1bcb</code>
+      のように並べたものである。
+    </p>
+    <p>
+      出力は、交点の数を10進数で表現した
+      <code>14</code>
+      のような文字列とする。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        円周上にある交点は数えない。内部だけ。したがって、
+        <code>111ZZZ</code>
+        のが入力の場合、
+        <code>0</code>
+        を出力すればよい。
+      </li>
+      <li>
+        <code>aabbca1bcb</code>
+        における
+        <code>1</code>
+        のように、一人ぼっちの点もある。このような点は誰とも結ばれない。
+      </li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/66806c9dc14a96f2fd42'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        問題の作成に当たり、結城さんの
+        <a href='https://codeiq.jp/ace/yuki_hiroshi/q432'>
+          交差点をすばやく数えよう！
+        </a>
+        から着想を得ました。ありがとうございます。
+      </li>
+      <li>
+        この問題は2013年9月28日に開催される 第14回オフラインリアルタイムどう書く の参考問題です。イベントについては
+        <a href='http://atnd.org/events/43076'>
+          ATND の募集ページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>例</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>aabbca1bcb</code>
+        </td>
+        <td>
+          <code>14</code>
+        </td>
+        <td class='example'>
+          <img src='aabbca1bcb.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>111ZZZ</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='111ZZZ.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>v</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='v.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>ww</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='ww.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>xxx</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='xxx.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>yyyy</code>
+        </td>
+        <td>
+          <code>1</code>
+        </td>
+        <td class='example'>
+          <img src='yyyy.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>zzzzz</code>
+        </td>
+        <td>
+          <code>5</code>
+        </td>
+        <td class='example'>
+          <img src='zzzzz.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>abcdef</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='abcdef.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>abcaef</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='abcaef.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>abbaee</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='abbaee.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>abcacb</code>
+        </td>
+        <td>
+          <code>2</code>
+        </td>
+        <td class='example'>
+          <img src='abcacb.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>abcabc</code>
+        </td>
+        <td>
+          <code>3</code>
+        </td>
+        <td class='example'>
+          <img src='abcabc.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>abcdabcd</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          <img src='abcdabcd.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>abcadeabcade</code>
+        </td>
+        <td>
+          <code>23</code>
+        </td>
+        <td class='example'>
+          <img src='abcadeabcade.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>abcdeedcba</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='abcdeedcba.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>abcdeaedcba</code>
+        </td>
+        <td>
+          <code>8</code>
+        </td>
+        <td class='example'>
+          <img src='abcdeaedcba.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>abcdeaedcbad</code>
+        </td>
+        <td>
+          <code>16</code>
+        </td>
+        <td class='example'>
+          <img src='abcdeaedcbad.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>QQQQXXXX</code>
+        </td>
+        <td>
+          <code>2</code>
+        </td>
+        <td class='example'>
+          <img src='QQQQXXXX.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>QwQQmQXmXXwX</code>
+        </td>
+        <td>
+          <code>14</code>
+        </td>
+        <td class='example'>
+          <img src='QwQQmQXmXXwX.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>111222333</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='111222333.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>aaAAaA</code>
+        </td>
+        <td>
+          <code>4</code>
+        </td>
+        <td class='example'>
+          <img src='aaAAaA.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>121232313</code>
+        </td>
+        <td>
+          <code>12</code>
+        </td>
+        <td class='example'>
+          <img src='121232313.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>1ab1b</code>
+        </td>
+        <td>
+          <code>1</code>
+        </td>
+        <td class='example'>
+          <img src='1ab1b.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>abcdefbadcfe</code>
+        </td>
+        <td>
+          <code>12</code>
+        </td>
+        <td class='example'>
+          <img src='abcdefbadcfe.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>abxcdefbadcfex</code>
+        </td>
+        <td>
+          <code>14</code>
+        </td>
+        <td class='example'>
+          <img src='abxcdefbadcfex.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>dtnwtkt</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='dtnwtkt.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>mvubvpp</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='mvubvpp.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>moggscd</code>
+        </td>
+        <td>
+          <code>0</code>
+        </td>
+        <td class='example'>
+          <img src='moggscd.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>kzkjzpkw</code>
+        </td>
+        <td>
+          <code>2</code>
+        </td>
+        <td class='example'>
+          <img src='kzkjzpkw.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>fbifybre</code>
+        </td>
+        <td>
+          <code>1</code>
+        </td>
+        <td class='example'>
+          <img src='fbifybre.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>
+          <code>rrrfjryki</code>
+        </td>
+        <td>
+          <code>1</code>
+        </td>
+        <td class='example'>
+          <img src='rrrfjryki.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>
+          <code>wrbbdwsdwtx</code>
+        </td>
+        <td>
+          <code>2</code>
+        </td>
+        <td class='example'>
+          <img src='wrbbdwsdwtx.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>
+          <code>vvucugvxbvgx</code>
+        </td>
+        <td>
+          <code>9</code>
+        </td>
+        <td class='example'>
+          <img src='vvucugvxbvgx.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>
+          <code>ojkjzyasjwbfjj</code>
+        </td>
+        <td>
+          <code>5</code>
+        </td>
+        <td class='example'>
+          <img src='ojkjzyasjwbfjj.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>
+          <code>ggffyuxnkyypifff</code>
+        </td>
+        <td>
+          <code>5</code>
+        </td>
+        <td class='example'>
+          <img src='ggffyuxnkyypifff.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>
+          <code>vcgtcqlwrepwvkkogl</code>
+        </td>
+        <td>
+          <code>4</code>
+        </td>
+        <td class='example'>
+          <img src='vcgtcqlwrepwvkkogl.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>
+          <code>xeqtmmgppwcjpcisogxbs</code>
+        </td>
+        <td>
+          <code>4</code>
+        </td>
+        <td class='example'>
+          <img src='xeqtmmgppwcjpcisogxbs.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>
+          <code>lukltpeucrqfvcupnpxwmoj</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          <img src='lukltpeucrqfvcupnpxwmoj.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>
+          <code>zpzswlkkoqwwndwpfdpkhtzgtn</code>
+        </td>
+        <td>
+          <code>31</code>
+        </td>
+        <td class='example'>
+          <img src='zpzswlkkoqwwndwpfdpkhtzgtn.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>
+          <code>bkfeflagfvluelududqjcvfyvytfw</code>
+        </td>
+        <td>
+          <code>45</code>
+        </td>
+        <td class='example'>
+          <img src='bkfeflagfvluelududqjcvfyvytfw.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td>
+          <code>rvqbhfmcjjqlpqzulzerxgyowiwrfkmhw</code>
+        </td>
+        <td>
+          <code>26</code>
+        </td>
+        <td class='example'>
+          <img src='rvqbhfmcjjqlpqzulzerxgyowiwrfkmhw.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td>
+          <code>qyxvpdtoeexbqsethwjwmqszcxxjnsdoeaet</code>
+        </td>
+        <td>
+          <code>144</code>
+        </td>
+        <td class='example'>
+          <img src='qyxvpdtoeexbqsethwjwmqszcxxjnsdoeaet.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>
+          <code>rjmsgmswhcolmpbhmpncziymydyalrcnevsrespj</code>
+        </td>
+        <td>
+          <code>133</code>
+        </td>
+        <td class='example'>
+          <img src='rjmsgmswhcolmpbhmpncziymydyalrcnevsrespj.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>
+          <code>oxetnyjzjbysnwktfwzndlejfndsqeetsnjvsicyjehd</code>
+        </td>
+        <td>
+          <code>395</code>
+        </td>
+        <td class='example'>
+          <img src='oxetnyjzjbysnwktfwzndlejfndsqeetsnjvsicyjehd.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td>
+          <code>wzvddnddzogywcqxbyvagbzmsmtcmrrlbnebmvhaemjouaqim</code>
+        </td>
+        <td>
+          <code>219</code>
+        </td>
+        <td class='example'>
+          <img src='wzvddnddzogywcqxbyvagbzmsmtcmrrlbnebmvhaemjouaqim.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td>
+          <code>karhphxcxqgsyorhusbumbqzocuzvnwzwcpxgsksrviihxrgsrhji</code>
+        </td>
+        <td>
+          <code>461</code>
+        </td>
+        <td class='example'>
+          <img src='karhphxcxqgsyorhusbumbqzocuzvnwzwcpxgsksrviihxrgsrhji.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td>
+          <code>oxgbononhqdxzmkysgijwvxljpaazmgkurkpffeuwywwuyxhyfkicgyzyc</code>
+        </td>
+        <td>
+          <code>441</code>
+        </td>
+        <td class='example'>
+          <img src='oxgbononhqdxzmkysgijwvxljpaazmgkurkpffeuwywwuyxhyfkicgyzyc.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td>
+          <code>sdgsrddwsrwqthhdvhrjhgtxwgurgyiygtktgtughtogzaqmcafkljgpniddsvb</code>
+        </td>
+        <td>
+          <code>1077</code>
+        </td>
+        <td class='example'>
+          <img src='sdgsrddwsrwqthhdvhrjhgtxwgurgyiygtktgtughtogzaqmcafkljgpniddsvb.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td>
+          <code>qemhecchkgzhxmdcsltwhpoyhkapckkkzosmklcvzkiiucrvzzznmhjfcdumuflavxik</code>
+        </td>
+        <td>
+          <code>1711</code>
+        </td>
+        <td class='example'>
+          <img src='qemhecchkgzhxmdcsltwhpoyhkapckkkzosmklcvzkiiucrvzzznmhjfcdumuflavxik.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td>
+          <code>ffqmsirwpxrzfkbvmmfeptkbhnrvfcywthkwkbycmayhhkgvuyecbwwofwthlmzruphrcujwhr</code>
+        </td>
+        <td>
+          <code>2440</code>
+        </td>
+        <td class='example'>
+          <img src='ffqmsirwpxrzfkbvmmfeptkbhnrvfcywthkwkbycmayhhkgvuyecbwwofwthlmzruphrcujwhr.png'>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "aabbca1bcb", "14" );    
+/*1*/ test( "111ZZZ", "0" );    
+/*2*/ test( "v", "0" );    
+/*3*/ test( "ww", "0" );    
+/*4*/ test( "xxx", "0" );    
+/*5*/ test( "yyyy", "1" );    
+/*6*/ test( "zzzzz", "5" );    
+/*7*/ test( "abcdef", "0" );    
+/*8*/ test( "abcaef", "0" );    
+/*9*/ test( "abbaee", "0" );    
+/*10*/ test( "abcacb", "2" );    
+/*11*/ test( "abcabc", "3" );    
+/*12*/ test( "abcdabcd", "6" );    
+/*13*/ test( "abcadeabcade", "23" );    
+/*14*/ test( "abcdeedcba", "0" );    
+/*15*/ test( "abcdeaedcba", "8" );    
+/*16*/ test( "abcdeaedcbad", "16" );    
+/*17*/ test( "QQQQXXXX", "2" );    
+/*18*/ test( "QwQQmQXmXXwX", "14" );    
+/*19*/ test( "111222333", "0" );    
+/*20*/ test( "aaAAaA", "4" );    
+/*21*/ test( "121232313", "12" );    
+/*22*/ test( "1ab1b", "1" );    
+/*23*/ test( "abcdefbadcfe", "12" );    
+/*24*/ test( "abxcdefbadcfex", "14" );    
+/*25*/ test( "dtnwtkt", "0" );    
+/*26*/ test( "mvubvpp", "0" );    
+/*27*/ test( "moggscd", "0" );    
+/*28*/ test( "kzkjzpkw", "2" );    
+/*29*/ test( "fbifybre", "1" );    
+/*30*/ test( "rrrfjryki", "1" );    
+/*31*/ test( "wrbbdwsdwtx", "2" );    
+/*32*/ test( "vvucugvxbvgx", "9" );    
+/*33*/ test( "ojkjzyasjwbfjj", "5" );    
+/*34*/ test( "ggffyuxnkyypifff", "5" );    
+/*35*/ test( "vcgtcqlwrepwvkkogl", "4" );    
+/*36*/ test( "xeqtmmgppwcjpcisogxbs", "4" );    
+/*37*/ test( "lukltpeucrqfvcupnpxwmoj", "6" );    
+/*38*/ test( "zpzswlkkoqwwndwpfdpkhtzgtn", "31" );    
+/*39*/ test( "bkfeflagfvluelududqjcvfyvytfw", "45" );    
+/*40*/ test( "rvqbhfmcjjqlpqzulzerxgyowiwrfkmhw", "26" );    
+/*41*/ test( "qyxvpdtoeexbqsethwjwmqszcxxjnsdoeaet", "144" );    
+/*42*/ test( "rjmsgmswhcolmpbhmpncziymydyalrcnevsrespj", "133" );    
+/*43*/ test( "oxetnyjzjbysnwktfwzndlejfndsqeetsnjvsicyjehd", "395" );    
+/*44*/ test( "wzvddnddzogywcqxbyvagbzmsmtcmrrlbnebmvhaemjouaqim", "219" );    
+/*45*/ test( "karhphxcxqgsyorhusbumbqzocuzvnwzwcpxgsksrviihxrgsrhji", "461" );    
+/*46*/ test( "oxgbononhqdxzmkysgijwvxljpaazmgkurkpffeuwywwuyxhyfkicgyzyc", "441" );    
+/*47*/ test( "sdgsrddwsrwqthhdvhrjhgtxwgurgyiygtktgtughtogzaqmcafkljgpniddsvb", "1077" );    
+/*48*/ test( "qemhecchkgzhxmdcsltwhpoyhkapckkkzosmklcvzkiiucrvzzznmhjfcdumuflavxik", "1711" );    
+/*49*/ test( "ffqmsirwpxrzfkbvmmfeptkbhnrvfcywthkwkbycmayhhkgvuyecbwwofwthlmzruphrcujwhr", "2440" );</textarea>
+  </body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>とある世界のタクシー料金 横へな 2015.4.18 問題</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+        float: right;
+        margin-left: 2em;
+        margin-bottom: 1em;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+      font-family:"Georgia";
+      padding-left:8px;
+      padding-right:8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>とある世界のタクシー料金 横へな 2015.4.18 問題</h1>
+    <h2>問題</h2>
+    <p>
+      とある世界のタクシーの運賃を計算してほしい。
+      <br>
+      何もかもだと大変なので、円來市と炭州市という2つの市の範囲だけでよい。
+      <br>
+      乗り降りする場所はA〜Gだけを考える。
+      <br>
+      右図の通り。
+      <img class='large' src='map.png'>
+      <br>
+      経路は客が指定する。理不尽な経路（例 : ABABCBA）でも気にしない。
+      <p></p>
+      で。
+      <br>
+      料金体系が円來市と炭州市で異なる。下表の通り。
+    </p>
+    <table>
+      <tr>
+        <th>市</th>
+        <th>初乗り</th>
+        <th>距離加算</th>
+      </tr>
+      <tr>
+        <th>円來市</th>
+        <td>995m までは 400円</td>
+        <td>200m 進むごとに 60円加算</td>
+      </tr>
+      <tr>
+        <th>炭州市</th>
+        <td>845m までは 350円</td>
+        <td>200m 進むごとに 50円加算</td>
+      </tr>
+    </table>
+    <p>
+      細かいことを書くと。
+    </p>
+    <ul>
+      <li>
+        乗車地点での自治体で初乗りの距離と値段が決まる。
+        <br>
+        　例 : C→D→E という経路だと、円來市 の C で乗ったので初乗り995m となる。
+      </li>
+      <li>初乗りの距離が終わったタイミングで加算。</li>
+      <li>加算される位置の自治体で加算の値段が決まる。</li>
+    </ul>
+    <p>
+      ということになっている。
+    </p>
+    <p>
+      例えば。
+      <br>
+      A→D→F→C
+      <br>
+      という経路について考える。
+    </p>
+    <ul>
+      <li>A は円來市 なので、初乗り 995m / 400 円。</li>
+      <li>初乗りでDからFに向かって455 m の所まで来る。ここでメーターアップ。</li>
+      <li>DとF の間なので炭州市。50円。</li>
+      <li>そのまま 200m 進むと F から C に向かって145 m地点。ここでメーターアップ。</li>
+      <li>F とC の間なので円來市。60円。</li>
+      <li>合計 510円。</li>
+    </ul>
+    <p>
+      この、510 という値を求めるプログラムを書くのが今回の課題。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は、乗車位置と降車位置を含む経路を示す文字列。
+      <br>
+      <code>ADFC</code>
+      <br>
+      こんな感じ。
+      <br>
+      見ての通り、区切り文字などはない。
+    </p>
+    <h2>出力</h2>
+    <p>
+      タクシー料金を普通に10進数で出力する。
+      <br>
+      <code>510</code>
+      <br>
+      こんな感じ。
+      <br>
+      「円」とかはつけない。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        <code>AGD</code>
+        のような、隣接していない地点が並んだ経路のことは考慮しなくて良い。
+      </li>
+      <li>
+        本物のタクシーには「時速が10km以下である時間について、1分45秒ごとに90円加算」のようなルールがあるが、この問題ではそういうルールはないものとする。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/c70417d384720a3339d6'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2015年4月18日に開催される 第30回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/22168'>
+          Doorkeeper のページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code>ADFC</code>
+        </td>
+        <td>
+          <code class='expected'>510</code>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code>CFDA</code>
+        </td>
+        <td>
+          <code class='expected'>500</code>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code>AB</code>
+        </td>
+        <td>
+          <code class='expected'>460</code>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code>BA</code>
+        </td>
+        <td>
+          <code class='expected'>460</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code>CD</code>
+        </td>
+        <td>
+          <code class='expected'>400</code>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code>DC</code>
+        </td>
+        <td>
+          <code class='expected'>350</code>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code>BG</code>
+        </td>
+        <td>
+          <code class='expected'>520</code>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code>GB</code>
+        </td>
+        <td>
+          <code class='expected'>530</code>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code>FDA</code>
+        </td>
+        <td>
+          <code class='expected'>450</code>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code>ADF</code>
+        </td>
+        <td>
+          <code class='expected'>450</code>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code>FDACB</code>
+        </td>
+        <td>
+          <code class='expected'>750</code>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code>BCADF</code>
+        </td>
+        <td>
+          <code class='expected'>710</code>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code>EDACB</code>
+        </td>
+        <td>
+          <code class='expected'>800</code>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code>BCADE</code>
+        </td>
+        <td>
+          <code class='expected'>810</code>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code>EGFCADE</code>
+        </td>
+        <td>
+          <code class='expected'>920</code>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code>EDACFGE</code>
+        </td>
+        <td>
+          <code class='expected'>910</code>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code>ABCDA</code>
+        </td>
+        <td>
+          <code class='expected'>960</code>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code>ADCBA</code>
+        </td>
+        <td>
+          <code class='expected'>1000</code>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code>BADCFGB</code>
+        </td>
+        <td>
+          <code class='expected'>1180</code>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code>BGFCDAB</code>
+        </td>
+        <td>
+          <code class='expected'>1180</code>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code>CDFC</code>
+        </td>
+        <td>
+          <code class='expected'>460</code>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code>CFDC</code>
+        </td>
+        <td>
+          <code class='expected'>450</code>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code>ABGEDA</code>
+        </td>
+        <td>
+          <code class='expected'>1420</code>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code>ADEGBA</code>
+        </td>
+        <td>
+          <code class='expected'>1470</code>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code>CFGB</code>
+        </td>
+        <td>
+          <code class='expected'>640</code>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code>BGFC</code>
+        </td>
+        <td>
+          <code class='expected'>630</code>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code>ABGEDFC</code>
+        </td>
+        <td>
+          <code class='expected'>1480</code>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code>CFDEGBA</code>
+        </td>
+        <td>
+          <code class='expected'>1520</code>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code>CDFGEDABG</code>
+        </td>
+        <td>
+          <code class='expected'>1770</code>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code>GBADEGFDC</code>
+        </td>
+        <td>
+          <code class='expected'>1680</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "ADFC", "510" );    
+/*1*/ test( "CFDA", "500" );    
+/*2*/ test( "AB", "460" );    
+/*3*/ test( "BA", "460" );    
+/*4*/ test( "CD", "400" );    
+/*5*/ test( "DC", "350" );    
+/*6*/ test( "BG", "520" );    
+/*7*/ test( "GB", "530" );    
+/*8*/ test( "FDA", "450" );    
+/*9*/ test( "ADF", "450" );    
+/*10*/ test( "FDACB", "750" );    
+/*11*/ test( "BCADF", "710" );    
+/*12*/ test( "EDACB", "800" );    
+/*13*/ test( "BCADE", "810" );    
+/*14*/ test( "EGFCADE", "920" );    
+/*15*/ test( "EDACFGE", "910" );    
+/*16*/ test( "ABCDA", "960" );    
+/*17*/ test( "ADCBA", "1000" );    
+/*18*/ test( "BADCFGB", "1180" );    
+/*19*/ test( "BGFCDAB", "1180" );    
+/*20*/ test( "CDFC", "460" );    
+/*21*/ test( "CFDC", "450" );    
+/*22*/ test( "ABGEDA", "1420" );    
+/*23*/ test( "ADEGBA", "1470" );    
+/*24*/ test( "CFGB", "640" );    
+/*25*/ test( "BGFC", "630" );    
+/*26*/ test( "ABGEDFC", "1480" );    
+/*27*/ test( "CFDEGBA", "1520" );    
+/*28*/ test( "CDFGEDABG", "1770" );    
+/*29*/ test( "GBADEGFDC", "1680" );</textarea>
+  </body>
+</html>

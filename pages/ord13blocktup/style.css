@@ -1,0 +1,86 @@
+
+body, textarea { 
+    font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+    font-size:11pt;
+}
+input, select { 
+    font-family: Arial, "ＭＳ Ｐゴシック", sans-serif; 
+    font-size:11pt;
+}
+.button
+{
+    font-family: "Arial Black";
+    background-color: #eee;
+    border: outset 2px #ccc;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+code
+{
+    background-color: #eef;
+    border:solid 1px #ccc;
+    margin-left : 3px;
+    margin-right : 3px;
+    padding-left : 3px;
+    padding-right : 3px;
+}
+td code
+{
+    background-color: inherit;
+    border:inherit;
+}
+table
+{
+    padding-left:3em;
+}
+
+table.seq
+{
+    padding: 0 0 0 0;
+    background-color: #fff;
+    border-spacing: 0;
+    border: 1px #ccc solid;
+    border-left:none;
+}
+table.seq > tbody > tr >  td
+{
+    background-color: #fff;
+    border-left: 1px #ccc solid;
+    text-align: center;    
+}
+table.seq table
+{
+    padding: 0 0 0 0;
+}
+table.seq table td, 
+table.seq table th
+{
+    font-size:8pt;
+}
+table:not(.seq) th
+{
+    background-color: #ccc;
+    font-size:11pt;
+}
+table:not(.seq) td
+{
+    background-color: #eee;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size:11pt;
+}
+table tr td.example
+{
+    font-family: "Arial Narrow", sans-serif; 
+    font-size:8pt;
+}
+.situ
+{
+    height:25%;
+}
+textarea
+{
+    width:80%;
+    height:7em;
+}

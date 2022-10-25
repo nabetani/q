@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>ツリーの中の距離 横へな2017.2.4 問題</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      float_right{
+       float:right;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+      td.bigcell{
+        width:25mm;
+        height:25mm;
+        font-size:18mm;
+        border:solid black 0.5mm
+      }
+      table.big td{
+        font-size:9mm;
+        border:solid black 0.5mm
+      }
+      div.top img{
+        width:80px;
+      }
+      table.big img{
+        width:120px;
+        height:120px;
+       }
+       td.sample{
+       }
+      table.nabenum tr td
+      {
+        background-color:#444;
+        padding:0 0 0 0;
+        margin:0 0 0 0;
+      }
+      table.nabenum
+      {
+        padding:1mm 2mm 1mm 2mm;
+        background-color:#444;
+      }
+      table.nabenum .c0{
+        width:4px;
+      }
+      table.nabenum .c1{
+        width:15px;
+      }
+      table.nabenum .c2{
+        width:4px;
+      }
+      table.nabenum tr.n0 td{
+        height:4px;
+      }
+      table.nabenum tr.n1 td{
+        height:15px;
+      }
+      table.nabenum tr.n2 td{
+        height:4px;
+      }
+      table.nabenum tr.n3 td{
+        height:15px;
+      }
+      table.nabenum tr.n4 td{
+        height:4px;
+      }
+      table.nabenum td.off{
+        background-color:black;
+      }
+      table.nabenum td.on{
+        background-color:white;
+      }
+      table.nabenum td.nazo{
+        background-color:#f00;
+      }
+      div.nabe{
+        float:right;
+        width:200px;
+        background-color:#eee;
+        text-align:center;
+      }
+      .nabe_c{
+        text-align:center;
+        }
+      div.main_fig{
+       float:right;
+       background-color:white;
+      }
+    </style>
+    <body></body>
+    <h1>ツリーの中の距離 横へな2017.2.4 問題</h1>
+    <h2>問題の概要</h2>
+    <img src='50.png' style='float:right;'>
+    <p>
+      数がある。
+      <br>
+      数には子供がいる。子供は「その数の約数+1、ただし、2より大きくその数より小さいもの」だ。
+      <br>
+      例えば。50 の約数は{
+      1, 2, 5, 10, 25, 50
+      }。
+      <br>
+      約数+1 は、{
+      2, 3, 6, 11, 26, 51
+      }。
+      <br>
+      これらのうち、2よりも大きく、50よりも小さいものは
+      {
+      3, 6, 11, 26
+      } なので、これが 50 の子供たち。
+      <br>
+      子供にはまた子供が、その子供にはまた子供がいたりいなかったりして、ツリーになる。
+      <br>
+      で。
+      <br>
+      ツリーの中にある数の距離を「親子関係の線で辿ったときの線の本数の最小値」で定義する。
+      <br>
+      たとえば、根が 50 のツリーの中では、
+    </p>
+    <ul>
+      <li>26 と 5 の距離は 3</li>
+      <li>4 と 3 の距離は 1</li>
+      <li>8 と 50 の距離は 3</li>
+      <li>11 と 3 の距離は 2</li>
+      <li>5 と 4 の距離は 6</li>
+    </ul>
+    <p>
+      となる。
+    </p>
+    <p>
+      で。ツリーの根となる数と、ツリー内にある2つの数を与える。2つの数の距離を計算せよ。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>50:6,3</code>
+      <br>
+      こんな感じ。
+      <br>
+      コロンの前が根の値。コロンの後にコンマ区切りで2つの数。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は簡単。2数の距離を 10進数で出せば良い。
+    </p>
+    <p>
+      先ほどの入力の場合、線をたどればわかる通り、
+      <br>
+      <code>1</code>
+      <br>
+      と出力すればよい。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>ツリーに含まれない数が指定されることはない。</li>
+      <li>2つの数が等しいことはない。</li>
+      <li>同じ数でも祖先が違えば別のノードです。</li>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/10b2ccc28301e44e09e6'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2017年2月4日に開催される オフラインリアルタイムどう書くE11 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/55293'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況へのリンク</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>50:6,3</code>
+        </td>
+        <td>
+          <code class='expected'>1</code>
+        </td>
+        <td>
+          <a href='figs.html#0'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>98:5,11</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <a href='figs.html#1'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>1000:33,20</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <a href='figs.html#2'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>514:9,18</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+        <td>
+          <a href='figs.html#3'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>961:5,4</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>1369:1369,3</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#5'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>258:16,12</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <a href='figs.html#6'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>235:13,3</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#7'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>1096:19,17</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+        <td>
+          <a href='figs.html#8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>847:7,17</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <a href='figs.html#9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>1932:3,5</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#10'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>2491:4,8</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#11'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>840:421,36</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#12'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>1430:37,111</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#13'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>496:17,9</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#14'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>891:6,10</code>
+        </td>
+        <td>
+          <code class='expected'>1</code>
+        </td>
+        <td>
+          <a href='figs.html#15'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>1560:196,21</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#16'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>516:20,12</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <a href='figs.html#17'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>696:30,59</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#18'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>1760:5,441</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#19'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>1736:11,26</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <a href='figs.html#20'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>1518:17,34</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <a href='figs.html#21'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>806:63,16</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <a href='figs.html#22'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>1920:3,97</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#23'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>1150:13,22</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <a href='figs.html#24'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>920:116,5</code>
+        </td>
+        <td>
+          <code class='expected'>1</code>
+        </td>
+        <td>
+          <a href='figs.html#25'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>2016:7,337</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#26'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>408:9,25</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#27'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>735:36,8</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#28'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>470:5,31</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#29'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>2100:12,351</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#30'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>870:36,10</code>
+        </td>
+        <td>
+          <code class='expected'>1</code>
+        </td>
+        <td>
+          <a href='figs.html#31'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>1512:253,13</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#32'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>697:12,15</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#33'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>1224:5,14</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#34'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>986:125,17</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#35'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>864:12,13</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#36'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code class='src'>500:21,51</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#37'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code class='src'>819:33,21</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <a href='figs.html#38'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code class='src'>594:55,3</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#39'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code class='src'>638:17,24</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#40'>リンク</a>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "50:6,3", "1" );    
+/*1*/ test( "98:5,11", "4" );    
+/*2*/ test( "1000:33,20", "7" );    
+/*3*/ test( "514:9,18", "8" );    
+/*4*/ test( "961:5,4", "3" );    
+/*5*/ test( "1369:1369,3", "2" );    
+/*6*/ test( "258:16,12", "5" );    
+/*7*/ test( "235:13,3", "2" );    
+/*8*/ test( "1096:19,17", "8" );    
+/*9*/ test( "847:7,17", "6" );    
+/*10*/ test( "1932:3,5", "2" );    
+/*11*/ test( "2491:4,8", "3" );    
+/*12*/ test( "840:421,36", "2" );    
+/*13*/ test( "1430:37,111", "3" );    
+/*14*/ test( "496:17,9", "2" );    
+/*15*/ test( "891:6,10", "1" );    
+/*16*/ test( "1560:196,21", "2" );    
+/*17*/ test( "516:20,12", "5" );    
+/*18*/ test( "696:30,59", "2" );    
+/*19*/ test( "1760:5,441", "2" );    
+/*20*/ test( "1736:11,26", "5" );    
+/*21*/ test( "1518:17,34", "4" );    
+/*22*/ test( "806:63,16", "5" );    
+/*23*/ test( "1920:3,97", "2" );    
+/*24*/ test( "1150:13,22", "4" );    
+/*25*/ test( "920:116,5", "1" );    
+/*26*/ test( "2016:7,337", "2" );    
+/*27*/ test( "408:9,25", "2" );    
+/*28*/ test( "735:36,8", "2" );    
+/*29*/ test( "470:5,31", "2" );    
+/*30*/ test( "2100:12,351", "3" );    
+/*31*/ test( "870:36,10", "1" );    
+/*32*/ test( "1512:253,13", "2" );    
+/*33*/ test( "697:12,15", "3" );    
+/*34*/ test( "1224:5,14", "2" );    
+/*35*/ test( "986:125,17", "3" );    
+/*36*/ test( "864:12,13", "3" );    
+/*37*/ test( "500:21,51", "2" );    
+/*38*/ test( "819:33,21", "4" );    
+/*39*/ test( "594:55,3", "2" );    
+/*40*/ test( "638:17,24", "3" );</textarea>
+  </head>
+</html>

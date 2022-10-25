@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>大貧民 〜 横へな 2012.11.9</title>
+    <link href='style.css' rel='stylesheet' />
+  </head>
+  <body>
+    <h1>大貧民 〜 横へな 2012.11.9</h1>
+    <h2>問題</h2>
+    <p>
+      大貧民(大富豪ともいう)の、場の札と手札が与えられる。<br/>
+      その手札から出せる手として可能なものをすべて出力せよ。<br/>
+      ※ 出せる手がひとつもない場合は<code> - </code> を出力すること。<br/>
+      ※ 一般的な大貧民については
+      <a href='http://ja.wikipedia.org/wiki/%E5%A4%A7%E5%AF%8C%E8%B1%AA'>大富豪 - Wikipedia</a>
+      を参照のこと。<br/>
+      ※ 解答へのリンクを
+      <a href='http://qiita.com/items/5c10c132e1f78131563f'>Qiita</a>
+      のコメントに書いてくださると探しやすくて助かります。
+    </p>
+    <h3>ルールの詳細</h3>
+    <p>
+      使うデッキは、joker 1枚を含む 53枚のカード。<br/>
+      カードの強さは下表の通りの順序になっている：
+      <table class='strength'>
+        <tr>
+          <th>弱い←</th>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>6</td>
+          <td>7</td>
+          <td>8</td>
+          <td>9</td>
+          <td>10</td>
+          <td>J</td>
+          <td>Q</td>
+          <td>K</td>
+          <td>A</td>
+          <td>2</td>
+          <td>単独のJoker</td>
+          <th>→強い</th>
+        </tr>
+      </table>
+      出せるカードは
+      <ul>
+        <li>場に出ているカードと同じ枚数</li>
+        <li>場に出ているカードよりも強いカード</li>
+        <li>一枚、または、同一ランクの複数枚の組 のいずれか。(複数枚の場合は joker を wildcard として使うこともできる )</li>
+      </ul>
+      の3つの条件をすべて満たす必要がある。また、場に出ているカードも同一ランクの複数枚または一枚である。
+    </p>
+    <h3>カードの表現</h3>
+    <p>
+      Joker 以外のカードはスートを表す文字＋ランクを表す文字 の二文字で表現される。<br/>
+      スートを表す文字は、
+      <code>S</code>,<code>D</code>,<code>H</code>,<code>C</code>
+      のいずれか。<br/>
+      ランクを表す文字は、
+      <code>2</code>,<code>3</code>,<code>4</code>,<code>5</code>,<code>6</code>,<code>7</code>,<code>8</code>,<code>9</code>,<code>T</code>,<code>J</code>,<code>Q</code>,<code>K</code>,<code>A</code>
+      のいずれか。(10は<code>T</code>で表現される)<br/>
+      Joker はスートもランクも持たず、 <code>Jo</code>。
+    </p>
+    <h3>入力と出力</h3>
+    <p>
+      場のカードと手札をコンマ区切りでつなげた文字列が入力である。<br/>
+      場のカードと手札は、区切り文字なしで繋げられている。手札も場のカードもソートされていない。<br/>
+      出力は、出せる可能性のある手を全て、コンマ区切りで。手の中のカードには区切り文字を入れない。<br/>
+      例えば、場に♥7とjokerがあり、手札が♠3, ♥9, ♦9, ♣9, ♣10, ♥J, ♦2, ♣2 である場合
+    </p>
+    <table class='firstsample'>
+      <tr>
+        <th>入力</th>
+        <td><code>H7Jo,S3H9D9C9CTHJD2C2</code></td>
+      </tr>
+      <tr>
+        <th>出力例1</th>
+        <td><code>H9D9,H9C9,D9C9,D2C2</code></td>
+      </tr>
+      <tr>
+        <th>出力例2</th>
+        <td><code>C9H9,H9D9,C2D2,D9C9</code></td>
+      </tr>
+    </table>
+    <p>
+      となる。<br/>
+      出力については、可能な手の順序も、可能な手の中のカードの順序も問わない。
+    </p>
+    <h2>部分問題</h2>
+    <p>
+      制限時間内は全然解けそうにない場合は、場のカードの枚数を1枚に制限した問題にチャレンジするのが良いと思う。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力（Jo が複数ある、コンマがない、など）には対処しなくてよい。</li>
+      <li>♥9,♥10,♥J のような、同一スートで連続ランクの手が出せるようなルールには対応しない。</li>
+      <li>革命、８切り、Jack-back などもない。</li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='samples'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <th>#1</th>
+        <td><code>DJ,</code></td>
+        <td><code>-</code></td>
+      </tr>
+      <tr>
+        <th>#2</th>
+        <td><code>H7,HK</code></td>
+        <td><code>HK</code></td>
+      </tr>
+      <tr>
+        <th>#3</th>
+        <td><code>S3,D4D2</code></td>
+        <td><code>D4,D2</code></td>
+      </tr>
+      <tr>
+        <th>#4</th>
+        <td><code>S9,C8H4</code></td>
+        <td><code>-</code></td>
+      </tr>
+      <tr>
+        <th>#5</th>
+        <td><code>S6,S7STCK</code></td>
+        <td><code>CK,ST,S7</code></td>
+      </tr>
+      <tr>
+        <th>#6</th>
+        <td><code>H4,SAS8CKH6S4</code></td>
+        <td><code>S8,CK,H6,SA</code></td>
+      </tr>
+      <tr>
+        <th>#7</th>
+        <td><code>ST,D6S8JoC7HQHAC2CK</code></td>
+        <td><code>Jo,C2,CK,HA,HQ</code></td>
+      </tr>
+      <tr>
+        <th>#8</th>
+        <td><code>SA,HAD6S8S6D3C4H2C5D4CKHQS7D5</code></td>
+        <td><code>H2</code></td>
+      </tr>
+      <tr>
+        <th>#9</th>
+        <td><code>S2,D8C9D6HQS7H4C6DTS5S6C7HAD4SQ</code></td>
+        <td><code>-</code></td>
+      </tr>
+      <tr>
+        <th>#10</th>
+        <td><code>Jo,HAC8DJSJDTH2</code></td>
+        <td><code>-</code></td>
+      </tr>
+      <tr>
+        <th>#11</th>
+        <td><code>S4Jo,CQS6C9DQH9S2D6S3</code></td>
+        <td><code>DQCQ,D6S6,H9C9</code></td>
+      </tr>
+      <tr>
+        <th>#12</th>
+        <td><code>CTDT,S9C2D9D3JoC6DASJS4</code></td>
+        <td><code>JoC2,SJJo,DAJo</code></td>
+      </tr>
+      <tr>
+        <th>#13</th>
+        <td><code>H3D3,DQS2D6H9HAHTD7S6S7Jo</code></td>
+        <td><code>JoHA,JoD6,JoH9,D6S6,D7S7,JoS6,HTJo,JoDQ,S2Jo,JoD7,JoS7</code></td>
+      </tr>
+      <tr>
+        <th>#14</th>
+        <td><code>D5Jo,CQDAH8C6C9DQH7S2SJCKH5</code></td>
+        <td><code>CQDQ</code></td>
+      </tr>
+      <tr>
+        <th>#15</th>
+        <td><code>C7H7,S7CTH8D5HACQS8JoD6SJS5H4</code></td>
+        <td><code>HAJo,JoSJ,H8S8,H8Jo,CQJo,CTJo,JoS8</code></td>
+      </tr>
+      <tr>
+        <th>#16</th>
+        <td><code>SAHA,S7SKCTS3H9DJHJH7S5H2DKDQS4</code></td>
+        <td><code>-</code></td>
+      </tr>
+      <tr>
+        <th>#17</th>
+        <td><code>JoC8,H6D7C5S9CQH9STDTCAD9S5DAS2CT</code></td>
+        <td><code>CTDT,H9D9,S9D9,DACA,CTST,H9S9,DTST</code></td>
+      </tr>
+      <tr>
+        <th>#18</th>
+        <td><code>HTST,SJHJDJCJJoS3D2</code></td>
+        <td><code>DJCJ,SJDJ,JoHJ,CJHJ,SJJo,HJSJ,DJJo,JoCJ,JoD2,SJCJ,DJHJ</code></td>
+      </tr>
+      <tr>
+        <th>#19</th>
+        <td><code>C7D7,S8D8JoCTDTD4CJ</code></td>
+        <td><code>D8S8,JoS8,CTJo,DTJo,JoCJ,CTDT,D8Jo</code></td>
+      </tr>
+      <tr>
+        <th>#20</th>
+        <td><code>DJSJ,DTDKDQHQJoC2</code></td>
+        <td><code>JoDK,HQDQ,DQJo,C2Jo,JoHQ</code></td>
+      </tr>
+      <tr>
+        <th>#21</th>
+        <td><code>C3H3D3,CKH2DTD5H6S4CJS5C6H5S9CA</code></td>
+        <td><code>S5H5D5</code></td>
+      </tr>
+      <tr>
+        <th>#22</th>
+        <td><code>D8H8S8,CQHJCJJoHQ</code></td>
+        <td><code>JoCQHQ,JoHJCJ</code></td>
+      </tr>
+      <tr>
+        <th>#23</th>
+        <td><code>H6D6S6,H8S8D8C8JoD2H2</code></td>
+        <td><code>D2H2Jo,D8JoS8,D8S8C8,C8D8H8,JoC8S8,H8JoC8,S8H8C8,JoS8H8,C8JoD8,D8H8S8,D8JoH8</code></td>
+      </tr>
+      <tr>
+        <th>#24</th>
+        <td><code>JoD4H4,D3H3S3C3CADASAD2</code></td>
+        <td><code>DACASA</code></td>
+      </tr>
+      <tr>
+        <th>#25</th>
+        <td><code>DJHJSJ,SQDQJoHQCQC2CA</code></td>
+        <td><code>SQJoCQ,DQCQJo,JoSQHQ,SQCQHQ,DQHQSQ,HQDQCQ,HQDQJo,SQDQCQ,CQJoHQ,SQJoDQ</code></td>
+      </tr>
+      <tr>
+        <th>#26</th>
+        <td><code>H3D3Jo,D4SKH6CTS8SAS2CQH4HAC5DADKD9</code></td>
+        <td><code>HASADA</code></td>
+      </tr>
+      <tr>
+        <th>#27</th>
+        <td><code>C3JoH3D3,S2S3H7HQCACTC2CKC6S7H5C7</code></td>
+        <td><code>-</code></td>
+      </tr>
+      <tr>
+        <th>#28</th>
+        <td><code>H5C5S5D5,C7S6D6C3H7HAH6H4C6HQC9</code></td>
+        <td><code>C6D6S6H6</code></td>
+      </tr>
+      <tr>
+        <th>#29</th>
+        <td><code>H7S7C7D7,S5SAH5HAD5DAC5CA</code></td>
+        <td><code>SADACAHA</code></td>
+      </tr>
+      <tr>
+        <th>#30</th>
+        <td><code>D4H4S4C4,S6SAH6HAD6DAC6CAJo</code></td>
+        <td><code>C6H6S6D6,SAJoDACA,S6H6C6Jo,SACAJoHA,HADASAJo,HADAJoCA,CADAHASA,D6C6JoH6,S6D6C6Jo,H6JoS6D6</code></td>
+      </tr>
+      <tr>
+        <th>#31</th>
+        <td><code>DTCTSTHT,S3SQH3HQD3DQC3CQJo</code></td>
+        <td><code>HQSQJoDQ,SQCQDQJo,DQCQHQJo,SQHQJoCQ,CQDQHQSQ</code></td>
+      </tr>
+      <tr>
+        <th>#32</th>
+        <td><code>JoS8D8H8,S9DTH9CTD9STC9CAC2</code></td>
+        <td><code>H9C9D9S9</code></td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*#1*/ test( "DJ,", "-" );
+/*#2*/ test( "H7,HK", "HK" );
+/*#3*/ test( "S3,D4D2", "D4,D2" );
+/*#4*/ test( "S9,C8H4", "-" );
+/*#5*/ test( "S6,S7STCK", "CK,ST,S7" );
+/*#6*/ test( "H4,SAS8CKH6S4", "S8,CK,H6,SA" );
+/*#7*/ test( "ST,D6S8JoC7HQHAC2CK", "Jo,C2,CK,HA,HQ" );
+/*#8*/ test( "SA,HAD6S8S6D3C4H2C5D4CKHQS7D5", "H2" );
+/*#9*/ test( "S2,D8C9D6HQS7H4C6DTS5S6C7HAD4SQ", "-" );
+/*#10*/ test( "Jo,HAC8DJSJDTH2", "-" );
+/*#11*/ test( "S4Jo,CQS6C9DQH9S2D6S3", "DQCQ,D6S6,H9C9" );
+/*#12*/ test( "CTDT,S9C2D9D3JoC6DASJS4", "JoC2,SJJo,DAJo" );
+/*#13*/ test( "H3D3,DQS2D6H9HAHTD7S6S7Jo", "JoHA,JoD6,JoH9,D6S6,D7S7,JoS6,HTJo,JoDQ,S2Jo,JoD7,JoS7" );
+/*#14*/ test( "D5Jo,CQDAH8C6C9DQH7S2SJCKH5", "CQDQ" );
+/*#15*/ test( "C7H7,S7CTH8D5HACQS8JoD6SJS5H4", "HAJo,JoSJ,H8S8,H8Jo,CQJo,CTJo,JoS8" );
+/*#16*/ test( "SAHA,S7SKCTS3H9DJHJH7S5H2DKDQS4", "-" );
+/*#17*/ test( "JoC8,H6D7C5S9CQH9STDTCAD9S5DAS2CT", "CTDT,H9D9,S9D9,DACA,CTST,H9S9,DTST" );
+/*#18*/ test( "HTST,SJHJDJCJJoS3D2", "DJCJ,SJDJ,JoHJ,CJHJ,SJJo,HJSJ,DJJo,JoCJ,JoD2,SJCJ,DJHJ" );
+/*#19*/ test( "C7D7,S8D8JoCTDTD4CJ", "D8S8,JoS8,CTJo,DTJo,JoCJ,CTDT,D8Jo" );
+/*#20*/ test( "DJSJ,DTDKDQHQJoC2", "JoDK,HQDQ,DQJo,C2Jo,JoHQ" );
+/*#21*/ test( "C3H3D3,CKH2DTD5H6S4CJS5C6H5S9CA", "S5H5D5" );
+/*#22*/ test( "D8H8S8,CQHJCJJoHQ", "JoCQHQ,JoHJCJ" );
+/*#23*/ test( "H6D6S6,H8S8D8C8JoD2H2", "D2H2Jo,D8JoS8,D8S8C8,C8D8H8,JoC8S8,H8JoC8,S8H8C8,JoS8H8,C8JoD8,D8H8S8,D8JoH8" );
+/*#24*/ test( "JoD4H4,D3H3S3C3CADASAD2", "DACASA" );
+/*#25*/ test( "DJHJSJ,SQDQJoHQCQC2CA", "SQJoCQ,DQCQJo,JoSQHQ,SQCQHQ,DQHQSQ,HQDQCQ,HQDQJo,SQDQCQ,CQJoHQ,SQJoDQ" );
+/*#26*/ test( "H3D3Jo,D4SKH6CTS8SAS2CQH4HAC5DADKD9", "HASADA" );
+/*#27*/ test( "C3JoH3D3,S2S3H7HQCACTC2CKC6S7H5C7", "-" );
+/*#28*/ test( "H5C5S5D5,C7S6D6C3H7HAH6H4C6HQC9", "C6D6S6H6" );
+/*#29*/ test( "H7S7C7D7,S5SAH5HAD5DAC5CA", "SADACAHA" );
+/*#30*/ test( "D4H4S4C4,S6SAH6HAD6DAC6CAJo", "C6H6S6D6,SAJoDACA,S6H6C6Jo,SACAJoHA,HADASAJo,HADAJoCA,CADAHASA,D6C6JoH6,S6D6C6Jo,H6JoS6D6" );
+/*#31*/ test( "DTCTSTHT,S3SQH3HQD3DQC3CQJo", "HQSQJoDQ,SQCQDQJo,DQCQHQJo,SQHQJoCQ,CQDQHQSQ" );
+/*#32*/ test( "JoS8D8H8,S9DTH9CTD9STC9CAC2", "H9C9D9S9" );</textarea>
+  </body>
+</html>

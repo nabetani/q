@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Rails on Tiles yokohama.rb 2016.7.9 問題</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      img.sample{
+      width:100px;
+      height:100px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      float_right{
+       float:right;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+      td.bigcell{
+        width:25mm;
+        height:25mm;
+        font-size:18mm;
+        border:solid black 0.5mm
+      }
+      table.big td{
+        font-size:5mm;
+        padding:0 0 0 0;
+        margin:0 0 0 0;
+      }
+      div.top img{
+        width:80px;
+      }
+       td.sample img{
+        width:40px;
+        height:40px;
+       }
+      talbe.big{
+        table-layout: fixed;
+      }
+      table.big div{
+        width:80px;
+        height:80px;
+        max-height:80px;
+      }
+      table.big td{
+        width:80px;
+        height:80px;
+        max-height:80px;
+      }
+      table.big img{
+        width:80px;
+        height:80px;
+       }
+       .poslabel{
+         position:relative;
+         width:0px;
+         height:0px;
+         top:-85px;
+         left:-25px;
+         z-index: 2;
+       }
+       .map{
+         line-height:10px;
+       }
+    </style>
+  </head>
+  <body>
+    <h1>Rails on Tiles yokohama.rb 2016.7.9 問題</h1>
+    <h2>問題の概要</h2>
+    <p>
+      Rail の書かれているタイルが16枚、4×4 に並んでいる。
+      <br>
+      Rail にそって進んだ場合に通過するタイルの位置を計算せよ。
+      <br>
+      タイルは、以下の4種類がある。
+    </p>
+    <table>
+      <tr>
+        <th>名前</th>
+        <th>0</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+      </tr>
+      <tr>
+        <th>形状</th>
+        <td>
+          <img class='sample' src='0.png'>
+        </td>
+        <td>
+          <img class='sample' src='1.png'>
+        </td>
+        <td>
+          <img class='sample' src='2.png'>
+        </td>
+        <td>
+          <img class='sample' src='3.png'>
+        </td>
+      </tr>
+      <br>
+    </table>
+    <h2>詳細</h2>
+    <table class='float_right big'>
+      <tr>
+        <td>
+          <div>
+            <img class='sample' src='0.png'>
+            <span class='poslabel'>
+              a
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='1.png'>
+            <span class='poslabel'>
+              b
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='1.png'>
+            <span class='poslabel'>
+              c
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='3.png'>
+            <span class='poslabel'>
+              d
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div>
+            <img class='sample' src='1.png'>
+            <span class='poslabel'>
+              e
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='2.png'>
+            <span class='poslabel'>
+              f
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='0.png'>
+            <span class='poslabel'>
+              g
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='1.png'>
+            <span class='poslabel'>
+              h
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div>
+            <img class='sample' src='2.png'>
+            <span class='poslabel'>
+              i
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='2.png'>
+            <span class='poslabel'>
+              j
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='0.png'>
+            <span class='poslabel'>
+              k
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='1.png'>
+            <span class='poslabel'>
+              l
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div>
+            <img class='sample' src='2.png'>
+            <span class='poslabel'>
+              m
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='1.png'>
+            <span class='poslabel'>
+              n
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='0.png'>
+            <span class='poslabel'>
+              o
+            </span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <img class='sample' src='0.png'>
+            <span class='poslabel'>
+              p
+            </span>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <p>
+      スタート地点は、「b」のマスの上。
+      <br>
+      ドクロマークに到達すると、終了。4×4 の領域の外に行っても終了。
+      終了するまでに進入したマスを、順に並べた文字列を出力する。
+      <br>
+      各マスの名前は右図の通り。左上から順に a〜p のという名前がついている。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>0113/1201/2201/2100</code>
+      <br>
+      こんな感じ。
+      <br>
+      a〜p のマスの形状が順に並んでいる。行ごとにスラッシュ区切り。行内は区切りなし。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、進入したマスの名前。区切り文字はない。
+      <br>
+      ドクロマークのマスに入って終了した場合、ドクロマークのマス目まで出力すること。
+      <br>
+      <code>bcgfeabfjnoklpo</code>
+      <br>
+      こんな感じ。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        この問題は2016年7月9日に開催される yokohama.rb の問題です。イベントについては
+        <a href='https://yokohamarb.doorkeeper.jp/events/45057'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>0113/1201/2201/2100</code>
+        </td>
+        <td>
+          <code class='expected'>bcgfeabfjnoklpo</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='1.png'><img src='1.png'><img src='3.png'><br><img src='1.png'><img src='2.png'><img src='0.png'><img src='1.png'><br><img src='2.png'><img src='2.png'><img src='0.png'><img src='1.png'><br><img src='2.png'><img src='1.png'><img src='0.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>2110/2013/2210/0122</code>
+        </td>
+        <td>
+          <code class='expected'>bcgh</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='2.png'><img src='1.png'><img src='1.png'><img src='0.png'><br><img src='2.png'><img src='0.png'><img src='1.png'><img src='3.png'><br><img src='2.png'><img src='2.png'><img src='1.png'><img src='0.png'><br><img src='0.png'><img src='1.png'><img src='2.png'><img src='2.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>2222/2130/2121/2002</code>
+        </td>
+        <td>
+          <code class='expected'>bfg</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='2.png'><img src='2.png'><img src='2.png'><img src='2.png'><br><img src='2.png'><img src='1.png'><img src='3.png'><img src='0.png'><br><img src='2.png'><img src='1.png'><img src='2.png'><img src='1.png'><br><img src='2.png'><img src='0.png'><img src='0.png'><img src='2.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>0021/2212/2102/1220</code>
+        </td>
+        <td>
+          <code class='expected'>baeimnoplhdcbfjkgfe</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='0.png'><img src='2.png'><img src='1.png'><br><img src='2.png'><img src='2.png'><img src='1.png'><img src='2.png'><br><img src='2.png'><img src='1.png'><img src='0.png'><img src='2.png'><br><img src='1.png'><img src='2.png'><img src='2.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>0213/1221/0220/1103</code>
+        </td>
+        <td>
+          <code class='expected'>bfjnokgcbaefghlkjimn</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='2.png'><img src='1.png'><img src='3.png'><br><img src='1.png'><img src='2.png'><img src='2.png'><img src='1.png'><br><img src='0.png'><img src='2.png'><img src='2.png'><img src='0.png'><br><img src='1.png'><img src='1.png'><img src='0.png'><img src='3.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>3201/3120/3333/3333</code>
+        </td>
+        <td>
+          <code class='expected'>bfghdcgk</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='3.png'><img src='2.png'><img src='0.png'><img src='1.png'><br><img src='3.png'><img src='1.png'><img src='2.png'><img src='0.png'><br><img src='3.png'><img src='3.png'><img src='3.png'><img src='3.png'><br><img src='3.png'><img src='3.png'><img src='3.png'><img src='3.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>3233/3233/3133/3333</code>
+        </td>
+        <td>
+          <code class='expected'>bfjk</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='3.png'><img src='2.png'><img src='3.png'><img src='3.png'><br><img src='3.png'><img src='2.png'><img src='3.png'><img src='3.png'><br><img src='3.png'><img src='1.png'><img src='3.png'><img src='3.png'><br><img src='3.png'><img src='3.png'><img src='3.png'><img src='3.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>3333/3333/3333/3333</code>
+        </td>
+        <td>
+          <code class='expected'>b</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='3.png'><img src='3.png'><img src='3.png'><img src='3.png'><br><img src='3.png'><img src='3.png'><img src='3.png'><img src='3.png'><br><img src='3.png'><img src='3.png'><img src='3.png'><img src='3.png'><br><img src='3.png'><img src='3.png'><img src='3.png'><img src='3.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>1212/1201/2123/2220</code>
+        </td>
+        <td>
+          <code class='expected'>bfjkl</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='1.png'><img src='2.png'><img src='1.png'><img src='2.png'><br><img src='1.png'><img src='2.png'><img src='0.png'><img src='1.png'><br><img src='2.png'><img src='1.png'><img src='2.png'><img src='3.png'><br><img src='2.png'><img src='2.png'><img src='2.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>2212/3102/1002/2100</code>
+        </td>
+        <td>
+          <code class='expected'>bfgcba</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='2.png'><img src='2.png'><img src='1.png'><img src='2.png'><br><img src='3.png'><img src='1.png'><img src='0.png'><img src='2.png'><br><img src='1.png'><img src='0.png'><img src='0.png'><img src='2.png'><br><img src='2.png'><img src='1.png'><img src='0.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>0023/2221/1102/0031</code>
+        </td>
+        <td>
+          <code class='expected'>baeijnm</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='0.png'><img src='2.png'><img src='3.png'><br><img src='2.png'><img src='2.png'><img src='2.png'><img src='1.png'><br><img src='1.png'><img src='1.png'><img src='0.png'><img src='2.png'><br><img src='0.png'><img src='0.png'><img src='3.png'><img src='1.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>1121/3120/0212/1120</code>
+        </td>
+        <td>
+          <code class='expected'>bcdhgfba</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='1.png'><img src='1.png'><img src='2.png'><img src='1.png'><br><img src='3.png'><img src='1.png'><img src='2.png'><img src='0.png'><br><img src='0.png'><img src='2.png'><img src='1.png'><img src='2.png'><br><img src='1.png'><img src='1.png'><img src='2.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>2202/3211/2120/1210</code>
+        </td>
+        <td>
+          <code class='expected'>bfjklhgcd</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='2.png'><img src='2.png'><img src='0.png'><img src='2.png'><br><img src='3.png'><img src='2.png'><img src='1.png'><img src='1.png'><br><img src='2.png'><img src='1.png'><img src='2.png'><img src='0.png'><br><img src='1.png'><img src='2.png'><img src='1.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>3201/3211/1111/0100</code>
+        </td>
+        <td>
+          <code class='expected'>bfjkonjie</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='3.png'><img src='2.png'><img src='0.png'><img src='1.png'><br><img src='3.png'><img src='2.png'><img src='1.png'><img src='1.png'><br><img src='1.png'><img src='1.png'><img src='1.png'><img src='1.png'><br><img src='0.png'><img src='1.png'><img src='0.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>0121/1120/1111/1211</code>
+        </td>
+        <td>
+          <code class='expected'>bcdhgfbaefjkop</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='1.png'><img src='2.png'><img src='1.png'><br><img src='1.png'><img src='1.png'><img src='2.png'><img src='0.png'><br><img src='1.png'><img src='1.png'><img src='1.png'><img src='1.png'><br><img src='1.png'><img src='2.png'><img src='1.png'><img src='1.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>1212/1213/2103/0213</code>
+        </td>
+        <td>
+          <code class='expected'>bfjkgfea</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='1.png'><img src='2.png'><img src='1.png'><img src='2.png'><br><img src='1.png'><img src='2.png'><img src='1.png'><img src='3.png'><br><img src='2.png'><img src='1.png'><img src='0.png'><img src='3.png'><br><img src='0.png'><img src='2.png'><img src='1.png'><img src='3.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>1121/2212/1323/3031</code>
+        </td>
+        <td>
+          <code class='expected'>bcdhl</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='1.png'><img src='1.png'><img src='2.png'><img src='1.png'><br><img src='2.png'><img src='2.png'><img src='1.png'><img src='2.png'><br><img src='1.png'><img src='3.png'><img src='2.png'><img src='3.png'><br><img src='3.png'><img src='0.png'><img src='3.png'><img src='1.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>0030/1230/1121/0031</code>
+        </td>
+        <td>
+          <code class='expected'>baefg</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='0.png'><img src='3.png'><img src='0.png'><br><img src='1.png'><img src='2.png'><img src='3.png'><img src='0.png'><br><img src='1.png'><img src='1.png'><img src='2.png'><img src='1.png'><br><img src='0.png'><img src='0.png'><img src='3.png'><img src='1.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>2223/1211/0002/1200</code>
+        </td>
+        <td>
+          <code class='expected'>bfjimnokl</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='2.png'><img src='2.png'><img src='2.png'><img src='3.png'><br><img src='1.png'><img src='2.png'><img src='1.png'><img src='1.png'><br><img src='0.png'><img src='0.png'><img src='0.png'><img src='2.png'><br><img src='1.png'><img src='2.png'><img src='0.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>3210/0033/0201/0130</code>
+        </td>
+        <td>
+          <code class='expected'>bfei</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='3.png'><img src='2.png'><img src='1.png'><img src='0.png'><br><img src='0.png'><img src='0.png'><img src='3.png'><img src='3.png'><br><img src='0.png'><img src='2.png'><img src='0.png'><img src='1.png'><br><img src='0.png'><img src='1.png'><img src='3.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>0213/2220/0021/3002</code>
+        </td>
+        <td>
+          <code class='expected'>bfjim</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='2.png'><img src='1.png'><img src='3.png'><br><img src='2.png'><img src='2.png'><img src='2.png'><img src='0.png'><br><img src='0.png'><img src='0.png'><img src='2.png'><img src='1.png'><br><img src='3.png'><img src='0.png'><img src='0.png'><img src='2.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>2121/2112/1110/1010</code>
+        </td>
+        <td>
+          <code class='expected'>bcdhlkgfba</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='2.png'><img src='1.png'><img src='2.png'><img src='1.png'><br><img src='2.png'><img src='1.png'><img src='1.png'><img src='2.png'><br><img src='1.png'><img src='1.png'><img src='1.png'><img src='0.png'><br><img src='1.png'><img src='0.png'><img src='1.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>0113/1003/2303/2220</code>
+        </td>
+        <td>
+          <code class='expected'>bcgfj</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='1.png'><img src='1.png'><img src='3.png'><br><img src='1.png'><img src='0.png'><img src='0.png'><img src='3.png'><br><img src='2.png'><img src='3.png'><img src='0.png'><img src='3.png'><br><img src='2.png'><img src='2.png'><img src='2.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>2202/1110/1302/0313</code>
+        </td>
+        <td>
+          <code class='expected'>bfgkj</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='2.png'><img src='2.png'><img src='0.png'><img src='2.png'><br><img src='1.png'><img src='1.png'><img src='1.png'><img src='0.png'><br><img src='1.png'><img src='3.png'><img src='0.png'><img src='2.png'><br><img src='0.png'><img src='3.png'><img src='1.png'><img src='3.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>1211/3202/2102/0222</code>
+        </td>
+        <td>
+          <code class='expected'>bfjkgh</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='1.png'><img src='2.png'><img src='1.png'><img src='1.png'><br><img src='3.png'><img src='2.png'><img src='0.png'><img src='2.png'><br><img src='2.png'><img src='1.png'><img src='0.png'><img src='2.png'><br><img src='0.png'><img src='2.png'><img src='2.png'><img src='2.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>3113/0002/0112/1022</code>
+        </td>
+        <td>
+          <code class='expected'>bcgfjko</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='3.png'><img src='1.png'><img src='1.png'><img src='3.png'><br><img src='0.png'><img src='0.png'><img src='0.png'><img src='2.png'><br><img src='0.png'><img src='1.png'><img src='1.png'><img src='2.png'><br><img src='1.png'><img src='0.png'><img src='2.png'><img src='2.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>1200/3000/0121/0121</code>
+        </td>
+        <td>
+          <code class='expected'>bfe</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='1.png'><img src='2.png'><img src='0.png'><img src='0.png'><br><img src='3.png'><img src='0.png'><img src='0.png'><img src='0.png'><br><img src='0.png'><img src='1.png'><img src='2.png'><img src='1.png'><br><img src='0.png'><img src='1.png'><img src='2.png'><img src='1.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>2221/1122/1031/2200</code>
+        </td>
+        <td>
+          <code class='expected'>bfgh</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='2.png'><img src='2.png'><img src='2.png'><img src='1.png'><br><img src='1.png'><img src='1.png'><img src='2.png'><img src='2.png'><br><img src='1.png'><img src='0.png'><img src='3.png'><img src='1.png'><br><img src='2.png'><img src='2.png'><img src='0.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>1202/0121/0222/1300</code>
+        </td>
+        <td>
+          <code class='expected'>bfghlpo</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='1.png'><img src='2.png'><img src='0.png'><img src='2.png'><br><img src='0.png'><img src='1.png'><img src='2.png'><img src='1.png'><br><img src='0.png'><img src='2.png'><img src='2.png'><img src='2.png'><br><img src='1.png'><img src='3.png'><img src='0.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>0002/1012/1021/3300</code>
+        </td>
+        <td>
+          <code class='expected'>baefbc</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='0.png'><img src='0.png'><img src='2.png'><br><img src='1.png'><img src='0.png'><img src='1.png'><img src='2.png'><br><img src='1.png'><img src='0.png'><img src='2.png'><img src='1.png'><br><img src='3.png'><img src='3.png'><img src='0.png'><img src='0.png'><br>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>0211/1200/2220/2103</code>
+        </td>
+        <td>
+          <code class='expected'>bfjnokghdc</code>
+        </td>
+        <td class='sample'>
+          <div class='map'><img src='0.png'><img src='2.png'><img src='1.png'><img src='1.png'><br><img src='1.png'><img src='2.png'><img src='0.png'><img src='0.png'><br><img src='2.png'><img src='2.png'><img src='2.png'><img src='0.png'><br><img src='2.png'><img src='1.png'><img src='0.png'><img src='3.png'><br>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <h2>ソースコードに貼り付けるためのテストデータ</h2>
+    <textarea>test( "0113/1201/2201/2100", "bcgfeabfjnoklpo" ) # 0    
+test( "2110/2013/2210/0122", "bcgh" ) # 1    
+test( "2222/2130/2121/2002", "bfg" ) # 2    
+test( "0021/2212/2102/1220", "baeimnoplhdcbfjkgfe" ) # 3    
+test( "0213/1221/0220/1103", "bfjnokgcbaefghlkjimn" ) # 4    
+test( "3201/3120/3333/3333", "bfghdcgk" ) # 5    
+test( "3233/3233/3133/3333", "bfjk" ) # 6    
+test( "3333/3333/3333/3333", "b" ) # 7    
+test( "1212/1201/2123/2220", "bfjkl" ) # 8    
+test( "2212/3102/1002/2100", "bfgcba" ) # 9    
+test( "0023/2221/1102/0031", "baeijnm" ) # 10    
+test( "1121/3120/0212/1120", "bcdhgfba" ) # 11    
+test( "2202/3211/2120/1210", "bfjklhgcd" ) # 12    
+test( "3201/3211/1111/0100", "bfjkonjie" ) # 13    
+test( "0121/1120/1111/1211", "bcdhgfbaefjkop" ) # 14    
+test( "1212/1213/2103/0213", "bfjkgfea" ) # 15    
+test( "1121/2212/1323/3031", "bcdhl" ) # 16    
+test( "0030/1230/1121/0031", "baefg" ) # 17    
+test( "2223/1211/0002/1200", "bfjimnokl" ) # 18    
+test( "3210/0033/0201/0130", "bfei" ) # 19    
+test( "0213/2220/0021/3002", "bfjim" ) # 20    
+test( "2121/2112/1110/1010", "bcdhlkgfba" ) # 21    
+test( "0113/1003/2303/2220", "bcgfj" ) # 22    
+test( "2202/1110/1302/0313", "bfgkj" ) # 23    
+test( "1211/3202/2102/0222", "bfjkgh" ) # 24    
+test( "3113/0002/0112/1022", "bcgfjko" ) # 25    
+test( "1200/3000/0121/0121", "bfe" ) # 26    
+test( "2221/1122/1031/2200", "bfgh" ) # 27    
+test( "1202/0121/0222/1300", "bfghlpo" ) # 28    
+test( "0002/1012/1021/3300", "baefbc" ) # 29    
+test( "0211/1200/2220/2103", "bfjnokghdc" ) # 30</textarea>
+  </body>
+</html>

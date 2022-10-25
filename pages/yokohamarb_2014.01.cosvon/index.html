@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>CoSVON 〜 Yokohama.rb #40 2014.1.11</title>
+    <style>
+      body, textarea { 
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{ width:322px }
+      img.small{ width:82px }
+      
+      tr.z:nth-child(even) { background-color: #fafafa }
+      tr.z:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      table code {
+        border:none
+      }
+      table.rep{
+        border:solid 1px #ccc;
+        background-color: #bbb;
+      }
+      tr.rep{
+        background-color: #fff;
+      }
+      pre{
+        margin:0 0 0 0;
+      }
+      div{
+        padding:0 0 0 0;
+        margin:0 0 0 0;
+        white-space: normal;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CoSVON 〜 Yokohama.rb #40 2014.1.11</h1>
+    <h2>問題</h2>
+    <p>
+      CoSVON (<b>Co</b>mma <b>S</b>eparated <b>V</b>alue <b>O</b>bject <b>N</b>otation ) という記法を以下に定義する。
+    </p>
+    <p>
+      この仕様に従い、
+    </p>
+    <ul>
+      <li>
+        CoSVON の仕様に従った文字列
+        <small>(又はファイル)</small>
+        をオブジェクトに変換する
+      </li>
+      <li>
+        CoSVON 化可能なオブジェクトを CoSVON の仕様に従った文字列
+        <small>(又はファイル)</small>
+        に変換する
+      </li>
+    </ul>
+    <p>
+      という２つの機能を持った gem を作れ。
+    </p>
+    <h2>大雑把な話</h2>
+    <p>
+      要するに。
+    </p>
+    <ul>
+      <li>CSV で、JSON や YAML のまねごとをしたい。</li>
+      <li>時間が限られているので、仕様を最小限に。</li>
+    </ul>
+    <p>
+      という話。
+    </p>
+    <h2>詳細</h2>
+    <h3>外形</h3>
+    <p>
+      CoSVON は、CSV である。CSV として読むことができる。文字のエスケープなどの仕様は CSV に準ずる。
+      <br>
+      ファイルの読み書きを行う場合は文字コードが問題になるが、US-ASCII 互換で、文字コード 0x20〜0x7e 、改行、タブ だけからなる文字列(以下、「きれいな文字列」と呼ぶ）に対応すれば良い。
+    </p>
+    <h3>保存できる値</h3>
+    <p>
+      ひとつの CoSVON 文字列は、ひとつの Hash を保存したものになる。
+      Hash のキーと値はいずれも empty ではない文字列 でなければならない。
+      <small>( 「きれいな文字列」 に限定してよい )</small>
+      <br>
+      また、Hash は空ではないとする。
+      <br>
+      想定外のオブジェクトを保存しようとした場合の動作は未定義（つまり、例外を投げてもいいし、to_s か何かで適当にあしらってもよい）。
+    </p>
+    <h3>構造</h3>
+    <p>
+      最初の行には
+      <code>CoSVON:0.1</code>
+      と、書かれている。また、
+      <br>
+      <code>CoSVON:0.1,,,"",,</code>
+      のように、コンマや、空のセルが何個か続いていても良い。
+      <br>
+      言い換えると。
+      <br>
+      最初の行の最初のセルには
+      <code>CoSVON:0.1</code>
+      と書かれており、それ以外のセルは、空である。
+    </p>
+    <p>
+      2行目以降は key-value pair になっており、最初のセルがキー、キーのセルの右に値がある。
+      <br>
+      値のあるセルの右には、セルがないか、空のセルがある。
+      <br>
+      値のあるセルの右に空でないセルがあった場合の動作は未定義（つまり、例外を投げてもいいし、気づかずに読み込んだりしてもよい）
+      <br>
+      最後に、空のセルのみからなる行が何行か続いている可能性がある。
+    </p>
+    <h3>保存時の動作</h3>
+    <p>
+      ruby の場合は Hash に順序があるが、保存時にその順序通りに保存しなくても良い。
+    </p>
+    <p>
+      保存時にはセルを二重引用符で囲んでも良いし、囲まなくても良い。
+    </p>
+    <h3>読み込み時の動作</h3>
+    <p>
+      ruby の場合は Hash に順序があるが、読み込み時にCSV上の順序どおりの Hash にならなくてもよい。
+      <br>
+      また、保存したものを読み込んだ場合に、保存前の順序を再現する必要もない。
+      <br>
+      先頭の
+      <code>CoSVON:0.1</code>
+      がない場合や
+      <code>cosvon:0.1.1</code>
+      のような惜しい内容の場合の動作は未定義。
+      <br>
+      冗長な空のセルがあった場合は無視すること。
+    </p>
+    <h3>事例</h3>
+    <p>
+      下表の見方。
+      <br>
+      「ruby」の欄のオブジェクトを CoSVON としてシリアライズすると「CoSVON」の欄にある文字列になる(かもしれない)。
+      <br>
+      逆に「CoSVON」の欄の文字列を読むと「ruby」の欄のオブジェクトになる(かもしれない)。
+      <br>
+      また、「CoSVON」の欄にある文字列を CSV とみなして表計算ソフトで読むと「表」の欄にあるような雰囲気になる。
+      <br>
+      「かもしれない」と何度か書いたのは、保存時には Hash の順序、二重引用符や空のセルの有無という自由が、読み込み時には Hash の順序という自由があるので、一意に定まらないからである。
+    </p>
+    <table>
+      <tr class='z'>
+        <th>ruby</th>
+        <th>CoSVON</th>
+        <th>表</th>
+      </tr>
+      <tr class='z'>
+        <td>
+          <pre class='src'><div class="CodeRay">&#x000A;  <div class="code"><pre>&#x000A;{&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">DreamCast</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">SEGA</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">HI-Saturn</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hitachi</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">FamiconTV</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Sharp</span><span style="color:#710">&quot;</span></span>,&#x000A;}</pre></div>&#x000A;</div></pre>
+        </td>
+        <td>
+          <pre class='cosvon'>CoSVON:0.1&#x000A;DreamCast,SEGA&#x000A;HI-Saturn,Hitachi&#x000A;FamiconTV,Sharp</pre>
+        </td>
+        <td>
+          <table class='rep'>
+            <tr class='rep'><td><pre class='rep'>CoSVON:0.1</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>DreamCast</pre></td><td><pre class='rep'>SEGA</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>HI-Saturn</pre></td><td><pre class='rep'>Hitachi</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>FamiconTV</pre></td><td><pre class='rep'>Sharp</pre></td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr class='z'>
+        <td>
+          <pre class='src'><div class="CodeRay">&#x000A;  <div class="code"><pre>&#x000A;{&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">foo</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">bar</span><span style="color:#710">&quot;</span></span>,&#x000A;}</pre></div>&#x000A;</div></pre>
+        </td>
+        <td>
+          <pre class='cosvon'>CoSVON:0.1&#x000A;foo,bar</pre>
+        </td>
+        <td>
+          <table class='rep'>
+            <tr class='rep'><td><pre class='rep'>CoSVON:0.1</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>foo</pre></td><td><pre class='rep'>bar</pre></td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr class='z'>
+        <td>
+          <pre class='src'><div class="CodeRay">&#x000A;  <div class="code"><pre>&#x000A;{&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">comma</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">[,]</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">dq</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">[&quot;]</span><span style="color:#710">'</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">n</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">[</span><span style="color:#b0b">\n</span><span style="color:#D20">]</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">tab</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">[</span><span style="color:#b0b">\t</span><span style="color:#D20">]</span><span style="color:#710">&quot;</span></span>,&#x000A;}</pre></div>&#x000A;</div></pre>
+        </td>
+        <td>
+          <pre class='cosvon'>CoSVON:0.1&#x000A;comma,"[,]"&#x000A;dq,"[""]"&#x000A;n,"[&#x000A;]"&#x000A;tab,[	]</pre>
+        </td>
+        <td>
+          <table class='rep'>
+            <tr class='rep'><td><pre class='rep'>CoSVON:0.1</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>comma</pre></td><td><pre class='rep'>[,]</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>dq</pre></td><td><pre class='rep'>["]</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>n</pre></td><td><pre class='rep'>[&#x000A;]</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>tab</pre></td><td><pre class='rep'>[	]</pre></td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr class='z'>
+        <td>
+          <pre class='src'><div class="CodeRay">&#x000A;  <div class="code"><pre>&#x000A;{&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">SH3</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Super Hitachi 3</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ATOK</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Awa TOKushima</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ICU</span><span style="color:#710">&quot;</span></span> =&gt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Isolated Crazy Utopia</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">BING</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Bing Is Not Google</span><span style="color:#710">&quot;</span></span>,&#x000A;}</pre></div>&#x000A;</div></pre>
+        </td>
+        <td>
+          <pre class='cosvon'>CoSVON:0.1&#x000A;SH3,Super Hitachi 3&#x000A;ATOK,Awa TOKushima&#x000A;ICU,Isolated Crazy Utopia&#x000A;BING,Bing Is Not Google</pre>
+        </td>
+        <td>
+          <table class='rep'>
+            <tr class='rep'><td><pre class='rep'>CoSVON:0.1</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>SH3</pre></td><td><pre class='rep'>Super Hitachi 3</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>ATOK</pre></td><td><pre class='rep'>Awa TOKushima</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>ICU</pre></td><td><pre class='rep'>Isolated Crazy Utopia</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>BING</pre></td><td><pre class='rep'>Bing Is Not Google</pre></td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr class='z'>
+        <td>
+          <pre class='src'><div class="CodeRay">&#x000A;  <div class="code"><pre>&#x000A;{&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Google</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Chrome</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Apple</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Safari</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Opera</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Opera</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Mozilla</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Firefox</span><span style="color:#710">&quot;</span></span>&#x000A;}</pre></div>&#x000A;</div></pre>
+        </td>
+        <td>
+          <pre class='cosvon'>CoSVON:0.1,,,&#x000A;Google,Chrome,,&#x000A;Apple,Safari,"",&#x000A;Opera,Opera,,""&#x000A;Mozilla,Firefox,"",""&#x000A;,,,&#x000A;,,,&#x000A;,,,</pre>
+        </td>
+        <td>
+          <table class='rep'>
+            <tr class='rep'><td><pre class='rep'>CoSVON:0.1</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>Google</pre></td><td><pre class='rep'>Chrome</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>Apple</pre></td><td><pre class='rep'>Safari</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>Opera</pre></td><td><pre class='rep'>Opera</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>Mozilla</pre></td><td><pre class='rep'>Firefox</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr class='z'>
+        <td>
+          <pre class='src'><div class="CodeRay">&#x000A;  <div class="code"><pre>&#x000A;{&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">no DQ</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">foo</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">with DQ</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">foo</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">inner DQ</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">foo</span><span style="color:#b0b">\&quot;</span><span style="color:#D20">bar</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">many DQs</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#b0b">\&quot;</span><span style="color:#710">&quot;</span></span>&#x000A;}</pre></div>&#x000A;</div></pre>
+        </td>
+        <td>
+          <pre class='cosvon'>CoSVON:0.1&#x000A;no DQ,foo&#x000A;with DQ,"foo"&#x000A;inner DQ,"foo""bar"&#x000A;many DQs,""""""""""""""""""""</pre>
+        </td>
+        <td>
+          <table class='rep'>
+            <tr class='rep'><td><pre class='rep'>CoSVON:0.1</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>no DQ</pre></td><td><pre class='rep'>foo</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>with DQ</pre></td><td><pre class='rep'>foo</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>inner DQ</pre></td><td><pre class='rep'>foo"bar</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>many DQs</pre></td><td><pre class='rep'>"""""""""</pre></td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr class='z'>
+        <td>
+          <pre class='src'><div class="CodeRay">&#x000A;  <div class="code"><pre>&#x000A;{&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">no extra comma</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">hoge</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">extra comma</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">fuga</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">extra comma with DQ</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">piyo</span><span style="color:#710">&quot;</span></span>,&#x000A;  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">many extra commas</span><span style="color:#710">&quot;</span></span>=&gt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">moge</span><span style="color:#710">&quot;</span></span>&#x000A;}</pre></div>&#x000A;</div></pre>
+        </td>
+        <td>
+          <pre class='cosvon'>CoSVON:0.1&#x000A;no extra comma,hoge&#x000A;extra comma,fuga,&#x000A;extra comma with DQ,piyo,""&#x000A;many extra commas,moge,,,,,,,&#x000A;"",""&#x000A;,,&#x000A;,"",</pre>
+        </td>
+        <td>
+          <table class='rep'>
+            <tr class='rep'><td><pre class='rep'>CoSVON:0.1</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>no extra comma</pre></td><td><pre class='rep'>hoge</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>extra comma</pre></td><td><pre class='rep'>fuga</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>extra comma with DQ</pre></td><td><pre class='rep'>piyo</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>many extra commas</pre></td><td><pre class='rep'>moge</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+            <tr class='rep'><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td><td><pre class='rep'>&nbsp;</pre></td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <h3>補足</h3>
+    <ul>
+      <li>interface をどうするか、まずい入力に対してどういう例外を上げるか(あるいは、例外を上げずになんとかするか)、などは実装者に任せる。</li>
+      <li>
+        ファイルから読むのか文字列から読むのか（あるいは両方用意するのか）、ファイルに保存するのか文字列に保存するのか（あるいは両方用意するのか）なども実装者に任せる。
+      </li>
+      <li>
+        実装にあたっては外部ライブラリなども自由に使って良い。
+      </li>
+      <li>
+        Hash のキーが重複しているような CoSVON を読み込んだ場合の動作は未定義（つまり、例外をあげても良いし、気づかなくても良い。）
+        <br>
+        ちなみに ruby は
+        <br>
+        <code>p( { a:1, a:2 } ) # => {:a=>2}</code>
+        <br>
+        となっている。
+      </li>
+      <li>
+        <code>+1e7</code>
+        のように数値とみなされてしまう文字列や、
+        <code>=</code>
+        で始まる文字列などは表計算ソフト上で不穏な表示になるが、気にしないでよい。
+      </li>
+      <li>
+        コンマ(
+        <code>,</code>
+        ) や 二重引用符 (
+        <code>"</code>
+        )、あるいは改行を含むセルにはきちんと対処する。
+      </li>
+    </ul>
+  </body>
+</html>

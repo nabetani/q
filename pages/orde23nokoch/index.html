@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>コッホっぽい曲線 2018.4.7</title>
+<style>
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  img.large{
+    width:400px;
+  }
+  td.center{ text-align:center; }
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    border-radius:4px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Courier New";
+  }
+  img.sample{
+  width:150px;
+  height:150px;
+  }
+  img.top{
+  width:320px;
+  }
+  .weight{
+    font-family:"Georgia";
+    padding-left:8px;
+    padding-right:8px;
+  }
+  table.float_right
+  {
+    float: right;
+  }
+  table.float_right td{
+    background-color:white;
+    text-align:center;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  float_right{
+   float:right;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  td.bigcell{
+    width:25mm;
+    height:25mm;
+    font-size:18mm;
+    border:solid black 0.5mm
+  }
+  table.big td{
+    font-size:9mm;
+    border:solid black 0.5mm
+  }
+  div.top img{
+    width:80px;
+  }
+  table.big img{
+    width:120px;
+    height:120px;
+   }
+   td.sample{
+   }
+  table.nabenum tr td
+  {
+    background-color:#444;
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+  }
+  table.nabenum
+  {
+    padding:1mm 2mm 1mm 2mm;
+    background-color:#444;
+  }
+  table.nabenum .c0{
+    width:4px;
+  }
+  table.nabenum .c1{
+    width:15px;
+  }
+  table.nabenum .c2{
+    width:4px;
+  }
+  table.nabenum tr.n0 td{
+    height:4px;
+  }
+  table.nabenum tr.n1 td{
+    height:15px;
+  }
+  table.nabenum tr.n2 td{
+    height:4px;
+  }
+  table.nabenum tr.n3 td{
+    height:15px;
+  }
+  table.nabenum tr.n4 td{
+    height:4px;
+  }
+  table.nabenum td.off{
+    background-color:black;
+  }
+  table.nabenum td.on{
+    background-color:white;
+  }
+  table.nabenum td.nazo{
+    background-color:#f00;
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+</style>
+</head>
+<body>
+<h1>コッホっぽい曲線 2018.4.7</h1>
+<div class='main_fig'>
+<table>
+<tr>
+<td>
+生成ルール : aa
+<br>
+<svg height='130px' viewBox='0 0 400 130' width='400px'>
+<polyline fill='#0000' points='0 120 44.44444444444444 120.0 66.66666666666666 81.50998205402496 88.88888888888889 120.0 133.33333333333331 120.0 155.55555555555554 81.50998205402496 133.33333333333331 43.01996410804992 177.77777777777777 43.01996410804992 200.0 4.5299461620748716 222.22222222222223 43.01996410804992 266.6666666666667 43.01996410804992 244.44444444444449 81.50998205402497 266.6666666666667 120.00000000000003 311.11111111111114 120.00000000000003 333.33333333333337 81.50998205402499 355.5555555555556 120.00000000000003 400.00000000000006 120.00000000000003' stroke-width='1' stroke='#000'></polyline>
+</svg>
+</td>
+</tr>
+<tr>
+<td>
+生成ルール : bb
+<br>
+<svg height='130px' viewBox='0 0 400 130' width='400px'>
+<polyline fill='#0000' points='0 120 25.0 120.0 37.5 98.34936490538904 62.5 98.34936490538904 75.0 120.0 100.0 120.0 112.5 98.34936490538904 99.99999999999999 76.69872981077808 112.49999999999999 55.048094716167114 137.5 55.048094716167114 150.0 33.39745962155615 175.0 33.39745962155615 187.5 11.746824526945186 212.5 11.746824526945186 225.0 33.39745962155615 250.0 33.39745962155615 262.5 55.048094716167114 287.5 55.048094716167114 300.0 76.69872981077808 287.5 98.34936490538905 300.0 120.00000000000001 325.0 120.00000000000001 337.5 98.34936490538905 362.5 98.34936490538905 375.0 120.00000000000001 400.0 120.00000000000001' stroke-width='1' stroke='#000'></polyline>
+</svg>
+</td>
+</tr>
+<tr>
+<td>
+生成ルール : ab
+<br>
+<svg height='130px' viewBox='0 0 400 130' width='400px'>
+<polyline fill='#0000' points='0 120 33.333333333333336 120.0 50.0 91.13248654051871 83.33333333333334 91.13248654051871 100.00000000000001 120.0 133.33333333333334 120.0 150.0 91.13248654051871 133.33333333333331 62.26497308103743 149.99999999999997 33.397459621556145 183.33333333333331 33.397459621556145 199.99999999999997 4.529946162074857 216.66666666666663 33.397459621556145 249.99999999999997 33.397459621556145 266.66666666666663 62.26497308103743 249.99999999999997 91.13248654051873 266.66666666666663 120.00000000000001 299.99999999999994 120.00000000000001 316.66666666666663 91.13248654051873 349.99999999999994 91.13248654051873 366.66666666666663 120.00000000000001 399.99999999999994 120.00000000000001' stroke-width='1' stroke='#000'></polyline>
+</svg>
+</td>
+</tr>
+<tr>
+<td>
+生成ルール : ba
+<br>
+<svg height='130px' viewBox='0 0 400 130' width='400px'>
+<polyline fill='#0000' points='0 120 33.333333333333336 120.0 50.0 91.13248654051871 66.66666666666667 120.0 100.0 120.0 116.66666666666667 91.13248654051871 99.99999999999999 62.26497308103743 133.33333333333331 62.26497308103743 149.99999999999997 33.397459621556145 183.33333333333331 33.397459621556145 199.99999999999997 4.529946162074857 216.66666666666663 33.397459621556145 249.99999999999997 33.397459621556145 266.66666666666663 62.26497308103743 299.99999999999994 62.26497308103743 283.33333333333326 91.13248654051873 299.99999999999994 120.00000000000001 333.33333333333326 120.00000000000001 349.99999999999994 91.13248654051873 366.66666666666663 120.00000000000001 399.99999999999994 120.00000000000001' stroke-width='1' stroke='#000'></polyline>
+</svg>
+</td>
+</tr>
+</table>
+</div>
+<h2>問題の概要</h2>
+<p>
+<a href='https://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%83%E3%83%9B%E6%9B%B2%E7%B7%9A'>コッホ曲線</a>
+のような曲線がある。右図と下表でだいたいわかると思うけどどうだろう：
+</p>
+<table>
+<tr>
+<th>記号</th>
+<th>変換前</th>
+<th>変換後</th>
+</tr>
+<tr>
+<th>a</th>
+<td>
+<svg height='120px' viewBox='0 0 120 120' width='120px'>
+<line stroke-width='2' stroke='#000' x1='0' x2='120' y1='100' y2='100'></line>
+</svg>
+</td>
+<td>
+<svg height='120px' viewBox='0 0 120 120' width='120px'>
+<polyline fill='#0000' points='0 100 40 100 60 65.35898384862246 80 100 120 100' stroke-width='2' stroke='#000'></polyline>
+</svg>
+</td>
+</tr>
+<tr>
+<th>b</th>
+<td>
+<svg height='120px' viewBox='0 0 120 120' width='120px'>
+<line stroke-width='2' stroke='#000' x1='0' x2='120' y1='100' y2='100'></line>
+</svg>
+</td>
+<td>
+<svg height='120px' viewBox='0 0 120 120' width='120px'>
+<polyline fill='#0000' points='0 100 30 100 45 74.01923788646684 75 74.01923788646684 90 100 120 100' stroke-width='2' stroke='#000'></polyline>
+</svg>
+</td>
+</tr>
+</table>
+<p>
+※ 線分の向きは、いずれも水平に対して 60度の倍数傾いている。
+<br>
+上表の変換ルールの列が、線分を生成するルールとなる。
+<br>
+正の整数ひとつ( n )と生成ルールを与える。
+<br>
+生成ルールによって作られた曲線の、左端からスタートして n 番目の 線分の向きが下表のいずれであるのかを計算せよ：
+<br>
+※ 左端の線分は 1 番目とする。
+</p>
+<table>
+<tr>
+<th>記号</th>
+<th>説明</th>
+</tr>
+<tr>
+<td>
+<code>0</code>
+</td>
+<td>水平な線分</td>
+</tr>
+<tr>
+<td>
+<code>+</code>
+</td>
+<td>右上がりの線分(左下がりの線分)</td>
+</tr>
+<tr>
+<td>
+<code>-</code>
+</td>
+<td>右下がりの線分(左上がりの線分)</td>
+</tr>
+<tr>
+<td>
+<code>x</code>
+</td>
+<td>もうそこには線分はない</td>
+</tr>
+</table>
+<h2>入力</h2>
+<p>
+入力はこんな感じ：
+<br>
+<code>120,aabb</code>
+<br>
+コンマ区切りで、n と 生成ルール が並んでいる。
+<br>
+n は、普通に10進数で。
+<br>
+生成ルールは、変換ルールが区切り文字なしで並んでいる。
+</p>
+<h2>出力</h2>
+<p>
+出力はこんな感じ：
+<br>
+<code>0</code>
+<br>
+曲線の向きを区切り文字なしで並べたもの。
+</p>
+<h2>補足</h2>
+<ul>
+<li>不正な入力に対処する必要はない。</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/77e7e2c749767f197c0e'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+この問題は2018年4月7日に開催される オフラインリアルタイムどう書くE23 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/71800'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+<li>左端は 1 番目。0 番目ではない。</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+<th>状況へのリンク</th>
+</tr>
+<tr>
+<td>0</td>
+<td class='sample'>
+<code class='src'>120,aabb</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#0'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>1</td>
+<td class='sample'>
+<code class='src'>100,a</code>
+</td>
+<td>
+<code class='expected'>x</code>
+</td>
+<td>
+<a href='figs.html#1'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>2</td>
+<td class='sample'>
+<code class='src'>3,a</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#2'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>3</td>
+<td class='sample'>
+<code class='src'>3,b</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#3'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td class='sample'>
+<code class='src'>9,aa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#4'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>5</td>
+<td class='sample'>
+<code class='src'>10,bb</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#5'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>6</td>
+<td class='sample'>
+<code class='src'>11,ab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#6'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>7</td>
+<td class='sample'>
+<code class='src'>12,ba</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#7'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>8</td>
+<td class='sample'>
+<code class='src'>7,aaa</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#8'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>9</td>
+<td class='sample'>
+<code class='src'>17,baa</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#9'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>10</td>
+<td class='sample'>
+<code class='src'>28,bba</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#10'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>11</td>
+<td class='sample'>
+<code class='src'>82,bba</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#11'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>12</td>
+<td class='sample'>
+<code class='src'>35,baa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#12'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>13</td>
+<td class='sample'>
+<code class='src'>254,babb</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#13'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>14</td>
+<td class='sample'>
+<code class='src'>462,abba</code>
+</td>
+<td>
+<code class='expected'>x</code>
+</td>
+<td>
+<a href='figs.html#14'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>15</td>
+<td class='sample'>
+<code class='src'>226,bbba</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#15'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>16</td>
+<td class='sample'>
+<code class='src'>345,bbba</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#16'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>17</td>
+<td class='sample'>
+<code class='src'>256,aaaa</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#17'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>18</td>
+<td class='sample'>
+<code class='src'>11,aaab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#18'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>19</td>
+<td class='sample'>
+<code class='src'>241,abaab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#19'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>20</td>
+<td class='sample'>
+<code class='src'>490,aabaa</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#20'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>21</td>
+<td class='sample'>
+<code class='src'>1305,bbbaa</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#21'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>22</td>
+<td class='sample'>
+<code class='src'>1102,ababa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#22'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>23</td>
+<td class='sample'>
+<code class='src'>1077,abbab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#23'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>24</td>
+<td class='sample'>
+<code class='src'>281,aabaa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#24'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>25</td>
+<td class='sample'>
+<code class='src'>2218,abbaaa</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#25'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>26</td>
+<td class='sample'>
+<code class='src'>4095,bbabbb</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#26'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>27</td>
+<td class='sample'>
+<code class='src'>2750,abbaab</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#27'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>28</td>
+<td class='sample'>
+<code class='src'>5573,bbaaba</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#28'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>29</td>
+<td class='sample'>
+<code class='src'>6644,aaabba</code>
+</td>
+<td>
+<code class='expected'>x</code>
+</td>
+<td>
+<a href='figs.html#29'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>30</td>
+<td class='sample'>
+<code class='src'>8109,bbbbba</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#30'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>31</td>
+<td class='sample'>
+<code class='src'>3860,aaaabbb</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#31'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>32</td>
+<td class='sample'>
+<code class='src'>59222,bbbbbba</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#32'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>33</td>
+<td class='sample'>
+<code class='src'>14956,baabbab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#33'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>34</td>
+<td class='sample'>
+<code class='src'>14894,ababbba</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#34'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>35</td>
+<td class='sample'>
+<code class='src'>3163,aaaaaab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#35'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>36</td>
+<td class='sample'>
+<code class='src'>21917,babaaaa</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#36'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>37</td>
+<td class='sample'>
+<code class='src'>178620,aabbbaab</code>
+</td>
+<td>
+<code class='expected'>x</code>
+</td>
+<td>
+<a href='figs.html#37'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>38</td>
+<td class='sample'>
+<code class='src'>96709,babbaaaa</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#38'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>39</td>
+<td class='sample'>
+<code class='src'>74116,abababaa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#39'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>40</td>
+<td class='sample'>
+<code class='src'>22025,abbbbabb</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#40'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>41</td>
+<td class='sample'>
+<code class='src'>8612,aaaabbaa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#41'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>42</td>
+<td class='sample'>
+<code class='src'>153868,bbbabbab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#42'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>43</td>
+<td class='sample'>
+<code class='src'>747769,abbabaaba</code>
+</td>
+<td>
+<code class='expected'>x</code>
+</td>
+<td>
+<a href='figs.html#43'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>44</td>
+<td class='sample'>
+<code class='src'>541589,baabbbbab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#44'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>45</td>
+<td class='sample'>
+<code class='src'>787443,ababbbbab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#45'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>46</td>
+<td class='sample'>
+<code class='src'>129549,ababaaaaa</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#46'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>47</td>
+<td class='sample'>
+<code class='src'>837323,aabbbabab</code>
+</td>
+<td>
+<code class='expected'>x</code>
+</td>
+<td>
+<a href='figs.html#47'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>48</td>
+<td class='sample'>
+<code class='src'>140592,bbbbabbab</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#48'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>49</td>
+<td class='sample'>
+<code class='src'>219669,ababbabbab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#49'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>50</td>
+<td class='sample'>
+<code class='src'>500261,bbababaabb</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#50'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>51</td>
+<td class='sample'>
+<code class='src'>966503,aaabababbb</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#51'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>52</td>
+<td class='sample'>
+<code class='src'>443603,baabaababb</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#52'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>53</td>
+<td class='sample'>
+<code class='src'>3912,aabbababaa</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#53'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>54</td>
+<td class='sample'>
+<code class='src'>2926358,bbabbbbaba</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#54'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>55</td>
+<td class='sample'>
+<code class='src'>18104279,bbbaababbab</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#55'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>56</td>
+<td class='sample'>
+<code class='src'>3849980,aaabaaaaaba</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#56'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>57</td>
+<td class='sample'>
+<code class='src'>9276072,baabaabaaab</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#57'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>58</td>
+<td class='sample'>
+<code class='src'>11202113,baaaaabbbba</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#58'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>59</td>
+<td class='sample'>
+<code class='src'>5432578,abaabbaaaaa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#59'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>60</td>
+<td class='sample'>
+<code class='src'>17363025,bbaabababbb</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#60'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>61</td>
+<td class='sample'>
+<code class='src'>24147656,baabaabbbbab</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+<td>
+<a href='figs.html#61'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>62</td>
+<td class='sample'>
+<code class='src'>1078733,bbbaaaabbbbb</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#62'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>63</td>
+<td class='sample'>
+<code class='src'>38623426,abaabababbaa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#63'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>64</td>
+<td class='sample'>
+<code class='src'>19312285,bbaababbaaba</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#64'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>65</td>
+<td class='sample'>
+<code class='src'>11485959,baaaaababaaa</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+<td>
+<a href='figs.html#65'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>66</td>
+<td class='sample'>
+<code class='src'>36831104,babbbbbbabab</code>
+</td>
+<td>
+<code class='expected'>+</code>
+</td>
+<td>
+<a href='figs.html#66'>リンク</a>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "120,aabb", "0" );
+/*1*/ test( "100,a", "x" );
+/*2*/ test( "3,a", "-" );
+/*3*/ test( "3,b", "0" );
+/*4*/ test( "9,aa", "-" );
+/*5*/ test( "10,bb", "+" );
+/*6*/ test( "11,ab", "-" );
+/*7*/ test( "12,ba", "0" );
+/*8*/ test( "7,aaa", "0" );
+/*9*/ test( "17,baa", "+" );
+/*10*/ test( "28,bba", "-" );
+/*11*/ test( "82,bba", "+" );
+/*12*/ test( "35,baa", "-" );
+/*13*/ test( "254,babb", "+" );
+/*14*/ test( "462,abba", "x" );
+/*15*/ test( "226,bbba", "0" );
+/*16*/ test( "345,bbba", "0" );
+/*17*/ test( "256,aaaa", "0" );
+/*18*/ test( "11,aaab", "-" );
+/*19*/ test( "241,abaab", "-" );
+/*20*/ test( "490,aabaa", "0" );
+/*21*/ test( "1305,bbbaa", "0" );
+/*22*/ test( "1102,ababa", "-" );
+/*23*/ test( "1077,abbab", "-" );
+/*24*/ test( "281,aabaa", "-" );
+/*25*/ test( "2218,abbaaa", "+" );
+/*26*/ test( "4095,bbabbb", "+" );
+/*27*/ test( "2750,abbaab", "+" );
+/*28*/ test( "5573,bbaaba", "+" );
+/*29*/ test( "6644,aaabba", "x" );
+/*30*/ test( "8109,bbbbba", "+" );
+/*31*/ test( "3860,aaaabbb", "+" );
+/*32*/ test( "59222,bbbbbba", "0" );
+/*33*/ test( "14956,baabbab", "-" );
+/*34*/ test( "14894,ababbba", "+" );
+/*35*/ test( "3163,aaaaaab", "-" );
+/*36*/ test( "21917,babaaaa", "+" );
+/*37*/ test( "178620,aabbbaab", "x" );
+/*38*/ test( "96709,babbaaaa", "0" );
+/*39*/ test( "74116,abababaa", "-" );
+/*40*/ test( "22025,abbbbabb", "0" );
+/*41*/ test( "8612,aaaabbaa", "-" );
+/*42*/ test( "153868,bbbabbab", "-" );
+/*43*/ test( "747769,abbabaaba", "x" );
+/*44*/ test( "541589,baabbbbab", "-" );
+/*45*/ test( "787443,ababbbbab", "-" );
+/*46*/ test( "129549,ababaaaaa", "0" );
+/*47*/ test( "837323,aabbbabab", "x" );
+/*48*/ test( "140592,bbbbabbab", "+" );
+/*49*/ test( "219669,ababbabbab", "-" );
+/*50*/ test( "500261,bbababaabb", "-" );
+/*51*/ test( "966503,aaabababbb", "0" );
+/*52*/ test( "443603,baabaababb", "+" );
+/*53*/ test( "3912,aabbababaa", "0" );
+/*54*/ test( "2926358,bbabbbbaba", "0" );
+/*55*/ test( "18104279,bbbaababbab", "-" );
+/*56*/ test( "3849980,aaabaaaaaba", "0" );
+/*57*/ test( "9276072,baabaabaaab", "0" );
+/*58*/ test( "11202113,baaaaabbbba", "0" );
+/*59*/ test( "5432578,abaabbaaaaa", "-" );
+/*60*/ test( "17363025,bbaabababbb", "0" );
+/*61*/ test( "24147656,baabaabbbbab", "0" );
+/*62*/ test( "1078733,bbbaaaabbbbb", "+" );
+/*63*/ test( "38623426,abaabababbaa", "-" );
+/*64*/ test( "19312285,bbaababbaaba", "+" );
+/*65*/ test( "11485959,baaaaababaaa", "-" );
+/*66*/ test( "36831104,babbbbbbabab", "+" );</textarea>
+</body>
+</html>

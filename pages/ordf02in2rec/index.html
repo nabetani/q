@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>2つの矩形に含まれるマス目の数 2017.2.22 問題</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      float_right{
+       float:right;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+      td.bigcell{
+        width:25mm;
+        height:25mm;
+        font-size:18mm;
+        border:solid black 0.5mm
+      }
+      table.big td{
+        font-size:9mm;
+        border:solid black 0.5mm
+      }
+      div.top img{
+        width:80px;
+      }
+      table.big img{
+        width:120px;
+        height:120px;
+       }
+       td.sample{
+       }
+      table.nabenum tr td
+      {
+        background-color:#444;
+        padding:0 0 0 0;
+        margin:0 0 0 0;
+      }
+      table.nabenum
+      {
+        padding:1mm 2mm 1mm 2mm;
+        background-color:#444;
+      }
+      table.nabenum .c0{
+        width:4px;
+      }
+      table.nabenum .c1{
+        width:15px;
+      }
+      table.nabenum .c2{
+        width:4px;
+      }
+      table.nabenum tr.n0 td{
+        height:4px;
+      }
+      table.nabenum tr.n1 td{
+        height:15px;
+      }
+      table.nabenum tr.n2 td{
+        height:4px;
+      }
+      table.nabenum tr.n3 td{
+        height:15px;
+      }
+      table.nabenum tr.n4 td{
+        height:4px;
+      }
+      table.nabenum td.off{
+        background-color:black;
+      }
+      table.nabenum td.on{
+        background-color:white;
+      }
+      table.nabenum td.nazo{
+        background-color:#f00;
+      }
+      div.nabe{
+        float:right;
+        width:200px;
+        background-color:#eee;
+        text-align:center;
+      }
+      .nabe_c{
+        text-align:center;
+        }
+      div.main_fig{
+       float:right;
+       background-color:white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>2つの矩形に含まれるマス目の数 2017.2.22 問題</h1>
+    <h2>問題の概要</h2>
+    <div class='main_fig'>
+      <svg height='440px' width='440px'>
+        <g font-family='sans-serif' font-size='20' text-anchor='middle'>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='21' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='61' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='101' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='141' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='181' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='221' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='261' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='301' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='341' y='381'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='21'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='61'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='101'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='141'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='181'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='221'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='261'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='301'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='341'></rect>
+          <rect fill='none' height='38' stroke-width='1' stroke='#ccc' width='38' x='381' y='381'></rect>
+          <rect fill='rgba(0,0,255,0.5)' height='356' stroke-width='3' stroke='#00f' width='116' x='222' y='62'></rect>
+          <text font-size='28.0px' x='240' y='88.0'>
+            51
+          </text>
+          <text font-size='28.0px' x='320' y='408.0'>
+            79
+          </text>
+          <rect fill='rgba(255,0,0,0.5)' height='196' stroke-width='3' stroke='#f00' width='236' x='142' y='102'></rect>
+          <text font-size='28.0px' x='160' y='128.0'>
+            32
+          </text>
+          <text font-size='28.0px' x='360' y='288.0'>
+            86
+          </text>
+          <rect fill='rgba(0,255,0,0.5)' height='36' stroke-width='3' stroke='#0f0' width='396' x='22' y='222'></rect>
+          <text font-size='28.0px' x='40' y='248.0'>
+            05
+          </text>
+          <text font-size='28.0px' x='400' y='248.0'>
+            95
+          </text>
+          <text font-size='28.0px' x='240' y='128.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='240' y='168.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='240' y='208.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='240' y='288.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='280' y='128.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='280' y='168.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='280' y='208.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='280' y='288.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='320' y='128.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='320' y='168.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='320' y='208.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='320' y='288.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='160' y='248.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='200' y='248.0'>
+            ●
+          </text>
+          <text font-size='28.0px' x='360' y='248.0'>
+            ●
+          </text>
+        </g>
+      </svg>
+    </div>
+    <p>
+      10×10 のマス目がある。
+      <br>
+      マス目にそって、矩形が3つある。
+      <br>
+      ちょうど2つの矩形に含まれているマス目の数を計算せよ。
+      <br>
+      例えば右図の黒丸（●）が、「ちょうど2つの矩形に含まれているマス目」である。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>5,1-7,9/3,2-8,6/0,5-9,5</code>
+      <br>
+      こんな感じ。
+      <br>
+      スラッシュ区切りで3つの矩形が並んでいる。
+      <br>
+      各矩形は、左上のマスの座標と右下のマスの座標をハイフンでつないだもの。
+      <br>
+      左上のマスも右下のマスも、矩形の内側になることに注意。
+      <br>
+      座標はコンマ区切りで x, y の順。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は簡単。2つの矩形に含まれているマス目の数を 10進数で出せば良い。
+    </p>
+    <p>
+      先ほどの入力の場合、
+      <br>
+      <code>15</code>
+      <br>
+      と出力すればよい。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/109c31c265be7fa1a36c'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        余裕があれば、矩形の大きさが百万×百万ぐらいでも現実的な時間で計算が終わる実装を考えてみるのもよいかと思う。( see
+        <a href='mega.html'>mega.html</a>
+        )
+      </li>
+      <li>
+        入力も出力も文字列ないしは標準入出力にするのが望ましい。パースも仕事のうち。
+      </li>
+      <li>
+        この問題は2017年2月22日に開催される オフラインリアルタイムどう書くF02 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/56829'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況へのリンク</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>5,1-7,9/3,2-8,6/0,5-9,5</code>
+        </td>
+        <td>
+          <code class='expected'>15</code>
+        </td>
+        <td>
+          <a href='figs.html#5,1-7,9/3,2-8,6/0,5-9,5'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>0,0-9,9/0,0-9,9/0,0-9,9</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+        <td>
+          <a href='figs.html#0,0-9,9/0,0-9,9/0,0-9,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>0,0-9,9/0,0-0,9/1,0-9,9</code>
+        </td>
+        <td>
+          <code class='expected'>100</code>
+        </td>
+        <td>
+          <a href='figs.html#0,0-9,9/0,0-0,9/1,0-9,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>2,5-7,6/0,5-7,7/2,0-8,6</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+        <td>
+          <a href='figs.html#2,5-7,6/0,5-7,7/2,0-8,6'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>1,9-4,9/4,9-7,9/0,3-7,4</code>
+        </td>
+        <td>
+          <code class='expected'>1</code>
+        </td>
+        <td>
+          <a href='figs.html#1,9-4,9/4,9-7,9/0,3-7,4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>6,1-6,9/5,0-7,4/5,1-7,2</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <a href='figs.html#6,1-6,9/5,0-7,4/5,1-7,2'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>4,0-9,8/5,1-6,8/0,2-9,7</code>
+        </td>
+        <td>
+          <code class='expected'>28</code>
+        </td>
+        <td>
+          <a href='figs.html#4,0-9,8/5,1-6,8/0,2-9,7'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>2,8-8,9/7,9-8,9/8,3-8,9</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <a href='figs.html#2,8-8,9/7,9-8,9/8,3-8,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>3,3-9,4/0,1-8,4/1,2-8,9</code>
+        </td>
+        <td>
+          <code class='expected'>12</code>
+        </td>
+        <td>
+          <a href='figs.html#3,3-9,4/0,1-8,4/1,2-8,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>2,1-8,3/0,1-3,7/8,3-8,4</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <a href='figs.html#2,1-8,3/0,1-3,7/8,3-8,4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>5,4-6,9/0,0-6,0/5,3-9,8</code>
+        </td>
+        <td>
+          <code class='expected'>10</code>
+        </td>
+        <td>
+          <a href='figs.html#5,4-6,9/0,0-6,0/5,3-9,8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>1,1-9,7/1,1-3,8/3,8-7,9</code>
+        </td>
+        <td>
+          <code class='expected'>22</code>
+        </td>
+        <td>
+          <a href='figs.html#1,1-9,7/1,1-3,8/3,8-7,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>2,4-6,7/3,2-7,8/1,0-9,4</code>
+        </td>
+        <td>
+          <code class='expected'>24</code>
+        </td>
+        <td>
+          <a href='figs.html#2,4-6,7/3,2-7,8/1,0-9,4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>0,2-1,5/8,1-8,3/1,8-6,8</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+        <td>
+          <a href='figs.html#0,2-1,5/8,1-8,3/1,8-6,8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>5,2-9,5/9,1-9,2/8,0-8,6</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <a href='figs.html#5,2-9,5/9,1-9,2/8,0-8,6'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>5,0-6,4/2,1-6,4/3,8-3,9</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+        <td>
+          <a href='figs.html#5,0-6,4/2,1-6,4/3,8-3,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>0,4-6,9/4,1-6,9/7,6-9,7</code>
+        </td>
+        <td>
+          <code class='expected'>18</code>
+        </td>
+        <td>
+          <a href='figs.html#0,4-6,9/4,1-6,9/7,6-9,7'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>0,0-5,5/0,1-2,8/5,3-9,4</code>
+        </td>
+        <td>
+          <code class='expected'>17</code>
+        </td>
+        <td>
+          <a href='figs.html#0,0-5,5/0,1-2,8/5,3-9,4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>0,2-5,6/5,6-8,7/0,1-2,6</code>
+        </td>
+        <td>
+          <code class='expected'>16</code>
+        </td>
+        <td>
+          <a href='figs.html#0,2-5,6/5,6-8,7/0,1-2,6'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>7,2-8,4/1,0-6,8/1,3-7,6</code>
+        </td>
+        <td>
+          <code class='expected'>26</code>
+        </td>
+        <td>
+          <a href='figs.html#7,2-8,4/1,0-6,8/1,3-7,6'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>4,3-9,3/0,0-6,5/0,0-4,8</code>
+        </td>
+        <td>
+          <code class='expected'>31</code>
+        </td>
+        <td>
+          <a href='figs.html#4,3-9,3/0,0-6,5/0,0-4,8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>3,4-4,6/2,2-4,8/2,0-8,4</code>
+        </td>
+        <td>
+          <code class='expected'>11</code>
+        </td>
+        <td>
+          <a href='figs.html#3,4-4,6/2,2-4,8/2,0-8,4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>1,2-6,5/0,5-4,7/2,8-2,9</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <a href='figs.html#1,2-6,5/0,5-4,7/2,8-2,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>4,1-7,5/2,1-9,9/1,7-2,9</code>
+        </td>
+        <td>
+          <code class='expected'>23</code>
+        </td>
+        <td>
+          <a href='figs.html#4,1-7,5/2,1-9,9/1,7-2,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>1,6-5,6/0,3-5,7/0,2-2,6</code>
+        </td>
+        <td>
+          <code class='expected'>13</code>
+        </td>
+        <td>
+          <a href='figs.html#1,6-5,6/0,3-5,7/0,2-2,6'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>1,3-3,4/1,4-3,4/9,2-9,9</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <a href='figs.html#1,3-3,4/1,4-3,4/9,2-9,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>6,3-7,6/2,2-2,3/1,3-9,8</code>
+        </td>
+        <td>
+          <code class='expected'>9</code>
+        </td>
+        <td>
+          <a href='figs.html#6,3-7,6/2,2-2,3/1,3-9,8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>2,2-9,7/1,8-9,8/2,2-8,9</code>
+        </td>
+        <td>
+          <code class='expected'>49</code>
+        </td>
+        <td>
+          <a href='figs.html#2,2-9,7/1,8-9,8/2,2-8,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>1,2-6,9/7,6-9,9/4,3-9,9</code>
+        </td>
+        <td>
+          <code class='expected'>33</code>
+        </td>
+        <td>
+          <a href='figs.html#1,2-6,9/7,6-9,9/4,3-9,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>6,0-7,5/0,4-3,8/1,4-5,8</code>
+        </td>
+        <td>
+          <code class='expected'>15</code>
+        </td>
+        <td>
+          <a href='figs.html#6,0-7,5/0,4-3,8/1,4-5,8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>2,0-9,7/0,5-3,8/5,1-7,7</code>
+        </td>
+        <td>
+          <code class='expected'>27</code>
+        </td>
+        <td>
+          <a href='figs.html#2,0-9,7/0,5-3,8/5,1-7,7'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>1,2-8,7/3,1-4,3/2,3-5,8</code>
+        </td>
+        <td>
+          <code class='expected'>20</code>
+        </td>
+        <td>
+          <a href='figs.html#1,2-8,7/3,1-4,3/2,3-5,8'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>1,0-7,7/0,1-5,4/0,0-2,3</code>
+        </td>
+        <td>
+          <code class='expected'>19</code>
+        </td>
+        <td>
+          <a href='figs.html#1,0-7,7/0,1-5,4/0,0-2,3'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>2,0-3,7/1,1-3,7/5,3-5,9</code>
+        </td>
+        <td>
+          <code class='expected'>14</code>
+        </td>
+        <td>
+          <a href='figs.html#2,0-3,7/1,1-3,7/5,3-5,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>7,2-9,8/1,0-6,8/0,2-9,9</code>
+        </td>
+        <td>
+          <code class='expected'>63</code>
+        </td>
+        <td>
+          <a href='figs.html#7,2-9,8/1,0-6,8/0,2-9,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>1,1-5,3/0,3-8,7/2,3-8,7</code>
+        </td>
+        <td>
+          <code class='expected'>32</code>
+        </td>
+        <td>
+          <a href='figs.html#1,1-5,3/0,3-8,7/2,3-8,7'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>3,4-6,6/1,0-9,1/4,0-9,9</code>
+        </td>
+        <td>
+          <code class='expected'>21</code>
+        </td>
+        <td>
+          <a href='figs.html#3,4-6,6/1,0-9,1/4,0-9,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code class='src'>0,0-4,7/0,5-5,9/0,2-4,5</code>
+        </td>
+        <td>
+          <code class='expected'>25</code>
+        </td>
+        <td>
+          <a href='figs.html#0,0-4,7/0,5-5,9/0,2-4,5'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code class='src'>1,1-9,9/2,2-7,4/2,4-7,7</code>
+        </td>
+        <td>
+          <code class='expected'>30</code>
+        </td>
+        <td>
+          <a href='figs.html#1,1-9,9/2,2-7,4/2,4-7,7'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code class='src'>3,2-9,9/2,0-6,6/0,5-8,9</code>
+        </td>
+        <td>
+          <code class='expected'>36</code>
+        </td>
+        <td>
+          <a href='figs.html#3,2-9,9/2,0-6,6/0,5-8,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code class='src'>0,1-8,8/0,5-9,8/2,3-2,4</code>
+        </td>
+        <td>
+          <code class='expected'>38</code>
+        </td>
+        <td>
+          <a href='figs.html#0,1-8,8/0,5-9,8/2,3-2,4'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code class='src'>0,0-8,6/4,3-9,9/7,1-9,9</code>
+        </td>
+        <td>
+          <code class='expected'>29</code>
+        </td>
+        <td>
+          <a href='figs.html#0,0-8,6/4,3-9,9/7,1-9,9'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code class='src'>0,0-8,8/2,4-9,8/0,1-9,2</code>
+        </td>
+        <td>
+          <code class='expected'>53</code>
+        </td>
+        <td>
+          <a href='figs.html#0,0-8,8/2,4-9,8/0,1-9,2'>リンク</a>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "5,1-7,9/3,2-8,6/0,5-9,5", "15" );    
+/*1*/ test( "0,0-9,9/0,0-9,9/0,0-9,9", "0" );    
+/*2*/ test( "0,0-9,9/0,0-0,9/1,0-9,9", "100" );    
+/*3*/ test( "2,5-7,6/0,5-7,7/2,0-8,6", "0" );    
+/*4*/ test( "1,9-4,9/4,9-7,9/0,3-7,4", "1" );    
+/*5*/ test( "6,1-6,9/5,0-7,4/5,1-7,2", "6" );    
+/*6*/ test( "4,0-9,8/5,1-6,8/0,2-9,7", "28" );    
+/*7*/ test( "2,8-8,9/7,9-8,9/8,3-8,9", "2" );    
+/*8*/ test( "3,3-9,4/0,1-8,4/1,2-8,9", "12" );    
+/*9*/ test( "2,1-8,3/0,1-3,7/8,3-8,4", "7" );    
+/*10*/ test( "5,4-6,9/0,0-6,0/5,3-9,8", "10" );    
+/*11*/ test( "1,1-9,7/1,1-3,8/3,8-7,9", "22" );    
+/*12*/ test( "2,4-6,7/3,2-7,8/1,0-9,4", "24" );    
+/*13*/ test( "0,2-1,5/8,1-8,3/1,8-6,8", "0" );    
+/*14*/ test( "5,2-9,5/9,1-9,2/8,0-8,6", "5" );    
+/*15*/ test( "5,0-6,4/2,1-6,4/3,8-3,9", "8" );    
+/*16*/ test( "0,4-6,9/4,1-6,9/7,6-9,7", "18" );    
+/*17*/ test( "0,0-5,5/0,1-2,8/5,3-9,4", "17" );    
+/*18*/ test( "0,2-5,6/5,6-8,7/0,1-2,6", "16" );    
+/*19*/ test( "7,2-8,4/1,0-6,8/1,3-7,6", "26" );    
+/*20*/ test( "4,3-9,3/0,0-6,5/0,0-4,8", "31" );    
+/*21*/ test( "3,4-4,6/2,2-4,8/2,0-8,4", "11" );    
+/*22*/ test( "1,2-6,5/0,5-4,7/2,8-2,9", "4" );    
+/*23*/ test( "4,1-7,5/2,1-9,9/1,7-2,9", "23" );    
+/*24*/ test( "1,6-5,6/0,3-5,7/0,2-2,6", "13" );    
+/*25*/ test( "1,3-3,4/1,4-3,4/9,2-9,9", "3" );    
+/*26*/ test( "6,3-7,6/2,2-2,3/1,3-9,8", "9" );    
+/*27*/ test( "2,2-9,7/1,8-9,8/2,2-8,9", "49" );    
+/*28*/ test( "1,2-6,9/7,6-9,9/4,3-9,9", "33" );    
+/*29*/ test( "6,0-7,5/0,4-3,8/1,4-5,8", "15" );    
+/*30*/ test( "2,0-9,7/0,5-3,8/5,1-7,7", "27" );    
+/*31*/ test( "1,2-8,7/3,1-4,3/2,3-5,8", "20" );    
+/*32*/ test( "1,0-7,7/0,1-5,4/0,0-2,3", "19" );    
+/*33*/ test( "2,0-3,7/1,1-3,7/5,3-5,9", "14" );    
+/*34*/ test( "7,2-9,8/1,0-6,8/0,2-9,9", "63" );    
+/*35*/ test( "1,1-5,3/0,3-8,7/2,3-8,7", "32" );    
+/*36*/ test( "3,4-6,6/1,0-9,1/4,0-9,9", "21" );    
+/*37*/ test( "0,0-4,7/0,5-5,9/0,2-4,5", "25" );    
+/*38*/ test( "1,1-9,9/2,2-7,4/2,4-7,7", "30" );    
+/*39*/ test( "3,2-9,9/2,0-6,6/0,5-8,9", "36" );    
+/*40*/ test( "0,1-8,8/0,5-9,8/2,3-2,4", "38" );    
+/*41*/ test( "0,0-8,6/4,3-9,9/7,1-9,9", "29" );    
+/*42*/ test( "0,0-8,8/2,4-9,8/0,1-9,2", "53" );</textarea>
+    <h2>C言語の雛形</h2>
+    <div class='src'>
+      <pre>#include &lt;stdio.h&gt;&#x000A;#include &lt;stdlib.h&gt;&#x000A;#include &lt;string.h&gt;&#x000A;&#x000A;int solve_impl( char const * src )&#x000A;{&#x000A;  // NOT_IMPLEMENTED&#x000A;  return 0;&#x000A;}&#x000A;&#x000A;// caller should free return value memory.&#x000A;char const * solve( char const * src )&#x000A;{&#x000A;  char buffer[ 20 ] = {0};&#x000A;  sprintf( buffer, &quot;%d&quot;, solve_impl( src ) );&#x000A;  return strdup(buffer);&#x000A;}&#x000A;&#x000A;struct result&#x000A;{&#x000A;  int success;&#x000A;  int testcount;&#x000A;};&#x000A;&#x000A;void test_( struct result * r, char const * src, char const * expected )&#x000A;{&#x000A;  char const * actual = solve( src );&#x000A;  int okay = 0==strcmp(actual, expected );&#x000A;  if ( okay ){&#x000A;    ++r-&gt;success;&#x000A;  }&#x000A;  ++r-&gt;testcount;&#x000A;  printf( &quot;%s : %s-&gt;%s(%s)\n&quot;, (okay?&quot;ok&quot; : &quot;**NG**&quot;), src, actual, expected );&#x000A;  free( (void*)actual );&#x000A;}&#x000A;&#x000A;int main(void)&#x000A;{&#x000A;  struct result r={0};&#x000A;  #define test(src, expected) test_( &amp;r, src, expected )&#x000A;/*0*/ test( &quot;5,1-7,9/3,2-8,6/0,5-9,5&quot;, &quot;15&quot; );&#x000A;/*1*/ test( &quot;0,0-9,9/0,0-9,9/0,0-9,9&quot;, &quot;0&quot; );&#x000A;/*2*/ test( &quot;0,0-9,9/0,0-0,9/1,0-9,9&quot;, &quot;100&quot; );&#x000A;/*3*/ test( &quot;2,5-7,6/0,5-7,7/2,0-8,6&quot;, &quot;0&quot; );&#x000A;/*4*/ test( &quot;1,9-4,9/4,9-7,9/0,3-7,4&quot;, &quot;1&quot; );&#x000A;/*5*/ test( &quot;6,1-6,9/5,0-7,4/5,1-7,2&quot;, &quot;6&quot; );&#x000A;/*6*/ test( &quot;4,0-9,8/5,1-6,8/0,2-9,7&quot;, &quot;28&quot; );&#x000A;/*7*/ test( &quot;2,8-8,9/7,9-8,9/8,3-8,9&quot;, &quot;2&quot; );&#x000A;/*8*/ test( &quot;3,3-9,4/0,1-8,4/1,2-8,9&quot;, &quot;12&quot; );&#x000A;/*9*/ test( &quot;2,1-8,3/0,1-3,7/8,3-8,4&quot;, &quot;7&quot; );&#x000A;/*10*/ test( &quot;5,4-6,9/0,0-6,0/5,3-9,8&quot;, &quot;10&quot; );&#x000A;/*11*/ test( &quot;1,1-9,7/1,1-3,8/3,8-7,9&quot;, &quot;22&quot; );&#x000A;/*12*/ test( &quot;2,4-6,7/3,2-7,8/1,0-9,4&quot;, &quot;24&quot; );&#x000A;/*13*/ test( &quot;0,2-1,5/8,1-8,3/1,8-6,8&quot;, &quot;0&quot; );&#x000A;/*14*/ test( &quot;5,2-9,5/9,1-9,2/8,0-8,6&quot;, &quot;5&quot; );&#x000A;/*15*/ test( &quot;5,0-6,4/2,1-6,4/3,8-3,9&quot;, &quot;8&quot; );&#x000A;/*16*/ test( &quot;0,4-6,9/4,1-6,9/7,6-9,7&quot;, &quot;18&quot; );&#x000A;/*17*/ test( &quot;0,0-5,5/0,1-2,8/5,3-9,4&quot;, &quot;17&quot; );&#x000A;/*18*/ test( &quot;0,2-5,6/5,6-8,7/0,1-2,6&quot;, &quot;16&quot; );&#x000A;/*19*/ test( &quot;7,2-8,4/1,0-6,8/1,3-7,6&quot;, &quot;26&quot; );&#x000A;/*20*/ test( &quot;4,3-9,3/0,0-6,5/0,0-4,8&quot;, &quot;31&quot; );&#x000A;/*21*/ test( &quot;3,4-4,6/2,2-4,8/2,0-8,4&quot;, &quot;11&quot; );&#x000A;/*22*/ test( &quot;1,2-6,5/0,5-4,7/2,8-2,9&quot;, &quot;4&quot; );&#x000A;/*23*/ test( &quot;4,1-7,5/2,1-9,9/1,7-2,9&quot;, &quot;23&quot; );&#x000A;/*24*/ test( &quot;1,6-5,6/0,3-5,7/0,2-2,6&quot;, &quot;13&quot; );&#x000A;/*25*/ test( &quot;1,3-3,4/1,4-3,4/9,2-9,9&quot;, &quot;3&quot; );&#x000A;/*26*/ test( &quot;6,3-7,6/2,2-2,3/1,3-9,8&quot;, &quot;9&quot; );&#x000A;/*27*/ test( &quot;2,2-9,7/1,8-9,8/2,2-8,9&quot;, &quot;49&quot; );&#x000A;/*28*/ test( &quot;1,2-6,9/7,6-9,9/4,3-9,9&quot;, &quot;33&quot; );&#x000A;/*29*/ test( &quot;6,0-7,5/0,4-3,8/1,4-5,8&quot;, &quot;15&quot; );&#x000A;/*30*/ test( &quot;2,0-9,7/0,5-3,8/5,1-7,7&quot;, &quot;27&quot; );&#x000A;/*31*/ test( &quot;1,2-8,7/3,1-4,3/2,3-5,8&quot;, &quot;20&quot; );&#x000A;/*32*/ test( &quot;1,0-7,7/0,1-5,4/0,0-2,3&quot;, &quot;19&quot; );&#x000A;/*33*/ test( &quot;2,0-3,7/1,1-3,7/5,3-5,9&quot;, &quot;14&quot; );&#x000A;/*34*/ test( &quot;7,2-9,8/1,0-6,8/0,2-9,9&quot;, &quot;63&quot; );&#x000A;/*35*/ test( &quot;1,1-5,3/0,3-8,7/2,3-8,7&quot;, &quot;32&quot; );&#x000A;/*36*/ test( &quot;3,4-6,6/1,0-9,1/4,0-9,9&quot;, &quot;21&quot; );&#x000A;/*37*/ test( &quot;0,0-4,7/0,5-5,9/0,2-4,5&quot;, &quot;25&quot; );&#x000A;/*38*/ test( &quot;1,1-9,9/2,2-7,4/2,4-7,7&quot;, &quot;30&quot; );&#x000A;/*39*/ test( &quot;3,2-9,9/2,0-6,6/0,5-8,9&quot;, &quot;36&quot; );&#x000A;/*40*/ test( &quot;0,1-8,8/0,5-9,8/2,3-2,4&quot;, &quot;38&quot; );&#x000A;/*41*/ test( &quot;0,0-8,6/4,3-9,9/7,1-9,9&quot;, &quot;29&quot; );&#x000A;/*42*/ test( &quot;0,0-8,8/2,4-9,8/0,1-9,2&quot;, &quot;53&quot; );&#x000A;  #undef test&#x000A;  printf( &quot;%d / %d\n&quot;, r.success, r.testcount );&#x000A;  return r.testcount==r.success ? 0 : 1;&#x000A;}</pre>
+    </div>
+  </body>
+</html>

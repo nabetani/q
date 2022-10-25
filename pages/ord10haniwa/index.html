@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>ハニカム歩き 〜 横へな 2013.5.10</title>
+    <link href='style.css' rel='stylesheet'>
+  </head>
+  <body>
+    <h1>ハニカム歩き 〜 横へな 2013.5.10</h1>
+    <h2>問題</h2>
+    <p>
+      下図のような六角形のマス目の上を、入力文字列の指示に従って移動する。
+      <br>
+      <img src='base.png' width='192'>
+      <br>
+      ※ 大文字と小文字の区別がしやすいよう、小文字をイタリックにしている。
+      <br>
+      最初にいるマスは、中心にある
+      <code>A</code>
+      。
+      <br>
+      移動方向にマスがない場合は移動を行わない。
+      <br>
+      マス目の間の移動は
+      <code>0</code>
+      〜
+      <code>5</code>
+      の番号によって示され、番号と移動方向の対応は下表の通り。
+      <br>
+      <table>
+        <tr>
+          <th>番号</th>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+        </tr>
+        <tr>
+          <th>方向</th>
+          <td>上</td>
+          <td>右上</td>
+          <td>右下</td>
+          <td>下</td>
+          <td>左下</td>
+          <td>左上</td>
+        </tr>
+        <tr>
+          <th>例</th>
+          <td>A → B</td>
+          <td>A → C</td>
+          <td>A → D</td>
+          <td>A → E</td>
+          <td>A → F</td>
+          <td>A → G</td>
+        </tr>
+      </table>
+    </p>
+    <h2>入力と出力</h2>
+    <p>
+      入力文字列は
+      <code>135004</code>
+      のように、方向を表す数字が区切り文字なしで並んでいる。
+    </p>
+    <p>
+      出力する文字列は、
+      <code>ACDABHS</code>
+      のような、通過したマス目の名前を区切り文字なしでつないだものとする。
+      <br>
+      最初にいたマスと最後に到達したマスは必ず出力する。例えば、入力が
+      <code>1</code>
+      なら、出力は
+      <code>AC</code>
+      となる。
+      <br>
+      小文字
+      <i style='font-family:serif'>c</i>
+      のマスから下(3の方向)に行こうとした場合など、移動方向にマスがない場合、移動は行わないが、
+      <code>!</code>
+      を出力する。例えば、入力が
+      <code>33333120</code>
+      の場合、
+      <code>AENc!!b!M</code>
+      を出力する。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        不正な入力 (
+        <code>12345678</code>
+        や
+        <code>零壱弐</code>
+        など ) に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/items/55641767510c2f9f235f'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>イメージ</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>135004</code>
+        </td>
+        <td>
+          <code>ACDABHS</code>
+        </td>
+        <td>
+          <img src='image_0.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>1</code>
+        </td>
+        <td>
+          <code>AC</code>
+        </td>
+        <td>
+          <img src='image_1.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>33333120</code>
+        </td>
+        <td>
+          <code>AENc!!b!M</code>
+        </td>
+        <td>
+          <img src='image_2.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>0</code>
+        </td>
+        <td>
+          <code>AB</code>
+        </td>
+        <td>
+          <img src='image_3.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>2</code>
+        </td>
+        <td>
+          <code>AD</code>
+        </td>
+        <td>
+          <img src='image_4.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>3</code>
+        </td>
+        <td>
+          <code>AE</code>
+        </td>
+        <td>
+          <img src='image_5.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>4</code>
+        </td>
+        <td>
+          <code>AF</code>
+        </td>
+        <td>
+          <img src='image_6.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>5</code>
+        </td>
+        <td>
+          <code>AG</code>
+        </td>
+        <td>
+          <img src='image_7.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>4532120</code>
+        </td>
+        <td>
+          <code>AFQPOEMD</code>
+        </td>
+        <td>
+          <img src='image_8.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>051455</code>
+        </td>
+        <td>
+          <code>ABSHSj!</code>
+        </td>
+        <td>
+          <img src='image_9.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>23334551</code>
+        </td>
+        <td>
+          <code>ADMb!cdeO</code>
+        </td>
+        <td>
+          <img src='image_10.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>22033251</code>
+        </td>
+        <td>
+          <code>ADLKLa!ML</code>
+        </td>
+        <td>
+          <img src='image_11.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>50511302122</code>
+        </td>
+        <td>
+          <code>AGSjkTHTU!VW</code>
+        </td>
+        <td>
+          <img src='image_12.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>000051</code>
+        </td>
+        <td>
+          <code>ABHT!!!</code>
+        </td>
+        <td>
+          <img src='image_13.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>1310105</code>
+        </td>
+        <td>
+          <code>ACDKJW!V</code>
+        </td>
+        <td>
+          <img src='image_14.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>50002103140</code>
+        </td>
+        <td>
+          <code>AGSk!HU!IVIU</code>
+        </td>
+        <td>
+          <img src='image_15.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>3112045</code>
+        </td>
+        <td>
+          <code>AEDKYXKC</code>
+        </td>
+        <td>
+          <img src='image_16.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>02021245535</code>
+        </td>
+        <td>
+          <code>ABCIJW!JIHBS</code>
+        </td>
+        <td>
+          <img src='image_17.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>014204</code>
+        </td>
+        <td>
+          <code>ABIBCIB</code>
+        </td>
+        <td>
+          <img src='image_18.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>255230</code>
+        </td>
+        <td>
+          <code>ADAGAEA</code>
+        </td>
+        <td>
+          <img src='image_19.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>443501</code>
+        </td>
+        <td>
+          <code>AFPefgQ</code>
+        </td>
+        <td>
+          <img src='image_20.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>022321</code>
+        </td>
+        <td>
+          <code>ABCKLZ!</code>
+        </td>
+        <td>
+          <img src='image_21.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>554452</code>
+        </td>
+        <td>
+          <code>AGRh!!Q</code>
+        </td>
+        <td>
+          <img src='image_22.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>051024</code>
+        </td>
+        <td>
+          <code>ABSHTUH</code>
+        </td>
+        <td>
+          <img src='image_23.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>524002</code>
+        </td>
+        <td>
+          <code>AGAFGSB</code>
+        </td>
+        <td>
+          <img src='image_24.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>54002441132</code>
+        </td>
+        <td>
+          <code>AGQRjSRhRSGA</code>
+        </td>
+        <td>
+          <img src='image_25.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>11010554312</code>
+        </td>
+        <td>
+          <code>ACJV!!UTkSHI</code>
+        </td>
+        <td>
+          <img src='image_26.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>23405300554</code>
+        </td>
+        <td>
+          <code>ADMNEFOFGRi!</code>
+        </td>
+        <td>
+          <img src='image_27.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>555353201</code>
+        </td>
+        <td>
+          <code>AGRih!gPQG</code>
+        </td>
+        <td>
+          <img src='image_28.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>22424105</code>
+        </td>
+        <td>
+          <code>ADLMabaLD</code>
+        </td>
+        <td>
+          <img src='image_29.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>
+          <code>11340202125</code>
+        </td>
+        <td>
+          <code>ACJKDCKJX!!J</code>
+        </td>
+        <td>
+          <img src='image_30.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>
+          <code>4524451</code>
+        </td>
+        <td>
+          <code>AFQFPf!P</code>
+        </td>
+        <td>
+          <img src='image_31.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>
+          <code>44434234050</code>
+        </td>
+        <td>
+          <code>AFPf!!e!!Pgh</code>
+        </td>
+        <td>
+          <img src='image_32.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>
+          <code>00554040132</code>
+        </td>
+        <td>
+          <code>ABHk!j!i!jRG</code>
+        </td>
+        <td>
+          <img src='image_33.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>
+          <code>3440403</code>
+        </td>
+        <td>
+          <code>AEOePfgf</code>
+        </td>
+        <td>
+          <img src='image_34.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>
+          <code>111130</code>
+        </td>
+        <td>
+          <code>ACJW!XW</code>
+        </td>
+        <td>
+          <img src='image_35.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>
+          <code>21133343125</code>
+        </td>
+        <td>
+          <code>ADKXYZ!a!Z!L</code>
+        </td>
+        <td>
+          <img src='image_36.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>
+          <code>353511</code>
+        </td>
+        <td>
+          <code>AEFOPFA</code>
+        </td>
+        <td>
+          <img src='image_37.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>
+          <code>22204115220</code>
+        </td>
+        <td>
+          <code>ADLZYLY!KY!X</code>
+        </td>
+        <td>
+          <img src='image_38.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>
+          <code>03013541</code>
+        </td>
+        <td>
+          <code>ABABICBGB</code>
+        </td>
+        <td>
+          <img src='image_39.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td>
+          <code>101344</code>
+        </td>
+        <td>
+          <code>ACIVJCA</code>
+        </td>
+        <td>
+          <img src='image_40.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td>
+          <code>2432541</code>
+        </td>
+        <td>
+          <code>ADENbNdN</code>
+        </td>
+        <td>
+          <img src='image_41.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>
+          <code>45332242015</code>
+        </td>
+        <td>
+          <code>AFQPedc!!NME</code>
+        </td>
+        <td>
+          <img src='image_42.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>
+          <code>215453</code>
+        </td>
+        <td>
+          <code>ADKCAGF</code>
+        </td>
+        <td>
+          <img src='image_43.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td>
+          <code>45540523454</code>
+        </td>
+        <td>
+          <code>AFQh!i!RQg!!</code>
+        </td>
+        <td>
+          <img src='image_44.gif' width='96'>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td>
+          <code>42434302545</code>
+        </td>
+        <td>
+          <code>AFEOd!!ONOef</code>
+        </td>
+        <td>
+          <img src='image_45.gif' width='96'>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "135004", "ACDABHS" );&#x000A;/*1*/ test( "1", "AC" );&#x000A;/*2*/ test( "33333120", "AENc!!b!M" );&#x000A;/*3*/ test( "0", "AB" );&#x000A;/*4*/ test( "2", "AD" );&#x000A;/*5*/ test( "3", "AE" );&#x000A;/*6*/ test( "4", "AF" );&#x000A;/*7*/ test( "5", "AG" );&#x000A;/*8*/ test( "4532120", "AFQPOEMD" );&#x000A;/*9*/ test( "051455", "ABSHSj!" );&#x000A;/*10*/ test( "23334551", "ADMb!cdeO" );&#x000A;/*11*/ test( "22033251", "ADLKLa!ML" );&#x000A;/*12*/ test( "50511302122", "AGSjkTHTU!VW" );&#x000A;/*13*/ test( "000051", "ABHT!!!" );&#x000A;/*14*/ test( "1310105", "ACDKJW!V" );&#x000A;/*15*/ test( "50002103140", "AGSk!HU!IVIU" );&#x000A;/*16*/ test( "3112045", "AEDKYXKC" );&#x000A;/*17*/ test( "02021245535", "ABCIJW!JIHBS" );&#x000A;/*18*/ test( "014204", "ABIBCIB" );&#x000A;/*19*/ test( "255230", "ADAGAEA" );&#x000A;/*20*/ test( "443501", "AFPefgQ" );&#x000A;/*21*/ test( "022321", "ABCKLZ!" );&#x000A;/*22*/ test( "554452", "AGRh!!Q" );&#x000A;/*23*/ test( "051024", "ABSHTUH" );&#x000A;/*24*/ test( "524002", "AGAFGSB" );&#x000A;/*25*/ test( "54002441132", "AGQRjSRhRSGA" );&#x000A;/*26*/ test( "11010554312", "ACJV!!UTkSHI" );&#x000A;/*27*/ test( "23405300554", "ADMNEFOFGRi!" );&#x000A;/*28*/ test( "555353201", "AGRih!gPQG" );&#x000A;/*29*/ test( "22424105", "ADLMabaLD" );&#x000A;/*30*/ test( "11340202125", "ACJKDCKJX!!J" );&#x000A;/*31*/ test( "4524451", "AFQFPf!P" );&#x000A;/*32*/ test( "44434234050", "AFPf!!e!!Pgh" );&#x000A;/*33*/ test( "00554040132", "ABHk!j!i!jRG" );&#x000A;/*34*/ test( "3440403", "AEOePfgf" );&#x000A;/*35*/ test( "111130", "ACJW!XW" );&#x000A;/*36*/ test( "21133343125", "ADKXYZ!a!Z!L" );&#x000A;/*37*/ test( "353511", "AEFOPFA" );&#x000A;/*38*/ test( "22204115220", "ADLZYLY!KY!X" );&#x000A;/*39*/ test( "03013541", "ABABICBGB" );&#x000A;/*40*/ test( "101344", "ACIVJCA" );&#x000A;/*41*/ test( "2432541", "ADENbNdN" );&#x000A;/*42*/ test( "45332242015", "AFQPedc!!NME" );&#x000A;/*43*/ test( "215453", "ADKCAGF" );&#x000A;/*44*/ test( "45540523454", "AFQh!i!RQg!!" );&#x000A;/*45*/ test( "42434302545", "AFEOd!!ONOef" );</textarea>
+  </body>
+</html>
