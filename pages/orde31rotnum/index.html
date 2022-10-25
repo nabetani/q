@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>ぐるぐる数 2019.3.9</title>
+<style>
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  ul * {
+    line-height:160%;
+  }
+  td.center{ text-align:center; }
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    margin:1pt 1pt 1pt 1pt ;
+    border-radius:4px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    border-top : solid 1px #bbb;
+    border-left : solid 4px #bbb;
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Consolas","Courier New";
+  }
+  img.sample{
+    width:150px;
+    height:150px;
+  }
+  img.top{
+    width:320px;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  tr.sample{
+    height:2em;
+  }
+  td.sample{
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+  th.width3em{
+    width:3em;
+  }
+  .height2em{
+    height:2em;
+  }
+</style>
+</head>
+<body>
+<h1>ぐるぐる数 2019.3.9</h1>
+<h2>問題の概要</h2>
+<p>
+ある数を b 進数で表現する。
+<br>
+このとき、左端を除くすべての桁が以下の条件を満たす数のことを「
+<b>ぐるぐる数</b>
+」と呼ぶ：
+</p>
+<ul>
+<li>左隣の桁と等しい</li>
+<li>( 左隣の桁の数字 +1 ) % b と等しい ( ※ “%” は剰余の計算 )</li>
+</ul>
+<p>
+例を挙げる：
+</p>
+<table>
+<tr>
+<th>b</th>
+<th>数(b進数表記)</th>
+<th>ぐるぐる数？</th>
+</tr>
+<tr>
+<th>10</th>
+<td>6</td>
+<td><b>TRUE</b></td>
+</tr>
+<tr>
+<th>2</th>
+<td>1101010100</td>
+<td><b>TRUE</b></td>
+</tr>
+<tr>
+<th>3</th>
+<td>12222</td>
+<td><b>TRUE</b></td>
+</tr>
+<tr>
+<th>4</th>
+<td>11223000</td>
+<td><b>TRUE</b></td>
+</tr>
+<tr>
+<th>10</th>
+<td>234556677</td>
+<td><b>TRUE</b></td>
+</tr>
+<tr>
+<th>16</th>
+<td>455</td>
+<td><b>TRUE</b></td>
+</tr>
+<tr>
+<th>36</th>
+<td>gh</td>
+<td><b>TRUE</b></td>
+</tr>
+<tr>
+<th>10</th>
+<td>14</td>
+<td>false</td>
+</tr>
+<tr>
+<th>3</th>
+<td>12010</td>
+<td>false</td>
+</tr>
+<tr>
+<th>4</th>
+<td>30013011</td>
+<td>false</td>
+</tr>
+<tr>
+<th>10</th>
+<td>567788993</td>
+<td>false</td>
+</tr>
+<tr>
+<th>16</th>
+<td>167</td>
+<td>false</td>
+</tr>
+<tr>
+<th>36</th>
+<td>6j</td>
+<td>false</td>
+</tr>
+<tr></tr>
+</table>
+<p>
+b と、2つの数 x, y を与える。
+<br>
+x以上で y以下の「
+b 進数の
+<b>ぐるぐる数</b>
+」が何個あるのか計算せよ。
+</p>
+<h2>入力</h2>
+<p>
+入力はこんな感じ：
+<br>
+<code>4,1313,3012</code>
+<br>
+b, x, y がコンマ区切りで並んでいる。
+<br>
+b は 十進数。
+<br>
+x と y は b 進数になっている。
+</p>
+<h2>出力</h2>
+<p>
+出力は x 以上 y 以下の「b 進数の
+<b>ぐるぐる数</b>
+」の個数を 十進数 で。
+</p>
+<p>
+上記の例だと
+<br>
+&nbsp;
+2222, 2223, 2230, 2233, 2300, 2301, 2330, 2333, 3000, 3001, 3011, 3012
+<br>
+の
+12
+個の「
+4
+進数の
+<b>ぐるぐる数</b>
+」があるので
+<br>
+<code>12</code>
+<br>
+を出力すればよい。
+</p>
+<h2>補足</h2>
+<ul>
+<li>1≦x≦y である。</li>
+<li>y の上限は、まあサンプルデータにあるぐらいの感じで。</li>
+<li>2≦b≦36 である。</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/d139d5ef70aa23c2d038'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+この問題は2019年3月9日に開催される オフラインリアルタイムどう書くE31 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/86766'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+</tr>
+<tr class='sample'>
+<td>0</td>
+<td class='sample'>
+<code class='src'>4,1313,3012</code>
+</td>
+<td>
+<code class='expected'>12</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>1</td>
+<td class='sample'>
+<code class='src'>10,100,110</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>2</td>
+<td class='sample'>
+<code class='src'>36,zoo,zyz</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>3</td>
+<td class='sample'>
+<code class='src'>4,1300000,2222221</code>
+</td>
+<td>
+<code class='expected'>0</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>4</td>
+<td class='sample'>
+<code class='src'>2,1,1</code>
+</td>
+<td>
+<code class='expected'>1</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>5</td>
+<td class='sample'>
+<code class='src'>2,1000,1110</code>
+</td>
+<td>
+<code class='expected'>7</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>6</td>
+<td class='sample'>
+<code class='src'>4,21,132</code>
+</td>
+<td>
+<code class='expected'>8</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>7</td>
+<td class='sample'>
+<code class='src'>10,28,79</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>8</td>
+<td class='sample'>
+<code class='src'>36,q,1r</code>
+</td>
+<td>
+<code class='expected'>12</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>9</td>
+<td class='sample'>
+<code class='src'>28,bjb,g9a</code>
+</td>
+<td>
+<code class='expected'>16</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>10</td>
+<td class='sample'>
+<code class='src'>20,2i9d,5id4</code>
+</td>
+<td>
+<code class='expected'>24</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>11</td>
+<td class='sample'>
+<code class='src'>5,12000,24141</code>
+</td>
+<td>
+<code class='expected'>24</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>12</td>
+<td class='sample'>
+<code class='src'>6,1245,5145</code>
+</td>
+<td>
+<code class='expected'>28</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>13</td>
+<td class='sample'>
+<code class='src'>36,1,z</code>
+</td>
+<td>
+<code class='expected'>35</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>14</td>
+<td class='sample'>
+<code class='src'>14,277,dc1</code>
+</td>
+<td>
+<code class='expected'>42</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>15</td>
+<td class='sample'>
+<code class='src'>35,9iy,l5p</code>
+</td>
+<td>
+<code class='expected'>44</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>16</td>
+<td class='sample'>
+<code class='src'>17,7be,19b1</code>
+</td>
+<td>
+<code class='expected'>44</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>17</td>
+<td class='sample'>
+<code class='src'>18,96f,236g</code>
+</td>
+<td>
+<code class='expected'>52</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>18</td>
+<td class='sample'>
+<code class='src'>23,b1f,1k81</code>
+</td>
+<td>
+<code class='expected'>56</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>19</td>
+<td class='sample'>
+<code class='src'>6,143424,353115</code>
+</td>
+<td>
+<code class='expected'>64</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>20</td>
+<td class='sample'>
+<code class='src'>5,3401,40123</code>
+</td>
+<td>
+<code class='expected'>67</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>21</td>
+<td class='sample'>
+<code class='src'>4,321,123022</code>
+</td>
+<td>
+<code class='expected'>102</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>22</td>
+<td class='sample'>
+<code class='src'>13,1b0,8a72</code>
+</td>
+<td>
+<code class='expected'>108</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>23</td>
+<td class='sample'>
+<code class='src'>20,62,339f</code>
+</td>
+<td>
+<code class='expected'>124</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>24</td>
+<td class='sample'>
+<code class='src'>24,f8h,bcn0</code>
+</td>
+<td>
+<code class='expected'>124</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>25</td>
+<td class='sample'>
+<code class='src'>31,do3,78no</code>
+</td>
+<td>
+<code class='expected'>124</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>26</td>
+<td class='sample'>
+<code class='src'>17,727,ced4</code>
+</td>
+<td>
+<code class='expected'>136</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>27</td>
+<td class='sample'>
+<code class='src'>5,14,222243</code>
+</td>
+<td>
+<code class='expected'>154</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>28</td>
+<td class='sample'>
+<code class='src'>16,3c5,100bb</code>
+</td>
+<td>
+<code class='expected'>168</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>29</td>
+<td class='sample'>
+<code class='src'>9,353,80016</code>
+</td>
+<td>
+<code class='expected'>200</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>30</td>
+<td class='sample'>
+<code class='src'>21,h7d,34504</code>
+</td>
+<td>
+<code class='expected'>220</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>31</td>
+<td class='sample'>
+<code class='src'>11,20a,78926</code>
+</td>
+<td>
+<code class='expected'>224</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>32</td>
+<td class='sample'>
+<code class='src'>12,b0,77996</code>
+</td>
+<td>
+<code class='expected'>238</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>33</td>
+<td class='sample'>
+<code class='src'>3,212,11112012</code>
+</td>
+<td>
+<code class='expected'>254</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>34</td>
+<td class='sample'>
+<code class='src'>22,6f2,789hd</code>
+</td>
+<td>
+<code class='expected'>340</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>35</td>
+<td class='sample'>
+<code class='src'>36,5l6,tvmw</code>
+</td>
+<td>
+<code class='expected'>352</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>36</td>
+<td class='sample'>
+<code class='src'>25,db8,99b08</code>
+</td>
+<td>
+<code class='expected'>376</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>37</td>
+<td class='sample'>
+<code class='src'>32,hpi,556a7</code>
+</td>
+<td>
+<code class='expected'>376</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>38</td>
+<td class='sample'>
+<code class='src'>29,1cl,456d2</code>
+</td>
+<td>
+<code class='expected'>396</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>39</td>
+<td class='sample'>
+<code class='src'>34,dli,455u7</code>
+</td>
+<td>
+<code class='expected'>404</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>40</td>
+<td class='sample'>
+<code class='src'>15,ced,3345c1</code>
+</td>
+<td>
+<code class='expected'>424</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>41</td>
+<td class='sample'>
+<code class='src'>30,601,7780o</code>
+</td>
+<td>
+<code class='expected'>428</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>42</td>
+<td class='sample'>
+<code class='src'>3,22,22000021</code>
+</td>
+<td>
+<code class='expected'>445</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>43</td>
+<td class='sample'>
+<code class='src'>5,440,4012303</code>
+</td>
+<td>
+<code class='expected'>446</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>44</td>
+<td class='sample'>
+<code class='src'>27,hg,aaamk</code>
+</td>
+<td>
+<code class='expected'>480</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>45</td>
+<td class='sample'>
+<code class='src'>33,suv,defn7</code>
+</td>
+<td>
+<code class='expected'>480</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>46</td>
+<td class='sample'>
+<code class='src'>2,11,111101110</code>
+</td>
+<td>
+<code class='expected'>492</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>47</td>
+<td class='sample'>
+<code class='src'>35,60e,9aamd</code>
+</td>
+<td>
+<code class='expected'>528</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>48</td>
+<td class='sample'>
+<code class='src'>7,33,3445635</code>
+</td>
+<td>
+<code class='expected'>542</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>49</td>
+<td class='sample'>
+<code class='src'>4,120,22330013</code>
+</td>
+<td>
+<code class='expected'>550</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>50</td>
+<td class='sample'>
+<code class='src'>23,8fk,lm066</code>
+</td>
+<td>
+<code class='expected'>564</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>51</td>
+<td class='sample'>
+<code class='src'>6,142,5001252</code>
+</td>
+<td>
+<code class='expected'>568</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>52</td>
+<td class='sample'>
+<code class='src'>8,111,3344567</code>
+</td>
+<td>
+<code class='expected'>572</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>53</td>
+<td class='sample'>
+<code class='src'>26,4na,klmib</code>
+</td>
+<td>
+<code class='expected'>600</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>54</td>
+<td class='sample'>
+<code class='src'>19,32a,6678g3</code>
+</td>
+<td>
+<code class='expected'>672</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>55</td>
+<td class='sample'>
+<code class='src'>7,605,6011223</code>
+</td>
+<td>
+<code class='expected'>680</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>56</td>
+<td class='sample'>
+<code class='src'>6,15,11235050</code>
+</td>
+<td>
+<code class='expected'>692</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>57</td>
+<td class='sample'>
+<code class='src'>9,664,5567833</code>
+</td>
+<td>
+<code class='expected'>746</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>58</td>
+<td class='sample'>
+<code class='src'>10,909,4556846</code>
+</td>
+<td>
+<code class='expected'>746</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>59</td>
+<td class='sample'>
+<code class='src'>10,991,5555766</code>
+</td>
+<td>
+<code class='expected'>769</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>60</td>
+<td class='sample'>
+<code class='src'>8,757,7700001</code>
+</td>
+<td>
+<code class='expected'>812</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>61</td>
+<td class='sample'>
+<code class='src'>36,6pku,27wr28</code>
+</td>
+<td>
+<code class='expected'>856</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>62</td>
+<td class='sample'>
+<code class='src'>35,6n89a,j1dlik</code>
+</td>
+<td>
+<code class='expected'>1024</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>63</td>
+<td class='sample'>
+<code class='src'>34,7gehm,m0anuo</code>
+</td>
+<td>
+<code class='expected'>1088</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>64</td>
+<td class='sample'>
+<code class='src'>10,3268665,134217728</code>
+</td>
+<td>
+<code class='expected'>1856</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>65</td>
+<td class='sample'>
+<code class='src'>11,571016a,47352388a</code>
+</td>
+<td>
+<code class='expected'>2624</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>66</td>
+<td class='sample'>
+<code class='src'>4,10030022033,10203020123103</code>
+</td>
+<td>
+<code class='expected'>21504</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>67</td>
+<td class='sample'>
+<code class='src'>3,22111101011101,11021122211120221</code>
+</td>
+<td>
+<code class='expected'>100352</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>68</td>
+<td class='sample'>
+<code class='src'>2,101001011010110000110101,110101110001110110110101</code>
+</td>
+<td>
+<code class='expected'>3240321</code>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "4,1313,3012", "12" );
+/*1*/ test( "10,100,110", "0" );
+/*2*/ test( "36,zoo,zyz", "0" );
+/*3*/ test( "4,1300000,2222221", "0" );
+/*4*/ test( "2,1,1", "1" );
+/*5*/ test( "2,1000,1110", "7" );
+/*6*/ test( "4,21,132", "8" );
+/*7*/ test( "10,28,79", "10" );
+/*8*/ test( "36,q,1r", "12" );
+/*9*/ test( "28,bjb,g9a", "16" );
+/*10*/ test( "20,2i9d,5id4", "24" );
+/*11*/ test( "5,12000,24141", "24" );
+/*12*/ test( "6,1245,5145", "28" );
+/*13*/ test( "36,1,z", "35" );
+/*14*/ test( "14,277,dc1", "42" );
+/*15*/ test( "35,9iy,l5p", "44" );
+/*16*/ test( "17,7be,19b1", "44" );
+/*17*/ test( "18,96f,236g", "52" );
+/*18*/ test( "23,b1f,1k81", "56" );
+/*19*/ test( "6,143424,353115", "64" );
+/*20*/ test( "5,3401,40123", "67" );
+/*21*/ test( "4,321,123022", "102" );
+/*22*/ test( "13,1b0,8a72", "108" );
+/*23*/ test( "20,62,339f", "124" );
+/*24*/ test( "24,f8h,bcn0", "124" );
+/*25*/ test( "31,do3,78no", "124" );
+/*26*/ test( "17,727,ced4", "136" );
+/*27*/ test( "5,14,222243", "154" );
+/*28*/ test( "16,3c5,100bb", "168" );
+/*29*/ test( "9,353,80016", "200" );
+/*30*/ test( "21,h7d,34504", "220" );
+/*31*/ test( "11,20a,78926", "224" );
+/*32*/ test( "12,b0,77996", "238" );
+/*33*/ test( "3,212,11112012", "254" );
+/*34*/ test( "22,6f2,789hd", "340" );
+/*35*/ test( "36,5l6,tvmw", "352" );
+/*36*/ test( "25,db8,99b08", "376" );
+/*37*/ test( "32,hpi,556a7", "376" );
+/*38*/ test( "29,1cl,456d2", "396" );
+/*39*/ test( "34,dli,455u7", "404" );
+/*40*/ test( "15,ced,3345c1", "424" );
+/*41*/ test( "30,601,7780o", "428" );
+/*42*/ test( "3,22,22000021", "445" );
+/*43*/ test( "5,440,4012303", "446" );
+/*44*/ test( "27,hg,aaamk", "480" );
+/*45*/ test( "33,suv,defn7", "480" );
+/*46*/ test( "2,11,111101110", "492" );
+/*47*/ test( "35,60e,9aamd", "528" );
+/*48*/ test( "7,33,3445635", "542" );
+/*49*/ test( "4,120,22330013", "550" );
+/*50*/ test( "23,8fk,lm066", "564" );
+/*51*/ test( "6,142,5001252", "568" );
+/*52*/ test( "8,111,3344567", "572" );
+/*53*/ test( "26,4na,klmib", "600" );
+/*54*/ test( "19,32a,6678g3", "672" );
+/*55*/ test( "7,605,6011223", "680" );
+/*56*/ test( "6,15,11235050", "692" );
+/*57*/ test( "9,664,5567833", "746" );
+/*58*/ test( "10,909,4556846", "746" );
+/*59*/ test( "10,991,5555766", "769" );
+/*60*/ test( "8,757,7700001", "812" );
+/*61*/ test( "36,6pku,27wr28", "856" );
+/*62*/ test( "35,6n89a,j1dlik", "1024" );
+/*63*/ test( "34,7gehm,m0anuo", "1088" );
+/*64*/ test( "10,3268665,134217728", "1856" );
+/*65*/ test( "11,571016a,47352388a", "2624" );
+/*66*/ test( "4,10030022033,10203020123103", "21504" );
+/*67*/ test( "3,22111101011101,11021122211120221", "100352" );
+/*68*/ test( "2,101001011010110000110101,110101110001110110110101", "3240321" );</textarea>
+<h2>JSON 形式のテストデータ</h2>
+<p>
+<a href='data.json'>data.json</a>
+</p>
+</body>
+</html>

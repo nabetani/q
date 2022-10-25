@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>面白いセルの合計 2019.2.2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Marvel');
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  ul * {
+    line-height:160%;
+  }
+  td.center{ text-align:center; }
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    margin:1pt 1pt 1pt 1pt ;
+    border-radius:4px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    border-top : solid 1px #bbb;
+    border-left : solid 4px #bbb;
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Consolas","Courier New";
+  }
+  img.sample{
+    width:150px;
+    height:150px;
+  }
+  img.top{
+    width:320px;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  tr.sample{
+    height:2em;
+  }
+  td.sample{
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+  th.width3em{
+    width:3em;
+  }
+  .height2em{
+    height:2em;
+  }
+</style>
+</head>
+<body>
+<div class='svg'>
+<svg height='89.32038834951454px' viewBox='-0.3 -0.3 20.6 4.6' width='400px'>
+<g fill='black' font-family='&#39;Marvel&#39;, sans-serif' font-size='0.7' text-anchor='middle'>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='3.9' x='0.05' y='0.05'></rect>
+<text x='2.0' y='0.7'>1</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='3.9' x='4.05' y='0.05'></rect>
+<text x='6.0' y='0.7'>2</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='3.9' x='8.05' y='0.05'></rect>
+<text x='10.0' y='0.7'>3</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='3.9' x='12.05' y='0.05'></rect>
+<text x='14.0' y='0.7'>4</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='3.9' x='16.05' y='0.05'></rect>
+<text x='18.0' y='0.7'>5</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='3.9' x='20.05' y='0.05'></rect>
+<text x='22.0' y='0.7'>6</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='5.9' x='0.05' y='1.05'></rect>
+<text x='3.0' y='1.7'>3</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='5.9' x='6.05' y='1.05'></rect>
+<text x='9.0' y='1.7'>5</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='5.9' x='12.05' y='1.05'></rect>
+<text x='15.0' y='1.7'>9</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='5.9' x='18.05' y='1.05'></rect>
+<text x='21.0' y='1.7'>11</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='0.9' x='0.05' y='2.05'></rect>
+<text x='0.5' y='2.7'>3</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='1.05' y='2.05'></rect>
+<text x='1.5' y='2.7'>3</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='2.05' y='2.05'></rect>
+<text x='2.5' y='2.7'>3</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='3.05' y='2.05'></rect>
+<text x='3.5' y='2.7'>3</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='4.05' y='2.05'></rect>
+<text x='4.5' y='2.7'>3</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='0.9' x='5.05' y='2.05'></rect>
+<text x='5.5' y='2.7'>3</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='0.9' x='6.05' y='2.05'></rect>
+<text x='6.5' y='2.7'>5</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='7.05' y='2.05'></rect>
+<text x='7.5' y='2.7'>5</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='8.05' y='2.05'></rect>
+<text x='8.5' y='2.7'>5</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='9.05' y='2.05'></rect>
+<text x='9.5' y='2.7'>5</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='10.05' y='2.05'></rect>
+<text x='10.5' y='2.7'>5</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='0.9' x='11.05' y='2.05'></rect>
+<text x='11.5' y='2.7'>5</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='0.9' x='12.05' y='2.05'></rect>
+<text x='12.5' y='2.7'>9</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='13.05' y='2.05'></rect>
+<text x='13.5' y='2.7'>9</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='14.05' y='2.05'></rect>
+<text x='14.5' y='2.7'>9</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='15.05' y='2.05'></rect>
+<text x='15.5' y='2.7'>9</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='16.05' y='2.05'></rect>
+<text x='16.5' y='2.7'>9</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='0.9' x='17.05' y='2.05'></rect>
+<text x='17.5' y='2.7'>9</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='0.9' x='18.05' y='2.05'></rect>
+<text x='18.5' y='2.7'>11</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='19.05' y='2.05'></rect>
+<text x='19.5' y='2.7'>11</text>
+<rect height='0.9' style='fill:#aaa;stroke-width:0' width='0.9' x='20.05' y='2.05'></rect>
+<text x='20.5' y='2.7'>11</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='4.9' x='0.05' y='3.05'></rect>
+<text x='2.5' y='3.7'>3</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='4.9' x='5.05' y='3.05'></rect>
+<text x='7.5' y='3.7'>8</text>
+<rect height='0.9' style='fill:#afa;stroke-width:0' width='4.9' x='10.05' y='3.05'></rect>
+<text x='12.5' y='3.7'>14</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='4.9' x='15.05' y='3.05'></rect>
+<text x='17.5' y='3.7'>20</text>
+<rect height='0.9' style='fill:#eee;stroke-width:0' width='4.9' x='20.05' y='3.05'></rect>
+<text x='22.5' y='3.7'>26</text>
+</g>
+</svg>
+</div>
+<h1>面白いセルの合計 2019.2.2</h1>
+<h2>問題の概要</h2>
+<p>
+右図のように右に無限に長い領域が長方形(セル)に分割されている。
+</p>
+<h3>セルの幅</h3>
+<p>
+セルの幅は、入力により指定される。
+</p>
+<h3>セルの値</h3>
+<p>
+最上段は、左から順に 1, 2, 3, … の値が入っている。
+<br>
+2段目より下は、上隣のセルに書かれた数のうち、面白いセル（後述）の合計を 1000 で割った余り。
+</p>
+<p>
+となっている。
+</p>
+<h3>面白いセル</h3>
+<p>
+「面白いセル」は「面白くないセル」ではないセル。
+<br>
+「面白くないセル」は、以下の条件を両方満たすセルのこと：
+</p>
+<ul>
+<li>両隣にセルがある。</li>
+<li>右隣も左隣も自分と同じ番号になっている。</li>
+</ul>
+<h3>注目セル</h3>
+<p>
+最下段の、左から m 番目のセルを「注目セル」と呼ぶ。
+<br>
+m は、入力により指定される。
+<br>
+注目セルに入る値を求めよ。
+</p>
+<h2>入力</h2>
+<p>
+入力はこんな感じ：
+<br>
+<code>4,6,1,5/3</code>
+<br>
+スラッシュの前が、各段のセルの幅。上段から順にコンマ区切りで。
+<br>
+スラッシュのあとは、m。つまり、注目セルの位置。
+<br>
+m=1 は、左端が注目セルであることを意味する。
+</p>
+<h2>出力</h2>
+<p>
+出力は、注目セルに入る値。
+<br>
+普通に10進数で。
+</p>
+<h2>補足</h2>
+<ul>
+<li>m は 1-origin であることに注意。</li>
+<li>最上段のセルの値も 1-origin。</li>
+<li>セルの幅は正の整数</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/725e09cc5913a8569c04'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+この問題は2019年2月2日に開催される オフラインリアルタイムどう書くE30 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/84247'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+<th>図へのリンク</th>
+</tr>
+<tr class='sample'>
+<td>0</td>
+<td class='sample'>
+<code class='src'>4,6,1,5/3</code>
+</td>
+<td>
+<code class='expected'>14</code>
+</td>
+<td>
+<a href='./figs.html#0'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>1</td>
+<td class='sample'>
+<code class='src'>1/1</code>
+</td>
+<td>
+<code class='expected'>1</code>
+</td>
+<td>
+<a href='./figs.html#1'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>2</td>
+<td class='sample'>
+<code class='src'>6/1</code>
+</td>
+<td>
+<code class='expected'>1</code>
+</td>
+<td>
+<a href='./figs.html#2'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>3</td>
+<td class='sample'>
+<code class='src'>4,6/3</code>
+</td>
+<td>
+<code class='expected'>9</code>
+</td>
+<td>
+<a href='./figs.html#3'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>4</td>
+<td class='sample'>
+<code class='src'>68/68</code>
+</td>
+<td>
+<code class='expected'>68</code>
+</td>
+<td>
+<a href='./figs.html#4'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>5</td>
+<td class='sample'>
+<code class='src'>360/10</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+<td>
+<a href='./figs.html#5'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>6</td>
+<td class='sample'>
+<code class='src'>2,7,8/8</code>
+</td>
+<td>
+<code class='expected'>256</code>
+</td>
+<td>
+<a href='./figs.html#6'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>7</td>
+<td class='sample'>
+<code class='src'>37,88/71</code>
+</td>
+<td>
+<code class='expected'>504</code>
+</td>
+<td>
+<a href='./figs.html#7'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>8</td>
+<td class='sample'>
+<code class='src'>5,4,1,4/6</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+<td>
+<a href='./figs.html#8'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>9</td>
+<td class='sample'>
+<code class='src'>123/4567</code>
+</td>
+<td>
+<code class='expected'>4567</code>
+</td>
+<td>
+<a href='./figs.html#9'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>10</td>
+<td class='sample'>
+<code class='src'>473,601/397</code>
+</td>
+<td>
+<code class='expected'>9</code>
+</td>
+<td>
+<a href='./figs.html#10'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>11</td>
+<td class='sample'>
+<code class='src'>47,89,82/38</code>
+</td>
+<td>
+<code class='expected'>402</code>
+</td>
+<td>
+<a href='./figs.html#11'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>12</td>
+<td class='sample'>
+<code class='src'>4,8,1,2,10/10</code>
+</td>
+<td>
+<code class='expected'>98</code>
+</td>
+<td>
+<a href='./figs.html#12'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>13</td>
+<td class='sample'>
+<code class='src'>5,6,7,9,5,2/5</code>
+</td>
+<td>
+<code class='expected'>48</code>
+</td>
+<td>
+<a href='./figs.html#13'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>14</td>
+<td class='sample'>
+<code class='src'>538,846,73/778</code>
+</td>
+<td>
+<code class='expected'>213</code>
+</td>
+<td>
+<a href='./figs.html#14'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>15</td>
+<td class='sample'>
+<code class='src'>80,48,65,83/100</code>
+</td>
+<td>
+<code class='expected'>830</code>
+</td>
+<td>
+<a href='./figs.html#15'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>16</td>
+<td class='sample'>
+<code class='src'>1,4,6,10,5,7,5/5</code>
+</td>
+<td>
+<code class='expected'>904</code>
+</td>
+<td>
+<a href='./figs.html#16'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>17</td>
+<td class='sample'>
+<code class='src'>10,4,1,6,1,2,3,5/3</code>
+</td>
+<td>
+<code class='expected'>9</code>
+</td>
+<td>
+<a href='./figs.html#17'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>18</td>
+<td class='sample'>
+<code class='src'>3,1,4,1,5,9,2/14</code>
+</td>
+<td>
+<code class='expected'>385</code>
+</td>
+<td>
+<a href='./figs.html#18'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>19</td>
+<td class='sample'>
+<code class='src'>33,32,75,24,36/76</code>
+</td>
+<td>
+<code class='expected'>491</code>
+</td>
+<td>
+<a href='./figs.html#19'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>20</td>
+<td class='sample'>
+<code class='src'>43,59,32,2,66,42/58</code>
+</td>
+<td>
+<code class='expected'>849</code>
+</td>
+<td>
+<a href='./figs.html#20'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>21</td>
+<td class='sample'>
+<code class='src'>985,178,756,798/660</code>
+</td>
+<td>
+<code class='expected'>675</code>
+</td>
+<td>
+<a href='./figs.html#21'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>22</td>
+<td class='sample'>
+<code class='src'>3,4,3,4,5,2,3,10,2/5</code>
+</td>
+<td>
+<code class='expected'>334</code>
+</td>
+<td>
+<a href='./figs.html#22'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>23</td>
+<td class='sample'>
+<code class='src'>9,3,4,3,1,9,4,9,3,9/5</code>
+</td>
+<td>
+<code class='expected'>516</code>
+</td>
+<td>
+<a href='./figs.html#23'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>24</td>
+<td class='sample'>
+<code class='src'>883,184,29,803,129/129</code>
+</td>
+<td>
+<code class='expected'>154</code>
+</td>
+<td>
+<a href='./figs.html#24'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>25</td>
+<td class='sample'>
+<code class='src'>4,77,53,79,16,21,100/59</code>
+</td>
+<td>
+<code class='expected'>690</code>
+</td>
+<td>
+<a href='./figs.html#25'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>26</td>
+<td class='sample'>
+<code class='src'>49,94,4,99,43,78,22,74/1</code>
+</td>
+<td>
+<code class='expected'>282</code>
+</td>
+<td>
+<a href='./figs.html#26'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>27</td>
+<td class='sample'>
+<code class='src'>292,871,120,780,431,83/92</code>
+</td>
+<td>
+<code class='expected'>396</code>
+</td>
+<td>
+<a href='./figs.html#27'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>28</td>
+<td class='sample'>
+<code class='src'>4,2,9,1,5,10,7,6,8,9,10/3</code>
+</td>
+<td>
+<code class='expected'>234</code>
+</td>
+<td>
+<a href='./figs.html#28'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>29</td>
+<td class='sample'>
+<code class='src'>9,5,7,6,9,3,4,10,8,6,4,5/6</code>
+</td>
+<td>
+<code class='expected'>990</code>
+</td>
+<td>
+<a href='./figs.html#29'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>30</td>
+<td class='sample'>
+<code class='src'>11,87,44,12,3,52,81,33,55/1</code>
+</td>
+<td>
+<code class='expected'>384</code>
+</td>
+<td>
+<a href='./figs.html#30'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>31</td>
+<td class='sample'>
+<code class='src'>9,2,6,9,5,1,3,6,1,9,2,1,4/9</code>
+</td>
+<td>
+<code class='expected'>498</code>
+</td>
+<td>
+<a href='./figs.html#31'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>32</td>
+<td class='sample'>
+<code class='src'>68,62,15,97,5,68,12,87,78,76/57</code>
+</td>
+<td>
+<code class='expected'>751</code>
+</td>
+<td>
+<a href='./figs.html#32'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>33</td>
+<td class='sample'>
+<code class='src'>792,720,910,374,854,561,306/582</code>
+</td>
+<td>
+<code class='expected'>731</code>
+</td>
+<td>
+<a href='./figs.html#33'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>34</td>
+<td class='sample'>
+<code class='src'>5,10,1,7,5,3,5,7,4,8,9,6,1,9,6/5</code>
+</td>
+<td>
+<code class='expected'>768</code>
+</td>
+<td>
+<a href='./figs.html#34'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>35</td>
+<td class='sample'>
+<code class='src'>7,2,7,8,3,4,2,10,6,10,3,1,10,2/10</code>
+</td>
+<td>
+<code class='expected'>120</code>
+</td>
+<td>
+<a href='./figs.html#35'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>36</td>
+<td class='sample'>
+<code class='src'>4,2,10,7,8,9,8,1,9,7,9,10,9,4,7,2/8</code>
+</td>
+<td>
+<code class='expected'>40</code>
+</td>
+<td>
+<a href='./figs.html#36'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>37</td>
+<td class='sample'>
+<code class='src'>41,55,80,12,39,94,2,96,45,89,25/68</code>
+</td>
+<td>
+<code class='expected'>152</code>
+</td>
+<td>
+<a href='./figs.html#37'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>38</td>
+<td class='sample'>
+<code class='src'>907,371,556,955,384,24,700,131/378</code>
+</td>
+<td>
+<code class='expected'>600</code>
+</td>
+<td>
+<a href='./figs.html#38'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>39</td>
+<td class='sample'>
+<code class='src'>30,68,36,40,10,74,42,24,4,47,91,51/4</code>
+</td>
+<td>
+<code class='expected'>180</code>
+</td>
+<td>
+<a href='./figs.html#39'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>40</td>
+<td class='sample'>
+<code class='src'>807,276,175,555,372,185,445,489,590/287</code>
+</td>
+<td>
+<code class='expected'>80</code>
+</td>
+<td>
+<a href='./figs.html#40'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>41</td>
+<td class='sample'>
+<code class='src'>92,41,37,49,26,68,36,31,30,34,19,18,94/85</code>
+</td>
+<td>
+<code class='expected'>626</code>
+</td>
+<td>
+<a href='./figs.html#41'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>42</td>
+<td class='sample'>
+<code class='src'>529,153,926,150,111,26,465,957,890,887/118</code>
+</td>
+<td>
+<code class='expected'>114</code>
+</td>
+<td>
+<a href='./figs.html#42'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>43</td>
+<td class='sample'>
+<code class='src'>59,1,87,64,17,37,95,25,64,68,52,9,57,92/94</code>
+</td>
+<td>
+<code class='expected'>998</code>
+</td>
+<td>
+<a href='./figs.html#43'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>44</td>
+<td class='sample'>
+<code class='src'>979,772,235,717,999,292,727,702,710,728,556/33</code>
+</td>
+<td>
+<code class='expected'>912</code>
+</td>
+<td>
+<a href='./figs.html#44'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>45</td>
+<td class='sample'>
+<code class='src'>40,93,46,27,75,53,50,92,52,100,19,35,52,31,54/59</code>
+</td>
+<td>
+<code class='expected'>512</code>
+</td>
+<td>
+<a href='./figs.html#45'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>46</td>
+<td class='sample'>
+<code class='src'>800,778,395,540,430,200,424,62,342,866,45,803/931</code>
+</td>
+<td>
+<code class='expected'>260</code>
+</td>
+<td>
+<a href='./figs.html#46'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>47</td>
+<td class='sample'>
+<code class='src'>85,90,67,61,17,57,24,25,5,50,88,31,55,26,21,98/58</code>
+</td>
+<td>
+<code class='expected'>884</code>
+</td>
+<td>
+<a href='./figs.html#47'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>48</td>
+<td class='sample'>
+<code class='src'>510,515,70,358,909,557,886,766,323,624,92,342,424/552</code>
+</td>
+<td>
+<code class='expected'>238</code>
+</td>
+<td>
+<a href='./figs.html#48'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>49</td>
+<td class='sample'>
+<code class='src'>892,751,88,161,148,585,456,88,14,315,594,121,885,952/833</code>
+</td>
+<td>
+<code class='expected'>700</code>
+</td>
+<td>
+<a href='./figs.html#49'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>50</td>
+<td class='sample'>
+<code class='src'>940,824,509,787,942,856,450,327,491,54,817,95,60,337,667/637</code>
+</td>
+<td>
+<code class='expected'>206</code>
+</td>
+<td>
+<a href='./figs.html#50'>リンク</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>51</td>
+<td class='sample'>
+<code class='src'>408,412,30,930,372,822,632,948,855,503,8,618,138,695,897,852/377</code>
+</td>
+<td>
+<code class='expected'>212</code>
+</td>
+<td>
+<a href='./figs.html#51'>リンク</a>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "4,6,1,5/3", "14" );
+/*1*/ test( "1/1", "1" );
+/*2*/ test( "6/1", "1" );
+/*3*/ test( "4,6/3", "9" );
+/*4*/ test( "68/68", "68" );
+/*5*/ test( "360/10", "10" );
+/*6*/ test( "2,7,8/8", "256" );
+/*7*/ test( "37,88/71", "504" );
+/*8*/ test( "5,4,1,4/6", "10" );
+/*9*/ test( "123/4567", "4567" );
+/*10*/ test( "473,601/397", "9" );
+/*11*/ test( "47,89,82/38", "402" );
+/*12*/ test( "4,8,1,2,10/10", "98" );
+/*13*/ test( "5,6,7,9,5,2/5", "48" );
+/*14*/ test( "538,846,73/778", "213" );
+/*15*/ test( "80,48,65,83/100", "830" );
+/*16*/ test( "1,4,6,10,5,7,5/5", "904" );
+/*17*/ test( "10,4,1,6,1,2,3,5/3", "9" );
+/*18*/ test( "3,1,4,1,5,9,2/14", "385" );
+/*19*/ test( "33,32,75,24,36/76", "491" );
+/*20*/ test( "43,59,32,2,66,42/58", "849" );
+/*21*/ test( "985,178,756,798/660", "675" );
+/*22*/ test( "3,4,3,4,5,2,3,10,2/5", "334" );
+/*23*/ test( "9,3,4,3,1,9,4,9,3,9/5", "516" );
+/*24*/ test( "883,184,29,803,129/129", "154" );
+/*25*/ test( "4,77,53,79,16,21,100/59", "690" );
+/*26*/ test( "49,94,4,99,43,78,22,74/1", "282" );
+/*27*/ test( "292,871,120,780,431,83/92", "396" );
+/*28*/ test( "4,2,9,1,5,10,7,6,8,9,10/3", "234" );
+/*29*/ test( "9,5,7,6,9,3,4,10,8,6,4,5/6", "990" );
+/*30*/ test( "11,87,44,12,3,52,81,33,55/1", "384" );
+/*31*/ test( "9,2,6,9,5,1,3,6,1,9,2,1,4/9", "498" );
+/*32*/ test( "68,62,15,97,5,68,12,87,78,76/57", "751" );
+/*33*/ test( "792,720,910,374,854,561,306/582", "731" );
+/*34*/ test( "5,10,1,7,5,3,5,7,4,8,9,6,1,9,6/5", "768" );
+/*35*/ test( "7,2,7,8,3,4,2,10,6,10,3,1,10,2/10", "120" );
+/*36*/ test( "4,2,10,7,8,9,8,1,9,7,9,10,9,4,7,2/8", "40" );
+/*37*/ test( "41,55,80,12,39,94,2,96,45,89,25/68", "152" );
+/*38*/ test( "907,371,556,955,384,24,700,131/378", "600" );
+/*39*/ test( "30,68,36,40,10,74,42,24,4,47,91,51/4", "180" );
+/*40*/ test( "807,276,175,555,372,185,445,489,590/287", "80" );
+/*41*/ test( "92,41,37,49,26,68,36,31,30,34,19,18,94/85", "626" );
+/*42*/ test( "529,153,926,150,111,26,465,957,890,887/118", "114" );
+/*43*/ test( "59,1,87,64,17,37,95,25,64,68,52,9,57,92/94", "998" );
+/*44*/ test( "979,772,235,717,999,292,727,702,710,728,556/33", "912" );
+/*45*/ test( "40,93,46,27,75,53,50,92,52,100,19,35,52,31,54/59", "512" );
+/*46*/ test( "800,778,395,540,430,200,424,62,342,866,45,803/931", "260" );
+/*47*/ test( "85,90,67,61,17,57,24,25,5,50,88,31,55,26,21,98/58", "884" );
+/*48*/ test( "510,515,70,358,909,557,886,766,323,624,92,342,424/552", "238" );
+/*49*/ test( "892,751,88,161,148,585,456,88,14,315,594,121,885,952/833", "700" );
+/*50*/ test( "940,824,509,787,942,856,450,327,491,54,817,95,60,337,667/637", "206" );
+/*51*/ test( "408,412,30,930,372,822,632,948,855,503,8,618,138,695,897,852/377", "212" );</textarea>
+<h2>JSON 形式のテストデータ</h2>
+<p>
+<a href='data.json'>data.json</a>
+</p>
+</body>
+</html>
