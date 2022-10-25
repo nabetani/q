@@ -1,0 +1,44 @@
+digraph graph_name {
+ graph[nodesep = 0.1];
+ edge[dir=none, style=bold];
+ node[ fontname = "Helvetica", shape = plaintext, width = 0.25, height = 0.25, fontsize=30];
+b[label="53" ];
+b->c
+c[label="16" ];
+c->d
+d[label="10" ];
+d->e
+e[label="6" ];
+e->f
+f[label="4" ;shape=box];
+f->g
+g[label="2" ];
+g->h
+h[label="1" ];
+b->i
+i[label="35" ];
+i->j
+j[label="7" ];
+j->k
+k[label="4" ;shape=box];
+k->l
+l[label="2" ];
+l->m
+m[label="1" ];
+i->n
+n[label="23" ];
+n->o
+o[label="1" ];
+n->p
+p[label="15" ];
+p->q
+q[label="10" ];
+q->r
+r[label="6" ];
+r->s
+s[label="4" ;shape=box];
+s->t
+t[label="2" ];
+t->u
+u[label="1" ];
+}

@@ -1,0 +1,62 @@
+digraph graph_name {
+ graph[nodesep = 0.1];
+ edge[dir=none, style=bold];
+ node[ fontname = "Helvetica", shape = plaintext, width = 0.25, height = 0.25, fontsize=30];
+bs[label="69" ];
+bs->bt
+bt[label="24" ];
+bt->bu
+bu[label="2" ];
+bu->bv
+bv[label="1" ];
+bt->bw
+bw[label="16" ];
+bw->bx
+bx[label="10" ];
+bx->by
+by[label="6" ];
+by->bz
+bz[label="4" ];
+bz->ca
+ca[label="2" ];
+ca->cb
+cb[label="1" ];
+bs->cc
+cc[label="46" ];
+cc->cd
+cd[label="13" ];
+cd->ce
+ce[label="8" ];
+ce->cf
+cf[label="5" ;shape=box];
+cf->cg
+cg[label="3" ];
+cg->ch
+ch[label="2" ];
+ch->ci
+ci[label="1" ];
+cc->cj
+cj[label="30" ];
+cj->ck
+ck[label="5" ;shape=box];
+ck->cl
+cl[label="3" ];
+cl->cm
+cm[label="2" ];
+cm->cn
+cn[label="1" ];
+cj->co
+co[label="20" ];
+co->cp
+cp[label="13" ];
+cp->cq
+cq[label="8" ];
+cq->cr
+cr[label="5" ;shape=box];
+cr->cs
+cs[label="3" ];
+cs->ct
+ct[label="2" ];
+ct->cu
+cu[label="1" ];
+}

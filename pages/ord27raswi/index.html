@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>分岐と行き止まり 横へな 2014.11.7 問題</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img{ width:600px }
+      img.large{ width:360px }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+        max-height:80px;
+        max-width:80px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+      .weight{
+      font-family:"Georgia";
+      padding-left:8px;
+      padding-right:8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>分岐と行き止まり 横へな 2014.11.7 問題</h1>
+    <h2>問題</h2>
+    <p>
+      下図のようなレールがある。
+      <br>
+      <img src='fig.png'>
+      <br>
+      図の左端(1〜3 のいずれか)から右端(4〜6のいずれか)に列車が進む。
+      <br>
+      a〜i のうち幾つかは保守などのために通行禁止になっている。
+      <br>
+      1〜3 をスタートして、4〜6 に到達できるかどうかを調べよ。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は、通行できない地点を示す。
+      <br>
+      <code>befi</code>
+      <br>
+      こんな感じ。
+      <br>
+      通行禁止となっている地点を示す文字を区切り文字なしでならべたもの。
+      <br>
+      アルファベット順に整列されている。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、上記の例だと
+      <code>14,16,24,26</code>
+      こんな感じ。
+      <br>
+      つまり、1を出発して4に到達可能なら、
+      <code>14</code>
+      を出力する。このようなものをコンマ区切りでならべたものを作る。並べる順番は、辞書順。
+      <br>
+      ただし、どこから出てもどこにもたどり着けない場合は
+      <br>
+      <code>-</code>
+      <br>
+      を出力すること。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>入力文字列はアルファベット順に整列済みである。</li>
+      <li>列車は左から右に進む。スイッチバックしたりはしない。</li>
+      <li>滑らかにつながっている箇所がポイント（転轍機）である。滑らかではない感じで交わっている場所（たとえば a と f の間にある交点）では線路にそって進む。</li>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/23ebddb44f0234e7fb15'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2014年11月7日に開催される 第26回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='http://yhpg.doorkeeper.jp/events/16017'>
+          Doorkeeper のページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code>befi</code>
+        </td>
+        <td>
+          <code class='expected'>14,16,24,26</code>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code>abc</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,25,26,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code>de</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,26,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code>fghi</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,25,26,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code>abcdefghi</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code>ag</code>
+        </td>
+        <td>
+          <code class='expected'>24,25,26,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code>dh</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code>bf</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,25,26</code>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code>ch</code>
+        </td>
+        <td>
+          <code class='expected'>15,25,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code>be</code>
+        </td>
+        <td>
+          <code class='expected'>14,16,24,26,34,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code>ci</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,24,25,34,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code>cgi</code>
+        </td>
+        <td>
+          <code class='expected'>15,24,25,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code>acgi</code>
+        </td>
+        <td>
+          <code class='expected'>24,25,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code>cdefghi</code>
+        </td>
+        <td>
+          <code class='expected'>15,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code>acdefghi</code>
+        </td>
+        <td>
+          <code class='expected'>35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code>cdegi</code>
+        </td>
+        <td>
+          <code class='expected'>15,24,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code>bcdegi</code>
+        </td>
+        <td>
+          <code class='expected'>24</code>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code>afh</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,25,26,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code>abfh</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,25,26</code>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code>dfh</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code>cdfh</code>
+        </td>
+        <td>
+          <code class='expected'>15,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code>deh</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code>cdeh</code>
+        </td>
+        <td>
+          <code class='expected'>15,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code>abefgh</code>
+        </td>
+        <td>
+          <code class='expected'>24,26</code>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code>abdefgh</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code>acfghi</code>
+        </td>
+        <td>
+          <code class='expected'>25,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code>acdfghi</code>
+        </td>
+        <td>
+          <code class='expected'>35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code>cegi</code>
+        </td>
+        <td>
+          <code class='expected'>15,24,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code>abcfhi</code>
+        </td>
+        <td>
+          <code class='expected'>15,25</code>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code>abcefhi</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code>abdi</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code>abdfi</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24</code>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code>bdi</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code>bdfi</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24</code>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code>adfh</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code>adfgh</code>
+        </td>
+        <td>
+          <code class='expected'>34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code>acdfhi</code>
+        </td>
+        <td>
+          <code class='expected'>15,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code>bcdfgi</code>
+        </td>
+        <td>
+          <code class='expected'>24</code>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code>bcdfghi</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code>defi</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,24,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code>defhi</code>
+        </td>
+        <td>
+          <code class='expected'>14,15,16,34,35,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code>cdefg</code>
+        </td>
+        <td>
+          <code class='expected'>15,24,26,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code>cdefgi</code>
+        </td>
+        <td>
+          <code class='expected'>15,24,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code>bdefg</code>
+        </td>
+        <td>
+          <code class='expected'>24,26</code>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code>bdefgi</code>
+        </td>
+        <td>
+          <code class='expected'>24</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "befi", "14,16,24,26" );    
+/*1*/ test( "abc", "14,15,16,24,25,26,34,35,36" );    
+/*2*/ test( "de", "14,15,16,24,26,34,35,36" );    
+/*3*/ test( "fghi", "14,15,16,24,25,26,34,35,36" );    
+/*4*/ test( "abcdefghi", "-" );    
+/*5*/ test( "ag", "24,25,26,34,35,36" );    
+/*6*/ test( "dh", "14,15,16,34,35,36" );    
+/*7*/ test( "bf", "14,15,16,24,25,26" );    
+/*8*/ test( "ch", "15,25,35" );    
+/*9*/ test( "be", "14,16,24,26,34,36" );    
+/*10*/ test( "ci", "14,15,24,25,34,35" );    
+/*11*/ test( "cgi", "15,24,25,35" );    
+/*12*/ test( "acgi", "24,25,35" );    
+/*13*/ test( "cdefghi", "15,35" );    
+/*14*/ test( "acdefghi", "35" );    
+/*15*/ test( "cdegi", "15,24,35" );    
+/*16*/ test( "bcdegi", "24" );    
+/*17*/ test( "afh", "14,15,16,24,25,26,34,35,36" );    
+/*18*/ test( "abfh", "14,15,16,24,25,26" );    
+/*19*/ test( "dfh", "14,15,16,34,35,36" );    
+/*20*/ test( "cdfh", "15,35" );    
+/*21*/ test( "deh", "14,15,16,34,35,36" );    
+/*22*/ test( "cdeh", "15,35" );    
+/*23*/ test( "abefgh", "24,26" );    
+/*24*/ test( "abdefgh", "-" );    
+/*25*/ test( "acfghi", "25,35" );    
+/*26*/ test( "acdfghi", "35" );    
+/*27*/ test( "cegi", "15,24,35" );    
+/*28*/ test( "abcfhi", "15,25" );    
+/*29*/ test( "abcefhi", "-" );    
+/*30*/ test( "abdi", "14,15,16,24,34,35,36" );    
+/*31*/ test( "abdfi", "14,15,16,24" );    
+/*32*/ test( "bdi", "14,15,16,24,34,35,36" );    
+/*33*/ test( "bdfi", "14,15,16,24" );    
+/*34*/ test( "adfh", "14,15,16,34,35,36" );    
+/*35*/ test( "adfgh", "34,35,36" );    
+/*36*/ test( "acdfhi", "15,35" );    
+/*37*/ test( "bcdfgi", "24" );    
+/*38*/ test( "bcdfghi", "-" );    
+/*39*/ test( "defi", "14,15,16,24,34,35,36" );    
+/*40*/ test( "defhi", "14,15,16,34,35,36" );    
+/*41*/ test( "cdefg", "15,24,26,35" );    
+/*42*/ test( "cdefgi", "15,24,35" );    
+/*43*/ test( "bdefg", "24,26" );    
+/*44*/ test( "bdefgi", "24" );</textarea>
+  </body>
+</html>

@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>十字の壁がそそり立つ世界の中を君は螺旋状に歩く 　 横へな 2015.2.7 問題</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+        float: right;
+        margin-left: 2em;
+        margin-bottom: 1em;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+      .weight{
+      font-family:"Georgia";
+      padding-left:8px;
+      padding-right:8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>十字の壁がそそり立つ世界の中を君は螺旋状に歩く 　 横へな 2015.2.7 問題</h1>
+    <h2>問題</h2>
+    <p>
+      <img class='large' src='fig.png'>
+      世界はマス目に区切られている。
+      <br>
+      そこには十字型の壁がある。壁の厚みは1マス。東西南北に伸びている。
+      <br>
+      君は、壁が交わっているマスの北東の隣のマスにいる。
+      <br>
+      君は、世界のことを調べるために旅に出る。壁の周りを時計回りに回る。
+      <br>
+      移動は、東西南北いずれかの方向のみ。できるだけ柱から離れないように動くんだけど、一度訪れたことがあるマス目には二度と入らない。
+      <br>
+      一日にひとマス進む。
+    </p>
+    <p>
+      で。
+      <br>
+      入力として、北・東・南・西 方向の壁の長さ（図の、n, e, s, w）と、君が旅をした日数 d を与える。
+      <br>
+      君は d 日の旅を終えている。次の日、君がどちらに進むべきなのかを求めよ。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>2,3,5,4:85</code>
+      <br>
+      こんな感じ。コロンの前の四つの数字は、壁の形。順に、北・東・南・西。コンマ区切り。
+      <br>
+      すべて正の整数。普通に十進数で。
+      <br>
+      コロンの後は、日数。普通に十進数で。
+    </p>
+    <h2>出力</h2>
+    <p>
+      d 日経過後に進む方向を出力する。出力するべき文字と進むべき方向の対応は下表の通り：
+    </p>
+    <table>
+      <tr>
+        <th>方向</th>
+        <td>北</td>
+        <td>東</td>
+        <td>南</td>
+        <td>西</td>
+      </tr>
+      <tr>
+        <th>出力する記号</th>
+        <td>N</td>
+        <td>E</td>
+        <td>S</td>
+        <td>W</td>
+      </tr>
+    </table>
+    <p>
+      というわけで、出力は
+      <code>S</code>
+      こんな感じ。
+    </p>
+    <h2>追加問題</h2>
+    <p>
+      １時間で解けるような気はあんまりしないんだけど、時間が余っちゃった人のために追加問題を用意した。
+      <br>
+      いつものような、テストデータがある形ではなく、出力を問う形。
+    </p>
+    <h3>
+      以下の入力に対する出力は？
+    </h3>
+    <ul>
+      <li>
+        <code>1234,2345,3456,4567:978593417</code>
+      </li>
+      <li>
+        <code>1234,2345,3456,4567:978593418</code>
+      </li>
+      <li>
+        <code>31415,92653,58979,32384:9812336139</code>
+      </li>
+      <li>
+        <code>31415,92653,58979,32384:9812336140</code>
+      </li>
+      <li>
+        <code>314159,265358,979323,84626:89099331642</code>
+      </li>
+      <li>
+        <code>314159,265358,979323,84626:89099331643</code>
+      </li>
+    </ul>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>n, e, s, w は、いずれも正の整数である。</li>
+      <li>0日目はスタート地点にいる。 1日目の旅を終えると、スタート地点の東の隣のマスにいる。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/ce3b4f8a34de8987c6bc'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2015年2月7日に開催される 第28回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='http://yhpg.doorkeeper.jp/events/19574'>
+          Doorkeeper のページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code>2,3,5,4:85</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='2_3_5_4_85.png'>
+            <img class='sample' src='2_3_5_4_85.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code>1,2,3,4:1</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='1_2_3_4_1.png'>
+            <img class='sample' src='1_2_3_4_1.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code>1,2,3,4:2</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='1_2_3_4_2.png'>
+            <img class='sample' src='1_2_3_4_2.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code>1,2,3,4:3</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='1_2_3_4_3.png'>
+            <img class='sample' src='1_2_3_4_3.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code>1,2,3,4:4</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='1_2_3_4_4.png'>
+            <img class='sample' src='1_2_3_4_4.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code>1,2,3,4:27</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='1_2_3_4_27.png'>
+            <img class='sample' src='1_2_3_4_27.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code>1,2,3,4:63</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='1_2_3_4_63.png'>
+            <img class='sample' src='1_2_3_4_63.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code>1,2,3,4:40</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='1_2_3_4_40.png'>
+            <img class='sample' src='1_2_3_4_40.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code>1,4,3,2:40</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='1_4_3_2_40.png'>
+            <img class='sample' src='1_4_3_2_40.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code>3,3,3,3:30</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='3_3_3_3_30.png'>
+            <img class='sample' src='3_3_3_3_30.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code>3,3,3,3:31</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='3_3_3_3_31.png'>
+            <img class='sample' src='3_3_3_3_31.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code>3,3,3,3:32</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='3_3_3_3_32.png'>
+            <img class='sample' src='3_3_3_3_32.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code>3,3,3,3:70</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='3_3_3_3_70.png'>
+            <img class='sample' src='3_3_3_3_70.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code>3,3,3,3:71</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='3_3_3_3_71.png'>
+            <img class='sample' src='3_3_3_3_71.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code>3,3,3,3:72</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='3_3_3_3_72.png'>
+            <img class='sample' src='3_3_3_3_72.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code>1,1,1,1:7</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='1_1_1_1_7.png'>
+            <img class='sample' src='1_1_1_1_7.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code>1,2,1,1:7</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='1_2_1_1_7.png'>
+            <img class='sample' src='1_2_1_1_7.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code>1,6,1,1:7</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='1_6_1_1_7.png'>
+            <img class='sample' src='1_6_1_1_7.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code>1,8,1,1:7</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='1_8_1_1_7.png'>
+            <img class='sample' src='1_8_1_1_7.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code>1,1,1,1:30</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='1_1_1_1_30.png'>
+            <img class='sample' src='1_1_1_1_30.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code>1,2,1,1:30</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='1_2_1_1_30.png'>
+            <img class='sample' src='1_2_1_1_30.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code>1,5,1,1:30</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='1_5_1_1_30.png'>
+            <img class='sample' src='1_5_1_1_30.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code>1,8,1,1:30</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='1_8_1_1_30.png'>
+            <img class='sample' src='1_8_1_1_30.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code>9,9,9,9:99</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='9_9_9_9_99.png'>
+            <img class='sample' src='9_9_9_9_99.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code>5,6,3,8:3</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='5_6_3_8_3.png'>
+            <img class='sample' src='5_6_3_8_3.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code>5,8,1,1:11</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='5_8_1_1_11.png'>
+            <img class='sample' src='5_8_1_1_11.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code>2,8,1,2:18</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='2_8_1_2_18.png'>
+            <img class='sample' src='2_8_1_2_18.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code>3,2,3,1:20</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='3_2_3_1_20.png'>
+            <img class='sample' src='3_2_3_1_20.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code>3,3,8,1:28</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='3_3_8_1_28.png'>
+            <img class='sample' src='3_3_8_1_28.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code>2,5,1,2:32</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='2_5_1_2_32.png'>
+            <img class='sample' src='2_5_1_2_32.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code>2,5,1,6:33</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='2_5_1_6_33.png'>
+            <img class='sample' src='2_5_1_6_33.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code>1,2,5,7:34</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='1_2_5_7_34.png'>
+            <img class='sample' src='1_2_5_7_34.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code>3,6,5,6:36</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='3_6_5_6_36.png'>
+            <img class='sample' src='3_6_5_6_36.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code>6,2,8,1:39</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='6_2_8_1_39.png'>
+            <img class='sample' src='6_2_8_1_39.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code>3,1,2,3:41</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='3_1_2_3_41.png'>
+            <img class='sample' src='3_1_2_3_41.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code>1,1,3,4:45</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='1_1_3_4_45.png'>
+            <img class='sample' src='1_1_3_4_45.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code>1,3,1,2:46</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='1_3_1_2_46.png'>
+            <img class='sample' src='1_3_1_2_46.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code>4,4,4,4:49</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='4_4_4_4_49.png'>
+            <img class='sample' src='4_4_4_4_49.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code>3,1,4,4:55</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='3_1_4_4_55.png'>
+            <img class='sample' src='3_1_4_4_55.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code>6,6,2,1:56</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='6_6_2_1_56.png'>
+            <img class='sample' src='6_6_2_1_56.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code>3,2,1,2:59</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='3_2_1_2_59.png'>
+            <img class='sample' src='3_2_1_2_59.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code>2,7,7,1:60</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='2_7_7_1_60.png'>
+            <img class='sample' src='2_7_7_1_60.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code>3,1,1,1:63</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='3_1_1_1_63.png'>
+            <img class='sample' src='3_1_1_1_63.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code>4,6,4,1:78</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='4_6_4_1_78.png'>
+            <img class='sample' src='4_6_4_1_78.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code>7,5,3,6:79</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='7_5_3_6_79.png'>
+            <img class='sample' src='7_5_3_6_79.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code>7,8,3,1:81</code>
+        </td>
+        <td>
+          <code class='expected'>E</code>
+        </td>
+        <td>
+          <a href='7_8_3_1_81.png'>
+            <img class='sample' src='7_8_3_1_81.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code>3,2,5,2:82</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='3_2_5_2_82.png'>
+            <img class='sample' src='3_2_5_2_82.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td class='sample'>
+          <code>1,1,3,4:84</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='1_1_3_4_84.png'>
+            <img class='sample' src='1_1_3_4_84.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td class='sample'>
+          <code>7,4,1,5:88</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='7_4_1_5_88.png'>
+            <img class='sample' src='7_4_1_5_88.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td class='sample'>
+          <code>3,6,5,3:89</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='3_6_5_3_89.png'>
+            <img class='sample' src='3_6_5_3_89.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td class='sample'>
+          <code>1,4,2,3:92</code>
+        </td>
+        <td>
+          <code class='expected'>N</code>
+        </td>
+        <td>
+          <a href='1_4_2_3_92.png'>
+            <img class='sample' src='1_4_2_3_92.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td class='sample'>
+          <code>1,3,4,5:93</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='1_3_4_5_93.png'>
+            <img class='sample' src='1_3_4_5_93.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>52</td>
+        <td class='sample'>
+          <code>2,4,8,1:94</code>
+        </td>
+        <td>
+          <code class='expected'>W</code>
+        </td>
+        <td>
+          <a href='2_4_8_1_94.png'>
+            <img class='sample' src='2_4_8_1_94.png'>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td class='sample'>
+          <code>3,6,1,7:99</code>
+        </td>
+        <td>
+          <code class='expected'>S</code>
+        </td>
+        <td>
+          <a href='3_6_1_7_99.png'>
+            <img class='sample' src='3_6_1_7_99.png'>
+          </a>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "2,3,5,4:85", "S" );    
+/*1*/ test( "1,2,3,4:1", "E" );    
+/*2*/ test( "1,2,3,4:2", "S" );    
+/*3*/ test( "1,2,3,4:3", "S" );    
+/*4*/ test( "1,2,3,4:4", "W" );    
+/*5*/ test( "1,2,3,4:27", "E" );    
+/*6*/ test( "1,2,3,4:63", "E" );    
+/*7*/ test( "1,2,3,4:40", "W" );    
+/*8*/ test( "1,4,3,2:40", "S" );    
+/*9*/ test( "3,3,3,3:30", "S" );    
+/*10*/ test( "3,3,3,3:31", "E" );    
+/*11*/ test( "3,3,3,3:32", "E" );    
+/*12*/ test( "3,3,3,3:70", "S" );    
+/*13*/ test( "3,3,3,3:71", "E" );    
+/*14*/ test( "3,3,3,3:72", "E" );    
+/*15*/ test( "1,1,1,1:7", "N" );    
+/*16*/ test( "1,2,1,1:7", "W" );    
+/*17*/ test( "1,6,1,1:7", "S" );    
+/*18*/ test( "1,8,1,1:7", "E" );    
+/*19*/ test( "1,1,1,1:30", "N" );    
+/*20*/ test( "1,2,1,1:30", "W" );    
+/*21*/ test( "1,5,1,1:30", "S" );    
+/*22*/ test( "1,8,1,1:30", "E" );    
+/*23*/ test( "9,9,9,9:99", "W" );    
+/*24*/ test( "5,6,3,8:3", "E" );    
+/*25*/ test( "5,8,1,1:11", "W" );    
+/*26*/ test( "2,8,1,2:18", "S" );    
+/*27*/ test( "3,2,3,1:20", "N" );    
+/*28*/ test( "3,3,8,1:28", "N" );    
+/*29*/ test( "2,5,1,2:32", "E" );    
+/*30*/ test( "2,5,1,6:33", "E" );    
+/*31*/ test( "1,2,5,7:34", "N" );    
+/*32*/ test( "3,6,5,6:36", "E" );    
+/*33*/ test( "6,2,8,1:39", "S" );    
+/*34*/ test( "3,1,2,3:41", "W" );    
+/*35*/ test( "1,1,3,4:45", "W" );    
+/*36*/ test( "1,3,1,2:46", "N" );    
+/*37*/ test( "4,4,4,4:49", "W" );    
+/*38*/ test( "3,1,4,4:55", "N" );    
+/*39*/ test( "6,6,2,1:56", "W" );    
+/*40*/ test( "3,2,1,2:59", "S" );    
+/*41*/ test( "2,7,7,1:60", "S" );    
+/*42*/ test( "3,1,1,1:63", "N" );    
+/*43*/ test( "4,6,4,1:78", "E" );    
+/*44*/ test( "7,5,3,6:79", "W" );    
+/*45*/ test( "7,8,3,1:81", "E" );    
+/*46*/ test( "3,2,5,2:82", "S" );    
+/*47*/ test( "1,1,3,4:84", "N" );    
+/*48*/ test( "7,4,1,5:88", "S" );    
+/*49*/ test( "3,6,5,3:89", "S" );    
+/*50*/ test( "1,4,2,3:92", "N" );    
+/*51*/ test( "1,3,4,5:93", "W" );    
+/*52*/ test( "2,4,8,1:94", "W" );    
+/*53*/ test( "3,6,1,7:99", "S" );</textarea>
+  </body>
+</html>

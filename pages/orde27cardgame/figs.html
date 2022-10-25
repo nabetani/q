@@ -1,0 +1,8006 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet'>
+<title>とあるカードゲーム 2018.10.6</title>
+<style>
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    border-radius:4px;
+  }
+  span.card{
+    background-color: #fff;
+    font-family:'Share Tech Mono', monospace;
+    padding:2pt 0pt 2pt 0pt ;
+    margin-right:1px;
+    margin-left:1px;
+    border-radius:2px;
+    border-top: solid #ccc 1px;
+    border-left: solid #ccc 1px;
+    border-bottom: solid #888 1px;
+    border-right: solid #888 1px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Courier New", monospace;
+  }
+  img.sample{
+    width:150px;
+    height:150px;
+  }
+  img.top{
+  width:320px;
+  }
+  .weight{
+    font-family:"Georgia";
+    padding-left:8px;
+    padding-right:8px;
+  }
+  tr.sample{
+    height:2em;
+  }
+  td.sample{
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+  th.width3em{
+    width:3em;
+  }
+  td.on{
+    background-color:#888;
+    font-family:'Share Tech Mono', monospace;
+    color:#fff;
+  }
+  td.c0{
+    background-color:#888;
+    font-family:'Share Tech Mono', monospace;
+    color:#fff;
+  }
+  td.c1{
+    background-color:#088;
+    font-family:'Share Tech Mono', monospace;
+    color:#fff;
+  }
+  td.c2{
+    background-color:#808;
+    font-family:'Share Tech Mono', monospace;
+    color:#fff;
+  }
+  td.c3{
+    background-color:#880;
+    font-family:'Share Tech Mono', monospace;
+    color:#fff;
+  }
+  td.off{
+    background-color:#f8f8f8;
+    font-family:'Share Tech Mono', monospace;
+    color:#ccc;
+  }
+</style>
+</head>
+<body>
+<h1>とあるカードゲーム 2018.10.6</h1>
+<h2>
+<a name='0'>
+<span>#0</span>
+</a>
+</h2>
+<p>
+src:
+<code>A1,A2,A3,A4,B3,C3,D5,E5</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B3</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D5</span><span class='card'>E5</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c0'>A1</td>
+<td class='c0'>A2</td>
+<td class='c0'>A3</td>
+<td class='c0'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='c1'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='c1'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='c2'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='c2'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='1'>
+<span>#1</span>
+</a>
+</h2>
+<p>
+src:
+<code>A1,B2,C3,D4,E5,F6,G7,A8</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='on'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='on'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='on'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='on'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='on'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='on'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='on'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='on'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='2'>
+<span>#2</span>
+</a>
+</h2>
+<p>
+src:
+<code>A3,A5,A4,A6,A7,A1,A2,A8</code>
+&nbsp;expected:
+<code>49</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span><span class='card'>A5</span><span class='card'>A6</span><span class='card'>A7</span><span class='card'>A8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c0'>A1</td>
+<td class='c0'>A2</td>
+<td class='c0'>A3</td>
+<td class='c0'>A4</td>
+<td class='c0'>A5</td>
+<td class='c0'>A6</td>
+<td class='c0'>A7</td>
+<td class='c0'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='3'>
+<span>#3</span>
+</a>
+</h2>
+<p>
+src:
+<code>G2,G1,A1,F1,C1,E1,B1,D1</code>
+&nbsp;expected:
+<code>26</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A1</span><span class='card'>B1</span><span class='card'>C1</span><span class='card'>D1</span><span class='card'>E1</span><span class='card'>F1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G1</span><span class='card'>G2</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c0'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c0'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='c0'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='c0'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='c0'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='c1'>G1</td>
+<td class='c1'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='4'>
+<span>#4</span>
+</a>
+</h2>
+<p>
+src:
+<code>E3,G3,D4,F3,D3,C3,B3,A3</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A3</span><span class='card'>B3</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E3</span><span class='card'>F3</span><span class='card'>G3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>D4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='c0'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='c0'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='c0'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='c2'>D3</td>
+<td class='c2'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c1'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='c1'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='c1'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='5'>
+<span>#5</span>
+</a>
+</h2>
+<p>
+src:
+<code>A1,C1,C2,E3,B1,B2,A2,D3</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A1</span><span class='card'>B1</span><span class='card'>C1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A2</span><span class='card'>B2</span><span class='card'>C2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>E3</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c0'>A1</td>
+<td class='c1'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='c1'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c0'>C1</td>
+<td class='c1'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='c2'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c2'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='6'>
+<span>#6</span>
+</a>
+</h2>
+<p>
+src:
+<code>D2,E2,C1,B2,C2,B1,A2,A1</code>
+&nbsp;expected:
+<code>20</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A2</span><span class='card'>B2</span><span class='card'>C2</span><span class='card'>D2</span><span class='card'>E2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A1</span><span class='card'>B1</span><span class='card'>C1</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c1'>A1</td>
+<td class='c0'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c1'>B1</td>
+<td class='c0'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c1'>C1</td>
+<td class='c0'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='c0'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='c0'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='7'>
+<span>#7</span>
+</a>
+</h2>
+<p>
+src:
+<code>C2,B3,B4,A1,A2,B2,B1,C1</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B1</span><span class='card'>B2</span><span class='card'>B3</span><span class='card'>B4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A1</span><span class='card'>A2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C1</span><span class='card'>C2</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c1'>A1</td>
+<td class='c1'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='c0'>B2</td>
+<td class='c0'>B3</td>
+<td class='c0'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c2'>C1</td>
+<td class='c2'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='8'>
+<span>#8</span>
+</a>
+</h2>
+<p>
+src:
+<code>D1,B1,D3,C3,D2,B2,C1,B3</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B3</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C1</span><span class='card'>D1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>D3</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='c0'>B2</td>
+<td class='c1'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c2'>C1</td>
+<td class='off'>C2</td>
+<td class='c1'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='c2'>D1</td>
+<td class='c3'>D2</td>
+<td class='c3'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='9'>
+<span>#9</span>
+</a>
+</h2>
+<p>
+src:
+<code>C1,F5,F6,B2,C2,D2,F4,C3</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='on'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='on'>C1</td>
+<td class='on'>C2</td>
+<td class='on'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='on'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='on'>F4</td>
+<td class='on'>F5</td>
+<td class='on'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='10'>
+<span>#10</span>
+</a>
+</h2>
+<p>
+src:
+<code>D2,A2,C2,E2,F2,B2,C3,C1</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>C1</span><span class='card'>C2</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>E2</span><span class='card'>F2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A2</span><span class='card'>B2</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='c2'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='c2'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c0'>C1</td>
+<td class='c0'>C2</td>
+<td class='c0'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='c1'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='c1'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='c1'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='11'>
+<span>#11</span>
+</a>
+</h2>
+<p>
+src:
+<code>D6,E7,D8,F7,C7,G7,D7,D5</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='on'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='on'>D5</td>
+<td class='on'>D6</td>
+<td class='on'>D7</td>
+<td class='on'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='on'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='on'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='on'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='12'>
+<span>#12</span>
+</a>
+</h2>
+<p>
+src:
+<code>B2,B3,B4,D5,D2,D4,D3,C3</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='on'>B2</td>
+<td class='on'>B3</td>
+<td class='on'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='on'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='on'>D2</td>
+<td class='on'>D3</td>
+<td class='on'>D4</td>
+<td class='on'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='13'>
+<span>#13</span>
+</a>
+</h2>
+<p>
+src:
+<code>C3,D3,B2,B1,E4,E5,D4,C2</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C2</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>D4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>E5</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='c0'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='c1'>C2</td>
+<td class='c1'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='c2'>D3</td>
+<td class='c2'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='c3'>E4</td>
+<td class='c3'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='14'>
+<span>#14</span>
+</a>
+</h2>
+<p>
+src:
+<code>D3,E4,E2,C1,F4,D2,E3,C2</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>C1</span><span class='card'>C2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>E2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>E3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c0'>C1</td>
+<td class='c0'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='c1'>D2</td>
+<td class='c2'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='c1'>E2</td>
+<td class='c2'>E3</td>
+<td class='c3'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='c3'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='15'>
+<span>#15</span>
+</a>
+</h2>
+<p>
+src:
+<code>B4,C3,D5,C4,A4,C5,B5,B6</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A4</span><span class='card'>B4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B5</span><span class='card'>B6</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C3</span><span class='card'>C4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C5</span><span class='card'>D5</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='c0'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c0'>B4</td>
+<td class='c1'>B5</td>
+<td class='c1'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='c2'>C3</td>
+<td class='c2'>C4</td>
+<td class='c3'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='c3'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='16'>
+<span>#16</span>
+</a>
+</h2>
+<p>
+src:
+<code>E9,D8,D9,D7,F8,F9,E8,E7</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>D8</span><span class='card'>E8</span><span class='card'>F8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D9</span><span class='card'>E9</span><span class='card'>F9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D7</span><span class='card'>E7</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='c2'>D7</td>
+<td class='c0'>D8</td>
+<td class='c1'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='c2'>E7</td>
+<td class='c0'>E8</td>
+<td class='c1'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='c0'>F8</td>
+<td class='c1'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='17'>
+<span>#17</span>
+</a>
+</h2>
+<p>
+src:
+<code>F9,C9,D7,D9,D8,E7,E9,F8</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='on'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='on'>D7</td>
+<td class='on'>D8</td>
+<td class='on'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='on'>E7</td>
+<td class='off'>E8</td>
+<td class='on'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='on'>F8</td>
+<td class='on'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='18'>
+<span>#18</span>
+</a>
+</h2>
+<p>
+src:
+<code>D4,C5,B5,B6,D3,D2,D5,B7</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>D2</span><span class='card'>D3</span><span class='card'>D4</span><span class='card'>D5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B5</span><span class='card'>C5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B6</span><span class='card'>B7</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='c1'>B5</td>
+<td class='c2'>B6</td>
+<td class='c2'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='c1'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='c0'>D2</td>
+<td class='c0'>D3</td>
+<td class='c0'>D4</td>
+<td class='c0'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='19'>
+<span>#19</span>
+</a>
+</h2>
+<p>
+src:
+<code>B8,D8,D7,A7,A8,D9,C8,A9</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A7</span><span class='card'>A8</span><span class='card'>A9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D7</span><span class='card'>D8</span><span class='card'>D9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>C8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='c0'>A7</td>
+<td class='c0'>A8</td>
+<td class='c0'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='c2'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='c2'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='c1'>D7</td>
+<td class='c1'>D8</td>
+<td class='c1'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='20'>
+<span>#20</span>
+</a>
+</h2>
+<p>
+src:
+<code>F3,E3,F7,E5,E6,E4,E7,F6</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>E4</span><span class='card'>E5</span><span class='card'>E6</span><span class='card'>E7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E3</span><span class='card'>F3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F6</span><span class='card'>F7</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c1'>E3</td>
+<td class='c0'>E4</td>
+<td class='c0'>E5</td>
+<td class='c0'>E6</td>
+<td class='c0'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='c1'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='c2'>F6</td>
+<td class='c2'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='21'>
+<span>#21</span>
+</a>
+</h2>
+<p>
+src:
+<code>A9,G9,B8,A7,G7,C8,A8,G8</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A7</span><span class='card'>A8</span><span class='card'>A9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G7</span><span class='card'>G8</span><span class='card'>G9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>C8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='c0'>A7</td>
+<td class='c0'>A8</td>
+<td class='c0'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='c2'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='c2'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='c1'>G7</td>
+<td class='c1'>G8</td>
+<td class='c1'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='22'>
+<span>#22</span>
+</a>
+</h2>
+<p>
+src:
+<code>G8,G2,G3,G9,G6,G4,G5,G7</code>
+&nbsp;expected:
+<code>49</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>G2</span><span class='card'>G3</span><span class='card'>G4</span><span class='card'>G5</span><span class='card'>G6</span><span class='card'>G7</span><span class='card'>G8</span><span class='card'>G9</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='c0'>G2</td>
+<td class='c0'>G3</td>
+<td class='c0'>G4</td>
+<td class='c0'>G5</td>
+<td class='c0'>G6</td>
+<td class='c0'>G7</td>
+<td class='c0'>G8</td>
+<td class='c0'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='23'>
+<span>#23</span>
+</a>
+</h2>
+<p>
+src:
+<code>E9,E1,B9,D1,C9,G9,D9,F9</code>
+&nbsp;expected:
+<code>26</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B9</span><span class='card'>C9</span><span class='card'>D9</span><span class='card'>E9</span><span class='card'>F9</span><span class='card'>G9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D1</span><span class='card'>E1</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='c0'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='c0'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='c1'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='c0'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='c1'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='c0'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='c0'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='c0'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='24'>
+<span>#24</span>
+</a>
+</h2>
+<p>
+src:
+<code>B9,B7,G3,A7,G4,B1,B8,B2</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A7</span><span class='card'>B7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>B9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G3</span><span class='card'>G4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='c0'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c1'>B1</td>
+<td class='c1'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='c0'>B7</td>
+<td class='c2'>B8</td>
+<td class='c2'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='c3'>G3</td>
+<td class='c3'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='25'>
+<span>#25</span>
+</a>
+</h2>
+<p>
+src:
+<code>A1,B4,B3,A4,A2,B5,A3,A5</code>
+&nbsp;expected:
+<code>20</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span><span class='card'>A5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B3</span><span class='card'>B4</span><span class='card'>B5</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c0'>A1</td>
+<td class='c0'>A2</td>
+<td class='c0'>A3</td>
+<td class='c0'>A4</td>
+<td class='c0'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='c1'>B3</td>
+<td class='c1'>B4</td>
+<td class='c1'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='26'>
+<span>#26</span>
+</a>
+</h2>
+<p>
+src:
+<code>B3,D3,F3,G2,C3,A3,E3,G3</code>
+&nbsp;expected:
+<code>26</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A3</span><span class='card'>B3</span><span class='card'>C3</span><span class='card'>D3</span><span class='card'>E3</span><span class='card'>F3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G2</span><span class='card'>G3</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='c0'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='c0'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='c0'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='c0'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c0'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='c0'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='c1'>G2</td>
+<td class='c1'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='27'>
+<span>#27</span>
+</a>
+</h2>
+<p>
+src:
+<code>E8,D8,E7,D7,G8,G7,F7,F8</code>
+&nbsp;expected:
+<code>18</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>D7</span><span class='card'>E7</span><span class='card'>F7</span><span class='card'>G7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D8</span><span class='card'>E8</span><span class='card'>F8</span><span class='card'>G8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='c0'>D7</td>
+<td class='c1'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='c0'>E7</td>
+<td class='c1'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='c0'>F7</td>
+<td class='c1'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='c0'>G7</td>
+<td class='c1'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='28'>
+<span>#28</span>
+</a>
+</h2>
+<p>
+src:
+<code>D4,B3,E4,A3,C4,E3,D3,C3</code>
+&nbsp;expected:
+<code>20</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A3</span><span class='card'>B3</span><span class='card'>C3</span><span class='card'>D3</span><span class='card'>E3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='c0'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='c0'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='c0'>C3</td>
+<td class='c1'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='c0'>D3</td>
+<td class='c1'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c0'>E3</td>
+<td class='c1'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='29'>
+<span>#29</span>
+</a>
+</h2>
+<p>
+src:
+<code>B7,B5,E4,B6,D4,A4,B4,C4</code>
+&nbsp;expected:
+<code>20</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A4</span><span class='card'>B4</span><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B5</span><span class='card'>B6</span><span class='card'>B7</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='c0'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c0'>B4</td>
+<td class='c1'>B5</td>
+<td class='c1'>B6</td>
+<td class='c1'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='c0'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='c0'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='c0'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='30'>
+<span>#30</span>
+</a>
+</h2>
+<p>
+src:
+<code>B2,B1,B7,C8,F2,B9,B8,F1</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='on'>B1</td>
+<td class='on'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='on'>B7</td>
+<td class='on'>B8</td>
+<td class='on'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='on'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='on'>F1</td>
+<td class='on'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='31'>
+<span>#31</span>
+</a>
+</h2>
+<p>
+src:
+<code>C4,C3,C5,E3,E1,E2,E4,C2</code>
+&nbsp;expected:
+<code>18</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>C2</span><span class='card'>C3</span><span class='card'>C4</span><span class='card'>C5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E1</span><span class='card'>E2</span><span class='card'>E3</span><span class='card'>E4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='c0'>C2</td>
+<td class='c0'>C3</td>
+<td class='c0'>C4</td>
+<td class='c0'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='c1'>E1</td>
+<td class='c1'>E2</td>
+<td class='c1'>E3</td>
+<td class='c1'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='32'>
+<span>#32</span>
+</a>
+</h2>
+<p>
+src:
+<code>G1,E1,D1,A1,F1,A2,B1,C1</code>
+&nbsp;expected:
+<code>26</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B1</span><span class='card'>C1</span><span class='card'>D1</span><span class='card'>E1</span><span class='card'>F1</span><span class='card'>G1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A1</span><span class='card'>A2</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c1'>A1</td>
+<td class='c1'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c0'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='c0'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='c0'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='c0'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='c0'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='33'>
+<span>#33</span>
+</a>
+</h2>
+<p>
+src:
+<code>E4,C5,C4,B4,D4,D5,E5,F5</code>
+&nbsp;expected:
+<code>18</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B4</span><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C5</span><span class='card'>D5</span><span class='card'>E5</span><span class='card'>F5</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c0'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='c0'>C4</td>
+<td class='c1'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='c0'>D4</td>
+<td class='c1'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='c0'>E4</td>
+<td class='c1'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='c1'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='34'>
+<span>#34</span>
+</a>
+</h2>
+<p>
+src:
+<code>D4,G4,A4,F4,C4,A3,E4,B4</code>
+&nbsp;expected:
+<code>26</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B4</span><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span><span class='card'>F4</span><span class='card'>G4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A3</span><span class='card'>A4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='c1'>A3</td>
+<td class='c1'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c0'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='c0'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='c0'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='c0'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='c0'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='c0'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='35'>
+<span>#35</span>
+</a>
+</h2>
+<p>
+src:
+<code>B3,A9,G4,F4,A8,B4,G8,A3</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='on'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='on'>A8</td>
+<td class='on'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='on'>B3</td>
+<td class='on'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='on'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='on'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='on'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='36'>
+<span>#36</span>
+</a>
+</h2>
+<p>
+src:
+<code>B4,E3,F4,E4,G3,A4,G4,F3</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>E3</span><span class='card'>F3</span><span class='card'>G3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span><span class='card'>G4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A4</span><span class='card'>B4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='c2'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c2'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c0'>E3</td>
+<td class='c1'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='c0'>F3</td>
+<td class='c1'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='c0'>G3</td>
+<td class='c1'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='37'>
+<span>#37</span>
+</a>
+</h2>
+<p>
+src:
+<code>E4,B3,E3,C3,A3,G3,F3,A2</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A2</span><span class='card'>A3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B3</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E3</span><span class='card'>E4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F3</span><span class='card'>G3</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='c0'>A2</td>
+<td class='c0'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='c1'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='c1'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c2'>E3</td>
+<td class='c2'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='c3'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='c3'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='38'>
+<span>#38</span>
+</a>
+</h2>
+<p>
+src:
+<code>C5,C4,C6,C8,C1,C2,C7,C3</code>
+&nbsp;expected:
+<code>49</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>C1</span><span class='card'>C2</span><span class='card'>C3</span><span class='card'>C4</span><span class='card'>C5</span><span class='card'>C6</span><span class='card'>C7</span><span class='card'>C8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c0'>C1</td>
+<td class='c0'>C2</td>
+<td class='c0'>C3</td>
+<td class='c0'>C4</td>
+<td class='c0'>C5</td>
+<td class='c0'>C6</td>
+<td class='c0'>C7</td>
+<td class='c0'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='39'>
+<span>#39</span>
+</a>
+</h2>
+<p>
+src:
+<code>C4,D4,E4,F3,E3,F4,D3,G4</code>
+&nbsp;expected:
+<code>20</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span><span class='card'>F4</span><span class='card'>G4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>E3</span><span class='card'>F3</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='c0'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='c1'>D3</td>
+<td class='c0'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c1'>E3</td>
+<td class='c0'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='c1'>F3</td>
+<td class='c0'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='c0'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='40'>
+<span>#40</span>
+</a>
+</h2>
+<p>
+src:
+<code>F2,F6,F9,F7,F5,F3,F8,F4</code>
+&nbsp;expected:
+<code>49</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>F2</span><span class='card'>F3</span><span class='card'>F4</span><span class='card'>F5</span><span class='card'>F6</span><span class='card'>F7</span><span class='card'>F8</span><span class='card'>F9</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='c0'>F2</td>
+<td class='c0'>F3</td>
+<td class='c0'>F4</td>
+<td class='c0'>F5</td>
+<td class='c0'>F6</td>
+<td class='c0'>F7</td>
+<td class='c0'>F8</td>
+<td class='c0'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='41'>
+<span>#41</span>
+</a>
+</h2>
+<p>
+src:
+<code>A9,A3,A8,A2,B9,B8,A7,A1</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A7</span><span class='card'>A8</span><span class='card'>A9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>B9</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c0'>A1</td>
+<td class='c0'>A2</td>
+<td class='c0'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='c1'>A7</td>
+<td class='c1'>A8</td>
+<td class='c1'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='c2'>B8</td>
+<td class='c2'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='42'>
+<span>#42</span>
+</a>
+</h2>
+<p>
+src:
+<code>G9,A8,G8,A6,A9,G6,G7,A7</code>
+&nbsp;expected:
+<code>18</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A6</span><span class='card'>A7</span><span class='card'>A8</span><span class='card'>A9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G6</span><span class='card'>G7</span><span class='card'>G8</span><span class='card'>G9</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='c0'>A6</td>
+<td class='c0'>A7</td>
+<td class='c0'>A8</td>
+<td class='c0'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='c1'>G6</td>
+<td class='c1'>G7</td>
+<td class='c1'>G8</td>
+<td class='c1'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='43'>
+<span>#43</span>
+</a>
+</h2>
+<p>
+src:
+<code>B8,C4,D5,D4,C8,D8,E8,B4</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B8</span><span class='card'>C8</span><span class='card'>D8</span><span class='card'>E8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B4</span><span class='card'>C4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D4</span><span class='card'>D5</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c1'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='c0'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='c1'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='c0'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='c2'>D4</td>
+<td class='c2'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='c0'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='c0'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='44'>
+<span>#44</span>
+</a>
+</h2>
+<p>
+src:
+<code>B1,B2,F6,E4,C1,C2,F4,F5</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B1</span><span class='card'>C1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B2</span><span class='card'>C2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F5</span><span class='card'>F6</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='c1'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c0'>C1</td>
+<td class='c1'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='c2'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='c2'>F4</td>
+<td class='c3'>F5</td>
+<td class='c3'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='45'>
+<span>#45</span>
+</a>
+</h2>
+<p>
+src:
+<code>B4,B3,B5,B1,B7,B8,B6,B2</code>
+&nbsp;expected:
+<code>49</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B1</span><span class='card'>B2</span><span class='card'>B3</span><span class='card'>B4</span><span class='card'>B5</span><span class='card'>B6</span><span class='card'>B7</span><span class='card'>B8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='c0'>B2</td>
+<td class='c0'>B3</td>
+<td class='c0'>B4</td>
+<td class='c0'>B5</td>
+<td class='c0'>B6</td>
+<td class='c0'>B7</td>
+<td class='c0'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='46'>
+<span>#46</span>
+</a>
+</h2>
+<p>
+src:
+<code>G8,A8,G7,A7,F7,G6,A6,F8</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A6</span><span class='card'>A7</span><span class='card'>A8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G6</span><span class='card'>G7</span><span class='card'>G8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F7</span><span class='card'>F8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='c0'>A6</td>
+<td class='c0'>A7</td>
+<td class='c0'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='c2'>F7</td>
+<td class='c2'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='c1'>G6</td>
+<td class='c1'>G7</td>
+<td class='c1'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='47'>
+<span>#47</span>
+</a>
+</h2>
+<p>
+src:
+<code>B7,E7,D7,G7,C7,A7,F7,E8</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A7</span><span class='card'>B7</span><span class='card'>C7</span><span class='card'>D7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E7</span><span class='card'>E8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F7</span><span class='card'>G7</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='c0'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='c0'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='c0'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='c0'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='c1'>E7</td>
+<td class='c1'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='c2'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='c2'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='48'>
+<span>#48</span>
+</a>
+</h2>
+<p>
+src:
+<code>F3,D7,B7,D3,C3,G3,E3,D9</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='on'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='on'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='on'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='on'>D7</td>
+<td class='off'>D8</td>
+<td class='on'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='on'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='on'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='on'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='49'>
+<span>#49</span>
+</a>
+</h2>
+<p>
+src:
+<code>B3,A6,C5,A3,A4,A2,B5,A5</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='on'>A2</td>
+<td class='on'>A3</td>
+<td class='on'>A4</td>
+<td class='on'>A5</td>
+<td class='on'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='on'>B3</td>
+<td class='off'>B4</td>
+<td class='on'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='on'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='50'>
+<span>#50</span>
+</a>
+</h2>
+<p>
+src:
+<code>A8,D6,B8,C8,D7,C7,D8,E8</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A8</span><span class='card'>B8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C7</span><span class='card'>C8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D6</span><span class='card'>D7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D8</span><span class='card'>E8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='c0'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='c0'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='c1'>C7</td>
+<td class='c1'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='c2'>D6</td>
+<td class='c2'>D7</td>
+<td class='c3'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='c3'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='51'>
+<span>#51</span>
+</a>
+</h2>
+<p>
+src:
+<code>B4,D9,C4,E9,E2,G9,F9,D2</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>D9</span><span class='card'>E9</span><span class='card'>F9</span><span class='card'>G9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B4</span><span class='card'>C4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>E2</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c1'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='c1'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='c2'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='c0'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='c2'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='c0'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='c0'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='c0'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='52'>
+<span>#52</span>
+</a>
+</h2>
+<p>
+src:
+<code>B3,G9,A9,G1,A1,F1,F9,A3</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='on'>A1</td>
+<td class='off'>A2</td>
+<td class='on'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='on'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='on'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='on'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='on'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='on'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='on'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='53'>
+<span>#53</span>
+</a>
+</h2>
+<p>
+src:
+<code>G1,B1,A2,G2,B2,A1,A4,A3</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G1</span><span class='card'>G2</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='c0'>A1</td>
+<td class='c0'>A2</td>
+<td class='c0'>A3</td>
+<td class='c0'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c1'>B1</td>
+<td class='c1'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='c2'>G1</td>
+<td class='c2'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='54'>
+<span>#54</span>
+</a>
+</h2>
+<p>
+src:
+<code>A7,A6,C7,B7,B5,G5,A5,F5</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A5</span><span class='card'>B5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A6</span><span class='card'>A7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B7</span><span class='card'>C7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F5</span><span class='card'>G5</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='c0'>A5</td>
+<td class='c1'>A6</td>
+<td class='c1'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='c0'>B5</td>
+<td class='off'>B6</td>
+<td class='c2'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='c2'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='c3'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='c3'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='55'>
+<span>#55</span>
+</a>
+</h2>
+<p>
+src:
+<code>D1,D9,D4,E4,E8,B4,F8,F4</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='on'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='on'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='on'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='on'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='on'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='on'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='on'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='on'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='56'>
+<span>#56</span>
+</a>
+</h2>
+<p>
+src:
+<code>B4,A8,C8,G8,B7,A3,B3,C7</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='on'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='on'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='on'>B3</td>
+<td class='on'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='on'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='on'>C7</td>
+<td class='on'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='on'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='57'>
+<span>#57</span>
+</a>
+</h2>
+<p>
+src:
+<code>D3,G3,D7,F3,D9,B7,E3,C3</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='on'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='on'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='on'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='on'>D7</td>
+<td class='off'>D8</td>
+<td class='on'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='on'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='on'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='on'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='58'>
+<span>#58</span>
+</a>
+</h2>
+<p>
+src:
+<code>B9,B1,F2,B7,B2,C8,F1,B8</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='on'>B1</td>
+<td class='on'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='on'>B7</td>
+<td class='on'>B8</td>
+<td class='on'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='on'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='on'>F1</td>
+<td class='on'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='59'>
+<span>#59</span>
+</a>
+</h2>
+<p>
+src:
+<code>F6,E4,F4,F5,B1,B2,C1,C2</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>B1</span><span class='card'>C1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B2</span><span class='card'>C2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F5</span><span class='card'>F6</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c0'>B1</td>
+<td class='c1'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='c0'>C1</td>
+<td class='c1'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='c2'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='c2'>F4</td>
+<td class='c3'>F5</td>
+<td class='c3'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='60'>
+<span>#60</span>
+</a>
+</h2>
+<p>
+src:
+<code>A5,G5,B5,B4,G6,C4,G7,A6</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='on'>A5</td>
+<td class='on'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='on'>B4</td>
+<td class='on'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='on'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='on'>G5</td>
+<td class='on'>G6</td>
+<td class='on'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='61'>
+<span>#61</span>
+</a>
+</h2>
+<p>
+src:
+<code>C4,G3,F4,B7,A1,G4,D4,D5</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='on'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='on'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='on'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='on'>D4</td>
+<td class='on'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='on'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='on'>G3</td>
+<td class='on'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='62'>
+<span>#62</span>
+</a>
+</h2>
+<p>
+src:
+<code>D7,G2,A4,A3,A7,A5,A6,F7</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='on'>A3</td>
+<td class='on'>A4</td>
+<td class='on'>A5</td>
+<td class='on'>A6</td>
+<td class='on'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='on'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='on'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='on'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='63'>
+<span>#63</span>
+</a>
+</h2>
+<p>
+src:
+<code>F7,E5,E4,E3,E7,F3,F6,E6</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>E4</span><span class='card'>E5</span><span class='card'>E6</span><span class='card'>E7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E3</span><span class='card'>F3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F6</span><span class='card'>F7</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c1'>E3</td>
+<td class='c0'>E4</td>
+<td class='c0'>E5</td>
+<td class='c0'>E6</td>
+<td class='c0'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='c1'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='c2'>F6</td>
+<td class='c2'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='64'>
+<span>#64</span>
+</a>
+</h2>
+<p>
+src:
+<code>C1,E9,D4,G5,A5,C5,C6,B5</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='on'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='on'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='on'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='on'>C5</td>
+<td class='on'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='on'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='on'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='on'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='65'>
+<span>#65</span>
+</a>
+</h2>
+<p>
+src:
+<code>E4,B6,A4,B4,B7,B5,C4,D4</code>
+&nbsp;expected:
+<code>20</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A4</span><span class='card'>B4</span><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B5</span><span class='card'>B6</span><span class='card'>B7</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='c0'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c0'>B4</td>
+<td class='c1'>B5</td>
+<td class='c1'>B6</td>
+<td class='c1'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='c0'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='c0'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='c0'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='66'>
+<span>#66</span>
+</a>
+</h2>
+<p>
+src:
+<code>G9,B4,D9,D2,E2,C4,F9,E9</code>
+&nbsp;expected:
+<code>11</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>D9</span><span class='card'>E9</span><span class='card'>F9</span><span class='card'>G9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B4</span><span class='card'>C4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>E2</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c1'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='c1'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='c2'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='c0'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='c2'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='c0'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='c0'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='c0'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='67'>
+<span>#67</span>
+</a>
+</h2>
+<p>
+src:
+<code>B9,B2,B7,B1,G3,A7,B8,G4</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A7</span><span class='card'>B7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>B9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G3</span><span class='card'>G4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='c0'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='c1'>B1</td>
+<td class='c1'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='c0'>B7</td>
+<td class='c2'>B8</td>
+<td class='c2'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='c3'>G3</td>
+<td class='c3'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='68'>
+<span>#68</span>
+</a>
+</h2>
+<p>
+src:
+<code>B2,C1,E7,E6,A2,D2,C2,A1</code>
+&nbsp;expected:
+<code>-</code>
+</p>
+<p>
+</p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='on'>A1</td>
+<td class='on'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='on'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='on'>C1</td>
+<td class='on'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='on'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='on'>E6</td>
+<td class='on'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='69'>
+<span>#69</span>
+</a>
+</h2>
+<p>
+src:
+<code>A4,B4,F4,G4,E3,G3,E4,F3</code>
+&nbsp;expected:
+<code>9</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>E3</span><span class='card'>F3</span><span class='card'>G3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span><span class='card'>G4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A4</span><span class='card'>B4</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='c2'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='off'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='c2'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='off'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='off'>C7</td>
+<td class='off'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='off'>D6</td>
+<td class='off'>D7</td>
+<td class='off'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='c0'>E3</td>
+<td class='c1'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='off'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='c0'>F3</td>
+<td class='c1'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='c0'>G3</td>
+<td class='c1'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+<h2>
+<a name='70'>
+<span>#70</span>
+</a>
+</h2>
+<p>
+src:
+<code>A8,D8,D6,D7,C8,B8,E8,C7</code>
+&nbsp;expected:
+<code>4</code>
+</p>
+<p>
+カードの分け方の例:<span class='card'>A8</span><span class='card'>B8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C7</span><span class='card'>C8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D6</span><span class='card'>D7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D8</span><span class='card'>E8</span></p>
+<table class='cells'>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+<tr>
+<th>A</th>
+<td class='off'>A1</td>
+<td class='off'>A2</td>
+<td class='off'>A3</td>
+<td class='off'>A4</td>
+<td class='off'>A5</td>
+<td class='off'>A6</td>
+<td class='off'>A7</td>
+<td class='c0'>A8</td>
+<td class='off'>A9</td>
+</tr>
+<tr>
+<th>B</th>
+<td class='off'>B1</td>
+<td class='off'>B2</td>
+<td class='off'>B3</td>
+<td class='off'>B4</td>
+<td class='off'>B5</td>
+<td class='off'>B6</td>
+<td class='off'>B7</td>
+<td class='c0'>B8</td>
+<td class='off'>B9</td>
+</tr>
+<tr>
+<th>C</th>
+<td class='off'>C1</td>
+<td class='off'>C2</td>
+<td class='off'>C3</td>
+<td class='off'>C4</td>
+<td class='off'>C5</td>
+<td class='off'>C6</td>
+<td class='c1'>C7</td>
+<td class='c1'>C8</td>
+<td class='off'>C9</td>
+</tr>
+<tr>
+<th>D</th>
+<td class='off'>D1</td>
+<td class='off'>D2</td>
+<td class='off'>D3</td>
+<td class='off'>D4</td>
+<td class='off'>D5</td>
+<td class='c2'>D6</td>
+<td class='c2'>D7</td>
+<td class='c3'>D8</td>
+<td class='off'>D9</td>
+</tr>
+<tr>
+<th>E</th>
+<td class='off'>E1</td>
+<td class='off'>E2</td>
+<td class='off'>E3</td>
+<td class='off'>E4</td>
+<td class='off'>E5</td>
+<td class='off'>E6</td>
+<td class='off'>E7</td>
+<td class='c3'>E8</td>
+<td class='off'>E9</td>
+</tr>
+<tr>
+<th>F</th>
+<td class='off'>F1</td>
+<td class='off'>F2</td>
+<td class='off'>F3</td>
+<td class='off'>F4</td>
+<td class='off'>F5</td>
+<td class='off'>F6</td>
+<td class='off'>F7</td>
+<td class='off'>F8</td>
+<td class='off'>F9</td>
+</tr>
+<tr>
+<th>G</th>
+<td class='off'>G1</td>
+<td class='off'>G2</td>
+<td class='off'>G3</td>
+<td class='off'>G4</td>
+<td class='off'>G5</td>
+<td class='off'>G6</td>
+<td class='off'>G7</td>
+<td class='off'>G8</td>
+<td class='off'>G9</td>
+</tr>
+</table>
+</body>
+</html>

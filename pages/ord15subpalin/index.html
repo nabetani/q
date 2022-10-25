@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>回文の発掘 〜 横へな 2013.11.1 参考問題</title>
+    <link href='style.css' rel='stylesheet'>
+  </head>
+  <body>
+    <h1>回文の発掘 〜 横へな 2013.11.1 参考問題</h1>
+    <h2>問題</h2>
+    <p>
+      英数字および下線のみからなる文字列がある。この文字列から何文字か撤去すると回文にすることができる。作ることができる回文のうち、一番長いものの長さを答えよ。
+    </p>
+    <p>
+      ただし。
+    </p>
+    <ul>
+      <li>回文とは、前から読んでも後ろから読んでもおなじになる文字列である。「a」「aba」「aabbaa」などは回文だが、「ab」「abc」「aabbaaa」などは回文ではない。</li>
+      <li>英字の大文字小文字は区別する。(つまり、 ABBA は回文だが、 Abba は回文ではない）</li>
+      <li>入力文字列の長さは高々30文字程度と思って良い。</li>
+    </ul>
+    <h2>入力と出力</h2>
+    <p>
+      入力は、回文が埋まっている文字列である。
+      <br>
+      例えば、「
+      <code>I_believe_you_can_solve</code>
+      」のようなものである。
+    </p>
+    <p>
+      出力は、入力文字列から何文字か撤去して作ることができる回文のうち、最も長いものの文字数である。
+      <br>
+      「
+      <code>I_believe_you_can_solve</code>
+      」から作ることができる最長の回文は、例えば
+      「
+      <code>evo_n_ove</code>
+      」なので、この文字列の文字数の10進数表現
+      「
+      <code>9</code>
+      」を出力すればよい。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>前述のとおり、大文字小文字は区別する。</li>
+      <li>英数字と下線以外の文字は含まれない。</li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/0b56395d4c9e7c64b230'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2013年11月1日に開催される 第15回オフラインリアルタイムどう書く の参考問題です。イベントについては
+        <a href='http://atnd.org/events/43825'>
+          ATND の募集ページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>例</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>I_believe_you_can_solve</code>
+        </td>
+        <td>
+          <code>9</code>
+        </td>
+        <td class='example'>
+          <code>evo_n_ove</code>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>a</code>
+        </td>
+        <td>
+          <code>1</code>
+        </td>
+        <td class='example'>
+          <code>a</code>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>aa</code>
+        </td>
+        <td>
+          <code>2</code>
+        </td>
+        <td class='example'>
+          <code>aa</code>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>aaa</code>
+        </td>
+        <td>
+          <code>3</code>
+        </td>
+        <td class='example'>
+          <code>aaa</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>ab</code>
+        </td>
+        <td>
+          <code>1</code>
+        </td>
+        <td class='example'>
+          <code>b</code>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>aabb</code>
+        </td>
+        <td>
+          <code>2</code>
+        </td>
+        <td class='example'>
+          <code>bb</code>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>ABBA</code>
+        </td>
+        <td>
+          <code>4</code>
+        </td>
+        <td class='example'>
+          <code>ABBA</code>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>Abba</code>
+        </td>
+        <td>
+          <code>2</code>
+        </td>
+        <td class='example'>
+          <code>bb</code>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>1234567890</code>
+        </td>
+        <td>
+          <code>1</code>
+        </td>
+        <td class='example'>
+          <code>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>1234567890987654321</code>
+        </td>
+        <td>
+          <code>19</code>
+        </td>
+        <td class='example'>
+          <code>1234567890987654321</code>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>abcdcba</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          <code>abcdcba</code>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>0a1b2c3d4c5b6a7</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          <code>abc4cba</code>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>abcdcba0123210</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          <code>0123210</code>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>abcdcba_123210</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          <code>abcdcba</code>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>_bcdcba0123210</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          <code>0123210</code>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>abcddcba0123210</code>
+        </td>
+        <td>
+          <code>8</code>
+        </td>
+        <td class='example'>
+          <code>abcddcba</code>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>abcdcba01233210</code>
+        </td>
+        <td>
+          <code>8</code>
+        </td>
+        <td class='example'>
+          <code>01233210</code>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>a0bc1dc2ba3210a</code>
+        </td>
+        <td>
+          <code>9</code>
+        </td>
+        <td class='example'>
+          <code>a0123210a</code>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>a0bc1ddc2ba3210</code>
+        </td>
+        <td>
+          <code>8</code>
+        </td>
+        <td class='example'>
+          <code>0bcddcb0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>3a0bc1ddc2ba3210</code>
+        </td>
+        <td>
+          <code>10</code>
+        </td>
+        <td class='example'>
+          <code>3abcddcba3</code>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>11oooo1111o1oo1o111ooooooooooo</code>
+        </td>
+        <td>
+          <code>20</code>
+        </td>
+        <td class='example'>
+          <code>oooo111o1oo1o111oooo</code>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>11o1111o1111oo11ooo11111ooo1oo</code>
+        </td>
+        <td>
+          <code>20</code>
+        </td>
+        <td class='example'>
+          <code>o1o1111oo11oo1111o1o</code>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>111111oo11o111ooo1o1ooo11ooo1o</code>
+        </td>
+        <td>
+          <code>21</code>
+        </td>
+        <td class='example'>
+          <code>1ooo11ooo1o1ooo11ooo1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>11o1o1o11oo11o11oo111o1o1o11oo</code>
+        </td>
+        <td>
+          <code>27</code>
+        </td>
+        <td class='example'>
+          <code>11o1o1o11oo11o11oo11o1o1o11</code>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>oo111o1o11o1oo1ooo11o1o11o1o1o</code>
+        </td>
+        <td>
+          <code>27</code>
+        </td>
+        <td class='example'>
+          <code>oo111o1o11ooo1ooo11o1o111oo</code>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>1o1oo11111o1o1oo1o1o1111oo1o1o</code>
+        </td>
+        <td>
+          <code>28</code>
+        </td>
+        <td class='example'>
+          <code>1o1oo1111o1o1oo1o1o1111oo1o1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>QQooooQooooQQyQoyQQQyyyyQQoyoy</code>
+        </td>
+        <td>
+          <code>15</code>
+        </td>
+        <td class='example'>
+          <code>ooQQyyQQQyyQQoo</code>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>oQoooQooooQyoyQoyoyyyQQyQQQQoQ</code>
+        </td>
+        <td>
+          <code>16</code>
+        </td>
+        <td class='example'>
+          <code>QoQQyQyyyyQyQQoQ</code>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>yyyyyooyQyyyoyyQyyooyQoQoQQoQy</code>
+        </td>
+        <td>
+          <code>17</code>
+        </td>
+        <td class='example'>
+          <code>yooQyoyyQyyoyQooy</code>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>yyQoyQoyyQyQQoyooooyyQQyQyooQy</code>
+        </td>
+        <td>
+          <code>24</code>
+        </td>
+        <td class='example'>
+          <code>yQooyQyQQyooooyQQyQyooQy</code>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>
+          <code>oQQooQoQyQQoyoQQoQyQyQyQoQoooo</code>
+        </td>
+        <td>
+          <code>24</code>
+        </td>
+        <td class='example'>
+          <code>oooQoQyQQyoQQoyQQyQoQooo</code>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>
+          <code>oQQyQQyyQyQQoooyQQyyyQQQyyQQoy</code>
+        </td>
+        <td>
+          <code>25</code>
+        </td>
+        <td class='example'>
+          <code>oQQyQQyyyQQoooQQyyyQQyQQo</code>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>
+          <code>WAk9iHI4jVDlStyudwTNqE138kwan2</code>
+        </td>
+        <td>
+          <code>3</code>
+        </td>
+        <td class='example'>
+          <code>wkw</code>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>
+          <code>c43fIu1Mlz0K9hEVOgGcUdbeB5ksa7</code>
+        </td>
+        <td>
+          <code>3</code>
+        </td>
+        <td class='example'>
+          <code>cGc</code>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>
+          <code>CAbYcW5VqHjzFdIkH_61PM0TsyRuie</code>
+        </td>
+        <td>
+          <code>3</code>
+        </td>
+        <td class='example'>
+          <code>HkH</code>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>
+          <code>jInQnUvSayrJTsQWujovbbqW0STvoj</code>
+        </td>
+        <td>
+          <code>10</code>
+        </td>
+        <td class='example'>
+          <code>jvTWbbWTvj</code>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>
+          <code>iZDrvpUKgtj3FrZsZ4CLjrEgUdZzQG</code>
+        </td>
+        <td>
+          <code>11</code>
+        </td>
+        <td class='example'>
+          <code>ZUgrZsZrgUZ</code>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>
+          <code>ROgYUOu6er_DA7nB6UGquO1GUHC62R</code>
+        </td>
+        <td>
+          <code>11</code>
+        </td>
+        <td class='example'>
+          <code>RUOu6B6uOUR</code>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>
+          <code>Oh_be_a_fine_girl_kiss_me</code>
+        </td>
+        <td>
+          <code>9</code>
+        </td>
+        <td class='example'>
+          <code>e_i_l_i_e</code>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>
+          <code>8086_6502_6809_Z80</code>
+        </td>
+        <td>
+          <code>11</code>
+        </td>
+        <td class='example'>
+          <code>8086_2_6808</code>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td>
+          <code>xcode_visualstudio_eclipse</code>
+        </td>
+        <td>
+          <code>11</code>
+        </td>
+        <td class='example'>
+          <code>ce_iutui_ec</code>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td>
+          <code>word_excel_powerpoint_outlook</code>
+        </td>
+        <td>
+          <code>9</code>
+        </td>
+        <td class='example'>
+          <code>ol_opo_lo</code>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>
+          <code>abcdefghijklmnopqrstuvwxyz0123</code>
+        </td>
+        <td>
+          <code>1</code>
+        </td>
+        <td class='example'>
+          <code>3</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "I_believe_you_can_solve", "9" );    
+/*1*/ test( "a", "1" );    
+/*2*/ test( "aa", "2" );    
+/*3*/ test( "aaa", "3" );    
+/*4*/ test( "ab", "1" );    
+/*5*/ test( "aabb", "2" );    
+/*6*/ test( "ABBA", "4" );    
+/*7*/ test( "Abba", "2" );    
+/*8*/ test( "1234567890", "1" );    
+/*9*/ test( "1234567890987654321", "19" );    
+/*10*/ test( "abcdcba", "7" );    
+/*11*/ test( "0a1b2c3d4c5b6a7", "7" );    
+/*12*/ test( "abcdcba0123210", "7" );    
+/*13*/ test( "abcdcba_123210", "7" );    
+/*14*/ test( "_bcdcba0123210", "7" );    
+/*15*/ test( "abcddcba0123210", "8" );    
+/*16*/ test( "abcdcba01233210", "8" );    
+/*17*/ test( "a0bc1dc2ba3210a", "9" );    
+/*18*/ test( "a0bc1ddc2ba3210", "8" );    
+/*19*/ test( "3a0bc1ddc2ba3210", "10" );    
+/*20*/ test( "11oooo1111o1oo1o111ooooooooooo", "20" );    
+/*21*/ test( "11o1111o1111oo11ooo11111ooo1oo", "20" );    
+/*22*/ test( "111111oo11o111ooo1o1ooo11ooo1o", "21" );    
+/*23*/ test( "11o1o1o11oo11o11oo111o1o1o11oo", "27" );    
+/*24*/ test( "oo111o1o11o1oo1ooo11o1o11o1o1o", "27" );    
+/*25*/ test( "1o1oo11111o1o1oo1o1o1111oo1o1o", "28" );    
+/*26*/ test( "QQooooQooooQQyQoyQQQyyyyQQoyoy", "15" );    
+/*27*/ test( "oQoooQooooQyoyQoyoyyyQQyQQQQoQ", "16" );    
+/*28*/ test( "yyyyyooyQyyyoyyQyyooyQoQoQQoQy", "17" );    
+/*29*/ test( "yyQoyQoyyQyQQoyooooyyQQyQyooQy", "24" );    
+/*30*/ test( "oQQooQoQyQQoyoQQoQyQyQyQoQoooo", "24" );    
+/*31*/ test( "oQQyQQyyQyQQoooyQQyyyQQQyyQQoy", "25" );    
+/*32*/ test( "WAk9iHI4jVDlStyudwTNqE138kwan2", "3" );    
+/*33*/ test( "c43fIu1Mlz0K9hEVOgGcUdbeB5ksa7", "3" );    
+/*34*/ test( "CAbYcW5VqHjzFdIkH_61PM0TsyRuie", "3" );    
+/*35*/ test( "jInQnUvSayrJTsQWujovbbqW0STvoj", "10" );    
+/*36*/ test( "iZDrvpUKgtj3FrZsZ4CLjrEgUdZzQG", "11" );    
+/*37*/ test( "ROgYUOu6er_DA7nB6UGquO1GUHC62R", "11" );    
+/*38*/ test( "Oh_be_a_fine_girl_kiss_me", "9" );    
+/*39*/ test( "8086_6502_6809_Z80", "11" );    
+/*40*/ test( "xcode_visualstudio_eclipse", "11" );    
+/*41*/ test( "word_excel_powerpoint_outlook", "9" );    
+/*42*/ test( "abcdefghijklmnopqrstuvwxyz0123", "1" );</textarea>
+  </body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>フォークじゃない 〜 横へな 2014.2.1 問題</title>
+    <style>
+      body, textarea { 
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{ width:322px }
+      img.small{ width:82px }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      .num{ font-family:Georgia }
+      td.num{ 
+        padding-right:0.5em;  
+        padding-left:0.5em;  
+      }
+      table.regis td{
+        padding-right:0.5em;  
+        padding-left:0.5em;  
+      }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      table code {
+        border:none
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+      word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>フォークじゃない 〜 横へな 2014.2.1 問題</h1>
+    <h2>問題</h2>
+    <p>
+      スーパーのレジを想像してほしい。
+      <br>
+      レジは 1番から
+      5
+      番までの
+      5
+      個ある。
+      <br>
+      フォーク並びになっておらず、レジごとに列を作って待つ。
+      <br>
+      各レジの人の処理能力は下表のようになっている。
+    </p>
+    <table class='regis'>
+      <tr>
+        <th>番号</th>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <th>単位時間あたりに何人処理できるか</th>
+        <td>2</td>
+        <td>7</td>
+        <td>3</td>
+        <td>5</td>
+        <td>2</td>
+      </tr>
+    </table>
+    <p>
+      レジに来る人は、何人かまとめて同じ列に並ぶ(レジ待ち中に雑談したい、とか)。
+      <br>
+      どのレジに並ぶのかの判断は
+    </p>
+    <ol>
+      <li>列が短いレジに並ぶ</li>
+      <li>列の長さが最短の列が複数あったら、番号の若いレジに並ぶ。</li>
+    </ol>
+    <p>
+      という順序で判断する。
+      <br>
+      つまり、客は各レジの処理能力の違いを知らない。
+    </p>
+    <p>
+      実装をを簡単にするため
+    </p>
+    <ul>
+      <li>列に人が補充される時にはレジは進まない</li>
+      <li>レジが進んでいる時には人は補充されない。</li>
+    </ul>
+    <p>
+      とする。
+    </p>
+    <p>
+      入力文字列が示す状況が終わった時点で、各レジで待っているひとの数を、1番のレジから順に答えよ。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は、
+      <code>1</code>
+      <code>2</code>
+      <code>3</code>
+      <code>4</code>
+      <code>5</code>
+      <code>6</code>
+      <code>7</code>
+      <code>8</code>
+      <code>9</code>
+      <code>x</code>
+      <code>.</code>
+      のいずれかの文字が空白なしで並んだものである。
+      <br>
+      <code>1</code>
+      は、客が1人来てレジに並ぶことを意味する。
+      <br>
+      <code>2</code>
+      から
+      <code>9</code>
+      は、2人組から9人組までの客が来ることを表している。これらの客はまとめて同じレジに並ぶ。
+      <br>
+      <code>x</code>
+      は、レジの処理に絶望的に長くかかる客が1人来ることを意味している。この客のレジ処理は終わらないが、あとからくる客はそのことに気づかない。
+      <br>
+      <code>1</code>
+      〜
+      <code>9</code>
+      および
+      <code>x</code>
+      の示す内容は「客が来てレジに並ぶ」というイベントだが、このイベントの間はレジは処理を進めない。
+      <br>
+      一方、
+      <code>.</code>
+      は、各レジが処理を行うというイベントを意味する。
+      <br>
+      <code>.</code>
+      が入力された時は、1番から
+      5
+      番の各レジは、それぞれ
+      2人、7人、3人、5人、2人
+      の人を処理する。
+      <br>
+      例えば、各レジに普通の( つまり、x ではない )客 が
+      7
+      人ずつ並んでいる状態で
+      <code>.</code>
+      が入力された場合、各レジの列の長さは
+      <br>
+      5人、0人、4人、2人、5人
+      <br>
+      となり、もう一回
+      <code>.</code>
+      が入力された場合、各レジの列の長さは
+      <br>
+      3人、0人、1人、0人、3人
+      <br>
+      となる。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、入力文字列が表す状況が最後まで進行したあと、各レジに何人ひとが残っているかを示す文字列。
+      <br>
+      各レジに並んでいるひとの数10進数で表したものを、コンマ区切りでつなげたもの。
+    </p>
+    <p>
+      例えば、入力が
+      <code>42873x.3.</code>
+      である場合、最初の
+      <code>.</code>
+      の前までで、列の長さは
+      <br>
+      4人、3人、8人、7人、3人
+      <br>
+      となる。
+      <code>.</code>
+      で各レジが会計をする。2番のレジには
+      <code>x</code>
+      がいるので、x の前にいる2人についてだけ処理が行われる。結果、列の長さは
+      <br>
+      2人、1人、5人、2人、1人
+      <br>
+      となる。
+      <br>
+      その後、2番のレジに3人並んだ後、会計処理が一回走る。最終的には各レジに
+      <br>
+      0人、4人、2人、0人、0人
+      <br>
+      並ぶので、出力するべき文字列は
+      <br>
+      <code>0,4,2,0,0</code>
+      となる。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        レジ担当スタッフは、自分のレジが空いていても隣の列が長いレジの支援をしたりはしない。
+      </li>
+      <li>
+        記号
+        <code>x</code>
+        で示される客はの処理は終わらないが、順番を入れ変えたり他のレジに客を誘導したりはしない。
+      </li>
+      <li>
+        客は、一度レジの列に並んだら、他の列に移動したりしない。
+      </li>
+      <li>
+        <code>x</code>
+        の客以外は会計処理に与える負荷という点では均一である。
+      </li>
+      <li>
+        入力は1文字以上ある。
+      </li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/ad47666c2f2f44ada1e7'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2014年2月1日に開催される 第18回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='http://atnd.org/events/47025'>
+          ATND の募集ページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td class='num'>0</td>
+        <td>
+          <code>42873x.3.</code>
+        </td>
+        <td>
+          <code class='expected'>0,4,2,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>1</td>
+        <td>
+          <code>1</code>
+        </td>
+        <td>
+          <code class='expected'>1,0,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>2</td>
+        <td>
+          <code>.</code>
+        </td>
+        <td>
+          <code class='expected'>0,0,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>3</td>
+        <td>
+          <code>x</code>
+        </td>
+        <td>
+          <code class='expected'>1,0,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>4</td>
+        <td>
+          <code>31.</code>
+        </td>
+        <td>
+          <code class='expected'>1,0,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>5</td>
+        <td>
+          <code>3x.</code>
+        </td>
+        <td>
+          <code class='expected'>1,1,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>6</td>
+        <td>
+          <code>99569x</code>
+        </td>
+        <td>
+          <code class='expected'>9,9,6,6,9</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>7</td>
+        <td>
+          <code>99569x33</code>
+        </td>
+        <td>
+          <code class='expected'>9,9,9,9,9</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>8</td>
+        <td>
+          <code>99569x33.</code>
+        </td>
+        <td>
+          <code class='expected'>7,2,6,4,7</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>9</td>
+        <td>
+          <code>99569x33..</code>
+        </td>
+        <td>
+          <code class='expected'>5,0,4,0,5</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>10</td>
+        <td>
+          <code>12345x3333.</code>
+        </td>
+        <td>
+          <code class='expected'>4,0,3,2,3</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>11</td>
+        <td>
+          <code>54321x3333.</code>
+        </td>
+        <td>
+          <code class='expected'>3,0,3,0,4</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>12</td>
+        <td>
+          <code>51423x3333.</code>
+        </td>
+        <td>
+          <code class='expected'>3,4,4,0,4</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>13</td>
+        <td>
+          <code>12x34x.</code>
+        </td>
+        <td>
+          <code class='expected'>1,0,1,0,2</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>14</td>
+        <td>
+          <code>987x654x.32</code>
+        </td>
+        <td>
+          <code class='expected'>7,6,4,10,5</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>15</td>
+        <td>
+          <code>99999999999x99999999.......9.</code>
+        </td>
+        <td>
+          <code class='expected'>20,10,12,5,20</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>16</td>
+        <td>
+          <code>997</code>
+        </td>
+        <td>
+          <code class='expected'>9,9,7,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>17</td>
+        <td>
+          <code>.3.9</code>
+        </td>
+        <td>
+          <code class='expected'>1,9,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>18</td>
+        <td>
+          <code>832.6</code>
+        </td>
+        <td>
+          <code class='expected'>6,6,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>19</td>
+        <td>
+          <code>.5.568</code>
+        </td>
+        <td>
+          <code class='expected'>3,5,6,8,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>20</td>
+        <td>
+          <code>475..48</code>
+        </td>
+        <td>
+          <code class='expected'>4,8,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>21</td>
+        <td>
+          <code>7.2..469</code>
+        </td>
+        <td>
+          <code class='expected'>1,4,6,9,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>22</td>
+        <td>
+          <code>574x315.3</code>
+        </td>
+        <td>
+          <code class='expected'>3,3,1,7,1</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>23</td>
+        <td>
+          <code>5.2893.x98</code>
+        </td>
+        <td>
+          <code class='expected'>10,9,5,4,1</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>24</td>
+        <td>
+          <code>279.6xxx..4</code>
+        </td>
+        <td>
+          <code class='expected'>2,1,4,1,1</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>25</td>
+        <td>
+          <code>1.1.39..93.x</code>
+        </td>
+        <td>
+          <code class='expected'>7,1,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>26</td>
+        <td>
+          <code>7677749325927</code>
+        </td>
+        <td>
+          <code class='expected'>16,12,17,18,12</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>27</td>
+        <td>
+          <code>x6235.87.56.9.</code>
+        </td>
+        <td>
+          <code class='expected'>7,2,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>28</td>
+        <td>
+          <code>4.1168.6.197.6.</code>
+        </td>
+        <td>
+          <code class='expected'>0,0,3,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>29</td>
+        <td>
+          <code>2.8.547.25..19.6</code>
+        </td>
+        <td>
+          <code class='expected'>6,2,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>30</td>
+        <td>
+          <code>.5.3x82x32.1829..</code>
+        </td>
+        <td>
+          <code class='expected'>5,0,5,0,7</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>31</td>
+        <td>
+          <code>x.1816..36.24.429.</code>
+        </td>
+        <td>
+          <code class='expected'>1,0,0,0,7</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>32</td>
+        <td>
+          <code>79.2.6.81x..26x31.1</code>
+        </td>
+        <td>
+          <code class='expected'>1,0,2,1,1</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>33</td>
+        <td>
+          <code>574296x6538984..5974</code>
+        </td>
+        <td>
+          <code class='expected'>14,13,10,15,14</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>34</td>
+        <td>
+          <code>99.6244.4376636..72.6</code>
+        </td>
+        <td>
+          <code class='expected'>5,6,0,0,3</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>35</td>
+        <td>
+          <code>1659.486x5637168278123</code>
+        </td>
+        <td>
+          <code class='expected'>17,16,16,18,17</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>36</td>
+        <td>
+          <code>.5.17797.x626x5x9457.3.</code>
+        </td>
+        <td>
+          <code class='expected'>14,0,3,5,8</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>37</td>
+        <td>
+          <code>..58624.85623..4.7..23.x</code>
+        </td>
+        <td>
+          <code class='expected'>1,1,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>38</td>
+        <td>
+          <code>716.463.9.x.8..4.15.738x4</code>
+        </td>
+        <td>
+          <code class='expected'>7,3,5,8,1</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>39</td>
+        <td>
+          <code>22xx.191.96469472.7232377.</code>
+        </td>
+        <td>
+          <code class='expected'>10,11,18,12,9</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>40</td>
+        <td>
+          <code>24..4...343......4.41.6...2</code>
+        </td>
+        <td>
+          <code class='expected'>2,0,0,0,0</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>41</td>
+        <td>
+          <code>32732.474x153.866..4x29.2573</code>
+        </td>
+        <td>
+          <code class='expected'>7,5,7,8,5</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>42</td>
+        <td>
+          <code>786.1267x9937.17.15448.1x33.4</code>
+        </td>
+        <td>
+          <code class='expected'>4,4,8,4,10</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>43</td>
+        <td>
+          <code>671714849.149.686852.178.895x3</code>
+        </td>
+        <td>
+          <code class='expected'>13,16,13,10,12</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>44</td>
+        <td>
+          <code>86x.47.517..29621.61x937..xx935</code>
+        </td>
+        <td>
+          <code class='expected'>7,11,8,8,10</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>45</td>
+        <td>
+          <code>.2233.78x.94.x59511.5.86x3.x714.</code>
+        </td>
+        <td>
+          <code class='expected'>4,6,10,8,8</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>46</td>
+        <td>
+          <code>.793...218.687x415x13.1...x58576x</code>
+        </td>
+        <td>
+          <code class='expected'>8,11,8,6,9</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>47</td>
+        <td>
+          <code>6.6x37.3x51x932.72x4x33.9363.x7761</code>
+        </td>
+        <td>
+          <code class='expected'>15,13,15,12,15</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>48</td>
+        <td>
+          <code>6..4.x187..681.2x.2.713276.669x.252</code>
+        </td>
+        <td>
+          <code class='expected'>6,7,8,6,5</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>49</td>
+        <td>
+          <code>.6.xx64..5146x897231.x.21265392x9775</code>
+        </td>
+        <td>
+          <code class='expected'>19,17,19,20,17</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>50</td>
+        <td>
+          <code>334.85413.263314.x.6293921x3.6357647x</code>
+        </td>
+        <td>
+          <code class='expected'>14,14,12,16,10</code>
+        </td>
+      </tr>
+      <tr>
+        <td class='num'>51</td>
+        <td>
+          <code>4.1..9..513.266..5999769852.2.38x79.x7</code>
+        </td>
+        <td>
+          <code class='expected'>12,10,13,6,10</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "42873x.3.", "0,4,2,0,0" );    
+/*1*/ test( "1", "1,0,0,0,0" );    
+/*2*/ test( ".", "0,0,0,0,0" );    
+/*3*/ test( "x", "1,0,0,0,0" );    
+/*4*/ test( "31.", "1,0,0,0,0" );    
+/*5*/ test( "3x.", "1,1,0,0,0" );    
+/*6*/ test( "99569x", "9,9,6,6,9" );    
+/*7*/ test( "99569x33", "9,9,9,9,9" );    
+/*8*/ test( "99569x33.", "7,2,6,4,7" );    
+/*9*/ test( "99569x33..", "5,0,4,0,5" );    
+/*10*/ test( "12345x3333.", "4,0,3,2,3" );    
+/*11*/ test( "54321x3333.", "3,0,3,0,4" );    
+/*12*/ test( "51423x3333.", "3,4,4,0,4" );    
+/*13*/ test( "12x34x.", "1,0,1,0,2" );    
+/*14*/ test( "987x654x.32", "7,6,4,10,5" );    
+/*15*/ test( "99999999999x99999999.......9.", "20,10,12,5,20" );    
+/*16*/ test( "997", "9,9,7,0,0" );    
+/*17*/ test( ".3.9", "1,9,0,0,0" );    
+/*18*/ test( "832.6", "6,6,0,0,0" );    
+/*19*/ test( ".5.568", "3,5,6,8,0" );    
+/*20*/ test( "475..48", "4,8,0,0,0" );    
+/*21*/ test( "7.2..469", "1,4,6,9,0" );    
+/*22*/ test( "574x315.3", "3,3,1,7,1" );    
+/*23*/ test( "5.2893.x98", "10,9,5,4,1" );    
+/*24*/ test( "279.6xxx..4", "2,1,4,1,1" );    
+/*25*/ test( "1.1.39..93.x", "7,1,0,0,0" );    
+/*26*/ test( "7677749325927", "16,12,17,18,12" );    
+/*27*/ test( "x6235.87.56.9.", "7,2,0,0,0" );    
+/*28*/ test( "4.1168.6.197.6.", "0,0,3,0,0" );    
+/*29*/ test( "2.8.547.25..19.6", "6,2,0,0,0" );    
+/*30*/ test( ".5.3x82x32.1829..", "5,0,5,0,7" );    
+/*31*/ test( "x.1816..36.24.429.", "1,0,0,0,7" );    
+/*32*/ test( "79.2.6.81x..26x31.1", "1,0,2,1,1" );    
+/*33*/ test( "574296x6538984..5974", "14,13,10,15,14" );    
+/*34*/ test( "99.6244.4376636..72.6", "5,6,0,0,3" );    
+/*35*/ test( "1659.486x5637168278123", "17,16,16,18,17" );    
+/*36*/ test( ".5.17797.x626x5x9457.3.", "14,0,3,5,8" );    
+/*37*/ test( "..58624.85623..4.7..23.x", "1,1,0,0,0" );    
+/*38*/ test( "716.463.9.x.8..4.15.738x4", "7,3,5,8,1" );    
+/*39*/ test( "22xx.191.96469472.7232377.", "10,11,18,12,9" );    
+/*40*/ test( "24..4...343......4.41.6...2", "2,0,0,0,0" );    
+/*41*/ test( "32732.474x153.866..4x29.2573", "7,5,7,8,5" );    
+/*42*/ test( "786.1267x9937.17.15448.1x33.4", "4,4,8,4,10" );    
+/*43*/ test( "671714849.149.686852.178.895x3", "13,16,13,10,12" );    
+/*44*/ test( "86x.47.517..29621.61x937..xx935", "7,11,8,8,10" );    
+/*45*/ test( ".2233.78x.94.x59511.5.86x3.x714.", "4,6,10,8,8" );    
+/*46*/ test( ".793...218.687x415x13.1...x58576x", "8,11,8,6,9" );    
+/*47*/ test( "6.6x37.3x51x932.72x4x33.9363.x7761", "15,13,15,12,15" );    
+/*48*/ test( "6..4.x187..681.2x.2.713276.669x.252", "6,7,8,6,5" );    
+/*49*/ test( ".6.xx64..5146x897231.x.21265392x9775", "19,17,19,20,17" );    
+/*50*/ test( "334.85413.263314.x.6293921x3.6357647x", "14,14,12,16,10" );    
+/*51*/ test( "4.1..9..513.266..5999769852.2.38x79.x7", "12,10,13,6,10" );</textarea>
+  </body>
+</html>

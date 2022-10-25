@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Bit Tetris 〜 横へな 2012.7.25</title>
+    <link href='style.css' rel='stylesheet' />
+  </head>
+  <body>
+    <h1>Bit Tetris 〜 横へな 2012.7.25</h1>
+    <h2>問題</h2>
+    <p>
+      ブロックが落ちたあとのテトリスフィールドから、横一列揃っている列を削除する。
+    </p>
+    <p>
+      フィールドの幅は可変。高さは8。
+    </p>
+    <p>
+      入力は「
+      <code>ff-2f-23-f3-77-7f-3b</code>
+      」のような形式。ハイフン区切りで二桁ずつの16進数となっている。
+      <br />
+      LSB(つまり、2進数の1の位)が下、MSB(つまり、2進数の大きな桁)が上のブロックを意味する。
+      <br />
+      したがって、この入力は下図のようなフィールドを意味する。
+    </p>
+    <table class='tet'>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='value'>
+          <code>ff</code>
+        </td>
+        <td class='value'>
+          <code>2f</code>
+        </td>
+        <td class='value'>
+          <code>23</code>
+        </td>
+        <td class='value'>
+          <code>f3</code>
+        </td>
+        <td class='value'>
+          <code>77</code>
+        </td>
+        <td class='value'>
+          <code>7f</code>
+        </td>
+        <td class='value'>
+          <code>3b</code>
+        </td>
+      </tr>
+    </table>
+    <p>
+      見ての通り、下から数えて 1段目、2段目、6段目 が1列揃っているので、これを消す。
+      消した結果は下図のようになる：
+    </p>
+    <table class='tet'>
+      <tr>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='block'>&nbsp;</td>
+        <td class='space'>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class='value'>
+          <code>1f</code>
+        </td>
+        <td class='value'>
+          <code>03</code>
+        </td>
+        <td class='value'>
+          <code>00</code>
+        </td>
+        <td class='value'>
+          <code>1c</code>
+        </td>
+        <td class='value'>
+          <code>0d</code>
+        </td>
+        <td class='value'>
+          <code>0f</code>
+        </td>
+        <td class='value'>
+          <code>06</code>
+        </td>
+      </tr>
+    </table>
+    <p>
+      というわけで、出力すべきは
+      <code>1f-03-00-1c-0d-0f-06</code>
+      という文字列となる。
+    </p>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>出力</th>
+      </tr>
+      <tr><td>#0</td><td>ff-2f-23-f3-77-7f-3b</td><td>1f-03-00-1c-0d-0f-06</td></tr>
+      <tr><td>#1</td><td>01</td><td>00</td></tr>
+      <tr><td>#2</td><td>00</td><td>00</td></tr>
+      <tr><td>#3</td><td>7a-4e</td><td>0c-02</td></tr>
+      <tr><td>#4</td><td>56-b6</td><td>08-14</td></tr>
+      <tr><td>#5</td><td>12-12-12</td><td>00-00-00</td></tr>
+      <tr><td>#6</td><td>de-ff-7b</td><td>0a-0f-05</td></tr>
+      <tr><td>#7</td><td>95-be-d0</td><td>05-1e-20</td></tr>
+      <tr><td>#8</td><td>7c-b0-bb</td><td>1c-20-2b</td></tr>
+      <tr><td>#9</td><td>7a-b6-31-6a</td><td>3a-56-11-2a</td></tr>
+      <tr><td>#10</td><td>32-0e-23-82</td><td>18-06-11-40</td></tr>
+      <tr><td>#11</td><td>ff-7f-bf-df-ef</td><td>0f-07-0b-0d-0e</td></tr>
+      <tr><td>#12</td><td>75-df-dc-6e-42</td><td>35-5f-5c-2e-02</td></tr>
+      <tr><td>#13</td><td>62-51-ef-c7-f8</td><td>22-11-6f-47-78</td></tr>
+      <tr><td>#14</td><td>0c-47-8e-dd-5d-17</td><td>04-23-46-6d-2d-0b</td></tr>
+      <tr><td>#15</td><td>aa-58-5b-6d-9f-1f</td><td>52-28-2b-35-4f-0f</td></tr>
+      <tr><td>#16</td><td>ff-55-d5-75-5d-57</td><td>0f-00-08-04-02-01</td></tr>
+      <tr><td>#17</td><td>fe-fd-fb-f7-ef-df-bf</td><td>7e-7d-7b-77-6f-5f-3f</td></tr>
+      <tr><td>#18</td><td>fd-fb-f7-ef-df-bf-7f</td><td>7e-7d-7b-77-6f-5f-3f</td></tr>
+      <tr><td>#19</td><td>d9-15-b5-d7-1b-9f-de</td><td>69-05-55-67-0b-4f-6e</td></tr>
+      <tr><td>#20</td><td>38-15-fd-50-10-96-ba</td><td>18-05-7d-20-00-46-5a</td></tr>
+      <tr><td>#21</td><td>fe-fd-fb-f7-ef-df-bf-7f</td><td>fe-fd-fb-f7-ef-df-bf-7f</td></tr>
+    </table>
+    <hr noshade/>
+    <h3>C/C++/Java 用データ</h3>
+    <textarea>/* 0*/ {"ff-2f-23-f3-77-7f-3b", "1f-03-00-1c-0d-0f-06" },&#x000A;/* 1*/ {"01", "00" },&#x000A;/* 2*/ {"00", "00" },&#x000A;/* 3*/ {"7a-4e", "0c-02" },&#x000A;/* 4*/ {"56-b6", "08-14" },&#x000A;/* 5*/ {"12-12-12", "00-00-00" },&#x000A;/* 6*/ {"de-ff-7b", "0a-0f-05" },&#x000A;/* 7*/ {"95-be-d0", "05-1e-20" },&#x000A;/* 8*/ {"7c-b0-bb", "1c-20-2b" },&#x000A;/* 9*/ {"7a-b6-31-6a", "3a-56-11-2a" },&#x000A;/*10*/ {"32-0e-23-82", "18-06-11-40" },&#x000A;/*11*/ {"ff-7f-bf-df-ef", "0f-07-0b-0d-0e" },&#x000A;/*12*/ {"75-df-dc-6e-42", "35-5f-5c-2e-02" },&#x000A;/*13*/ {"62-51-ef-c7-f8", "22-11-6f-47-78" },&#x000A;/*14*/ {"0c-47-8e-dd-5d-17", "04-23-46-6d-2d-0b" },&#x000A;/*15*/ {"aa-58-5b-6d-9f-1f", "52-28-2b-35-4f-0f" },&#x000A;/*16*/ {"ff-55-d5-75-5d-57", "0f-00-08-04-02-01" },&#x000A;/*17*/ {"fe-fd-fb-f7-ef-df-bf", "7e-7d-7b-77-6f-5f-3f" },&#x000A;/*18*/ {"fd-fb-f7-ef-df-bf-7f", "7e-7d-7b-77-6f-5f-3f" },&#x000A;/*19*/ {"d9-15-b5-d7-1b-9f-de", "69-05-55-67-0b-4f-6e" },&#x000A;/*20*/ {"38-15-fd-50-10-96-ba", "18-05-7d-20-00-46-5a" },&#x000A;/*21*/ {"fe-fd-fb-f7-ef-df-bf-7f", "fe-fd-fb-f7-ef-df-bf-7f" },</textarea>
+  </body>
+</html>

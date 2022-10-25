@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>折って切る 〜 横へな 2014.1.10 問題</title>
+    <style>
+      body, textarea { 
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{ width:322px }
+      img.small{ width:82px }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      table code {
+        border:none
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+      word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>折って切る 〜 横へな 2014.1.10 問題</h1>
+    <h2>問題</h2>
+    <p>
+      入力文字列の指示通りに紙を折り、折った紙の角を切り落として、元のように開いた場合、穴が何個できるか計算せよ。
+    </p>
+    <p>
+      折り方は四通り。
+    </p>
+    <table>
+      <tr>
+        <th>記号</th>
+        <th>折り目の方向</th>
+        <th>折り方</th>
+      </tr>
+      <tr>
+        <th>
+          <code>R</code>
+        </th>
+        <td>縦</td>
+        <td>右半分を手前に折って、左半分に重ねる</td>
+      </tr>
+      <tr>
+        <th>
+          <code>L</code>
+        </th>
+        <td>縦</td>
+        <td>左半分を手前に折って、右半分に重ねる</td>
+      </tr>
+      <tr>
+        <th>
+          <code>T</code>
+        </th>
+        <td>横</td>
+        <td>上半分を手前に折って、下半分に重ねる</td>
+      </tr>
+      <tr>
+        <th>
+          <code>B</code>
+        </th>
+        <td>横</td>
+        <td>下半分を手前に折って、上半分に重ねる</td>
+      </tr>
+    </table>
+    <p>
+      切る場所は四隅のいずれか。
+      <br>
+      つまり、右上、左上、右下、左下のどれかになる。
+      <br>
+      一箇所しか切らない。
+    </p>
+    <p>
+      例えば。
+      <br>
+      上記の記号で
+      RRTRB
+      と表されるような折り方をしてから左下を切り落とした場合、下図のようになるので、穴の数は
+      6
+      個となる。
+      <br>
+      <img src='RRTRB-bl.gif'>
+    </p>
+    <h2>入力と出力</h2>
+    <p>
+      入力は
+      <br>
+      <code>RRTRB-bl</code>
+      <br>
+      こんな感じ。
+      <br>
+      ハイフンの前にある大文字の文字列は、折り方を示す。
+      <br>
+      ハイフンの後が、切る場所。切る場所の記号と位置の対応関係は、下表の通り：
+      <table>
+        <tr>
+          <th>記号</th>
+          <td>
+            <code>tl</code>
+          </td>
+          <td>
+            <code>tr</code>
+          </td>
+          <td>
+            <code>bl</code>
+          </td>
+          <td>
+            <code>br</code>
+          </td>
+        </tr>
+        <tr>
+          <th>切る場所</th>
+          <td>左上</td>
+          <td>右上</td>
+          <td>左下</td>
+          <td>右下</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      出力は、できる穴の数を 10 進数の文字列で。
+      <br>
+      上記の例だと穴の数は
+      6
+      なので、
+      <br>
+      <code>6</code>
+      <br>
+      を出力ればよい。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        紙の端にできる凹みは穴とはみなさない。
+      </li>
+      <li>
+        穴ができないこともある。その場合は
+        <code>0</code>
+        を出力する。
+      </li>
+      <li>
+        少なくとも一回は折るので折る手順が空であるような入力を考慮する必要はない。
+      </li>
+      <li>折る回数7回程度まで対応できれば良い。</li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/ebd9d7deb30c57447806'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2014年1月10日に開催される 第17回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='http://atnd.org/events/46348'>
+          ATND の募集ページ
+        </a>
+        の方を御覧下さい。
+      </li>
+      <li>参考問題ではありますが、似たような問題が出ることはあまりありません。</li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>RRTRB-bl</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>R-tr</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>L-br</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>T-tl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>B-tl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>BL-br</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>LB-tl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>RL-tl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>BL-tl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>TL-bl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>RT-tr</code>
+        </td>
+        <td>
+          <code class='expected'>1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>TRB-tl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>TRL-bl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>TRB-br</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>LLB-bl</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>RTL-tr</code>
+        </td>
+        <td>
+          <code class='expected'>1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>LBB-tr</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>TLL-tl</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>RLRR-tr</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>BBTL-tl</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>TBBT-tr</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>LLBR-tl</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>LBRT-tl</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>RLBL-bl</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>BRRL-br</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>TBBTL-tl</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>TLBBT-br</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>LRBLL-br</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>TRRTT-br</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>BBBLB-br</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>
+          <code>RTTTR-tl</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>
+          <code>BBLLL-br</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>
+          <code>RRLLTR-tr</code>
+        </td>
+        <td>
+          <code class='expected'>16</code>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>
+          <code>TTRBLB-br</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>
+          <code>LRBRBR-bl</code>
+        </td>
+        <td>
+          <code class='expected'>14</code>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>
+          <code>RBBLRL-tl</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>
+          <code>RTRLTB-tl</code>
+        </td>
+        <td>
+          <code class='expected'>12</code>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>
+          <code>LBLRTR-tl</code>
+        </td>
+        <td>
+          <code class='expected'>14</code>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>
+          <code>RRLTRL-tl</code>
+        </td>
+        <td>
+          <code class='expected'>16</code>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>
+          <code>TBLTRR-br</code>
+        </td>
+        <td>
+          <code class='expected'>12</code>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td>
+          <code>TTTRLTT-bl</code>
+        </td>
+        <td>
+          <code class='expected'>30</code>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td>
+          <code>TBBRTBL-tr</code>
+        </td>
+        <td>
+          <code class='expected'>15</code>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>
+          <code>TRTRTLL-tr</code>
+        </td>
+        <td>
+          <code class='expected'>28</code>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>
+          <code>TLLRTRB-tr</code>
+        </td>
+        <td>
+          <code class='expected'>24</code>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td>
+          <code>RLLBRLB-tr</code>
+        </td>
+        <td>
+          <code class='expected'>15</code>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td>
+          <code>LTLRRBT-tr</code>
+        </td>
+        <td>
+          <code class='expected'>32</code>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td>
+          <code>RBBRBLT-br</code>
+        </td>
+        <td>
+          <code class='expected'>21</code>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td>
+          <code>LLRLRLR-tr</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "RRTRB-bl", "6" );    
+/*1*/ test( "R-tr", "0" );    
+/*2*/ test( "L-br", "0" );    
+/*3*/ test( "T-tl", "0" );    
+/*4*/ test( "B-tl", "0" );    
+/*5*/ test( "BL-br", "0" );    
+/*6*/ test( "LB-tl", "0" );    
+/*7*/ test( "RL-tl", "0" );    
+/*8*/ test( "BL-tl", "0" );    
+/*9*/ test( "TL-bl", "0" );    
+/*10*/ test( "RT-tr", "1" );    
+/*11*/ test( "TRB-tl", "0" );    
+/*12*/ test( "TRL-bl", "0" );    
+/*13*/ test( "TRB-br", "2" );    
+/*14*/ test( "LLB-bl", "2" );    
+/*15*/ test( "RTL-tr", "1" );    
+/*16*/ test( "LBB-tr", "0" );    
+/*17*/ test( "TLL-tl", "2" );    
+/*18*/ test( "RLRR-tr", "0" );    
+/*19*/ test( "BBTL-tl", "4" );    
+/*20*/ test( "TBBT-tr", "0" );    
+/*21*/ test( "LLBR-tl", "0" );    
+/*22*/ test( "LBRT-tl", "2" );    
+/*23*/ test( "RLBL-bl", "4" );    
+/*24*/ test( "BRRL-br", "3" );    
+/*25*/ test( "TBBTL-tl", "8" );    
+/*26*/ test( "TLBBT-br", "0" );    
+/*27*/ test( "LRBLL-br", "7" );    
+/*28*/ test( "TRRTT-br", "6" );    
+/*29*/ test( "BBBLB-br", "0" );    
+/*30*/ test( "RTTTR-tl", "4" );    
+/*31*/ test( "BBLLL-br", "6" );    
+/*32*/ test( "RRLLTR-tr", "16" );    
+/*33*/ test( "TTRBLB-br", "8" );    
+/*34*/ test( "LRBRBR-bl", "14" );    
+/*35*/ test( "RBBLRL-tl", "8" );    
+/*36*/ test( "RTRLTB-tl", "12" );    
+/*37*/ test( "LBLRTR-tl", "14" );    
+/*38*/ test( "RRLTRL-tl", "16" );    
+/*39*/ test( "TBLTRR-br", "12" );    
+/*40*/ test( "TTTRLTT-bl", "30" );    
+/*41*/ test( "TBBRTBL-tr", "15" );    
+/*42*/ test( "TRTRTLL-tr", "28" );    
+/*43*/ test( "TLLRTRB-tr", "24" );    
+/*44*/ test( "RLLBRLB-tr", "15" );    
+/*45*/ test( "LTLRRBT-tr", "32" );    
+/*46*/ test( "RBBRBLT-br", "21" );    
+/*47*/ test( "LLRLRLR-tr", "0" );</textarea>
+  </body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>続柄 〜 横へな 2013.1.11</title>
+    <link href='style.css' rel='stylesheet' />
+  </head>
+  <body>
+    <h1>続柄 〜 横へな 2013.1.11</h1>
+    <h2>問題</h2>
+    <p>
+      下図のような家系図（この家系図には女性しか書かれていない）がある。
+    </p>
+    <br clear='all' />
+    <img src='tree.png' width='908' />
+    <br clear='all' />
+    <p>
+      上が祖先で下が子孫を示す。<br/>
+      例えば、5 から見ると 2 は「母」で、28 から見ると 10 は「おば」である。<br/>
+      そこで、
+      <code>5->2</code>
+      や
+      <code>28->10</code>
+      のような文字列を受け取り、続柄を出力するプログラムを書く。続柄は下表のような記号を使う。
+    </p>
+    <table>
+      <tr>
+        <th>記号</th>
+        <th>説明</th>
+      </tr>
+      <tr>
+        <td>me</td>
+        <td>本人。</td>
+      </tr>
+      <tr>
+        <td>mo</td>
+        <td>母。</td>
+      </tr>
+      <tr>
+        <td>da</td>
+        <td>娘。</td>
+      </tr>
+      <tr>
+        <td>si</td>
+        <td>姉妹。本人は姉妹ではないことに注意。</td>
+      </tr>
+      <tr>
+        <td>au</td>
+        <td>おば。母の姉妹。</td>
+      </tr>
+      <tr>
+        <td>ni</td>
+        <td>姪。姉妹の娘。</td>
+      </tr>
+      <tr>
+        <td>co</td>
+        <td>いとこ。おばの娘。</td>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>上記のいずれにも該当しない場合。はとこ、曾祖母など。</td>
+      </tr>
+    </table>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>図のとおり、1〜13 までの女性は全員三人ずつ娘を生んでいる。</li>
+    </ul>
+    <br />
+    実装ができた方は
+    <a href='http://qiita.com/items/5e1c944541f09f0f9711'>Qiitaの記事</a>
+    のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+    <h2>サンプルデータ</h2>
+    <table class='exa'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <th>0</th>
+        <td>
+          <code>5->2</code>
+        </td>
+        <td>
+          <code>mo</code>
+        </td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>
+          <code>28->10</code>
+        </td>
+        <td>
+          <code>au</code>
+        </td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>
+          <code>1->1</code>
+        </td>
+        <td>
+          <code>me</code>
+        </td>
+      </tr>
+      <tr>
+        <th>3</th>
+        <td>
+          <code>40->40</code>
+        </td>
+        <td>
+          <code>me</code>
+        </td>
+      </tr>
+      <tr>
+        <th>4</th>
+        <td>
+          <code>27->27</code>
+        </td>
+        <td>
+          <code>me</code>
+        </td>
+      </tr>
+      <tr>
+        <th>5</th>
+        <td>
+          <code>7->2</code>
+        </td>
+        <td>
+          <code>mo</code>
+        </td>
+      </tr>
+      <tr>
+        <th>6</th>
+        <td>
+          <code>40->13</code>
+        </td>
+        <td>
+          <code>mo</code>
+        </td>
+      </tr>
+      <tr>
+        <th>7</th>
+        <td>
+          <code>9->3</code>
+        </td>
+        <td>
+          <code>mo</code>
+        </td>
+      </tr>
+      <tr>
+        <th>8</th>
+        <td>
+          <code>4->1</code>
+        </td>
+        <td>
+          <code>mo</code>
+        </td>
+      </tr>
+      <tr>
+        <th>9</th>
+        <td>
+          <code>1->3</code>
+        </td>
+        <td>
+          <code>da</code>
+        </td>
+      </tr>
+      <tr>
+        <th>10</th>
+        <td>
+          <code>12->35</code>
+        </td>
+        <td>
+          <code>da</code>
+        </td>
+      </tr>
+      <tr>
+        <th>11</th>
+        <td>
+          <code>3->8</code>
+        </td>
+        <td>
+          <code>da</code>
+        </td>
+      </tr>
+      <tr>
+        <th>12</th>
+        <td>
+          <code>6->19</code>
+        </td>
+        <td>
+          <code>da</code>
+        </td>
+      </tr>
+      <tr>
+        <th>13</th>
+        <td>
+          <code>38->40</code>
+        </td>
+        <td>
+          <code>si</code>
+        </td>
+      </tr>
+      <tr>
+        <th>14</th>
+        <td>
+          <code>9->8</code>
+        </td>
+        <td>
+          <code>si</code>
+        </td>
+      </tr>
+      <tr>
+        <th>15</th>
+        <td>
+          <code>4->2</code>
+        </td>
+        <td>
+          <code>si</code>
+        </td>
+      </tr>
+      <tr>
+        <th>16</th>
+        <td>
+          <code>15->16</code>
+        </td>
+        <td>
+          <code>si</code>
+        </td>
+      </tr>
+      <tr>
+        <th>17</th>
+        <td>
+          <code>40->12</code>
+        </td>
+        <td>
+          <code>au</code>
+        </td>
+      </tr>
+      <tr>
+        <th>18</th>
+        <td>
+          <code>10->4</code>
+        </td>
+        <td>
+          <code>au</code>
+        </td>
+      </tr>
+      <tr>
+        <th>19</th>
+        <td>
+          <code>21->5</code>
+        </td>
+        <td>
+          <code>au</code>
+        </td>
+      </tr>
+      <tr>
+        <th>20</th>
+        <td>
+          <code>8->2</code>
+        </td>
+        <td>
+          <code>au</code>
+        </td>
+      </tr>
+      <tr>
+        <th>21</th>
+        <td>
+          <code>3->5</code>
+        </td>
+        <td>
+          <code>ni</code>
+        </td>
+      </tr>
+      <tr>
+        <th>22</th>
+        <td>
+          <code>11->39</code>
+        </td>
+        <td>
+          <code>ni</code>
+        </td>
+      </tr>
+      <tr>
+        <th>23</th>
+        <td>
+          <code>2->13</code>
+        </td>
+        <td>
+          <code>ni</code>
+        </td>
+      </tr>
+      <tr>
+        <th>24</th>
+        <td>
+          <code>13->32</code>
+        </td>
+        <td>
+          <code>ni</code>
+        </td>
+      </tr>
+      <tr>
+        <th>25</th>
+        <td>
+          <code>14->22</code>
+        </td>
+        <td>
+          <code>co</code>
+        </td>
+      </tr>
+      <tr>
+        <th>26</th>
+        <td>
+          <code>40->34</code>
+        </td>
+        <td>
+          <code>co</code>
+        </td>
+      </tr>
+      <tr>
+        <th>27</th>
+        <td>
+          <code>5->8</code>
+        </td>
+        <td>
+          <code>co</code>
+        </td>
+      </tr>
+      <tr>
+        <th>28</th>
+        <td>
+          <code>12->10</code>
+        </td>
+        <td>
+          <code>co</code>
+        </td>
+      </tr>
+      <tr>
+        <th>29</th>
+        <td>
+          <code>1->27</code>
+        </td>
+        <td>
+          <code>-</code>
+        </td>
+      </tr>
+      <tr>
+        <th>30</th>
+        <td>
+          <code>8->1</code>
+        </td>
+        <td>
+          <code>-</code>
+        </td>
+      </tr>
+      <tr>
+        <th>31</th>
+        <td>
+          <code>12->22</code>
+        </td>
+        <td>
+          <code>-</code>
+        </td>
+      </tr>
+      <tr>
+        <th>32</th>
+        <td>
+          <code>2->40</code>
+        </td>
+        <td>
+          <code>-</code>
+        </td>
+      </tr>
+      <tr>
+        <th>33</th>
+        <td>
+          <code>32->31</code>
+        </td>
+        <td>
+          <code>-</code>
+        </td>
+      </tr>
+      <tr>
+        <th>34</th>
+        <td>
+          <code>13->14</code>
+        </td>
+        <td>
+          <code>-</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*#0*/ test( "5->2", "mo" );
+/*#1*/ test( "28->10", "au" );
+/*#2*/ test( "1->1", "me" );
+/*#3*/ test( "40->40", "me" );
+/*#4*/ test( "27->27", "me" );
+/*#5*/ test( "7->2", "mo" );
+/*#6*/ test( "40->13", "mo" );
+/*#7*/ test( "9->3", "mo" );
+/*#8*/ test( "4->1", "mo" );
+/*#9*/ test( "1->3", "da" );
+/*#10*/ test( "12->35", "da" );
+/*#11*/ test( "3->8", "da" );
+/*#12*/ test( "6->19", "da" );
+/*#13*/ test( "38->40", "si" );
+/*#14*/ test( "9->8", "si" );
+/*#15*/ test( "4->2", "si" );
+/*#16*/ test( "15->16", "si" );
+/*#17*/ test( "40->12", "au" );
+/*#18*/ test( "10->4", "au" );
+/*#19*/ test( "21->5", "au" );
+/*#20*/ test( "8->2", "au" );
+/*#21*/ test( "3->5", "ni" );
+/*#22*/ test( "11->39", "ni" );
+/*#23*/ test( "2->13", "ni" );
+/*#24*/ test( "13->32", "ni" );
+/*#25*/ test( "14->22", "co" );
+/*#26*/ test( "40->34", "co" );
+/*#27*/ test( "5->8", "co" );
+/*#28*/ test( "12->10", "co" );
+/*#29*/ test( "1->27", "-" );
+/*#30*/ test( "8->1", "-" );
+/*#31*/ test( "12->22", "-" );
+/*#32*/ test( "2->40", "-" );
+/*#33*/ test( "32->31", "-" );
+/*#34*/ test( "13->14", "-" );</textarea>
+  </body>
+</html>

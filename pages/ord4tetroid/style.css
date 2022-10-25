@@ -1,0 +1,89 @@
+body, textarea { font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; }
+table.tetnames
+{
+    border-spacing: 2px;
+    margin-left:2em;
+}
+th
+{
+    background-color: #ddd;
+}
+td.ts
+{
+    background-color: #eee;
+    padding: 3mm;
+}
+table.tet
+{
+    border-spacing: 1px;
+    background-color: #eee;
+}
+table.tet td
+{
+    font-size: 1mm;
+    width:5mm;
+    height:5mm;
+    overflow: none;
+    padding: 0;
+}
+table.tet td.f
+{
+    background-color: #777;
+    border:solid 1px black;
+}
+table.ax
+{
+    border-spacing: 1px;
+    margin-left:2em;
+}
+
+td.af, td.ac, th.ah
+{
+    font-size:3mm;
+    overflow:none;
+    width:5mm;
+    height:5mm;
+    padding:0;
+    margin:0;
+}
+td.af
+{
+    background-color: #000;
+}
+td.ac
+{
+    background-color: #eee;
+}
+table.sample
+{
+    margin-left:2em;
+}
+table.sample th, table.sample td
+{
+    font-size:small;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+div.sample
+{
+    -webkit-column-count: 3;
+    column-count: 3;
+}
+table.sample tr
+{
+    break-inside: avoid;
+}
+table.sample td:nth-child(2)
+{
+    font-family:monospace ;
+}
+table.sample td:nth-child(3)
+{
+    font-family:serif ;
+    text-align: center;
+}
+textarea
+{
+width:90%;
+height:10em;
+}

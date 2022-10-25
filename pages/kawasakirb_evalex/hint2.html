@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>遠い世界の数式(ヒント2)</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img{ width:600px }
+      img.large{ width:360px }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+        max-height:80px;
+        max-width:80px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+      .weight{
+      font-family:"Georgia";
+      padding-left:8px;
+      padding-right:8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>遠い世界の数式(ヒント2)</h1>
+    <h2>実装方法</h2>
+    <p>
+      実装方法はたくさんある。
+      <br>
+      3つ例を挙げる。
+    </p>
+    <h2>分解→解釈→計算</h2>
+    <p>
+      たぶん、順当な感じの作戦。
+    </p>
+    <h3>1. 分解</h3>
+    <p>
+      <code>&quot;12*3+456&amp;7|89&quot;</code>
+      <br>
+      のような入力文字列を
+      <br>
+      <code>[&quot;12&quot;, &quot;*&quot;, &quot;3&quot;, &quot;+&quot;, &quot;456&quot;, &quot;&amp;&quot;, &quot;7&quot;, &quot;|&quot;, &quot;89&quot;]</code>
+      <br>
+      のように分解する。
+    </p>
+    <h3>2. 各要素の解釈</h3>
+    <p>
+      分解した結果の各要素を解釈する。
+      <br>
+      <code>"*"</code>
+      のようなものを解釈した結果は何にしてもいいんだけど、たとえばこんな感じ。
+      <br>
+      <code>[12, :mul, 3, :add, 456, :and, 7, :or, 89]</code>
+    </p>
+    <h3>3. 優先順位に合わせて計算を行う</h3>
+    <p>
+      今回の問題の異常な優先順位に合わせてひとつひとつ計算する。
+      <br>
+      ここでの戦略は、ヒント１に書いた通り、
+    </p>
+    <ul>
+      <li>( 数, 優先順位が高い演算子, 数 ) という並びを ( 計算結果 ) に置き換える</li>
+      <li>優先順位が低い演算子で分割し、右辺と左辺を処理してから結合する</li>
+    </ul>
+    <p>
+      という、ふたつの作戦がある。
+    </p>
+    <h2>正規表現で要素を置換</h2>
+    <p>
+      正規表現を使うと、計算量は多くなるけどソースコードは短くなる。
+      <br>
+      文字列
+      <code>"7|89"</code>
+      <br>
+      を
+      <br>
+      <code>eval("7|89")</code>
+      を評価した結果の文字列
+      <br>
+      に置換する、という作業を優先順位の順に実行し、演算子がなくなったら終了。という感じ。
+    </p>
+    <h2>ruby に やらせる</h2>
+    <p>
+      ヒント1には書かなかった作戦だけど、
+      <br>
+      <code>12*3+456&amp;7|89</code>
+      <br>
+      を、
+      <br>
+      <code>f(12)|f(3)&amp;f(456)+f(7)*f(89)</code>
+      <br>
+      と変換して、変換結果を eval したらそれでよくなるように関数
+      <code>f</code>
+      を定義する。
+      <br>
+      というか、関数 f が返す値のクラスを定義する。という手もある。
+      <br>
+      仕事ならおすすめしないけど、こういう場ならこれもあり。
+    </p>
+  </body>
+</html>

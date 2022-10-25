@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet'>
+<title>とあるカードゲーム 2018.10.6</title>
+<style>
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  img.large{
+    width:400px;
+  }
+  td.center{ text-align:center; }
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    border-radius:4px;
+  }
+  span.card{
+    background-color: #fff;
+    font-family:'Share Tech Mono', monospace;
+    font-weight:bold;
+    padding:2pt 0pt 2pt 0pt ;
+    margin-right:1px;
+    margin-left:1px;
+    border-radius:2px;
+    border-top: solid #ccc 1px;
+    border-left: solid #ccc 1px;
+    border-bottom: solid #888 1px;
+    border-right: solid #888 1px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Consolas","Courier New";
+  }
+  img.sample{
+    width:150px;
+    height:150px;
+  }
+  img.top{
+  width:320px;
+  }
+  .weight{
+    font-family:"Georgia";
+    padding-left:8px;
+    padding-right:8px;
+  }
+  table.float_right
+  {
+    float: right;
+  }
+  table.float_right td{
+    background-color:white;
+    text-align:center;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  float_right{
+   float:right;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  td.bigcell{
+    width:25mm;
+    height:25mm;
+    font-size:18mm;
+    border:solid black 0.5mm
+  }
+  table.big td{
+    font-size:9mm;
+    border:solid black 0.5mm
+  }
+  div.top img{
+    width:80px;
+  }
+  table.big img{
+    width:120px;
+    height:120px;
+  }
+  tr.sample{
+    height:2em;
+  }
+  td.sample{
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+  th.width3em{
+    width:3em;
+  }
+</style>
+</head>
+<body>
+<h1>とあるカードゲーム 2018.10.6</h1>
+<h2>問題の概要</h2>
+<p>
+カードゲームをしている。
+<br>
+手札を入力として与えるので、手札の得点を求めよう。
+</p>
+<h2>ゲームのルール</h2>
+<h3>カードについて</h3>
+<p>
+カードには「スート」と「ランク」がある。
+<br>
+スートは「A」〜「G」。
+ランクは「1」〜「9」。
+<br>
+都合、カードは 7×9 = 63 枚、63 種類ある
+</p>
+<h3>ストーリーとカインド</h3>
+<p>
+<b>ストーリー</b>
+は、ランクが連続していて、スートが同じカードの組。2枚以上。
+<br>
+　<span class='card'>D4</span><span class='card'>D5</span><br>
+や
+<br>
+　<span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span><br>
+のような感じ。
+</p>
+<p>
+<b>カインド</b>
+は、スートが連続していて、ランクが同じカードの組。2枚以上。
+<br>
+　<span class='card'>D4</span><span class='card'>E4</span><br>
+や
+<br>
+　<span class='card'>A2</span><span class='card'>B2</span><span class='card'>C2</span><br>
+のような感じ。
+</p>
+<h3>手札とあがる条件</h3>
+<p>
+手札は 8 枚。
+<br>
+手札が、重複なく、余りもなく、
+<b>ストーリー</b>
+と
+<b>カインド</b>
+の集まりになっていれば、あがり。(
+<b>ストーリー</b>
+だけだったり
+<b>カインド</b>
+だけだったりしてもよい
+)
+<br>
+</p>
+<h3>得点</h3>
+<p>
+得点は、下表のとおり。手に複数の
+<b>ストーリー</b>
+・
+<b>カインド</b>
+がある場合には、その合計が得点となる：
+</p>
+<table>
+<tr>
+<th>
+<b>ストーリー</b>
+・
+<b>カインド</b>
+の枚数
+</th>
+<th class='width3em'>2</th>
+<th class='width3em'>3</th>
+<th class='width3em'>4</th>
+<th class='width3em'>5</th>
+<th class='width3em'>6</th>
+<th class='width3em'>8</th>
+</tr>
+<tr>
+<th>得点</th>
+<td class='center'>1</td>
+<td class='center'>4</td>
+<td class='center'>9</td>
+<td class='center'>16</td>
+<td class='center'>25</td>
+<td class='center'>49</td>
+</tr>
+</table>
+<p>
+カードの分け方の可能性が複数ある場合は、最も得点が高いものを採用すること。
+</p>
+<p>
+例えば<span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span><span class='card'>B3</span><span class='card'>C3</span><span class='card'>D5</span><span class='card'>E5</span>の場合。<span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span>&nbsp;/&nbsp;<span class='card'>B3</span><span class='card'>C3</span>&nbsp;/&nbsp;<span class='card'>D5</span><span class='card'>E5</span>のように分けると最も得点が高くなる。
+<br>
+4枚、2枚、2枚
+なので、得点は
+9+1+1
+=
+11
+点となる。
+</p>
+<h2>入力</h2>
+<p>
+入力はこんな感じ：
+<br>
+<code>A1,A2,A3,A4,B3,C3,D5,E5</code>
+<br>
+コンマ区切りで、カードが並んでいる。
+<br>
+カードは最初の文字がスート。二文字目がランク。
+</p>
+<h2>出力</h2>
+<p>
+出力は、得点を普通に 10 進数で。こんな感じ：
+<br>
+<code>11</code>
+<br>
+ただし
+<code>A1,B2,C3,D4,E5,F6,G7,A8</code>
+のように「あがり」でない場合は
+<br>
+<code>-</code>
+<br>
+を出力すること。
+</p>
+<h2>補足</h2>
+<ul>
+<li>不正な入力に対処する必要はない。</li>
+<li>入力はJSONでもいいし、テスト関数でもいいし、標準入力でもいい。</li>
+<li>入力のカードは引いた順。つまりランダム。</li>
+<li>まったく同じカード（スートもランクも同じカード）が手札に二枚以上あったりはしない。</li>
+<li>このゲームのカードとルールはこの問題のために考えられたもので、実在しない。</li>
+<li>
+9,1
+や
+G,A
+のようなものは連続ではない。
+</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/cdc102d186faaf542574'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+この問題は2018年10月6日に開催される オフラインリアルタイムどう書くE27 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/79705'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+<th>カードの分け方の例</th>
+<th>図へのリンク</th>
+</tr>
+<tr class='sample'>
+<td>0</td>
+<td class='sample'>
+<code class='src'>A1,A2,A3,A4,B3,C3,D5,E5</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B3</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D5</span><span class='card'>E5</span></td>
+<td>
+<a href='figs.html#0'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>1</td>
+<td class='sample'>
+<code class='src'>A1,B2,C3,D4,E5,F6,G7,A8</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#1'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>2</td>
+<td class='sample'>
+<code class='src'>A3,A5,A4,A6,A7,A1,A2,A8</code>
+</td>
+<td class='center'>
+<code class='expected'>49</code>
+</td>
+<td><span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span><span class='card'>A5</span><span class='card'>A6</span><span class='card'>A7</span><span class='card'>A8</span></td>
+<td>
+<a href='figs.html#2'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>3</td>
+<td class='sample'>
+<code class='src'>G2,G1,A1,F1,C1,E1,B1,D1</code>
+</td>
+<td class='center'>
+<code class='expected'>26</code>
+</td>
+<td><span class='card'>A1</span><span class='card'>B1</span><span class='card'>C1</span><span class='card'>D1</span><span class='card'>E1</span><span class='card'>F1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G1</span><span class='card'>G2</span></td>
+<td>
+<a href='figs.html#3'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>4</td>
+<td class='sample'>
+<code class='src'>E3,G3,D4,F3,D3,C3,B3,A3</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>A3</span><span class='card'>B3</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E3</span><span class='card'>F3</span><span class='card'>G3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>D4</span></td>
+<td>
+<a href='figs.html#4'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>5</td>
+<td class='sample'>
+<code class='src'>A1,C1,C2,E3,B1,B2,A2,D3</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>A1</span><span class='card'>B1</span><span class='card'>C1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A2</span><span class='card'>B2</span><span class='card'>C2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>E3</span></td>
+<td>
+<a href='figs.html#5'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>6</td>
+<td class='sample'>
+<code class='src'>D2,E2,C1,B2,C2,B1,A2,A1</code>
+</td>
+<td class='center'>
+<code class='expected'>20</code>
+</td>
+<td><span class='card'>A2</span><span class='card'>B2</span><span class='card'>C2</span><span class='card'>D2</span><span class='card'>E2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A1</span><span class='card'>B1</span><span class='card'>C1</span></td>
+<td>
+<a href='figs.html#6'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>7</td>
+<td class='sample'>
+<code class='src'>C2,B3,B4,A1,A2,B2,B1,C1</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>B1</span><span class='card'>B2</span><span class='card'>B3</span><span class='card'>B4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A1</span><span class='card'>A2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C1</span><span class='card'>C2</span></td>
+<td>
+<a href='figs.html#7'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>8</td>
+<td class='sample'>
+<code class='src'>D1,B1,D3,C3,D2,B2,C1,B3</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B3</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C1</span><span class='card'>D1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>D3</span></td>
+<td>
+<a href='figs.html#8'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>9</td>
+<td class='sample'>
+<code class='src'>C1,F5,F6,B2,C2,D2,F4,C3</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#9'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>10</td>
+<td class='sample'>
+<code class='src'>D2,A2,C2,E2,F2,B2,C3,C1</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>C1</span><span class='card'>C2</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>E2</span><span class='card'>F2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A2</span><span class='card'>B2</span></td>
+<td>
+<a href='figs.html#10'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>11</td>
+<td class='sample'>
+<code class='src'>D6,E7,D8,F7,C7,G7,D7,D5</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#11'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>12</td>
+<td class='sample'>
+<code class='src'>B2,B3,B4,D5,D2,D4,D3,C3</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#12'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>13</td>
+<td class='sample'>
+<code class='src'>C3,D3,B2,B1,E4,E5,D4,C2</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C2</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>D4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>E5</span></td>
+<td>
+<a href='figs.html#13'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>14</td>
+<td class='sample'>
+<code class='src'>D3,E4,E2,C1,F4,D2,E3,C2</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>C1</span><span class='card'>C2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>E2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>E3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span></td>
+<td>
+<a href='figs.html#14'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>15</td>
+<td class='sample'>
+<code class='src'>B4,C3,D5,C4,A4,C5,B5,B6</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>A4</span><span class='card'>B4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B5</span><span class='card'>B6</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C3</span><span class='card'>C4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C5</span><span class='card'>D5</span></td>
+<td>
+<a href='figs.html#15'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>16</td>
+<td class='sample'>
+<code class='src'>E9,D8,D9,D7,F8,F9,E8,E7</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>D8</span><span class='card'>E8</span><span class='card'>F8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D9</span><span class='card'>E9</span><span class='card'>F9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D7</span><span class='card'>E7</span></td>
+<td>
+<a href='figs.html#16'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>17</td>
+<td class='sample'>
+<code class='src'>F9,C9,D7,D9,D8,E7,E9,F8</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#17'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>18</td>
+<td class='sample'>
+<code class='src'>D4,C5,B5,B6,D3,D2,D5,B7</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>D2</span><span class='card'>D3</span><span class='card'>D4</span><span class='card'>D5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B5</span><span class='card'>C5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B6</span><span class='card'>B7</span></td>
+<td>
+<a href='figs.html#18'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>19</td>
+<td class='sample'>
+<code class='src'>B8,D8,D7,A7,A8,D9,C8,A9</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>A7</span><span class='card'>A8</span><span class='card'>A9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D7</span><span class='card'>D8</span><span class='card'>D9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>C8</span></td>
+<td>
+<a href='figs.html#19'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>20</td>
+<td class='sample'>
+<code class='src'>F3,E3,F7,E5,E6,E4,E7,F6</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>E4</span><span class='card'>E5</span><span class='card'>E6</span><span class='card'>E7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E3</span><span class='card'>F3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F6</span><span class='card'>F7</span></td>
+<td>
+<a href='figs.html#20'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>21</td>
+<td class='sample'>
+<code class='src'>A9,G9,B8,A7,G7,C8,A8,G8</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>A7</span><span class='card'>A8</span><span class='card'>A9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G7</span><span class='card'>G8</span><span class='card'>G9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>C8</span></td>
+<td>
+<a href='figs.html#21'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>22</td>
+<td class='sample'>
+<code class='src'>G8,G2,G3,G9,G6,G4,G5,G7</code>
+</td>
+<td class='center'>
+<code class='expected'>49</code>
+</td>
+<td><span class='card'>G2</span><span class='card'>G3</span><span class='card'>G4</span><span class='card'>G5</span><span class='card'>G6</span><span class='card'>G7</span><span class='card'>G8</span><span class='card'>G9</span></td>
+<td>
+<a href='figs.html#22'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>23</td>
+<td class='sample'>
+<code class='src'>E9,E1,B9,D1,C9,G9,D9,F9</code>
+</td>
+<td class='center'>
+<code class='expected'>26</code>
+</td>
+<td><span class='card'>B9</span><span class='card'>C9</span><span class='card'>D9</span><span class='card'>E9</span><span class='card'>F9</span><span class='card'>G9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D1</span><span class='card'>E1</span></td>
+<td>
+<a href='figs.html#23'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>24</td>
+<td class='sample'>
+<code class='src'>B9,B7,G3,A7,G4,B1,B8,B2</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>A7</span><span class='card'>B7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>B9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G3</span><span class='card'>G4</span></td>
+<td>
+<a href='figs.html#24'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>25</td>
+<td class='sample'>
+<code class='src'>A1,B4,B3,A4,A2,B5,A3,A5</code>
+</td>
+<td class='center'>
+<code class='expected'>20</code>
+</td>
+<td><span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span><span class='card'>A5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B3</span><span class='card'>B4</span><span class='card'>B5</span></td>
+<td>
+<a href='figs.html#25'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>26</td>
+<td class='sample'>
+<code class='src'>B3,D3,F3,G2,C3,A3,E3,G3</code>
+</td>
+<td class='center'>
+<code class='expected'>26</code>
+</td>
+<td><span class='card'>A3</span><span class='card'>B3</span><span class='card'>C3</span><span class='card'>D3</span><span class='card'>E3</span><span class='card'>F3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G2</span><span class='card'>G3</span></td>
+<td>
+<a href='figs.html#26'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>27</td>
+<td class='sample'>
+<code class='src'>E8,D8,E7,D7,G8,G7,F7,F8</code>
+</td>
+<td class='center'>
+<code class='expected'>18</code>
+</td>
+<td><span class='card'>D7</span><span class='card'>E7</span><span class='card'>F7</span><span class='card'>G7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D8</span><span class='card'>E8</span><span class='card'>F8</span><span class='card'>G8</span></td>
+<td>
+<a href='figs.html#27'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>28</td>
+<td class='sample'>
+<code class='src'>D4,B3,E4,A3,C4,E3,D3,C3</code>
+</td>
+<td class='center'>
+<code class='expected'>20</code>
+</td>
+<td><span class='card'>A3</span><span class='card'>B3</span><span class='card'>C3</span><span class='card'>D3</span><span class='card'>E3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span></td>
+<td>
+<a href='figs.html#28'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>29</td>
+<td class='sample'>
+<code class='src'>B7,B5,E4,B6,D4,A4,B4,C4</code>
+</td>
+<td class='center'>
+<code class='expected'>20</code>
+</td>
+<td><span class='card'>A4</span><span class='card'>B4</span><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B5</span><span class='card'>B6</span><span class='card'>B7</span></td>
+<td>
+<a href='figs.html#29'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>30</td>
+<td class='sample'>
+<code class='src'>B2,B1,B7,C8,F2,B9,B8,F1</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#30'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>31</td>
+<td class='sample'>
+<code class='src'>C4,C3,C5,E3,E1,E2,E4,C2</code>
+</td>
+<td class='center'>
+<code class='expected'>18</code>
+</td>
+<td><span class='card'>C2</span><span class='card'>C3</span><span class='card'>C4</span><span class='card'>C5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E1</span><span class='card'>E2</span><span class='card'>E3</span><span class='card'>E4</span></td>
+<td>
+<a href='figs.html#31'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>32</td>
+<td class='sample'>
+<code class='src'>G1,E1,D1,A1,F1,A2,B1,C1</code>
+</td>
+<td class='center'>
+<code class='expected'>26</code>
+</td>
+<td><span class='card'>B1</span><span class='card'>C1</span><span class='card'>D1</span><span class='card'>E1</span><span class='card'>F1</span><span class='card'>G1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A1</span><span class='card'>A2</span></td>
+<td>
+<a href='figs.html#32'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>33</td>
+<td class='sample'>
+<code class='src'>E4,C5,C4,B4,D4,D5,E5,F5</code>
+</td>
+<td class='center'>
+<code class='expected'>18</code>
+</td>
+<td><span class='card'>B4</span><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C5</span><span class='card'>D5</span><span class='card'>E5</span><span class='card'>F5</span></td>
+<td>
+<a href='figs.html#33'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>34</td>
+<td class='sample'>
+<code class='src'>D4,G4,A4,F4,C4,A3,E4,B4</code>
+</td>
+<td class='center'>
+<code class='expected'>26</code>
+</td>
+<td><span class='card'>B4</span><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span><span class='card'>F4</span><span class='card'>G4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A3</span><span class='card'>A4</span></td>
+<td>
+<a href='figs.html#34'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>35</td>
+<td class='sample'>
+<code class='src'>B3,A9,G4,F4,A8,B4,G8,A3</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#35'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>36</td>
+<td class='sample'>
+<code class='src'>B4,E3,F4,E4,G3,A4,G4,F3</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>E3</span><span class='card'>F3</span><span class='card'>G3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span><span class='card'>G4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A4</span><span class='card'>B4</span></td>
+<td>
+<a href='figs.html#36'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>37</td>
+<td class='sample'>
+<code class='src'>E4,B3,E3,C3,A3,G3,F3,A2</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>A2</span><span class='card'>A3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B3</span><span class='card'>C3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E3</span><span class='card'>E4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F3</span><span class='card'>G3</span></td>
+<td>
+<a href='figs.html#37'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>38</td>
+<td class='sample'>
+<code class='src'>C5,C4,C6,C8,C1,C2,C7,C3</code>
+</td>
+<td class='center'>
+<code class='expected'>49</code>
+</td>
+<td><span class='card'>C1</span><span class='card'>C2</span><span class='card'>C3</span><span class='card'>C4</span><span class='card'>C5</span><span class='card'>C6</span><span class='card'>C7</span><span class='card'>C8</span></td>
+<td>
+<a href='figs.html#38'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>39</td>
+<td class='sample'>
+<code class='src'>C4,D4,E4,F3,E3,F4,D3,G4</code>
+</td>
+<td class='center'>
+<code class='expected'>20</code>
+</td>
+<td><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span><span class='card'>F4</span><span class='card'>G4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D3</span><span class='card'>E3</span><span class='card'>F3</span></td>
+<td>
+<a href='figs.html#39'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>40</td>
+<td class='sample'>
+<code class='src'>F2,F6,F9,F7,F5,F3,F8,F4</code>
+</td>
+<td class='center'>
+<code class='expected'>49</code>
+</td>
+<td><span class='card'>F2</span><span class='card'>F3</span><span class='card'>F4</span><span class='card'>F5</span><span class='card'>F6</span><span class='card'>F7</span><span class='card'>F8</span><span class='card'>F9</span></td>
+<td>
+<a href='figs.html#40'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>41</td>
+<td class='sample'>
+<code class='src'>A9,A3,A8,A2,B9,B8,A7,A1</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A7</span><span class='card'>A8</span><span class='card'>A9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>B9</span></td>
+<td>
+<a href='figs.html#41'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>42</td>
+<td class='sample'>
+<code class='src'>G9,A8,G8,A6,A9,G6,G7,A7</code>
+</td>
+<td class='center'>
+<code class='expected'>18</code>
+</td>
+<td><span class='card'>A6</span><span class='card'>A7</span><span class='card'>A8</span><span class='card'>A9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G6</span><span class='card'>G7</span><span class='card'>G8</span><span class='card'>G9</span></td>
+<td>
+<a href='figs.html#42'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>43</td>
+<td class='sample'>
+<code class='src'>B8,C4,D5,D4,C8,D8,E8,B4</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>B8</span><span class='card'>C8</span><span class='card'>D8</span><span class='card'>E8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B4</span><span class='card'>C4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D4</span><span class='card'>D5</span></td>
+<td>
+<a href='figs.html#43'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>44</td>
+<td class='sample'>
+<code class='src'>B1,B2,F6,E4,C1,C2,F4,F5</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>B1</span><span class='card'>C1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B2</span><span class='card'>C2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F5</span><span class='card'>F6</span></td>
+<td>
+<a href='figs.html#44'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>45</td>
+<td class='sample'>
+<code class='src'>B4,B3,B5,B1,B7,B8,B6,B2</code>
+</td>
+<td class='center'>
+<code class='expected'>49</code>
+</td>
+<td><span class='card'>B1</span><span class='card'>B2</span><span class='card'>B3</span><span class='card'>B4</span><span class='card'>B5</span><span class='card'>B6</span><span class='card'>B7</span><span class='card'>B8</span></td>
+<td>
+<a href='figs.html#45'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>46</td>
+<td class='sample'>
+<code class='src'>G8,A8,G7,A7,F7,G6,A6,F8</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>A6</span><span class='card'>A7</span><span class='card'>A8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G6</span><span class='card'>G7</span><span class='card'>G8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F7</span><span class='card'>F8</span></td>
+<td>
+<a href='figs.html#46'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>47</td>
+<td class='sample'>
+<code class='src'>B7,E7,D7,G7,C7,A7,F7,E8</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>A7</span><span class='card'>B7</span><span class='card'>C7</span><span class='card'>D7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E7</span><span class='card'>E8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F7</span><span class='card'>G7</span></td>
+<td>
+<a href='figs.html#47'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>48</td>
+<td class='sample'>
+<code class='src'>F3,D7,B7,D3,C3,G3,E3,D9</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#48'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>49</td>
+<td class='sample'>
+<code class='src'>B3,A6,C5,A3,A4,A2,B5,A5</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#49'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>50</td>
+<td class='sample'>
+<code class='src'>A8,D6,B8,C8,D7,C7,D8,E8</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>A8</span><span class='card'>B8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C7</span><span class='card'>C8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D6</span><span class='card'>D7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D8</span><span class='card'>E8</span></td>
+<td>
+<a href='figs.html#50'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>51</td>
+<td class='sample'>
+<code class='src'>B4,D9,C4,E9,E2,G9,F9,D2</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>D9</span><span class='card'>E9</span><span class='card'>F9</span><span class='card'>G9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B4</span><span class='card'>C4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>E2</span></td>
+<td>
+<a href='figs.html#51'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>52</td>
+<td class='sample'>
+<code class='src'>B3,G9,A9,G1,A1,F1,F9,A3</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#52'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>53</td>
+<td class='sample'>
+<code class='src'>G1,B1,A2,G2,B2,A1,A4,A3</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>A1</span><span class='card'>A2</span><span class='card'>A3</span><span class='card'>A4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G1</span><span class='card'>G2</span></td>
+<td>
+<a href='figs.html#53'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>54</td>
+<td class='sample'>
+<code class='src'>A7,A6,C7,B7,B5,G5,A5,F5</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>A5</span><span class='card'>B5</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A6</span><span class='card'>A7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B7</span><span class='card'>C7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F5</span><span class='card'>G5</span></td>
+<td>
+<a href='figs.html#54'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>55</td>
+<td class='sample'>
+<code class='src'>D1,D9,D4,E4,E8,B4,F8,F4</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#55'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>56</td>
+<td class='sample'>
+<code class='src'>B4,A8,C8,G8,B7,A3,B3,C7</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#56'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>57</td>
+<td class='sample'>
+<code class='src'>D3,G3,D7,F3,D9,B7,E3,C3</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#57'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>58</td>
+<td class='sample'>
+<code class='src'>B9,B1,F2,B7,B2,C8,F1,B8</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#58'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>59</td>
+<td class='sample'>
+<code class='src'>F6,E4,F4,F5,B1,B2,C1,C2</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>B1</span><span class='card'>C1</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B2</span><span class='card'>C2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F5</span><span class='card'>F6</span></td>
+<td>
+<a href='figs.html#59'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>60</td>
+<td class='sample'>
+<code class='src'>A5,G5,B5,B4,G6,C4,G7,A6</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#60'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>61</td>
+<td class='sample'>
+<code class='src'>C4,G3,F4,B7,A1,G4,D4,D5</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#61'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>62</td>
+<td class='sample'>
+<code class='src'>D7,G2,A4,A3,A7,A5,A6,F7</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#62'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>63</td>
+<td class='sample'>
+<code class='src'>F7,E5,E4,E3,E7,F3,F6,E6</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>E4</span><span class='card'>E5</span><span class='card'>E6</span><span class='card'>E7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E3</span><span class='card'>F3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>F6</span><span class='card'>F7</span></td>
+<td>
+<a href='figs.html#63'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>64</td>
+<td class='sample'>
+<code class='src'>C1,E9,D4,G5,A5,C5,C6,B5</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#64'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>65</td>
+<td class='sample'>
+<code class='src'>E4,B6,A4,B4,B7,B5,C4,D4</code>
+</td>
+<td class='center'>
+<code class='expected'>20</code>
+</td>
+<td><span class='card'>A4</span><span class='card'>B4</span><span class='card'>C4</span><span class='card'>D4</span><span class='card'>E4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B5</span><span class='card'>B6</span><span class='card'>B7</span></td>
+<td>
+<a href='figs.html#65'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>66</td>
+<td class='sample'>
+<code class='src'>G9,B4,D9,D2,E2,C4,F9,E9</code>
+</td>
+<td class='center'>
+<code class='expected'>11</code>
+</td>
+<td><span class='card'>D9</span><span class='card'>E9</span><span class='card'>F9</span><span class='card'>G9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B4</span><span class='card'>C4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D2</span><span class='card'>E2</span></td>
+<td>
+<a href='figs.html#66'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>67</td>
+<td class='sample'>
+<code class='src'>B9,B2,B7,B1,G3,A7,B8,G4</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>A7</span><span class='card'>B7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B1</span><span class='card'>B2</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>B8</span><span class='card'>B9</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>G3</span><span class='card'>G4</span></td>
+<td>
+<a href='figs.html#67'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>68</td>
+<td class='sample'>
+<code class='src'>B2,C1,E7,E6,A2,D2,C2,A1</code>
+</td>
+<td class='center'>
+<code class='expected'>-</code>
+</td>
+<td>n/a</td>
+<td>
+<a href='figs.html#68'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>69</td>
+<td class='sample'>
+<code class='src'>A4,B4,F4,G4,E3,G3,E4,F3</code>
+</td>
+<td class='center'>
+<code class='expected'>9</code>
+</td>
+<td><span class='card'>E3</span><span class='card'>F3</span><span class='card'>G3</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>E4</span><span class='card'>F4</span><span class='card'>G4</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>A4</span><span class='card'>B4</span></td>
+<td>
+<a href='figs.html#69'>
+リンク
+</a>
+</td>
+</tr>
+<tr class='sample'>
+<td>70</td>
+<td class='sample'>
+<code class='src'>A8,D8,D6,D7,C8,B8,E8,C7</code>
+</td>
+<td class='center'>
+<code class='expected'>4</code>
+</td>
+<td><span class='card'>A8</span><span class='card'>B8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>C7</span><span class='card'>C8</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D6</span><span class='card'>D7</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span class='card'>D8</span><span class='card'>E8</span></td>
+<td>
+<a href='figs.html#70'>
+リンク
+</a>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "A1,A2,A3,A4,B3,C3,D5,E5", "11" );
+/*1*/ test( "A1,B2,C3,D4,E5,F6,G7,A8", "-" );
+/*2*/ test( "A3,A5,A4,A6,A7,A1,A2,A8", "49" );
+/*3*/ test( "G2,G1,A1,F1,C1,E1,B1,D1", "26" );
+/*4*/ test( "E3,G3,D4,F3,D3,C3,B3,A3", "9" );
+/*5*/ test( "A1,C1,C2,E3,B1,B2,A2,D3", "9" );
+/*6*/ test( "D2,E2,C1,B2,C2,B1,A2,A1", "20" );
+/*7*/ test( "C2,B3,B4,A1,A2,B2,B1,C1", "11" );
+/*8*/ test( "D1,B1,D3,C3,D2,B2,C1,B3", "4" );
+/*9*/ test( "C1,F5,F6,B2,C2,D2,F4,C3", "-" );
+/*10*/ test( "D2,A2,C2,E2,F2,B2,C3,C1", "9" );
+/*11*/ test( "D6,E7,D8,F7,C7,G7,D7,D5", "-" );
+/*12*/ test( "B2,B3,B4,D5,D2,D4,D3,C3", "-" );
+/*13*/ test( "C3,D3,B2,B1,E4,E5,D4,C2", "4" );
+/*14*/ test( "D3,E4,E2,C1,F4,D2,E3,C2", "4" );
+/*15*/ test( "B4,C3,D5,C4,A4,C5,B5,B6", "4" );
+/*16*/ test( "E9,D8,D9,D7,F8,F9,E8,E7", "9" );
+/*17*/ test( "F9,C9,D7,D9,D8,E7,E9,F8", "-" );
+/*18*/ test( "D4,C5,B5,B6,D3,D2,D5,B7", "11" );
+/*19*/ test( "B8,D8,D7,A7,A8,D9,C8,A9", "9" );
+/*20*/ test( "F3,E3,F7,E5,E6,E4,E7,F6", "11" );
+/*21*/ test( "A9,G9,B8,A7,G7,C8,A8,G8", "9" );
+/*22*/ test( "G8,G2,G3,G9,G6,G4,G5,G7", "49" );
+/*23*/ test( "E9,E1,B9,D1,C9,G9,D9,F9", "26" );
+/*24*/ test( "B9,B7,G3,A7,G4,B1,B8,B2", "4" );
+/*25*/ test( "A1,B4,B3,A4,A2,B5,A3,A5", "20" );
+/*26*/ test( "B3,D3,F3,G2,C3,A3,E3,G3", "26" );
+/*27*/ test( "E8,D8,E7,D7,G8,G7,F7,F8", "18" );
+/*28*/ test( "D4,B3,E4,A3,C4,E3,D3,C3", "20" );
+/*29*/ test( "B7,B5,E4,B6,D4,A4,B4,C4", "20" );
+/*30*/ test( "B2,B1,B7,C8,F2,B9,B8,F1", "-" );
+/*31*/ test( "C4,C3,C5,E3,E1,E2,E4,C2", "18" );
+/*32*/ test( "G1,E1,D1,A1,F1,A2,B1,C1", "26" );
+/*33*/ test( "E4,C5,C4,B4,D4,D5,E5,F5", "18" );
+/*34*/ test( "D4,G4,A4,F4,C4,A3,E4,B4", "26" );
+/*35*/ test( "B3,A9,G4,F4,A8,B4,G8,A3", "-" );
+/*36*/ test( "B4,E3,F4,E4,G3,A4,G4,F3", "9" );
+/*37*/ test( "E4,B3,E3,C3,A3,G3,F3,A2", "4" );
+/*38*/ test( "C5,C4,C6,C8,C1,C2,C7,C3", "49" );
+/*39*/ test( "C4,D4,E4,F3,E3,F4,D3,G4", "20" );
+/*40*/ test( "F2,F6,F9,F7,F5,F3,F8,F4", "49" );
+/*41*/ test( "A9,A3,A8,A2,B9,B8,A7,A1", "9" );
+/*42*/ test( "G9,A8,G8,A6,A9,G6,G7,A7", "18" );
+/*43*/ test( "B8,C4,D5,D4,C8,D8,E8,B4", "11" );
+/*44*/ test( "B1,B2,F6,E4,C1,C2,F4,F5", "4" );
+/*45*/ test( "B4,B3,B5,B1,B7,B8,B6,B2", "49" );
+/*46*/ test( "G8,A8,G7,A7,F7,G6,A6,F8", "9" );
+/*47*/ test( "B7,E7,D7,G7,C7,A7,F7,E8", "11" );
+/*48*/ test( "F3,D7,B7,D3,C3,G3,E3,D9", "-" );
+/*49*/ test( "B3,A6,C5,A3,A4,A2,B5,A5", "-" );
+/*50*/ test( "A8,D6,B8,C8,D7,C7,D8,E8", "4" );
+/*51*/ test( "B4,D9,C4,E9,E2,G9,F9,D2", "11" );
+/*52*/ test( "B3,G9,A9,G1,A1,F1,F9,A3", "-" );
+/*53*/ test( "G1,B1,A2,G2,B2,A1,A4,A3", "11" );
+/*54*/ test( "A7,A6,C7,B7,B5,G5,A5,F5", "4" );
+/*55*/ test( "D1,D9,D4,E4,E8,B4,F8,F4", "-" );
+/*56*/ test( "B4,A8,C8,G8,B7,A3,B3,C7", "-" );
+/*57*/ test( "D3,G3,D7,F3,D9,B7,E3,C3", "-" );
+/*58*/ test( "B9,B1,F2,B7,B2,C8,F1,B8", "-" );
+/*59*/ test( "F6,E4,F4,F5,B1,B2,C1,C2", "4" );
+/*60*/ test( "A5,G5,B5,B4,G6,C4,G7,A6", "-" );
+/*61*/ test( "C4,G3,F4,B7,A1,G4,D4,D5", "-" );
+/*62*/ test( "D7,G2,A4,A3,A7,A5,A6,F7", "-" );
+/*63*/ test( "F7,E5,E4,E3,E7,F3,F6,E6", "11" );
+/*64*/ test( "C1,E9,D4,G5,A5,C5,C6,B5", "-" );
+/*65*/ test( "E4,B6,A4,B4,B7,B5,C4,D4", "20" );
+/*66*/ test( "G9,B4,D9,D2,E2,C4,F9,E9", "11" );
+/*67*/ test( "B9,B2,B7,B1,G3,A7,B8,G4", "4" );
+/*68*/ test( "B2,C1,E7,E6,A2,D2,C2,A1", "-" );
+/*69*/ test( "A4,B4,F4,G4,E3,G3,E4,F3", "9" );
+/*70*/ test( "A8,D8,D6,D7,C8,B8,E8,C7", "4" );</textarea>
+<h2>JSON 形式のテストデータ</h2>
+<p>
+<a href='data.json'>data.json</a>
+</p>
+</body>
+</html>

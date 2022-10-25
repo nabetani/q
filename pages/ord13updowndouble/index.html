@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>増やす減らす二倍する 〜 横へな 2013.9.6 参考問題</title>
+    <link href='style.css' rel='stylesheet'>
+  </head>
+  <body>
+    <h1>増やす減らす二倍する 〜 横へな 2013.9.6 参考問題</h1>
+    <h2>問題</h2>
+    <p>
+      装置がある。
+      <br>
+      装置には数を表示する場所と、3つのボタン
+      <span class='button'>+1</span>
+      、
+      <span class='button'>-1</span>
+      、
+      <span class='button'>×2</span>
+      がある。
+      <br>
+      表示されている数は、最初 0 になっている。
+      <br>
+      なにか決まった数(例えば
+      59
+      )があり、あなたはこの数を装置に表示したいと思っている。
+      目的の数値に到達するために、最低何回ボタンを押さなければならないのかを計算せよ。
+    </p>
+    <p>
+      たとえば
+      59
+      に到達するためには、
+      <span class="button">+1</span>, <span class="button">+1</span>, <span class="button">×2</span>, <span class="button">×2</span>, <span class="button">×2</span>, <span class="button">-1</span>, <span class="button">×2</span>, <span class="button">×2</span>, <span class="button">-1</span>
+      のように、
+      9
+      回の操作が必要となる。
+    </p>
+    <h2>入力と出力</h2>
+    <p>
+      入力文字列は
+      <code>59</code>
+      のように単なる整数
+      <small>( 10進数 )</small>
+      であり、目的の数を示している。
+    </p>
+    <p>
+      出力も単なる整数を文字列にしたもので、
+      <code>9</code>
+      のような文字列を出力すればよい。
+      <br>
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        装置は負の数を表示できない。
+        0が表示されている時に
+        <span class='button'>-1</span>
+        を押すと、装置が故障するものとする。くれぐれも 0 が表示されている時に
+        <span class='button'>-1</span>
+        を押さないこと。
+      </li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/89fb0e2e712d4b396535'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>例</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>59</code>
+        </td>
+        <td>
+          <code>9</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>10</code>
+        </td>
+        <td>
+          <code>5</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 +1 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>11</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 +1 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>12</code>
+        </td>
+        <td>
+          <code>5</code>
+        </td>
+        <td class='example'>
+          +1 +1 +1 ×2 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>13</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          +1 ×2 +1 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>14</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 -1 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>15</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>16</code>
+        </td>
+        <td>
+          <code>5</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>17</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>18</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 +1 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>27</code>
+        </td>
+        <td>
+          <code>8</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>28</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          +1 ×2 +1 ×2 +1 ×2 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>29</code>
+        </td>
+        <td>
+          <code>8</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 -1 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>30</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 -1 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>31</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>32</code>
+        </td>
+        <td>
+          <code>6</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>33</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>34</code>
+        </td>
+        <td>
+          <code>7</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 +1 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>35</code>
+        </td>
+        <td>
+          <code>8</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 +1 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>41</code>
+        </td>
+        <td>
+          <code>8</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 +1 ×2 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>71</code>
+        </td>
+        <td>
+          <code>9</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 +1 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>1023</code>
+        </td>
+        <td>
+          <code>12</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2 ×2 ×2 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>1024</code>
+        </td>
+        <td>
+          <code>11</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2 ×2 ×2 ×2 ×2 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>1025</code>
+        </td>
+        <td>
+          <code>12</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2 ×2 ×2 ×2 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>1707</code>
+        </td>
+        <td>
+          <code>17</code>
+        </td>
+        <td class='example'>
+          +1 +1 +1 ×2 +1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>683</code>
+        </td>
+        <td>
+          <code>15</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 +1 ×2 +1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>123</code>
+        </td>
+        <td>
+          <code>10</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>187</code>
+        </td>
+        <td>
+          <code>11</code>
+        </td>
+        <td class='example'>
+          +1 +1 +1 ×2 ×2 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>237</code>
+        </td>
+        <td>
+          <code>12</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>5267</code>
+        </td>
+        <td>
+          <code>18</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 +1 ×2 ×2 ×2 +1 ×2 ×2 ×2 +1 ×2 ×2 +1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>
+          <code>6737</code>
+        </td>
+        <td>
+          <code>18</code>
+        </td>
+        <td class='example'>
+          +1 +1 +1 ×2 ×2 +1 ×2 ×2 ×2 +1 ×2 ×2 +1 ×2 ×2 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>
+          <code>14796</code>
+        </td>
+        <td>
+          <code>20</code>
+        </td>
+        <td class='example'>
+          +1 +1 +1 ×2 +1 ×2 ×2 +1 ×2 ×2 ×2 -1 ×2 ×2 ×2 +1 ×2 +1 ×2 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>
+          <code>18998</code>
+        </td>
+        <td>
+          <code>20</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 +1 ×2 ×2 +1 ×2 ×2 ×2 +1 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>
+          <code>23820</code>
+        </td>
+        <td>
+          <code>20</code>
+        </td>
+        <td class='example'>
+          +1 ×2 +1 ×2 ×2 ×2 ×2 -1 ×2 -1 ×2 ×2 ×2 ×2 +1 ×2 ×2 -1 ×2 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>
+          <code>30380</code>
+        </td>
+        <td>
+          <code>21</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 -1 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>
+          <code>31119</code>
+        </td>
+        <td>
+          <code>21</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 -1 ×2 -1 ×2 ×2 -1 ×2 ×2 ×2 +1 ×2 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>
+          <code>33301</code>
+        </td>
+        <td>
+          <code>20</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 ×2 +1 ×2 ×2 ×2 ×2 ×2 +1 ×2 ×2 +1 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>
+          <code>33967</code>
+        </td>
+        <td>
+          <code>21</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2 +1 ×2 ×2 ×2 +1 ×2 +1 ×2 ×2 -1 ×2 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>
+          <code>35443</code>
+        </td>
+        <td>
+          <code>22</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 +1 ×2 ×2 +1 ×2 ×2 +1 ×2 ×2 ×2 -1 ×2 ×2 ×2 +1 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>
+          <code>35641</code>
+        </td>
+        <td>
+          <code>22</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 +1 ×2 +1 ×2 ×2 -1 ×2 ×2 +1 ×2 ×2 ×2 -1 ×2 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td>
+          <code>43695</code>
+        </td>
+        <td>
+          <code>23</code>
+        </td>
+        <td class='example'>
+          +1 ×2 +1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td>
+          <code>44395</code>
+        </td>
+        <td>
+          <code>23</code>
+        </td>
+        <td class='example'>
+          +1 ×2 +1 ×2 ×2 -1 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>
+          <code>44666</code>
+        </td>
+        <td>
+          <code>22</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 +1 ×2 +1 ×2 ×2 ×2 ×2 -1 ×2 -1 ×2 ×2 ×2 ×2 ×2 -1 ×2 -1 ×2
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>
+          <code>987</code>
+        </td>
+        <td>
+          <code>14</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 -1 ×2 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td>
+          <code>1021</code>
+        </td>
+        <td>
+          <code>13</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2 ×2 ×2 ×2 -1 ×2 ×2 +1
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td>
+          <code>1019</code>
+        </td>
+        <td>
+          <code>13</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2 ×2 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td>
+          <code>1015</code>
+        </td>
+        <td>
+          <code>13</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 ×2 ×2 -1 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td>
+          <code>1007</code>
+        </td>
+        <td>
+          <code>13</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 ×2 -1 ×2 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td>
+          <code>1011</code>
+        </td>
+        <td>
+          <code>14</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2 ×2 -1 ×2 ×2 +1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td>
+          <code>1003</code>
+        </td>
+        <td>
+          <code>14</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td>
+          <code>983</code>
+        </td>
+        <td>
+          <code>14</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td>
+          <code>999</code>
+        </td>
+        <td>
+          <code>14</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 ×2 ×2 ×2 -1 ×2 -1 ×2 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>52</td>
+        <td>
+          <code>2731</code>
+        </td>
+        <td>
+          <code>18</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 +1 ×2 +1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td>
+          <code>6827</code>
+        </td>
+        <td>
+          <code>20</code>
+        </td>
+        <td class='example'>
+          +1 +1 +1 ×2 +1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>54</td>
+        <td>
+          <code>10923</code>
+        </td>
+        <td>
+          <code>21</code>
+        </td>
+        <td class='example'>
+          +1 +1 ×2 +1 ×2 +1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>55</td>
+        <td>
+          <code>27307</code>
+        </td>
+        <td>
+          <code>23</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>56</td>
+        <td>
+          <code>43691</code>
+        </td>
+        <td>
+          <code>24</code>
+        </td>
+        <td class='example'>
+          +1 ×2 +1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>57</td>
+        <td>
+          <code>109227</code>
+        </td>
+        <td>
+          <code>26</code>
+        </td>
+        <td class='example'>
+          +1 ×2 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+      <tr>
+        <td>58</td>
+        <td>
+          <code>174763</code>
+        </td>
+        <td>
+          <code>27</code>
+        </td>
+        <td class='example'>
+          +1 ×2 +1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1 ×2 ×2 -1
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "59", "9" );    
+/*1*/ test( "10", "5" );    
+/*2*/ test( "11", "6" );    
+/*3*/ test( "12", "5" );    
+/*4*/ test( "13", "6" );    
+/*5*/ test( "14", "6" );    
+/*6*/ test( "15", "6" );    
+/*7*/ test( "16", "5" );    
+/*8*/ test( "17", "6" );    
+/*9*/ test( "18", "6" );    
+/*10*/ test( "27", "8" );    
+/*11*/ test( "28", "7" );    
+/*12*/ test( "29", "8" );    
+/*13*/ test( "30", "7" );    
+/*14*/ test( "31", "7" );    
+/*15*/ test( "32", "6" );    
+/*16*/ test( "33", "7" );    
+/*17*/ test( "34", "7" );    
+/*18*/ test( "35", "8" );    
+/*19*/ test( "41", "8" );    
+/*20*/ test( "71", "9" );    
+/*21*/ test( "1023", "12" );    
+/*22*/ test( "1024", "11" );    
+/*23*/ test( "1025", "12" );    
+/*24*/ test( "1707", "17" );    
+/*25*/ test( "683", "15" );    
+/*26*/ test( "123", "10" );    
+/*27*/ test( "187", "11" );    
+/*28*/ test( "237", "12" );    
+/*29*/ test( "5267", "18" );    
+/*30*/ test( "6737", "18" );    
+/*31*/ test( "14796", "20" );    
+/*32*/ test( "18998", "20" );    
+/*33*/ test( "23820", "20" );    
+/*34*/ test( "30380", "21" );    
+/*35*/ test( "31119", "21" );    
+/*36*/ test( "33301", "20" );    
+/*37*/ test( "33967", "21" );    
+/*38*/ test( "35443", "22" );    
+/*39*/ test( "35641", "22" );    
+/*40*/ test( "43695", "23" );    
+/*41*/ test( "44395", "23" );    
+/*42*/ test( "44666", "22" );    
+/*43*/ test( "987", "14" );    
+/*44*/ test( "1021", "13" );    
+/*45*/ test( "1019", "13" );    
+/*46*/ test( "1015", "13" );    
+/*47*/ test( "1007", "13" );    
+/*48*/ test( "1011", "14" );    
+/*49*/ test( "1003", "14" );    
+/*50*/ test( "983", "14" );    
+/*51*/ test( "999", "14" );    
+/*52*/ test( "2731", "18" );    
+/*53*/ test( "6827", "20" );    
+/*54*/ test( "10923", "21" );    
+/*55*/ test( "27307", "23" );    
+/*56*/ test( "43691", "24" );    
+/*57*/ test( "109227", "26" );    
+/*58*/ test( "174763", "27" );</textarea>
+  </body>
+</html>

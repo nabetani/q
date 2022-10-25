@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Tick-Tack-Toe 〜 横へな 2012.7.6</title>
+    <link href='style.css' rel='stylesheet' />
+  </head>
+  <body>
+    <h1>Tick-Tack-Toe 〜 横へな 2012.7.6</h1>
+    <h2>問題</h2>
+    <p>三目並べ( tick-tack-toe )の手を入力とし、勝敗を出力する。</p>
+    <ul>
+      <li>先攻がo、後攻がx</li>
+      <li>
+        すでに打ってある場所に打った場合、反則負け
+        <ul>
+          <li>x が反則をした場合、「Foul : o won.」と出力</li>
+        </ul>
+      </li>
+      <li>
+        縦横斜めのいずれかで一列揃ったら、揃えた方の勝ち
+        <ul>
+          <li>x が揃えた場合、「x won.」と出力</li>
+        </ul>
+      </li>
+      <li>
+        9マス埋まっても揃わなかったら引き分け
+        <ul>
+          <li>「Draw game.」と出力</li>
+        </ul>
+      </li>
+      <li>勝敗が決した後の手は無視する</li>
+      <li>
+        入力文字列は、先攻から順に打った位置を示す。盤上の位置と数の対応は下表を参照。
+        <ul>
+          <li>
+            入力文字列が「91593」の場合、「oが9の位置、xが1の位置、oが5の位置、xが9の位置→xの反則負け(最後の3は無視)」となる。
+          </li>
+        </ul>
+      </li>
+      <li>
+        以下の様なケースは考慮しなくてよい
+        <ul>
+          <li>入力が 1〜9 以外の文字を含んでいる</li>
+          <li>入力が不足していて、ゲームの勝敗が決まらない</li>
+        </ul>
+      </li>
+    </ul>
+    <div class='board'><table class='board'><tr><td>
+            1
+          </td><td>
+            2
+          </td><td>
+            3
+          </td></tr><tr><td>
+            4
+          </td><td>
+            5
+          </td><td>
+            6
+          </td></tr><tr><td>
+            7
+          </td><td>
+            8
+          </td><td>
+            9
+          </td></tr></table></div>
+    <h2>入力と出力の例</h2><table class='sample'><tr><th>#</th><th>入力</th><th>出力</th></tr><tr><td>1</td><td>79538246</td><td>x won.</td></tr><tr><td>2</td><td>35497162193</td><td>x won.</td></tr><tr><td>3</td><td>61978543</td><td>x won.</td></tr><tr><td>4</td><td>254961323121</td><td>x won.</td></tr><tr><td>5</td><td>6134278187</td><td>x won.</td></tr><tr><td>6</td><td>4319581</td><td>Foul : x won.</td></tr><tr><td>7</td><td>9625663381</td><td>Foul : x won.</td></tr><tr><td>8</td><td>7975662</td><td>Foul : x won.</td></tr><tr><td>9</td><td>2368799597</td><td>Foul : x won.</td></tr><tr><td>10</td><td>18652368566</td><td>Foul : x won.</td></tr><tr><td>11</td><td>965715</td><td>o won.</td></tr><tr><td>12</td><td>38745796</td><td>o won.</td></tr><tr><td>13</td><td>371929</td><td>o won.</td></tr><tr><td>14</td><td>758698769</td><td>o won.</td></tr><tr><td>15</td><td>42683953</td><td>o won.</td></tr><tr><td>16</td><td>618843927</td><td>Foul : o won.</td></tr><tr><td>17</td><td>36535224</td><td>Foul : o won.</td></tr><tr><td>18</td><td>882973</td><td>Foul : o won.</td></tr><tr><td>19</td><td>653675681</td><td>Foul : o won.</td></tr><tr><td>20</td><td>9729934662</td><td>Foul : o won.</td></tr><tr><td>21</td><td>972651483927</td><td>Draw game.</td></tr><tr><td>22</td><td>5439126787</td><td>Draw game.</td></tr><tr><td>23</td><td>142583697</td><td>Draw game.</td></tr><tr><td>24</td><td>42198637563</td><td>Draw game.</td></tr><tr><td>25</td><td>657391482</td><td>Draw game.</td></tr></table></body>
+</html>

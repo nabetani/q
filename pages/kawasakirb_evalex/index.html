@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>遠い世界の数式</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img{ width:600px }
+      img.large{ width:360px }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+        max-height:80px;
+        max-width:80px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+      .weight{
+      font-family:"Georgia";
+      padding-left:8px;
+      padding-right:8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>遠い世界の数式</h1>
+    <h2>問題</h2>
+    <p>
+      君の知らない遠い世界の数式を評価してもらう。
+      <br>
+      数式は
+      <br>
+      <code>4*5+6&amp;7|8</code>
+      <br>
+      のような形になっている。
+      <br>
+      偶然にも、演算子の意味は ruby の各演算子の意味と同じなんだけど、優先順位は ruby とは異なるのでそのまま eval するわけにはいかない。
+      <br>
+      演算子の優先順位は下表の通り。一応意味も書いたけど、意味は ruby と同じ。
+    </p>
+    <table>
+      <tr>
+        <td colspan='2'>↑優先順位高</td>
+      </tr>
+      <tr>
+        <th>|</th>
+        <td>ビット or</td>
+      </tr>
+      <tr>
+        <th>&amp;</th>
+        <td>ビット and</td>
+      </tr>
+      <tr>
+        <th>+</th>
+        <td>加算</td>
+      </tr>
+      <tr>
+        <th>*</th>
+        <td>乗算</td>
+      </tr>
+      <tr>
+        <td colspan='2'>↓優先順位低</td>
+      </tr>
+    </table>
+    <p>
+      例えば。
+      <br>
+      <code>4*5+6&amp;7|8</code>
+      <br>
+      は、ruby では
+      <br>
+      <code>(((4*5)+6)&amp;7)|8</code>
+      <br>
+      なので
+      <code>10</code>
+      だけど、この問題では
+      <br>
+      <code>4*(5+(6&amp;(7|8)))</code>
+      <br>
+      と評価するので、
+      <code>44</code>
+      となる。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は「
+      <code>4*5+6&7|8</code>
+      」のような文字列。
+      <br>
+      各項は、すべて整数。全部十進数。
+      <br>
+      演算子は上の表にある *, +, &amp;, | のいずれかしか現れない。
+      <br>
+      括弧もないし、単項プラスや単項マイナスもない。余分な空白もない。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、評価結果の十進数表現の文字列。
+      <code>44</code>
+      こんな感じ。
+    </p>
+    <h2>ヒント</h2>
+    <ul>
+      <li>
+        <a href='hint1.html'>ヒント1</a>
+      </li>
+      <li>
+        <a href='hint2.html'>ヒント2</a>
+      </li>
+    </ul>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code>4*5+6&amp;7|8</code>
+        </td>
+        <td>
+          <code class='expected'>44</code>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code>15*5</code>
+        </td>
+        <td>
+          <code class='expected'>75</code>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code>15+5</code>
+        </td>
+        <td>
+          <code class='expected'>20</code>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code>15&amp;5</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code>15|5</code>
+        </td>
+        <td>
+          <code class='expected'>15</code>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code>30*15*5</code>
+        </td>
+        <td>
+          <code class='expected'>2250</code>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code>30*15+5</code>
+        </td>
+        <td>
+          <code class='expected'>600</code>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code>30*15&amp;5</code>
+        </td>
+        <td>
+          <code class='expected'>150</code>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code>30*15|5</code>
+        </td>
+        <td>
+          <code class='expected'>450</code>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code>30+15*5</code>
+        </td>
+        <td>
+          <code class='expected'>225</code>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code>30+15+5</code>
+        </td>
+        <td>
+          <code class='expected'>50</code>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code>30+15&amp;5</code>
+        </td>
+        <td>
+          <code class='expected'>35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code>30+15|5</code>
+        </td>
+        <td>
+          <code class='expected'>45</code>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code>30&amp;15*5</code>
+        </td>
+        <td>
+          <code class='expected'>70</code>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code>30&amp;15+5</code>
+        </td>
+        <td>
+          <code class='expected'>19</code>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code>30&amp;15&amp;5</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code>30&amp;15|5</code>
+        </td>
+        <td>
+          <code class='expected'>14</code>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code>30|15*5</code>
+        </td>
+        <td>
+          <code class='expected'>155</code>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code>30|15+5</code>
+        </td>
+        <td>
+          <code class='expected'>36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code>30|15&amp;5</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code>30|15|5</code>
+        </td>
+        <td>
+          <code class='expected'>31</code>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code>1+2+3+4+5+6+7+8+9+10</code>
+        </td>
+        <td>
+          <code class='expected'>55</code>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code>1*2*3*4*5*6*7*8*9*10</code>
+        </td>
+        <td>
+          <code class='expected'>3628800</code>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code>1+2+3+4+5*6+7+8+9+10</code>
+        </td>
+        <td>
+          <code class='expected'>600</code>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code>1*2*3*4*5+6*7*8*9*10</code>
+        </td>
+        <td>
+          <code class='expected'>1330560</code>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code>1|2|4|8|16|32|64|128|256|512</code>
+        </td>
+        <td>
+          <code class='expected'>1023</code>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code>2046&amp;2045&amp;2043&amp;2039&amp;2031&amp;2015&amp;1983&amp;1919&amp;1791&amp;1535</code>
+        </td>
+        <td>
+          <code class='expected'>1024</code>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code>3|0*6&amp;0</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code>6&amp;9|2+4</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code>9+5&amp;0*0</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code>0|8+4+2*9</code>
+        </td>
+        <td>
+          <code class='expected'>126</code>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code>63|75+35*53</code>
+        </td>
+        <td>
+          <code class='expected'>8586</code>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code>29+14|50&amp;68*87</code>
+        </td>
+        <td>
+          <code class='expected'>2871</code>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code>7&amp;26+25&amp;22|9+67</code>
+        </td>
+        <td>
+          <code class='expected'>94</code>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code>19|8583&amp;53+34&amp;32</code>
+        </td>
+        <td>
+          <code class='expected'>53</code>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code>313&amp;513+896|316*209</code>
+        </td>
+        <td>
+          <code class='expected'>200013</code>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code>0|3+4*9+3|9|1&amp;2&amp;5*4&amp;0</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code>59+26&amp;76*71&amp;87|39|43*76</code>
+        </td>
+        <td>
+          <code class='expected'>361532</code>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code>714*706&amp;728&amp;738+670+657</code>
+        </td>
+        <td>
+          <code class='expected'>1450134</code>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code>30|7*57|2+7|7+91850&amp;32&amp;94</code>
+        </td>
+        <td>
+          <code class='expected'>2046</code>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code>89+27*43|1|82&amp;94*96|26+84</code>
+        </td>
+        <td>
+          <code class='expected'>2150640</code>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code>99782&amp;561*68|369137+80&amp;41</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code>6602&amp;5785|2288+2|7424+1527</code>
+        </td>
+        <td>
+          <code class='expected'>15297</code>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code>166*648&amp;288|418+778|279*655</code>
+        </td>
+        <td>
+          <code class='expected'>100792710</code>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code>70*13+36&amp;23+22+66|92|95*53&amp;9</code>
+        </td>
+        <td>
+          <code class='expected'>9380</code>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code>23+174&amp;56&amp;179408|6727*724*626</code>
+        </td>
+        <td>
+          <code class='expected'>10424152</code>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code>13&amp;84&amp;43*6+77|56+59|15&amp;24+9*66</code>
+        </td>
+        <td>
+          <code class='expected'>0</code>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td class='sample'>
+          <code>928&amp;728*151+695&amp;321*369|845+771</code>
+        </td>
+        <td>
+          <code class='expected'>161873920</code>
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td class='sample'>
+          <code>5984|86*8519&amp;43184&amp;7183+401*48|6629+97|852</code>
+        </td>
+        <td>
+          <code class='expected'>18135297180</code>
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td class='sample'>
+          <code>217|999&amp;112+511+357+514&amp;98*796|718*715|442&amp;682</code>
+        </td>
+        <td>
+          <code class='expected'>663026760</code>
+        </td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td class='sample'>
+          <code>461&amp;424&amp;462+557+855|656|924*234*557&amp;451*884|322</code>
+        </td>
+        <td>
+          <code class='expected'>402208560</code>
+        </td>
+      </tr>
+    </table>
+    <h2>ソースコード形式のデータ</h2>
+    <textarea>[
+      # [ id, input, expected ],
+    [ 0, &quot;4*5+6&amp;7|8&quot;, &quot;44&quot; ],    
+    [ 1, &quot;15*5&quot;, &quot;75&quot; ],    
+    [ 2, &quot;15+5&quot;, &quot;20&quot; ],    
+    [ 3, &quot;15&amp;5&quot;, &quot;5&quot; ],    
+    [ 4, &quot;15|5&quot;, &quot;15&quot; ],    
+    [ 5, &quot;30*15*5&quot;, &quot;2250&quot; ],    
+    [ 6, &quot;30*15+5&quot;, &quot;600&quot; ],    
+    [ 7, &quot;30*15&amp;5&quot;, &quot;150&quot; ],    
+    [ 8, &quot;30*15|5&quot;, &quot;450&quot; ],    
+    [ 9, &quot;30+15*5&quot;, &quot;225&quot; ],    
+    [ 10, &quot;30+15+5&quot;, &quot;50&quot; ],    
+    [ 11, &quot;30+15&amp;5&quot;, &quot;35&quot; ],    
+    [ 12, &quot;30+15|5&quot;, &quot;45&quot; ],    
+    [ 13, &quot;30&amp;15*5&quot;, &quot;70&quot; ],    
+    [ 14, &quot;30&amp;15+5&quot;, &quot;19&quot; ],    
+    [ 15, &quot;30&amp;15&amp;5&quot;, &quot;4&quot; ],    
+    [ 16, &quot;30&amp;15|5&quot;, &quot;14&quot; ],    
+    [ 17, &quot;30|15*5&quot;, &quot;155&quot; ],    
+    [ 18, &quot;30|15+5&quot;, &quot;36&quot; ],    
+    [ 19, &quot;30|15&amp;5&quot;, &quot;5&quot; ],    
+    [ 20, &quot;30|15|5&quot;, &quot;31&quot; ],    
+    [ 21, &quot;1+2+3+4+5+6+7+8+9+10&quot;, &quot;55&quot; ],    
+    [ 22, &quot;1*2*3*4*5*6*7*8*9*10&quot;, &quot;3628800&quot; ],    
+    [ 23, &quot;1+2+3+4+5*6+7+8+9+10&quot;, &quot;600&quot; ],    
+    [ 24, &quot;1*2*3*4*5+6*7*8*9*10&quot;, &quot;1330560&quot; ],    
+    [ 25, &quot;1|2|4|8|16|32|64|128|256|512&quot;, &quot;1023&quot; ],    
+    [ 26, &quot;2046&amp;2045&amp;2043&amp;2039&amp;2031&amp;2015&amp;1983&amp;1919&amp;1791&amp;1535&quot;, &quot;1024&quot; ],    
+    [ 27, &quot;3|0*6&amp;0&quot;, &quot;0&quot; ],    
+    [ 28, &quot;6&amp;9|2+4&quot;, &quot;6&quot; ],    
+    [ 29, &quot;9+5&amp;0*0&quot;, &quot;0&quot; ],    
+    [ 30, &quot;0|8+4+2*9&quot;, &quot;126&quot; ],    
+    [ 31, &quot;63|75+35*53&quot;, &quot;8586&quot; ],    
+    [ 32, &quot;29+14|50&amp;68*87&quot;, &quot;2871&quot; ],    
+    [ 33, &quot;7&amp;26+25&amp;22|9+67&quot;, &quot;94&quot; ],    
+    [ 34, &quot;19|8583&amp;53+34&amp;32&quot;, &quot;53&quot; ],    
+    [ 35, &quot;313&amp;513+896|316*209&quot;, &quot;200013&quot; ],    
+    [ 36, &quot;0|3+4*9+3|9|1&amp;2&amp;5*4&amp;0&quot;, &quot;0&quot; ],    
+    [ 37, &quot;59+26&amp;76*71&amp;87|39|43*76&quot;, &quot;361532&quot; ],    
+    [ 38, &quot;714*706&amp;728&amp;738+670+657&quot;, &quot;1450134&quot; ],    
+    [ 39, &quot;30|7*57|2+7|7+91850&amp;32&amp;94&quot;, &quot;2046&quot; ],    
+    [ 40, &quot;89+27*43|1|82&amp;94*96|26+84&quot;, &quot;2150640&quot; ],    
+    [ 41, &quot;99782&amp;561*68|369137+80&amp;41&quot;, &quot;0&quot; ],    
+    [ 42, &quot;6602&amp;5785|2288+2|7424+1527&quot;, &quot;15297&quot; ],    
+    [ 43, &quot;166*648&amp;288|418+778|279*655&quot;, &quot;100792710&quot; ],    
+    [ 44, &quot;70*13+36&amp;23+22+66|92|95*53&amp;9&quot;, &quot;9380&quot; ],    
+    [ 45, &quot;23+174&amp;56&amp;179408|6727*724*626&quot;, &quot;10424152&quot; ],    
+    [ 46, &quot;13&amp;84&amp;43*6+77|56+59|15&amp;24+9*66&quot;, &quot;0&quot; ],    
+    [ 47, &quot;928&amp;728*151+695&amp;321*369|845+771&quot;, &quot;161873920&quot; ],    
+    [ 48, &quot;5984|86*8519&amp;43184&amp;7183+401*48|6629+97|852&quot;, &quot;18135297180&quot; ],    
+    [ 49, &quot;217|999&amp;112+511+357+514&amp;98*796|718*715|442&amp;682&quot;, &quot;663026760&quot; ],    
+    [ 50, &quot;461&amp;424&amp;462+557+855|656|924*234*557&amp;451*884|322&quot;, &quot;402208560&quot; ],    
+]</textarea>
+    <h2>こたえ</h2>
+    <p>
+      解けた方と、ある程度時間を費やしたけど諦めた方は以下のページの答えを見ると良いと思います。
+    </p>
+    <ul>
+      <li>
+        <a href='ans.html'>実装例</a>
+      </li>
+    </ul>
+    <p>
+      思いついていない実装方法があると思うよ。
+    </p>
+  </body>
+</html>

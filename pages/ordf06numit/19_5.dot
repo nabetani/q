@@ -1,0 +1,18 @@
+digraph graph_name {
+ graph[nodesep = 0.1];
+ edge[dir=none, style=bold];
+ node[ fontname = "Helvetica", shape = plaintext, width = 0.25, height = 0.25, fontsize=30];
+bl[label="19" ];
+bl->bm
+bm[label="12" ];
+bm->bn
+bn[label="8" ];
+bn->bo
+bo[label="5" ;shape=box];
+bo->bp
+bp[label="3" ];
+bp->bq
+bq[label="2" ];
+bq->br
+br[label="1" ];
+}
