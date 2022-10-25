@@ -1,0 +1,37 @@
+
+table
+{
+    padding-left:3em;
+}
+
+table.strength
+{
+    border-spacing: 0;
+}
+table.strength td, table.strength th
+{
+    border:2px black solid;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+table th
+{
+    background-color: #eee;
+}
+table tr:not(:first-child) th
+{
+    font-family: georgia;
+    font-weight: lighter;
+}
+table td
+{
+    background-color: #f8f8f8;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+textarea
+{
+    width:80%;
+    height:7em;
+}

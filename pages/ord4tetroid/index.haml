@@ -1,0 +1,84 @@
+!!! 5
+-require './ax.rb'
+-require './sada.rb'
+-title="テトロミノ認識〜 横へな 2012.10.6"
+%html
+  %head
+    %meta{ :charset=>'utf-8' }
+    %title=title
+    %link{ :rel=>'stylesheet', :href=>'style.css' }
+  %body
+    %h1=title
+    %h2 問題
+    %p
+      ４つの座標から、テトロミノの名称を判定する。
+      %ul
+        %li 10x10 のマス目のうち、いくつかを塗る。座標は、塗るマス目の位置を示す。
+        %li 
+          塗るマス目の指定は<code>#{D}</code>のように行う。<br>
+          &nbsp;※座標は xy の順でいずれも一桁(0〜9)。座標の区切りはコンマ。
+        %li 塗った形がテトロミノをなしている場合は、そのテトロミノの名称（下表参照）を出力する。
+        %li 回転・裏返し などで同じ形になるものは同じとみなす（つまり、下表の5種類しかない）
+        %li テトロミノをなしていない場合は、"-" と出力する。
+        %li 座標は必ず４つあるが、重複している場合がある。（その場合はテトロミノをなさない）
+    %table.tetnames
+      %tr<
+        <th>L</th><th>I</th><th>T</th><th>O</th><th>S</th>
+      %tr
+        %td.ts
+          %table.tet
+            %tr<
+              <td class="f">&nbsp;</td><td class="s">&nbsp;</td>
+            %tr<
+              <td class="f">&nbsp;</td><td class="s">&nbsp;</td>
+            %tr<
+              <td class="f">&nbsp;</td><td class="f">&nbsp;</td>
+        %td.ts
+          %table.tet
+            %tr<
+              <td class="f">&nbsp;</td>
+            %tr<
+              <td class="f">&nbsp;</td>
+            %tr<
+              <td class="f">&nbsp;</td>
+            %tr<
+              <td class="f">&nbsp;</td>
+        %td.ts
+          %table.tet
+            %tr<
+              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
+            %tr<
+              <td class="s">&nbsp;</td><td class="f">&nbsp;</td><td class="s">&nbsp;</td>
+        %td.ts
+          %table.tet
+            %tr<
+              <td class="f">&nbsp;</td><td class="f">&nbsp;</td>
+            %tr<
+              <td class="f">&nbsp;</td><td class="f">&nbsp;</td>
+        %td.ts
+          %table.tet
+            %tr<
+              <td class="f">&nbsp;</td><td class="s">&nbsp;</td>
+            %tr<
+              <td class="f">&nbsp;</td><td class="f">&nbsp;</td>
+            %tr<
+              <td class="s">&nbsp;</td><td class="f">&nbsp;</td>
+    %p
+      入力が <code>#{D}</code>の場合、下図のような状態を意味するので <code>L</code> を出力すればよい。
+      %table.ax
+        %tr
+          =heads
+        -10.times do |y|
+          %tr
+            =lines(y)
+  %h2 サンプルデータ
+  %div.sample
+    %table.sample
+      %tr
+        %th #
+        %th 入力
+        %th 期待
+      =sada("<tr><th>\#%d</th><td>%s</td><td>%s</td></tr>")
+  %h2 C/C++/Java などのためのデータ
+  %textarea<
+    ="  "+sada(%Q!/*\#%d*/ test("%s", '%s");\n!)

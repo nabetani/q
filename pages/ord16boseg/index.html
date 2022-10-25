@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>境界線分 〜 横へな 2013.12.7</title>
+    <style>
+      body, textarea { 
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{ width:208px }
+      img.small{ width:52px }
+      
+      tr:nth-child(even) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      table code {
+        border:none
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>境界線分 〜 横へな 2013.12.7</h1>
+    <h2>問題</h2>
+    <p>
+      6×6のマス目を白と黒で塗り分ける。
+      <br>
+      白と黒の境界に線を引く。線は折れ線なので、線分の集まりだ。
+      <br>
+      線分の長さは1〜6の6通りが考えられる。
+      <br>
+      それぞれ何本ずつあるか、数えよ。
+      <br>
+      絵にするとこんな感じ。
+      <br>
+      <img class='large' src='060276724276_64.png'>
+      <br>
+      緑の線が、境界線。境界線を構成する線分は、
+      <br>
+      長さ 1 の線分が 6 本、
+      長さ 2 の線分が 2 本、
+      長さ 3 の線分が 1 本、
+      長さ 4 の線分が 1 本、
+      長さ 5 の線分が 0 本、
+      長さ 6 の線分が 1 本、
+      <br>
+      となっているので、
+      <code>6,2,1,1,0,1</code>
+      を出力すればよい。
+    </p>
+    <h2>入力と出力</h2>
+    <p>
+      入力は、12桁の8進数。最初の2桁が最初の行、次の2桁が次の行、と続く。
+      <br>
+      上図では。
+      <br>
+      一番上の行の左3マスは真っ白なので、入力の最初の桁は0。
+      <br>
+      一番上の行の右3マスは、黒黒白。2進数で
+      <code>110</code>
+      。8進数にすると
+      <code>6</code>
+      なので、入力の二桁目は6になっている。
+      <br>
+      12桁になるように、必要に応じてゼロが詰めてある。
+      <br>
+      <code>060276724276</code>
+      こんな感じ。
+    </p>
+    <p>
+      出力は
+      <code>6,2,1,1,0,1</code>
+      こんな感じで、長さ1から長さ6までの線分が何本あるかをコンマでつなげたもの。こちらは10進数。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        数えるのは白マスと黒マスの境界だけ。外部との境界は数えない。
+      </li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        境界線が交差することはない。
+        <br>
+        言い換えると、一つの頂点をぐるっと巡った時に「白黒白黒」となることはない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/6a9f5593d0f3d7e0568c'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2013年12月7日に開催される 第16回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='http://atnd.org/events/45016'>
+          ATND の募集ページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>060276724276</code>
+        </td>
+        <td>
+          <code>6,2,1,1,0,1</code>
+        </td>
+        <td>
+          <img class='small' src='060276724276_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>770175454177</code>
+        </td>
+        <td>
+          <code>2,3,0,3,1,0</code>
+        </td>
+        <td>
+          <img class='small' src='770175454177_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>743733377170</code>
+        </td>
+        <td>
+          <code>9,3,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='743733377170_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>724212121273</code>
+        </td>
+        <td>
+          <code>5,2,1,1,1,1</code>
+        </td>
+        <td>
+          <img class='small' src='724212121273_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>100000000000</code>
+        </td>
+        <td>
+          <code>3,0,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='100000000000_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>000002000000</code>
+        </td>
+        <td>
+          <code>4,0,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='000002000000_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>003622223600</code>
+        </td>
+        <td>
+          <code>0,4,0,4,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='003622223600_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>520073737070</code>
+        </td>
+        <td>
+          <code>8,3,1,1,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='520073737070_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>770077007700</code>
+        </td>
+        <td>
+          <code>0,0,0,0,0,5</code>
+        </td>
+        <td>
+          <img class='small' src='770077007700_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>555555555514</code>
+        </td>
+        <td>
+          <code>2,0,0,0,2,2</code>
+        </td>
+        <td>
+          <img class='small' src='555555555514_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>764252427600</code>
+        </td>
+        <td>
+          <code>4,0,4,0,2,0</code>
+        </td>
+        <td>
+          <img class='small' src='764252427600_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>774555554177</code>
+        </td>
+        <td>
+          <code>3,3,1,3,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='774555554177_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>674574754557</code>
+        </td>
+        <td>
+          <code>11,5,0,1,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='674574754557_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>000000000000</code>
+        </td>
+        <td>
+          <code>0,0,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='000000000000_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>777777777777</code>
+        </td>
+        <td>
+          <code>0,0,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='777777777777_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>774377777577</code>
+        </td>
+        <td>
+          <code>6,0,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='774377777577_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>070777777777</code>
+        </td>
+        <td>
+          <code>0,1,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='070777777777_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>373737373737</code>
+        </td>
+        <td>
+          <code>0,0,0,0,0,1</code>
+        </td>
+        <td>
+          <img class='small' src='373737373737_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>603260327725</code>
+        </td>
+        <td>
+          <code>30,0,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='603260327725_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>466331144663</code>
+        </td>
+        <td>
+          <code>30,0,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='466331144663_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>000000000242</code>
+        </td>
+        <td>
+          <code>3,2,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='000000000242_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>567656043772</code>
+        </td>
+        <td>
+          <code>18,2,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='567656043772_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>200763012420</code>
+        </td>
+        <td>
+          <code>15,4,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='200763012420_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>400101140052</code>
+        </td>
+        <td>
+          <code>14,3,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='400101140052_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>764767476476</code>
+        </td>
+        <td>
+          <code>13,2,0,1,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='764767476476_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>001110140110</code>
+        </td>
+        <td>
+          <code>12,2,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='001110140110_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>765405076527</code>
+        </td>
+        <td>
+          <code>16,3,0,1,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='765405076527_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>377323370373</code>
+        </td>
+        <td>
+          <code>8,4,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='377323370373_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>250541131216</code>
+        </td>
+        <td>
+          <code>11,5,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='250541131216_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>744165741476</code>
+        </td>
+        <td>
+          <code>12,3,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='744165741476_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>
+          <code>042101000300</code>
+        </td>
+        <td>
+          <code>10,3,0,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='042101000300_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>
+          <code>002004554101</code>
+        </td>
+        <td>
+          <code>11,3,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='002004554101_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>
+          <code>371707762706</code>
+        </td>
+        <td>
+          <code>15,1,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='371707762706_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>
+          <code>130371310175</code>
+        </td>
+        <td>
+          <code>7,3,1,2,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='130371310175_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>
+          <code>212537003613</code>
+        </td>
+        <td>
+          <code>13,2,1,1,1,0</code>
+        </td>
+        <td>
+          <img class='small' src='212537003613_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>
+          <code>157700063411</code>
+        </td>
+        <td>
+          <code>15,3,0,0,0,1</code>
+        </td>
+        <td>
+          <img class='small' src='157700063411_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>
+          <code>011500036007</code>
+        </td>
+        <td>
+          <code>6,7,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='011500036007_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>
+          <code>743113313517</code>
+        </td>
+        <td>
+          <code>17,2,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='743113313517_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>
+          <code>174105270405</code>
+        </td>
+        <td>
+          <code>13,3,1,1,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='174105270405_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>
+          <code>427272200311</code>
+        </td>
+        <td>
+          <code>13,3,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='427272200311_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td>
+          <code>725370332237</code>
+        </td>
+        <td>
+          <code>12,5,1,1,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='725370332237_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td>
+          <code>005640420046</code>
+        </td>
+        <td>
+          <code>12,1,3,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='005640420046_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>
+          <code>700350001101</code>
+        </td>
+        <td>
+          <code>14,3,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='700350001101_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>
+          <code>577627744076</code>
+        </td>
+        <td>
+          <code>16,1,1,1,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='577627744076_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td>
+          <code>620332232007</code>
+        </td>
+        <td>
+          <code>10,4,2,1,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='620332232007_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td>
+          <code>260406401000</code>
+        </td>
+        <td>
+          <code>15,1,1,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='260406401000_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td>
+          <code>737272723276</code>
+        </td>
+        <td>
+          <code>5,0,0,0,3,0</code>
+        </td>
+        <td>
+          <img class='small' src='737272723276_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td>
+          <code>000400040444</code>
+        </td>
+        <td>
+          <code>7,0,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='000400040444_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td>
+          <code>370222002177</code>
+        </td>
+        <td>
+          <code>13,2,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='370222002177_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td>
+          <code>372236024656</code>
+        </td>
+        <td>
+          <code>9,3,2,0,1,0</code>
+        </td>
+        <td>
+          <img class='small' src='372236024656_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td>
+          <code>276131137003</code>
+        </td>
+        <td>
+          <code>11,6,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='276131137003_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td>
+          <code>742134007240</code>
+        </td>
+        <td>
+          <code>13,4,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='742134007240_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>52</td>
+        <td>
+          <code>777721775571</code>
+        </td>
+        <td>
+          <code>13,1,2,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='777721775571_16.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td>
+          <code>700301232233</code>
+        </td>
+        <td>
+          <code>11,2,3,0,0,0</code>
+        </td>
+        <td>
+          <img class='small' src='700301232233_16.png'>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "060276724276", "6,2,1,1,0,1" );    
+/*1*/ test( "770175454177", "2,3,0,3,1,0" );    
+/*2*/ test( "743733377170", "9,3,1,0,0,0" );    
+/*3*/ test( "724212121273", "5,2,1,1,1,1" );    
+/*4*/ test( "100000000000", "3,0,0,0,0,0" );    
+/*5*/ test( "000002000000", "4,0,0,0,0,0" );    
+/*6*/ test( "003622223600", "0,4,0,4,0,0" );    
+/*7*/ test( "520073737070", "8,3,1,1,0,0" );    
+/*8*/ test( "770077007700", "0,0,0,0,0,5" );    
+/*9*/ test( "555555555514", "2,0,0,0,2,2" );    
+/*10*/ test( "764252427600", "4,0,4,0,2,0" );    
+/*11*/ test( "774555554177", "3,3,1,3,0,0" );    
+/*12*/ test( "674574754557", "11,5,0,1,0,0" );    
+/*13*/ test( "000000000000", "0,0,0,0,0,0" );    
+/*14*/ test( "777777777777", "0,0,0,0,0,0" );    
+/*15*/ test( "774377777577", "6,0,2,0,0,0" );    
+/*16*/ test( "070777777777", "0,1,1,0,0,0" );    
+/*17*/ test( "373737373737", "0,0,0,0,0,1" );    
+/*18*/ test( "603260327725", "30,0,0,0,0,0" );    
+/*19*/ test( "466331144663", "30,0,0,0,0,0" );    
+/*20*/ test( "000000000242", "3,2,0,0,0,0" );    
+/*21*/ test( "567656043772", "18,2,1,0,0,0" );    
+/*22*/ test( "200763012420", "15,4,1,0,0,0" );    
+/*23*/ test( "400101140052", "14,3,0,0,0,0" );    
+/*24*/ test( "764767476476", "13,2,0,1,0,0" );    
+/*25*/ test( "001110140110", "12,2,1,0,0,0" );    
+/*26*/ test( "765405076527", "16,3,0,1,0,0" );    
+/*27*/ test( "377323370373", "8,4,2,0,0,0" );    
+/*28*/ test( "250541131216", "11,5,2,0,0,0" );    
+/*29*/ test( "744165741476", "12,3,2,0,0,0" );    
+/*30*/ test( "042101000300", "10,3,0,0,0,0" );    
+/*31*/ test( "002004554101", "11,3,1,0,0,0" );    
+/*32*/ test( "371707762706", "15,1,1,0,0,0" );    
+/*33*/ test( "130371310175", "7,3,1,2,0,0" );    
+/*34*/ test( "212537003613", "13,2,1,1,1,0" );    
+/*35*/ test( "157700063411", "15,3,0,0,0,1" );    
+/*36*/ test( "011500036007", "6,7,1,0,0,0" );    
+/*37*/ test( "743113313517", "17,2,1,0,0,0" );    
+/*38*/ test( "174105270405", "13,3,1,1,0,0" );    
+/*39*/ test( "427272200311", "13,3,2,0,0,0" );    
+/*40*/ test( "725370332237", "12,5,1,1,0,0" );    
+/*41*/ test( "005640420046", "12,1,3,0,0,0" );    
+/*42*/ test( "700350001101", "14,3,1,0,0,0" );    
+/*43*/ test( "577627744076", "16,1,1,1,0,0" );    
+/*44*/ test( "620332232007", "10,4,2,1,0,0" );    
+/*45*/ test( "260406401000", "15,1,1,0,0,0" );    
+/*46*/ test( "737272723276", "5,0,0,0,3,0" );    
+/*47*/ test( "000400040444", "7,0,2,0,0,0" );    
+/*48*/ test( "370222002177", "13,2,2,0,0,0" );    
+/*49*/ test( "372236024656", "9,3,2,0,1,0" );    
+/*50*/ test( "276131137003", "11,6,2,0,0,0" );    
+/*51*/ test( "742134007240", "13,4,2,0,0,0" );    
+/*52*/ test( "777721775571", "13,1,2,0,0,0" );    
+/*53*/ test( "700301232233", "11,2,3,0,0,0" );</textarea>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>遠い世界の数式(ヒント1)</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img{ width:600px }
+      img.large{ width:360px }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+        max-height:80px;
+        max-width:80px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+      .weight{
+      font-family:"Georgia";
+      padding-left:8px;
+      padding-right:8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>遠い世界の数式(ヒント1)</h1>
+    <h2>小さな問題を解く</h2>
+    <p>
+      解けない問題に直面したら、特別な簡単な場合を考えよう。
+      <br>
+      できれば、その特別簡単な場合が解けない問題の一部となっているとよい。
+    </p>
+    <h2>まずは</h2>
+    <p>
+      <code>"12*3"</code>
+      を
+      <code>"36"</code>
+      にするにはどうすればよいか考えよう。
+    </p>
+    <h2>特別簡単な問題から、さっきまで解き方がわからなかった問題につなげる</h2>
+    <p>
+      <code>"12*3"</code>
+      を
+      <code>"36"</code>
+      にしたり、
+      <code>"3|6"</code>
+      を
+      <code>&quot;7&quot;</code>
+      にしたりする計算を足がかりに、
+      <br>
+      <code>"30*15+5"</code>
+      のようなものを
+      <code>&quot;455&quot;</code>
+      にすることができる。
+      <br>
+      作戦はいくつかあるんだけど、ふたつ挙げておく。
+    </p>
+    <h3>優先順位が高いものを先に計算</h3>
+    <p>
+      <code>12+3*4</code>
+      <br>
+      の「12+3」を処理して
+      <br>
+      <code>15*4</code>
+      <br>
+      にするにはどうすればよいか考えよう。
+    </p>
+    <h3>優先順位が低いもので分割</h3>
+    <p>
+      <code>12+3*4</code>
+      を処理するにあたり、優先順位が低い * で分割して
+    </p>
+    <ol>
+      <li>右辺を処理する</li>
+      <li>左辺を処理する</li>
+      <li>処理の結果を * でつなげる</li>
+    </ol>
+    <p>
+      と、順に考えよう。
+    </p>
+  </body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>縦横ローテーション 2017.1.31 問題</title>
+<style>
+  body {
+      font-family: sans-serif;
+      font-size:11pt;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+</style>
+<body>
+<h1>縦横ローテーション 2017.1.31 問題</h1>
+<h2>
+<a name='0'>#0</a>
+</h2>
+<p>
+src : aegj
+<br>
+expected : 286/435/971
+</p>
+<p>
+<img src='aegj.gif' width='200'>
+</p>
+<h2>
+<a name='1'>#1</a>
+</h2>
+<p>
+src : a
+<br>
+expected : 231/456/789
+</p>
+<p>
+<img src='a.gif' width='200'>
+</p>
+<h2>
+<a name='2'>#2</a>
+</h2>
+<p>
+src : e
+<br>
+expected : 183/426/759
+</p>
+<p>
+<img src='e.gif' width='200'>
+</p>
+<h2>
+<a name='3'>#3</a>
+</h2>
+<p>
+src : g
+<br>
+expected : 123/456/978
+</p>
+<p>
+<img src='g.gif' width='200'>
+</p>
+<h2>
+<a name='4'>#4</a>
+</h2>
+<p>
+src : j
+<br>
+expected : 126/459/783
+</p>
+<p>
+<img src='j.gif' width='200'>
+</p>
+<h2>
+<a name='5'>#5</a>
+</h2>
+<p>
+src : bb
+<br>
+expected : 123/645/789
+</p>
+<p>
+<img src='bb.gif' width='200'>
+</p>
+<h2>
+<a name='6'>#6</a>
+</h2>
+<p>
+src : jjj
+<br>
+expected : 123/456/789
+</p>
+<p>
+<img src='jjj.gif' width='200'>
+</p>
+<h2>
+<a name='7'>#7</a>
+</h2>
+<p>
+src : bd
+<br>
+expected : 723/164/589
+</p>
+<p>
+<img src='bd.gif' width='200'>
+</p>
+<h2>
+<a name='8'>#8</a>
+</h2>
+<p>
+src : ah
+<br>
+expected : 231/645/789
+</p>
+<p>
+<img src='ah.gif' width='200'>
+</p>
+<h2>
+<a name='9'>#9</a>
+</h2>
+<p>
+src : bj
+<br>
+expected : 124/569/783
+</p>
+<p>
+<img src='bj.gif' width='200'>
+</p>
+<h2>
+<a name='10'>#10</a>
+</h2>
+<p>
+src : db
+<br>
+expected : 723/561/489
+</p>
+<p>
+<img src='db.gif' width='200'>
+</p>
+<h2>
+<a name='11'>#11</a>
+</h2>
+<p>
+src : dh
+<br>
+expected : 723/615/489
+</p>
+<p>
+<img src='dh.gif' width='200'>
+</p>
+<h2>
+<a name='12'>#12</a>
+</h2>
+<p>
+src : dl
+<br>
+expected : 123/456/789
+</p>
+<p>
+<img src='dl.gif' width='200'>
+</p>
+<h2>
+<a name='13'>#13</a>
+</h2>
+<p>
+src : hc
+<br>
+expected : 123/645/897
+</p>
+<p>
+<img src='hc.gif' width='200'>
+</p>
+<h2>
+<a name='14'>#14</a>
+</h2>
+<p>
+src : gf
+<br>
+expected : 128/453/976
+</p>
+<p>
+<img src='gf.gif' width='200'>
+</p>
+<h2>
+<a name='15'>#15</a>
+</h2>
+<p>
+src : hl
+<br>
+expected : 623/745/189
+</p>
+<p>
+<img src='hl.gif' width='200'>
+</p>
+<h2>
+<a name='16'>#16</a>
+</h2>
+<p>
+src : ja
+<br>
+expected : 261/459/783
+</p>
+<p>
+<img src='ja.gif' width='200'>
+</p>
+<h2>
+<a name='17'>#17</a>
+</h2>
+<p>
+src : ld
+<br>
+expected : 123/456/789
+</p>
+<p>
+<img src='ld.gif' width='200'>
+</p>
+<h2>
+<a name='18'>#18</a>
+</h2>
+<p>
+src : ki
+<br>
+expected : 315/486/729
+</p>
+<p>
+<img src='ki.gif' width='200'>
+</p>
+<h2>
+<a name='19'>#19</a>
+</h2>
+<p>
+src : lfa
+<br>
+expected : 294/753/186
+</p>
+<p>
+<img src='lfa.gif' width='200'>
+</p>
+<h2>
+<a name='20'>#20</a>
+</h2>
+<p>
+src : kga
+<br>
+expected : 531/486/972
+</p>
+<p>
+<img src='kga.gif' width='200'>
+</p>
+<h2>
+<a name='21'>#21</a>
+</h2>
+<p>
+src : dbi
+<br>
+expected : 372/561/489
+</p>
+<p>
+<img src='dbi.gif' width='200'>
+</p>
+<h2>
+<a name='22'>#22</a>
+</h2>
+<p>
+src : che
+<br>
+expected : 193/625/847
+</p>
+<p>
+<img src='che.gif' width='200'>
+</p>
+<h2>
+<a name='23'>#23</a>
+</h2>
+<p>
+src : iea
+<br>
+expected : 823/416/759
+</p>
+<p>
+<img src='iea.gif' width='200'>
+</p>
+<h2>
+<a name='24'>#24</a>
+</h2>
+<p>
+src : gbl
+<br>
+expected : 523/964/178
+</p>
+<p>
+<img src='gbl.gif' width='200'>
+</p>
+<h2>
+<a name='25'>#25</a>
+</h2>
+<p>
+src : egj
+<br>
+expected : 186/425/973
+</p>
+<p>
+<img src='egj.gif' width='200'>
+</p>
+<h2>
+<a name='26'>#26</a>
+</h2>
+<p>
+src : jcf
+<br>
+expected : 127/456/839
+</p>
+<p>
+<img src='jcf.gif' width='200'>
+</p>
+<h2>
+<a name='27'>#27</a>
+</h2>
+<p>
+src : djh
+<br>
+expected : 726/915/483
+</p>
+<p>
+<img src='djh.gif' width='200'>
+</p>
+<h2>
+<a name='28'>#28</a>
+</h2>
+<p>
+src : hld
+<br>
+expected : 123/645/789
+</p>
+<p>
+<img src='hld.gif' width='200'>
+</p>
+<h2>
+<a name='29'>#29</a>
+</h2>
+<p>
+src : leeh
+<br>
+expected : 453/678/129
+</p>
+<p>
+<img src='leeh.gif' width='200'>
+</p>
+<h2>
+<a name='30'>#30</a>
+</h2>
+<p>
+src : heja
+<br>
+expected : 851/629/743
+</p>
+<p>
+<img src='heja.gif' width='200'>
+</p>
+<h2>
+<a name='31'>#31</a>
+</h2>
+<p>
+src : cakh
+<br>
+expected : 251/649/837
+</p>
+<p>
+<img src='cakh.gif' width='200'>
+</p>
+<h2>
+<a name='32'>#32</a>
+</h2>
+<p>
+src : bhjik
+<br>
+expected : 652/489/713
+</p>
+<p>
+<img src='bhjik.gif' width='200'>
+</p>
+<h2>
+<a name='33'>#33</a>
+</h2>
+<p>
+src : eabji
+<br>
+expected : 483/269/751
+</p>
+<p>
+<img src='eabji.gif' width='200'>
+</p>
+<h2>
+<a name='34'>#34</a>
+</h2>
+<p>
+src : cdbch
+<br>
+expected : 823/156/974
+</p>
+<p>
+<img src='cdbch.gif' width='200'>
+</p>
+<h2>
+<a name='35'>#35</a>
+</h2>
+<p>
+src : ckgajc
+<br>
+expected : 536/492/817
+</p>
+<p>
+<img src='ckgajc.gif' width='200'>
+</p>
+<h2>
+<a name='36'>#36</a>
+</h2>
+<p>
+src : ggchha
+<br>
+expected : 231/564/978
+</p>
+<p>
+<img src='ggchha.gif' width='200'>
+</p>
+<h2>
+<a name='37'>#37</a>
+</h2>
+<p>
+src : gfbkeg
+<br>
+expected : 128/534/697
+</p>
+<p>
+<img src='gfbkeg.gif' width='200'>
+</p>
+<h2>
+<a name='38'>#38</a>
+</h2>
+<p>
+src : agfbcbf
+<br>
+expected : 239/148/765
+</p>
+<p>
+<img src='agfbcbf.gif' width='200'>
+</p>
+<h2>
+<a name='39'>#39</a>
+</h2>
+<p>
+src : ekahijf
+<br>
+expected : 123/645/789
+</p>
+<p>
+<img src='ekahijf.gif' width='200'>
+</p>
+<h2>
+<a name='40'>#40</a>
+</h2>
+<p>
+src : hajdjbe
+<br>
+expected : 789/432/615
+</p>
+<p>
+<img src='hajdjbe.gif' width='200'>
+</p>
+<h2>
+<a name='41'>#41</a>
+</h2>
+<p>
+src : elgililj
+<br>
+expected : 976/325/814
+</p>
+<p>
+<img src='elgililj.gif' width='200'>
+</p>
+<h2>
+<a name='42'>#42</a>
+</h2>
+<p>
+src : chffefif
+<br>
+expected : 317/629/845
+</p>
+<p>
+<img src='chffefif.gif' width='200'>
+</p>
+<h2>
+<a name='43'>#43</a>
+</h2>
+<p>
+src : ilbbihak
+<br>
+expected : 462/587/319
+</p>
+<p>
+<img src='ilbbihak.gif' width='200'>
+</p>
+<h2>
+<a name='44'>#44</a>
+</h2>
+<p>
+src : abcdefghijkl
+<br>
+expected : 123/456/789
+</p>
+<p>
+<img src='abcdefghijkl.gif' width='200'>
+</p>
+<h2>
+<a name='45'>#45</a>
+</h2>
+<p>
+src : hkijbglfaced
+<br>
+expected : 768/125/493
+</p>
+<p>
+<img src='hkijbglfaced.gif' width='200'>
+</p>
+<h2>
+<a name='46'>#46</a>
+</h2>
+<p>
+src : dfkbjiechlga
+<br>
+expected : 256/387/419
+</p>
+<p>
+<img src='dfkbjiechlga.gif' width='200'>
+</p>
+<h2>
+<a name='47'>#47</a>
+</h2>
+<p>
+src : hgfkbidlajce
+<br>
+expected : 186/745/239
+</p>
+<p>
+<img src='hgfkbidlajce.gif' width='200'>
+</p>
+<h2>
+<a name='48'>#48</a>
+</h2>
+<p>
+src : baciefjhgkdl
+<br>
+expected : 153/482/796
+</p>
+<p>
+<img src='baciefjhgkdl.gif' width='200'>
+</p>
+</body>
+</head>
+</html>

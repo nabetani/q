@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>ツリーの中の距離 横へな2017.2.4 問題</title>
+    <style>
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+    </style>
+    <body></body>
+    <h1>ツリーの中の距離 横へな2017.2.4 問題</h1>
+    <a name='0'>
+      <h2>#0</h2>
+      <p>input : 50:6,3 / expected : 1</p>
+      <p>
+        <img src='50_6_3.png' style='width:161px;height:228px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='1'>
+      <h2>#1</h2>
+      <p>input : 98:5,11 / expected : 4</p>
+      <p>
+        <img src='98_5_11.png' style='width:280px;height:277px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='2'>
+      <h2>#2</h2>
+      <p>input : 1000:33,20 / expected : 7</p>
+      <p>
+        <img src='1000_33_20.png' style='width:1706px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='3'>
+      <h2>#3</h2>
+      <p>input : 514:9,18 / expected : 8</p>
+      <p>
+        <img src='514_9_18.png' style='width:807px;height:474px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='4'>
+      <h2>#4</h2>
+      <p>input : 961:5,4 / expected : 3</p>
+      <p>
+        <img src='961_5_4.png' style='width:118px;height:228px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='5'>
+      <h2>#5</h2>
+      <p>input : 1369:1369,3 / expected : 2</p>
+      <p>
+        <img src='1369_1369_3.png' style='width:116px;height:277px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='6'>
+      <h2>#6</h2>
+      <p>input : 258:16,12 / expected : 5</p>
+      <p>
+        <img src='258_16_12.png' style='width:807px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='7'>
+      <h2>#7</h2>
+      <p>input : 235:13,3 / expected : 2</p>
+      <p>
+        <img src='235_13_3.png' style='width:307px;height:277px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='8'>
+      <h2>#8</h2>
+      <p>input : 1096:19,17 / expected : 8</p>
+      <p>
+        <img src='1096_19_17.png' style='width:1444px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='9'>
+      <h2>#9</h2>
+      <p>input : 847:7,17 / expected : 6</p>
+      <p>
+        <img src='847_7_17.png' style='width:634px;height:326px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='10'>
+      <h2>#10</h2>
+      <p>input : 1932:3,5 / expected : 2</p>
+      <p>
+        <img src='1932_3_5.png' style='width:3358px;height:474px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='11'>
+      <h2>#11</h2>
+      <p>input : 2491:4,8 / expected : 3</p>
+      <p>
+        <img src='2491_4_8.png' style='width:538px;height:326px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='12'>
+      <h2>#12</h2>
+      <p>input : 840:421,36 / expected : 2</p>
+      <p>
+        <img src='840_421_36.png' style='width:1551px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='13'>
+      <h2>#13</h2>
+      <p>input : 1430:37,111 / expected : 3</p>
+      <p>
+        <img src='1430_37_111.png' style='width:2031px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='14'>
+      <h2>#14</h2>
+      <p>input : 496:17,9 / expected : 2</p>
+      <p>
+        <img src='496_17_9.png' style='width:809px;height:326px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='15'>
+      <h2>#15</h2>
+      <p>input : 891:6,10 / expected : 1</p>
+      <p>
+        <img src='891_6_10.png' style='width:1514px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='16'>
+      <h2>#16</h2>
+      <p>input : 1560:196,21 / expected : 2</p>
+      <p>
+        <img src='1560_196_21.png' style='width:2974px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='17'>
+      <h2>#17</h2>
+      <p>input : 516:20,12 / expected : 5</p>
+      <p>
+        <img src='516_20_12.png' style='width:867px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='18'>
+      <h2>#18</h2>
+      <p>input : 696:30,59 / expected : 2</p>
+      <p>
+        <img src='696_30_59.png' style='width:1254px;height:326px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='19'>
+      <h2>#19</h2>
+      <p>input : 1760:5,441 / expected : 2</p>
+      <p>
+        <img src='1760_5_441.png' style='width:2564px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='20'>
+      <h2>#20</h2>
+      <p>input : 1736:11,26 / expected : 5</p>
+      <p>
+        <img src='1736_11_26.png' style='width:2228px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='21'>
+      <h2>#21</h2>
+      <p>input : 1518:17,34 / expected : 4</p>
+      <p>
+        <img src='1518_17_34.png' style='width:2888px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='22'>
+      <h2>#22</h2>
+      <p>input : 806:63,16 / expected : 5</p>
+      <p>
+        <img src='806_63_16.png' style='width:1028px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='23'>
+      <h2>#23</h2>
+      <p>input : 1920:3,97 / expected : 2</p>
+      <p>
+        <img src='1920_3_97.png' style='width:2829px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='24'>
+      <h2>#24</h2>
+      <p>input : 1150:13,22 / expected : 4</p>
+      <p>
+        <img src='1150_13_22.png' style='width:2071px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='25'>
+      <h2>#25</h2>
+      <p>input : 920:116,5 / expected : 1</p>
+      <p>
+        <img src='920_116_5.png' style='width:1431px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='26'>
+      <h2>#26</h2>
+      <p>input : 2016:7,337 / expected : 2</p>
+      <p>
+        <img src='2016_7_337.png' style='width:2572px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='27'>
+      <h2>#27</h2>
+      <p>input : 408:9,25 / expected : 2</p>
+      <p>
+        <img src='408_9_25.png' style='width:987px;height:326px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='28'>
+      <h2>#28</h2>
+      <p>input : 735:36,8 / expected : 2</p>
+      <p>
+        <img src='735_36_8.png' style='width:1718px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='29'>
+      <h2>#29</h2>
+      <p>input : 470:5,31 / expected : 2</p>
+      <p>
+        <img src='470_5_31.png' style='width:934px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='30'>
+      <h2>#30</h2>
+      <p>input : 2100:12,351 / expected : 3</p>
+      <p>
+        <img src='2100_12_351.png' style='width:3397px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='31'>
+      <h2>#31</h2>
+      <p>input : 870:36,10 / expected : 1</p>
+      <p>
+        <img src='870_36_10.png' style='width:1788px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='32'>
+      <h2>#32</h2>
+      <p>input : 1512:253,13 / expected : 2</p>
+      <p>
+        <img src='1512_253_13.png' style='width:2518px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='33'>
+      <h2>#33</h2>
+      <p>input : 697:12,15 / expected : 3</p>
+      <p>
+        <img src='697_12_15.png' style='width:406px;height:277px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='34'>
+      <h2>#34</h2>
+      <p>input : 1224:5,14 / expected : 2</p>
+      <p>
+        <img src='1224_5_14.png' style='width:1546px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='35'>
+      <h2>#35</h2>
+      <p>input : 986:125,17 / expected : 3</p>
+      <p>
+        <img src='986_125_17.png' style='width:1174px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='36'>
+      <h2>#36</h2>
+      <p>input : 864:12,13 / expected : 3</p>
+      <p>
+        <img src='864_12_13.png' style='width:1215px;height:326px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='37'>
+      <h2>#37</h2>
+      <p>input : 500:21,51 / expected : 2</p>
+      <p>
+        <img src='500_21_51.png' style='width:832px;height:326px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='38'>
+      <h2>#38</h2>
+      <p>input : 819:33,21 / expected : 4</p>
+      <p>
+        <img src='819_33_21.png' style='width:1646px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='39'>
+      <h2>#39</h2>
+      <p>input : 594:55,3 / expected : 2</p>
+      <p>
+        <img src='594_55_3.png' style='width:1458px;height:425px'>
+      </p>
+      <br clear='all'>
+    </a>
+    <a name='40'>
+      <h2>#40</h2>
+      <p>input : 638:17,24 / expected : 3</p>
+      <p>
+        <img src='638_17_24.png' style='width:1135px;height:376px'>
+      </p>
+      <br clear='all'>
+    </a>
+  </head>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>回文基数 〜 横へな 2014.1.10 参考問題</title>
+    <style>
+      body, textarea { 
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{ width:322px }
+      img.small{ width:82px }
+      
+      tr:nth-child(even) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      table code {
+        border:none
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+      word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>回文基数 〜 横へな 2014.1.10 参考問題</h1>
+    <h2>問題</h2>
+    <p>
+      入力として与えられた数を2桁以上の回文数にできる基数を昇順に列挙せよ。
+    </p>
+    <p>
+      具体的に書くと。
+    </p>
+    <p>
+      17301
+      は 10進数では回文数にならないが、
+      5進数, 38進数, 100進数, 218進数, 236進数, 5766進数, 17300進数
+      で表現すると回文数になる。
+      <br>
+      例えば、
+      17301
+      を
+      100
+      進数で表現すると
+      1・73・1
+      となる (0〜9, a〜z では表現できないので、各桁を各桁の値の十進表記で表現し、
+      <code>・</code>
+      でつないでいる。)
+    </p>
+    <h2>入力と出力</h2>
+    <p>
+      入力は
+      <code>17301</code>
+      こんな感じ。十進数の整数。
+      <br>
+      正の整数のみ。
+    </p>
+    <p>
+      出力は
+      <code>5,38,100,218,236,5766,17300</code>
+      こんな感じで、入力で与えられた数を回文数にする基数を10進数で列挙する。
+      <br>
+      コンマ区切り。
+      <br>
+      ただし、回文数にする基数がない場合はそのことを示すために
+      <code>-</code>
+      を返すこと。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        基数は 2以上の整数。(3+√5) 進数とかは考えない。
+      </li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/dabe8ec57e0313229552'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2014年1月10日に開催される 第17回オフラインリアルタイムどう書く の参考問題です。イベントについては
+        <a href='http://atnd.org/events/46348'>
+          ATND の募集ページ
+        </a>
+        の方を御覧下さい。
+      </li>
+      <li>参考問題ではありますが、似たような問題が出ることはあまりありません。</li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>17301</code>
+        </td>
+        <td>
+          <code class='expected'>5,38,100,218,236,5766,17300</code>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>2</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>1</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>3</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>4</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>5</code>
+        </td>
+        <td>
+          <code class='expected'>2,4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>6</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>10</code>
+        </td>
+        <td>
+          <code class='expected'>3,4,9</code>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>101</code>
+        </td>
+        <td>
+          <code class='expected'>10,100</code>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>1001</code>
+        </td>
+        <td>
+          <code class='expected'>10,25,76,90,142,1000</code>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>10001</code>
+        </td>
+        <td>
+          <code class='expected'>10,24,30,42,80,100,136,10000</code>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>1212</code>
+        </td>
+        <td>
+          <code class='expected'>22,100,201,302,403,605,1211</code>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>123412</code>
+        </td>
+        <td>
+          <code class='expected'>62,100,205,215,30852,61705,123411</code>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>5179</code>
+        </td>
+        <td>
+          <code class='expected'>5178</code>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>4919</code>
+        </td>
+        <td>
+          <code class='expected'>4918</code>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>5791</code>
+        </td>
+        <td>
+          <code class='expected'>5790</code>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>5498</code>
+        </td>
+        <td>
+          <code class='expected'>2748,5497</code>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>453</code>
+        </td>
+        <td>
+          <code class='expected'>150,452</code>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>134</code>
+        </td>
+        <td>
+          <code class='expected'>66,133</code>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>8489</code>
+        </td>
+        <td>
+          <code class='expected'>27,652,8488</code>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>1234</code>
+        </td>
+        <td>
+          <code class='expected'>22,616,1233</code>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>5497</code>
+        </td>
+        <td>
+          <code class='expected'>41,238,5496</code>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>4763</code>
+        </td>
+        <td>
+          <code class='expected'>19,35,432,4762</code>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>3974</code>
+        </td>
+        <td>
+          <code class='expected'>17,27,1986,3973</code>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>3521</code>
+        </td>
+        <td>
+          <code class='expected'>44,55,502,3520</code>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>5513</code>
+        </td>
+        <td>
+          <code class='expected'>20,38,53,148,5512</code>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>8042</code>
+        </td>
+        <td>
+          <code class='expected'>23,29,60,4020,8041</code>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>7442</code>
+        </td>
+        <td>
+          <code class='expected'>37,60,121,3720,7441</code>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>4857</code>
+        </td>
+        <td>
+          <code class='expected'>25,1618,4856</code>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>22843</code>
+        </td>
+        <td>
+          <code class='expected'>49,69,91,141,430,22842</code>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>
+          <code>194823</code>
+        </td>
+        <td>
+          <code class='expected'>84,121,21646,64940,194822</code>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>
+          <code>435697</code>
+        </td>
+        <td>
+          <code class='expected'>160,169,235,626,1822,435696</code>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>
+          <code>142</code>
+        </td>
+        <td>
+          <code class='expected'>3,7,70,141</code>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>
+          <code>886</code>
+        </td>
+        <td>
+          <code class='expected'>5,14,442,885</code>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>
+          <code>3102</code>
+        </td>
+        <td>
+          <code class='expected'>7,65,93,140,281,516,1033,1550,3101</code>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>
+          <code>17326</code>
+        </td>
+        <td>
+          <code class='expected'>11,28,99,105,8662,17325</code>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>
+          <code>32982</code>
+        </td>
+        <td>
+          <code class='expected'>13,72,238,477,716,1433,5496,10993,16490,32981</code>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>
+          <code>36</code>
+        </td>
+        <td>
+          <code class='expected'>5,8,11,17,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td>
+          <code>37</code>
+        </td>
+        <td>
+          <code class='expected'>6,36</code>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td>
+          <code>251</code>
+        </td>
+        <td>
+          <code class='expected'>8,250</code>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td>
+          <code>252</code>
+        </td>
+        <td>
+          <code class='expected'>5,10,17,20,27,35,41,62,83,125,251</code>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td>
+          <code>253</code>
+        </td>
+        <td>
+          <code class='expected'>12,14,22,252</code>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td>
+          <code>6643</code>
+        </td>
+        <td>
+          <code class='expected'>2,3,9,81,90,510,948,6642</code>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td>
+          <code>5040</code>
+        </td>
+        <td>
+          <code class='expected'>71,79,83,89,104,111,119,125,139,143,167,179,209,239,251,279,314,335,359,419,503,559,629,719,839,1007,1259,1679,2519,5039</code>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td>
+          <code>9240</code>
+        </td>
+        <td>
+          <code class='expected'>23,38,62,104,109,119,131,139,153,164,167,209,219,230,263,279,307,329,384,419,439,461,615,659,769,839,923,1154,1319,1539,1847,2309,3079,4619,9239</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "17301", "5,38,100,218,236,5766,17300" );    
+/*1*/ test( "2", "-" );    
+/*2*/ test( "1", "-" );    
+/*3*/ test( "3", "2" );    
+/*4*/ test( "4", "3" );    
+/*5*/ test( "5", "2,4" );    
+/*6*/ test( "6", "5" );    
+/*7*/ test( "10", "3,4,9" );    
+/*8*/ test( "101", "10,100" );    
+/*9*/ test( "1001", "10,25,76,90,142,1000" );    
+/*10*/ test( "10001", "10,24,30,42,80,100,136,10000" );    
+/*11*/ test( "1212", "22,100,201,302,403,605,1211" );    
+/*12*/ test( "123412", "62,100,205,215,30852,61705,123411" );    
+/*13*/ test( "5179", "5178" );    
+/*14*/ test( "4919", "4918" );    
+/*15*/ test( "5791", "5790" );    
+/*16*/ test( "5498", "2748,5497" );    
+/*17*/ test( "453", "150,452" );    
+/*18*/ test( "134", "66,133" );    
+/*19*/ test( "8489", "27,652,8488" );    
+/*20*/ test( "1234", "22,616,1233" );    
+/*21*/ test( "5497", "41,238,5496" );    
+/*22*/ test( "4763", "19,35,432,4762" );    
+/*23*/ test( "3974", "17,27,1986,3973" );    
+/*24*/ test( "3521", "44,55,502,3520" );    
+/*25*/ test( "5513", "20,38,53,148,5512" );    
+/*26*/ test( "8042", "23,29,60,4020,8041" );    
+/*27*/ test( "7442", "37,60,121,3720,7441" );    
+/*28*/ test( "4857", "25,1618,4856" );    
+/*29*/ test( "22843", "49,69,91,141,430,22842" );    
+/*30*/ test( "194823", "84,121,21646,64940,194822" );    
+/*31*/ test( "435697", "160,169,235,626,1822,435696" );    
+/*32*/ test( "142", "3,7,70,141" );    
+/*33*/ test( "886", "5,14,442,885" );    
+/*34*/ test( "3102", "7,65,93,140,281,516,1033,1550,3101" );    
+/*35*/ test( "17326", "11,28,99,105,8662,17325" );    
+/*36*/ test( "32982", "13,72,238,477,716,1433,5496,10993,16490,32981" );    
+/*37*/ test( "36", "5,8,11,17,35" );    
+/*38*/ test( "37", "6,36" );    
+/*39*/ test( "251", "8,250" );    
+/*40*/ test( "252", "5,10,17,20,27,35,41,62,83,125,251" );    
+/*41*/ test( "253", "12,14,22,252" );    
+/*42*/ test( "6643", "2,3,9,81,90,510,948,6642" );    
+/*43*/ test( "5040", "71,79,83,89,104,111,119,125,139,143,167,179,209,239,251,279,314,335,359,419,503,559,629,719,839,1007,1259,1679,2519,5039" );    
+/*44*/ test( "9240", "23,38,62,104,109,119,131,139,153,164,167,209,219,230,263,279,307,329,384,419,439,461,615,659,769,839,923,1154,1319,1539,1847,2309,3079,4619,9239" );</textarea>
+  </body>
+</html>

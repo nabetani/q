@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>ぴったり含む長方形 横へな2016.3.5 問題</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ぴったり含む長方形 横へな2016.3.5 問題</h1>
+    <div class='svg'>
+      <svg height='520px' width='520px'>
+        <g font-family='sans-serif' font-size='8' text-anchor='middle'>
+          <text x='4.0' y='6'></text>
+          <text dominant-baseline='central' x='4.0' y='4.0'></text>
+          <text x='12.0' y='6'>0</text>
+          <text dominant-baseline='central' x='4.0' y='12.0'>0</text>
+          <text x='20.0' y='6'>1</text>
+          <text dominant-baseline='central' x='4.0' y='20.0'>1</text>
+          <text x='28.0' y='6'>2</text>
+          <text dominant-baseline='central' x='4.0' y='28.0'>2</text>
+          <text x='36.0' y='6'>3</text>
+          <text dominant-baseline='central' x='4.0' y='36.0'>3</text>
+          <text x='44.0' y='6'>4</text>
+          <text dominant-baseline='central' x='4.0' y='44.0'>4</text>
+          <text x='52.0' y='6'>5</text>
+          <text dominant-baseline='central' x='4.0' y='52.0'>5</text>
+          <text x='60.0' y='6'>6</text>
+          <text dominant-baseline='central' x='4.0' y='60.0'>6</text>
+          <text x='68.0' y='6'>7</text>
+          <text dominant-baseline='central' x='4.0' y='68.0'>7</text>
+          <text x='76.0' y='6'>8</text>
+          <text dominant-baseline='central' x='4.0' y='76.0'>8</text>
+          <text x='84.0' y='6'>9</text>
+          <text dominant-baseline='central' x='4.0' y='84.0'>9</text>
+          <text x='92.0' y='6'>A</text>
+          <text dominant-baseline='central' x='4.0' y='92.0'>A</text>
+          <text x='100.0' y='6'>B</text>
+          <text dominant-baseline='central' x='4.0' y='100.0'>B</text>
+          <text x='108.0' y='6'>C</text>
+          <text dominant-baseline='central' x='4.0' y='108.0'>C</text>
+          <text x='116.0' y='6'>D</text>
+          <text dominant-baseline='central' x='4.0' y='116.0'>D</text>
+          <text x='124.0' y='6'>E</text>
+          <text dominant-baseline='central' x='4.0' y='124.0'>E</text>
+          <text x='132.0' y='6'>F</text>
+          <text dominant-baseline='central' x='4.0' y='132.0'>F</text>
+          <text x='140.0' y='6'>G</text>
+          <text dominant-baseline='central' x='4.0' y='140.0'>G</text>
+          <text x='148.0' y='6'>H</text>
+          <text dominant-baseline='central' x='4.0' y='148.0'>H</text>
+          <text x='156.0' y='6'>I</text>
+          <text dominant-baseline='central' x='4.0' y='156.0'>I</text>
+          <text x='164.0' y='6'>J</text>
+          <text dominant-baseline='central' x='4.0' y='164.0'>J</text>
+          <text x='172.0' y='6'>K</text>
+          <text dominant-baseline='central' x='4.0' y='172.0'>K</text>
+          <text x='180.0' y='6'>L</text>
+          <text dominant-baseline='central' x='4.0' y='180.0'>L</text>
+          <text x='188.0' y='6'>M</text>
+          <text dominant-baseline='central' x='4.0' y='188.0'>M</text>
+          <text x='196.0' y='6'>N</text>
+          <text dominant-baseline='central' x='4.0' y='196.0'>N</text>
+          <text x='204.0' y='6'>O</text>
+          <text dominant-baseline='central' x='4.0' y='204.0'>O</text>
+          <text x='212.0' y='6'>P</text>
+          <text dominant-baseline='central' x='4.0' y='212.0'>P</text>
+          <text x='220.0' y='6'>Q</text>
+          <text dominant-baseline='central' x='4.0' y='220.0'>Q</text>
+          <text x='228.0' y='6'>R</text>
+          <text dominant-baseline='central' x='4.0' y='228.0'>R</text>
+          <text x='236.0' y='6'>S</text>
+          <text dominant-baseline='central' x='4.0' y='236.0'>S</text>
+          <text x='244.0' y='6'>T</text>
+          <text dominant-baseline='central' x='4.0' y='244.0'>T</text>
+          <text x='252.0' y='6'>U</text>
+          <text dominant-baseline='central' x='4.0' y='252.0'>U</text>
+          <text x='260.0' y='6'>V</text>
+          <text dominant-baseline='central' x='4.0' y='260.0'>V</text>
+          <text x='268.0' y='6'>W</text>
+          <text dominant-baseline='central' x='4.0' y='268.0'>W</text>
+          <text x='276.0' y='6'>X</text>
+          <text dominant-baseline='central' x='4.0' y='276.0'>X</text>
+          <text x='284.0' y='6'>Y</text>
+          <text dominant-baseline='central' x='4.0' y='284.0'>Y</text>
+          <text x='292.0' y='6'>Z</text>
+          <text dominant-baseline='central' x='4.0' y='292.0'>Z</text>
+          <text x='300.0' y='6'>a</text>
+          <text dominant-baseline='central' x='4.0' y='300.0'>a</text>
+          <text x='308.0' y='6'>b</text>
+          <text dominant-baseline='central' x='4.0' y='308.0'>b</text>
+          <text x='316.0' y='6'>c</text>
+          <text dominant-baseline='central' x='4.0' y='316.0'>c</text>
+          <text x='324.0' y='6'>d</text>
+          <text dominant-baseline='central' x='4.0' y='324.0'>d</text>
+          <text x='332.0' y='6'>e</text>
+          <text dominant-baseline='central' x='4.0' y='332.0'>e</text>
+          <text x='340.0' y='6'>f</text>
+          <text dominant-baseline='central' x='4.0' y='340.0'>f</text>
+          <text x='348.0' y='6'>g</text>
+          <text dominant-baseline='central' x='4.0' y='348.0'>g</text>
+          <text x='356.0' y='6'>h</text>
+          <text dominant-baseline='central' x='4.0' y='356.0'>h</text>
+          <text x='364.0' y='6'>i</text>
+          <text dominant-baseline='central' x='4.0' y='364.0'>i</text>
+          <text x='372.0' y='6'>j</text>
+          <text dominant-baseline='central' x='4.0' y='372.0'>j</text>
+          <text x='380.0' y='6'>k</text>
+          <text dominant-baseline='central' x='4.0' y='380.0'>k</text>
+          <text x='388.0' y='6'>l</text>
+          <text dominant-baseline='central' x='4.0' y='388.0'>l</text>
+          <text x='396.0' y='6'>m</text>
+          <text dominant-baseline='central' x='4.0' y='396.0'>m</text>
+          <text x='404.0' y='6'>n</text>
+          <text dominant-baseline='central' x='4.0' y='404.0'>n</text>
+          <text x='412.0' y='6'>o</text>
+          <text dominant-baseline='central' x='4.0' y='412.0'>o</text>
+          <text x='420.0' y='6'>p</text>
+          <text dominant-baseline='central' x='4.0' y='420.0'>p</text>
+          <text x='428.0' y='6'>q</text>
+          <text dominant-baseline='central' x='4.0' y='428.0'>q</text>
+          <text x='436.0' y='6'>r</text>
+          <text dominant-baseline='central' x='4.0' y='436.0'>r</text>
+          <text x='444.0' y='6'>s</text>
+          <text dominant-baseline='central' x='4.0' y='444.0'>s</text>
+          <text x='452.0' y='6'>t</text>
+          <text dominant-baseline='central' x='4.0' y='452.0'>t</text>
+          <text x='460.0' y='6'>u</text>
+          <text dominant-baseline='central' x='4.0' y='460.0'>u</text>
+          <text x='468.0' y='6'>v</text>
+          <text dominant-baseline='central' x='4.0' y='468.0'>v</text>
+          <text x='476.0' y='6'>w</text>
+          <text dominant-baseline='central' x='4.0' y='476.0'>w</text>
+          <text x='484.0' y='6'>x</text>
+          <text dominant-baseline='central' x='4.0' y='484.0'>x</text>
+          <text x='492.0' y='6'>y</text>
+          <text dominant-baseline='central' x='4.0' y='492.0'>y</text>
+          <text x='500.0' y='6'>z</text>
+          <text dominant-baseline='central' x='4.0' y='500.0'>z</text>
+        </g>
+        <g stroke-width='1'>
+          <line stroke='#ddd' x1='8' x2='8' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='8' y2='8'></line>
+          <line stroke='#eee' x1='16' x2='16' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='16' y2='16'></line>
+          <line stroke='#eee' x1='24' x2='24' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='24' y2='24'></line>
+          <line stroke='#eee' x1='32' x2='32' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='32' y2='32'></line>
+          <line stroke='#eee' x1='40' x2='40' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='40' y2='40'></line>
+          <line stroke='#ddd' x1='48' x2='48' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='48' y2='48'></line>
+          <line stroke='#eee' x1='56' x2='56' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='56' y2='56'></line>
+          <line stroke='#eee' x1='64' x2='64' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='64' y2='64'></line>
+          <line stroke='#eee' x1='72' x2='72' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='72' y2='72'></line>
+          <line stroke='#eee' x1='80' x2='80' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='80' y2='80'></line>
+          <line stroke='#ddd' x1='88' x2='88' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='88' y2='88'></line>
+          <line stroke='#eee' x1='96' x2='96' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='96' y2='96'></line>
+          <line stroke='#eee' x1='104' x2='104' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='104' y2='104'></line>
+          <line stroke='#eee' x1='112' x2='112' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='112' y2='112'></line>
+          <line stroke='#eee' x1='120' x2='120' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='120' y2='120'></line>
+          <line stroke='#ddd' x1='128' x2='128' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='128' y2='128'></line>
+          <line stroke='#eee' x1='136' x2='136' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='136' y2='136'></line>
+          <line stroke='#eee' x1='144' x2='144' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='144' y2='144'></line>
+          <line stroke='#eee' x1='152' x2='152' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='152' y2='152'></line>
+          <line stroke='#eee' x1='160' x2='160' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='160' y2='160'></line>
+          <line stroke='#ddd' x1='168' x2='168' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='168' y2='168'></line>
+          <line stroke='#eee' x1='176' x2='176' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='176' y2='176'></line>
+          <line stroke='#eee' x1='184' x2='184' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='184' y2='184'></line>
+          <line stroke='#eee' x1='192' x2='192' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='192' y2='192'></line>
+          <line stroke='#eee' x1='200' x2='200' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='200' y2='200'></line>
+          <line stroke='#ddd' x1='208' x2='208' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='208' y2='208'></line>
+          <line stroke='#eee' x1='216' x2='216' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='216' y2='216'></line>
+          <line stroke='#eee' x1='224' x2='224' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='224' y2='224'></line>
+          <line stroke='#eee' x1='232' x2='232' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='232' y2='232'></line>
+          <line stroke='#eee' x1='240' x2='240' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='240' y2='240'></line>
+          <line stroke='#ddd' x1='248' x2='248' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='248' y2='248'></line>
+          <line stroke='#eee' x1='256' x2='256' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='256' y2='256'></line>
+          <line stroke='#eee' x1='264' x2='264' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='264' y2='264'></line>
+          <line stroke='#eee' x1='272' x2='272' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='272' y2='272'></line>
+          <line stroke='#eee' x1='280' x2='280' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='280' y2='280'></line>
+          <line stroke='#ddd' x1='288' x2='288' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='288' y2='288'></line>
+          <line stroke='#eee' x1='296' x2='296' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='296' y2='296'></line>
+          <line stroke='#eee' x1='304' x2='304' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='304' y2='304'></line>
+          <line stroke='#eee' x1='312' x2='312' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='312' y2='312'></line>
+          <line stroke='#eee' x1='320' x2='320' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='320' y2='320'></line>
+          <line stroke='#ddd' x1='328' x2='328' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='328' y2='328'></line>
+          <line stroke='#eee' x1='336' x2='336' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='336' y2='336'></line>
+          <line stroke='#eee' x1='344' x2='344' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='344' y2='344'></line>
+          <line stroke='#eee' x1='352' x2='352' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='352' y2='352'></line>
+          <line stroke='#eee' x1='360' x2='360' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='360' y2='360'></line>
+          <line stroke='#ddd' x1='368' x2='368' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='368' y2='368'></line>
+          <line stroke='#eee' x1='376' x2='376' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='376' y2='376'></line>
+          <line stroke='#eee' x1='384' x2='384' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='384' y2='384'></line>
+          <line stroke='#eee' x1='392' x2='392' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='392' y2='392'></line>
+          <line stroke='#eee' x1='400' x2='400' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='400' y2='400'></line>
+          <line stroke='#ddd' x1='408' x2='408' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='408' y2='408'></line>
+          <line stroke='#eee' x1='416' x2='416' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='416' y2='416'></line>
+          <line stroke='#eee' x1='424' x2='424' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='424' y2='424'></line>
+          <line stroke='#eee' x1='432' x2='432' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='432' y2='432'></line>
+          <line stroke='#eee' x1='440' x2='440' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='440' y2='440'></line>
+          <line stroke='#ddd' x1='448' x2='448' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='448' y2='448'></line>
+          <line stroke='#eee' x1='456' x2='456' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='456' y2='456'></line>
+          <line stroke='#eee' x1='464' x2='464' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='464' y2='464'></line>
+          <line stroke='#eee' x1='472' x2='472' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='472' y2='472'></line>
+          <line stroke='#eee' x1='480' x2='480' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='480' y2='480'></line>
+          <line stroke='#ddd' x1='488' x2='488' y1='0' y2='504'></line>
+          <line stroke='#ddd' x1='0' x2='504' y1='488' y2='488'></line>
+          <line stroke='#eee' x1='496' x2='496' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='496' y2='496'></line>
+          <line stroke='#eee' x1='504' x2='504' y1='0' y2='504'></line>
+          <line stroke='#eee' x1='0' x2='504' y1='504' y2='504'></line>
+        </g>
+        <g>
+          <rect fill='#000' height='7' width='7' x='200.5' y='352.5'></rect>
+          <rect fill='#000' height='7' width='7' x='96.5' y='328.5'></rect>
+          <rect fill='#000' height='7' width='7' x='88.5' y='128.5'></rect>
+          <rect fill='#000' height='7' width='7' x='360.5' y='400.5'></rect>
+          <rect fill='#000' height='7' width='7' x='328.5' y='136.5'></rect>
+          <rect fill='#000' height='7' width='7' x='360.5' y='432.5'></rect>
+          <rect fill='#000' height='7' width='7' x='384.5' y='48.5'></rect>
+          <rect fill='#000' height='7' width='7' x='216.5' y='72.5'></rect>
+          <rect fill='#000' height='7' width='7' x='392.5' y='104.5'></rect>
+          <rect fill='#000' height='7' width='7' x='64.5' y='240.5'></rect>
+          <rect fill='#000' height='7' width='7' x='240.5' y='488.5'></rect>
+          <rect fill='#000' height='7' width='7' x='448.5' y='240.5'></rect>
+        </g>
+        <rect Height='96' Width='72' fill='none' stroke-width='4' stroke='#0f0' x='328' y='48'></rect>
+        <rect Height='480' Width='256' fill='none' stroke-width='2' stroke='#f88' x='104' y='8'></rect>
+      </svg>
+    </div>
+    <h2>問題</h2>
+    <p>
+      62×62 マスのマス目がある。
+      <br>
+      マス目のうち何個かは、黒く塗ってある。
+      <br>
+      そこに、長方形を書く。ただし
+    </p>
+    <ul>
+      <li>長方形は、マス目に沿った形。</li>
+      <li>62×62 に収まっている。</li>
+      <li>黒いマス目をちょうど N 個含む。</li>
+    </ul>
+    <p>
+      という条件を満たす。
+      <br>
+      で。
+      <br>
+      N と黒く塗ったマスの座標を与える。
+      <br>
+      条件を満たす長方形の面積の、最小値と最大値を求めるプログラムを書け。
+      <br>
+      例えば。
+      <br>
+      右図のように黒いマスがあると、最小面積の長方形は緑の枠。最大面積の長方形は赤の枠になる。他にもあるかもしれないけど。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は、
+      <br>
+      <code>3:Oh,Be,AF,in,eG,ir,l5,Q8,mC,7T,Ty,tT</code>
+      <br>
+      こんな感じ。
+      <br>
+      コロンの前は、N。つまり、この例だと 3 個の黒いマスを含む長方形のことを考えれば良いということ。普通に10進数で。
+      <br>
+      コロンの後は、黒いマス目の位置をコンマ区切りで並べたもの。
+      <br>
+      座標の文字は、x座標y座標ともに下表の通りの意味を持つ :
+    </p>
+    <table>
+      <tr>
+        <th>意味</th>
+        <th>0〜9</th>
+        <th>10〜35</th>
+        <th>36〜61</th>
+      </tr>
+      <tr>
+        <th>文字</th>
+        <td>
+          <code>0</code>
+          〜
+          <code>9</code>
+        </td>
+        <td>
+          <code>A</code>
+          〜
+          <code>Z</code>
+        </td>
+        <td>
+          <code>a</code>
+          〜
+          <code>z</code>
+        </td>
+      </tr>
+    </table>
+    <h2>出力</h2>
+    <p>
+      出力は
+      <br>
+      <code>108,1920</code>
+      <br>
+      こんな感じ。
+      <br>
+      面積の最小値と最大値をコンマ区切りで。
+      <br>
+      ただし。
+      <code>3:00,zz,0z,z0</code>
+      のように、条件を満たす長方形を作れない場合は
+      <br>
+      <code>-</code>
+      <br>
+      を出力すること。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>最大値と最小値がおなじになったら、同じ数字をコンマ区切りで出せば良い。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/8d7691e9bb7655c3b990'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2016年3月5日に開催される オフラインリアルタイムどう書くE02 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/39086'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況へのリンク</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>3:Oh,Be,AF,in,eG,ir,l5,Q8,mC,7T,Ty,tT</code>
+        </td>
+        <td>
+          <code class='expected'>108,1920</code>
+        </td>
+        <td>
+          <a href='figs.html#0' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>3:00,zz,0z,z0</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#1' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>1:ho</code>
+        </td>
+        <td>
+          <code class='expected'>1,3844</code>
+        </td>
+        <td>
+          <a href='figs.html#2' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>2:am</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#3' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>4:00,zz,0z,z0</code>
+        </td>
+        <td>
+          <code class='expected'>3844,3844</code>
+        </td>
+        <td>
+          <a href='figs.html#4' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>4:00,11,zz,yy,1y,y1</code>
+        </td>
+        <td>
+          <code class='expected'>3600,3721</code>
+        </td>
+        <td>
+          <a href='figs.html#5' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>2:00,01,10,11,yz,zy,yy,zz</code>
+        </td>
+        <td>
+          <code class='expected'>2,3660</code>
+        </td>
+        <td>
+          <a href='figs.html#6' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>2:AA,AB,BA,BB,SZ,SY,TZ,TY</code>
+        </td>
+        <td>
+          <code class='expected'>2,2046</code>
+        </td>
+        <td>
+          <a href='figs.html#7' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>3:Lw,qw,cw,Ow,2w,fw,yw,ow,Zw,iw</code>
+        </td>
+        <td>
+          <code class='expected'>7,2170</code>
+        </td>
+        <td>
+          <a href='figs.html#8' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>4:0o,0s,0x,0C,0L,0k,0V,0y,0m,0S</code>
+        </td>
+        <td>
+          <code class='expected'>9,2852</code>
+        </td>
+        <td>
+          <a href='figs.html#9' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>5:Tz,gz,Ez,Pz,3z,Jz,iz,Bz,ez,9z</code>
+        </td>
+        <td>
+          <code class='expected'>17,2604</code>
+        </td>
+        <td>
+          <a href='figs.html#10' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>6:mQ,mp,mv,mW,mo,mZ,mC,mc,mt,mH</code>
+        </td>
+        <td>
+          <code class='expected'>23,3100</code>
+        </td>
+        <td>
+          <a href='figs.html#11' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>5:a0,a4,aa,ac,ag,aB,aG,aK,aO,aY,az</code>
+        </td>
+        <td>
+          <code class='expected'>19,2480</code>
+        </td>
+        <td>
+          <a href='figs.html#12' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>10:Ep,Jx,Qh,M7,Zr,lk,yp,Ya,aW,J3,OJ</code>
+        </td>
+        <td>
+          <code class='expected'>1938,3720</code>
+        </td>
+        <td>
+          <a href='figs.html#13' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>5:00,01,10,0y,0z,1z,y0,z0,z1,yz,zz,zy</code>
+        </td>
+        <td>
+          <code class='expected'>3721,3721</code>
+        </td>
+        <td>
+          <a href='figs.html#14' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>7:00,01,10,0y,0z,1z,y0,z0,z1,yz,zz,zy</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#15' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>8:00,01,10,0y,0z,1z,y0,z0,z1,yz,zz,zy,TE</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#16' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>11:bU,cl,d5,Fn,NW,gA,2O,YU,H4,0y,qE,Hd,ZH</code>
+        </td>
+        <td>
+          <code class='expected'>1748,3658</code>
+        </td>
+        <td>
+          <a href='figs.html#17' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>12:SM,cf,AD,6P,cm,mo,if,s0,Mt,GJ,9m,Sp,lA,x4,NE</code>
+        </td>
+        <td>
+          <code class='expected'>1806,3186</code>
+        </td>
+        <td>
+          <a href='figs.html#18' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>2:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz</code>
+        </td>
+        <td>
+          <code class='expected'>19,2520</code>
+        </td>
+        <td>
+          <a href='figs.html#19' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>3:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz</code>
+        </td>
+        <td>
+          <code class='expected'>39,2562</code>
+        </td>
+        <td>
+          <a href='figs.html#20' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>5:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#21' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>6:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz</code>
+        </td>
+        <td>
+          <code class='expected'>741,3660</code>
+        </td>
+        <td>
+          <a href='figs.html#22' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>7:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#23' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>7:00,I0,c0,z0,0I,II,cJ,zI,0c,Ic,cc,zc,0z,Iz,cz,zz</code>
+        </td>
+        <td>
+          <code class='expected'>1178,2623</code>
+        </td>
+        <td>
+          <a href='figs.html#24' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>13:Lk,y3,uO,Gk,sF,7y,ED,FP,rK,vw,Lo,kT,ib,MR,sC,Cu,xQ</code>
+        </td>
+        <td>
+          <code class='expected'>1794,3472</code>
+        </td>
+        <td>
+          <a href='figs.html#25' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>1:lz,en,81,M2,M1,8p,7m,ND,m0,gd,3v,hr,hA,Yr,XB,x2,AR,5Q,3V,B3</code>
+        </td>
+        <td>
+          <code class='expected'>1,1785</code>
+        </td>
+        <td>
+          <a href='figs.html#26' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>2:s1,Dx,yu,H8,c4,6C,95,FK,xV,Q7,h2,Wk,BI,i0,bl,9Q,KF,1q,52,PS,Jh</code>
+        </td>
+        <td>
+          <code class='expected'>6,1824</code>
+        </td>
+        <td>
+          <a href='figs.html#27' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>2:0R,20,fz,0a,0X,zp,P0,0b,0S,zw,e0,0G,g0,06,a0,Zz,zW,zn,00,z6,zq,U0</code>
+        </td>
+        <td>
+          <code class='expected'>2,3660</code>
+        </td>
+        <td>
+          <a href='figs.html#28' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>3:H5,jF,AT,HH,k7,Ho,Mz,07,Tt,Sq,Zh,Yt,e5,oS,qf,YY,JD,bP,s4,hB,TC,PW</code>
+        </td>
+        <td>
+          <code class='expected'>28,1224</code>
+        </td>
+        <td>
+          <a href='figs.html#29' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>4:oe,pg,Np,zP,ho,pe,OV,S0,oM,wO,pM,Ah,Vq,9d,6U,3I,C9,AR,1L,rg,69,as,Nx</code>
+        </td>
+        <td>
+          <code class='expected'>12,1989</code>
+        </td>
+        <td>
+          <a href='figs.html#30' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>2:n0,V0,zL,i0,4z,Nz,xz,z0,z1,0f,P0,zw,80,zC,zB,Az,0P,50,k0,rz,0D,jz,qz,E0</code>
+        </td>
+        <td>
+          <code class='expected'>2,2928</code>
+        </td>
+        <td>
+          <a href='figs.html#31' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>2:tz,0F,0y,zo,0K,01,qz,zU,gz,Xz,zc,0m,zD,Q0,Yz,zb,0a,zp,zW,z7,0o,h0,1z,0p</code>
+        </td>
+        <td>
+          <code class='expected'>2,3660</code>
+        </td>
+        <td>
+          <a href='figs.html#32' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>5:8r,NI,gL,3z,EK,hy,L9,g2,Kh,Gw,Dg,ZB,Sg,LY,ig,sS,I8,U0,DI,cq,Bu,qJ,C4,jP</code>
+        </td>
+        <td>
+          <code class='expected'>143,1520</code>
+        </td>
+        <td>
+          <a href='figs.html#33' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>2:7s,z7,so,zw,X2,59,r1,0Q,70,q2,C6,J6,wz,at,2w,Vq,f9,st,sI,rf,wG,zg,f3,L2,4j</code>
+        </td>
+        <td>
+          <code class='expected'>4,2340</code>
+        </td>
+        <td>
+          <a href='figs.html#34' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>2:kw,Gz,zp,se,8e,2S,C7,1A,B9,5v,AM,sN,zH,m8,Cx,rG,4w,q2,W0,ta,AC,G5,y0,Vq,3i</code>
+        </td>
+        <td>
+          <code class='expected'>4,2080</code>
+        </td>
+        <td>
+          <a href='figs.html#35' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>3:Lr,pX,y7,2Y,qI,6w,t5,R6,e8,57,5f,R1,Up,9q,33,1Z,05,Eu,6S,AW,au,7S,zd,CA,R7</code>
+        </td>
+        <td>
+          <code class='expected'>7,2120</code>
+        </td>
+        <td>
+          <a href='figs.html#36' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code class='src'>3:ut,0C,6p,5w,9M,uj,I6,sq,Yr,Tz,Bp,p7,Rt,JB,6O,Bw,T1,tY,pn,MA,7I,GC,BO,m0,ts</code>
+        </td>
+        <td>
+          <code class='expected'>12,2016</code>
+        </td>
+        <td>
+          <a href='figs.html#37' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code class='src'>4:sE,Wy,Oo,uY,4t,os,B1,xq,4j,ex,s7,y7,54,ud,Cj,0L,S7,fx,11,cs,zc,tn,S6,Zq,2r</code>
+        </td>
+        <td>
+          <code class='expected'>56,2400</code>
+        </td>
+        <td>
+          <a href='figs.html#38' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code class='src'>6:eZ,5V,xT,2x,W7,vy,yT,8R,XT,4c,yX,s9,3E,KZ,tp,Sj,Su,wp,4F,BV,aC,qw,cJ,Gl,aA</code>
+        </td>
+        <td>
+          <code class='expected'>192,1849</code>
+        </td>
+        <td>
+          <a href='figs.html#39' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code class='src'>7:6Q,av,UZ,0c,IV,fo,Vv,mg,no,qM,06,zy,jW,R0,Qo,sK,wQ,1b,De,Iy,zI,cx,rn,ot,cN,45</code>
+        </td>
+        <td>
+          <code class='expected'>250,2303</code>
+        </td>
+        <td>
+          <a href='figs.html#40' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code class='src'>4:0A,15,5k,Bi,mz,0f,vr,EZ,4z,vj,6p,vP,8X,16,x7,S3,2z,zJ,wI,wY,Wv,ky,9K,8u,Eo,4s,y0</code>
+        </td>
+        <td>
+          <code class='expected'>48,2700</code>
+        </td>
+        <td>
+          <a href='figs.html#41' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code class='src'>8:zN,2J,ta,HL,Dg,up,Qn,W8,8K,k4,Is,uL,dT,tA,PN,UQ,DB,gA,OO,lv,4h,Rv,D6,23,Tg,4S,Zb</code>
+        </td>
+        <td>
+          <code class='expected'>418,1763</code>
+        </td>
+        <td>
+          <a href='figs.html#42' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code class='src'>5:px,sp,cr,dB,fz,65,gq,zb,sN,42,o0,y3,iE,pv,sn,Al,RE,48,l0,7X,DE,xL,wC,qQ,w5,C3,P3,i1</code>
+        </td>
+        <td>
+          <code class='expected'>102,2397</code>
+        </td>
+        <td>
+          <a href='figs.html#43' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code class='src'>9:Ic,Dk,Ef,6R,GK,NZ,76,L0,oQ,9f,S3,oL,lX,7v,8d,pX,dZ,z7,zx,fR,pe,w7,aj,U9,lO,kv,wL,s0</code>
+        </td>
+        <td>
+          <code class='expected'>396,2088</code>
+        </td>
+        <td>
+          <a href='figs.html#44' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code class='src'>10:JJ,LR,Xe,kg,LU,lI,3w,ZV,Td,Mu,tA,g8,VC,I7,N8,zN,kY,Ux,3t,mg,4m,FO,Ug,vQ,qY,jl,Ne,Zq,GN</code>
+        </td>
+        <td>
+          <code class='expected'>416,1794</code>
+        </td>
+        <td>
+          <a href='figs.html#45' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code class='src'>11:lQ,EN,vO,tn,qO,F3,9k,K2,UC,P0,XY,DB,QO,ps,hy,fl,Dt,ex,Vc,vF,Pf,Vk,uo,Xc,Sh,KE,9g,3H,l6</code>
+        </td>
+        <td>
+          <code class='expected'>658,1995</code>
+        </td>
+        <td>
+          <a href='figs.html#46' target='figure'>
+            リンク
+          </a>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "3:Oh,Be,AF,in,eG,ir,l5,Q8,mC,7T,Ty,tT", "108,1920" );    
+/*1*/ test( "3:00,zz,0z,z0", "-" );    
+/*2*/ test( "1:ho", "1,3844" );    
+/*3*/ test( "2:am", "-" );    
+/*4*/ test( "4:00,zz,0z,z0", "3844,3844" );    
+/*5*/ test( "4:00,11,zz,yy,1y,y1", "3600,3721" );    
+/*6*/ test( "2:00,01,10,11,yz,zy,yy,zz", "2,3660" );    
+/*7*/ test( "2:AA,AB,BA,BB,SZ,SY,TZ,TY", "2,2046" );    
+/*8*/ test( "3:Lw,qw,cw,Ow,2w,fw,yw,ow,Zw,iw", "7,2170" );    
+/*9*/ test( "4:0o,0s,0x,0C,0L,0k,0V,0y,0m,0S", "9,2852" );    
+/*10*/ test( "5:Tz,gz,Ez,Pz,3z,Jz,iz,Bz,ez,9z", "17,2604" );    
+/*11*/ test( "6:mQ,mp,mv,mW,mo,mZ,mC,mc,mt,mH", "23,3100" );    
+/*12*/ test( "5:a0,a4,aa,ac,ag,aB,aG,aK,aO,aY,az", "19,2480" );    
+/*13*/ test( "10:Ep,Jx,Qh,M7,Zr,lk,yp,Ya,aW,J3,OJ", "1938,3720" );    
+/*14*/ test( "5:00,01,10,0y,0z,1z,y0,z0,z1,yz,zz,zy", "3721,3721" );    
+/*15*/ test( "7:00,01,10,0y,0z,1z,y0,z0,z1,yz,zz,zy", "-" );    
+/*16*/ test( "8:00,01,10,0y,0z,1z,y0,z0,z1,yz,zz,zy,TE", "-" );    
+/*17*/ test( "11:bU,cl,d5,Fn,NW,gA,2O,YU,H4,0y,qE,Hd,ZH", "1748,3658" );    
+/*18*/ test( "12:SM,cf,AD,6P,cm,mo,if,s0,Mt,GJ,9m,Sp,lA,x4,NE", "1806,3186" );    
+/*19*/ test( "2:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz", "19,2520" );    
+/*20*/ test( "3:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz", "39,2562" );    
+/*21*/ test( "5:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz", "-" );    
+/*22*/ test( "6:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz", "741,3660" );    
+/*23*/ test( "7:00,I0,c0,z0,0I,II,cI,zI,0c,Ic,cc,zc,0z,Iz,cz,zz", "-" );    
+/*24*/ test( "7:00,I0,c0,z0,0I,II,cJ,zI,0c,Ic,cc,zc,0z,Iz,cz,zz", "1178,2623" );    
+/*25*/ test( "13:Lk,y3,uO,Gk,sF,7y,ED,FP,rK,vw,Lo,kT,ib,MR,sC,Cu,xQ", "1794,3472" );    
+/*26*/ test( "1:lz,en,81,M2,M1,8p,7m,ND,m0,gd,3v,hr,hA,Yr,XB,x2,AR,5Q,3V,B3", "1,1785" );    
+/*27*/ test( "2:s1,Dx,yu,H8,c4,6C,95,FK,xV,Q7,h2,Wk,BI,i0,bl,9Q,KF,1q,52,PS,Jh", "6,1824" );    
+/*28*/ test( "2:0R,20,fz,0a,0X,zp,P0,0b,0S,zw,e0,0G,g0,06,a0,Zz,zW,zn,00,z6,zq,U0", "2,3660" );    
+/*29*/ test( "3:H5,jF,AT,HH,k7,Ho,Mz,07,Tt,Sq,Zh,Yt,e5,oS,qf,YY,JD,bP,s4,hB,TC,PW", "28,1224" );    
+/*30*/ test( "4:oe,pg,Np,zP,ho,pe,OV,S0,oM,wO,pM,Ah,Vq,9d,6U,3I,C9,AR,1L,rg,69,as,Nx", "12,1989" );    
+/*31*/ test( "2:n0,V0,zL,i0,4z,Nz,xz,z0,z1,0f,P0,zw,80,zC,zB,Az,0P,50,k0,rz,0D,jz,qz,E0", "2,2928" );    
+/*32*/ test( "2:tz,0F,0y,zo,0K,01,qz,zU,gz,Xz,zc,0m,zD,Q0,Yz,zb,0a,zp,zW,z7,0o,h0,1z,0p", "2,3660" );    
+/*33*/ test( "5:8r,NI,gL,3z,EK,hy,L9,g2,Kh,Gw,Dg,ZB,Sg,LY,ig,sS,I8,U0,DI,cq,Bu,qJ,C4,jP", "143,1520" );    
+/*34*/ test( "2:7s,z7,so,zw,X2,59,r1,0Q,70,q2,C6,J6,wz,at,2w,Vq,f9,st,sI,rf,wG,zg,f3,L2,4j", "4,2340" );    
+/*35*/ test( "2:kw,Gz,zp,se,8e,2S,C7,1A,B9,5v,AM,sN,zH,m8,Cx,rG,4w,q2,W0,ta,AC,G5,y0,Vq,3i", "4,2080" );    
+/*36*/ test( "3:Lr,pX,y7,2Y,qI,6w,t5,R6,e8,57,5f,R1,Up,9q,33,1Z,05,Eu,6S,AW,au,7S,zd,CA,R7", "7,2120" );    
+/*37*/ test( "3:ut,0C,6p,5w,9M,uj,I6,sq,Yr,Tz,Bp,p7,Rt,JB,6O,Bw,T1,tY,pn,MA,7I,GC,BO,m0,ts", "12,2016" );    
+/*38*/ test( "4:sE,Wy,Oo,uY,4t,os,B1,xq,4j,ex,s7,y7,54,ud,Cj,0L,S7,fx,11,cs,zc,tn,S6,Zq,2r", "56,2400" );    
+/*39*/ test( "6:eZ,5V,xT,2x,W7,vy,yT,8R,XT,4c,yX,s9,3E,KZ,tp,Sj,Su,wp,4F,BV,aC,qw,cJ,Gl,aA", "192,1849" );    
+/*40*/ test( "7:6Q,av,UZ,0c,IV,fo,Vv,mg,no,qM,06,zy,jW,R0,Qo,sK,wQ,1b,De,Iy,zI,cx,rn,ot,cN,45", "250,2303" );    
+/*41*/ test( "4:0A,15,5k,Bi,mz,0f,vr,EZ,4z,vj,6p,vP,8X,16,x7,S3,2z,zJ,wI,wY,Wv,ky,9K,8u,Eo,4s,y0", "48,2700" );    
+/*42*/ test( "8:zN,2J,ta,HL,Dg,up,Qn,W8,8K,k4,Is,uL,dT,tA,PN,UQ,DB,gA,OO,lv,4h,Rv,D6,23,Tg,4S,Zb", "418,1763" );    
+/*43*/ test( "5:px,sp,cr,dB,fz,65,gq,zb,sN,42,o0,y3,iE,pv,sn,Al,RE,48,l0,7X,DE,xL,wC,qQ,w5,C3,P3,i1", "102,2397" );    
+/*44*/ test( "9:Ic,Dk,Ef,6R,GK,NZ,76,L0,oQ,9f,S3,oL,lX,7v,8d,pX,dZ,z7,zx,fR,pe,w7,aj,U9,lO,kv,wL,s0", "396,2088" );    
+/*45*/ test( "10:JJ,LR,Xe,kg,LU,lI,3w,ZV,Td,Mu,tA,g8,VC,I7,N8,zN,kY,Ux,3t,mg,4m,FO,Ug,vQ,qY,jl,Ne,Zq,GN", "416,1794" );    
+/*46*/ test( "11:lQ,EN,vO,tn,qO,F3,9k,K2,UC,P0,XY,DB,QO,ps,hy,fl,Dt,ex,Vc,vF,Pf,Vk,uo,Xc,Sh,KE,9g,3H,l6", "658,1995" );</textarea>
+  </body>
+</html>

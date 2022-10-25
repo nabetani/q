@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>三和数 〜 横へな 2014.3.7 参考問題</title>
+    <style>
+      body, textarea { 
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{ width:322px }
+      img.small{ width:82px }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      table code {
+        border:none
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+      word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>三和数 〜 横へな 2014.3.7 参考問題</h1>
+    <h2>問題</h2>
+    <p>
+      3つの数がある。いずれも正の整数。
+      <br>
+      これらの数のことを「三和数の元」と呼ぶ。
+      <br>
+      「三和数の元」から重複を許して1個〜3個 選び出す。選び出した数の合計となりうる数のことを「三和数」と呼ぶ。
+      <br>
+      例えば。
+      <br>
+      三和数の元が
+      <br>
+      <code>1,10,100</code>
+      <br>
+      の場合、三和数は
+      <br>
+      <code>1,2,3,10,11,12,20,21,30,100,101,102,110,111,120,200,201,210,300</code>
+      <br>
+      となる。
+      <br>
+      で。
+      <br>
+      <code>3,11,12,102,111,120</code>
+      <br>
+      のような具合に三和数の部分集合が与えられる。三和数の元を求めよ。
+    </p>
+    <h2>入力と出力</h2>
+    <p>
+      入力は
+      <br>
+      <code>3,11,12,102,111,120</code>
+      <br>
+      こんな感じ。
+      <br>
+      昇順に整列されていて、重複を含まない。
+    </p>
+    <p>
+      出力は、三和数の元を昇順で。
+      <br>
+      上記の例だと
+      <br>
+      <code>1,10,100</code>
+      <br>
+      を出力ればよい。
+      <br>
+      また、入力が
+      <br>
+      <code>10,20,30,35,70</code>
+      <br>
+      のような場合、三和数の元が一意に定まらない。この場合はそのことを示すために
+      <br>
+      <code>many</code>
+      <br>
+      を出力する。
+      <br>
+      逆に。
+      <br>
+      <code>1,5,20,80</code>
+      <br>
+      のように、条件に合う三和数の元が存在しないこともある。その場合は
+      <br>
+      <code>none</code>
+      <br>
+      のような出力をすること。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        入力値の最大値は 120 程度と考えて良い。
+      </li>
+      <li>
+        入力には3個以上の数が含まれている。
+      </li>
+      <li>
+        入力に含まれる数は、正の整数のみである。
+      </li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        「三和数」という語はこの問題のために定義した語なので、他では通用しない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/0a711729fdea28b1c30b'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2014年3月7日に開催される 第19回オフラインリアルタイムどう書く の参考問題です。イベントについては
+        <a href='http://atnd.org/events/47670'>
+          ATND の募集ページ
+        </a>
+        の方を御覧下さい。
+      </li>
+      <li>参考問題ということにはなってますが、当日はこの問題よりずっと簡単な問題を出すつもりです。</li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>3,11,12,102,111,120</code>
+        </td>
+        <td>
+          <code class='expected'>1,10,100</code>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>10,20,30,35,70</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>1,5,20,80</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>1,2,3,4,5,6,7,8,9,10,11,12,13,14</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15</code>
+        </td>
+        <td>
+          <code class='expected'>1,4,5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>1,2,3,4,5,6,7,8,9,10,11,12,13,14,17</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>1,2,3,4,5,6,7,8,9,10,11,12,13,14,18</code>
+        </td>
+        <td>
+          <code class='expected'>1,4,6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>5,6,7,8,9,10,11,12,13,14,15,16</code>
+        </td>
+        <td>
+          <code class='expected'>2,5,6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>9,10,11,12,13,14,15,16,17,18,19</code>
+        </td>
+        <td>
+          <code class='expected'>4,5,7</code>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>11,36,37,45,55,70,71</code>
+        </td>
+        <td>
+          <code class='expected'>1,10,35</code>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>92,93,94,95,96,97,98,99</code>
+        </td>
+        <td>
+          <code class='expected'>30,32,33</code>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>95,96,97,98,99,100</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>27,30,34,37,43,44,46,51,57</code>
+        </td>
+        <td>
+          <code class='expected'>10,17,23</code>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>6,10,13,17,65,73,76,80</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>12,19,21,29,85</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>1,2,8,10,14,23,58,62,64</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>4,22,25,31,44,50,58,69,71,72,73,77</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>8,16,26,27,42,53,65,69,81,83,88,99</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>9,10,23,24,28,33,38,39,58,68,84</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>11,16,24,26,88</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>24,33,47,56,63,66,75,78,89,93</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>7,26,72,77</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>69,88,95,97</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>9,14,48,89</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>69,76,77,83</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>11,14,24</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>8,25,75,93</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>11,55,93,98,99</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>71,83,87</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>22,76,77,92</code>
+        </td>
+        <td>
+          <code class='expected'>7,15,62</code>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>
+          <code>33,61,66,83,95</code>
+        </td>
+        <td>
+          <code class='expected'>17,33,61</code>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td>
+          <code>6,16,49,55,72</code>
+        </td>
+        <td>
+          <code class='expected'>6,16,33</code>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td>
+          <code>62,85,97,98</code>
+        </td>
+        <td>
+          <code class='expected'>12,25,73</code>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td>
+          <code>54,60,67,70,72</code>
+        </td>
+        <td>
+          <code class='expected'>20,25,27</code>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td>
+          <code>54,61,68,84,87</code>
+        </td>
+        <td>
+          <code class='expected'>27,30,34</code>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>
+          <code>65,67,69,75,79,89,99</code>
+        </td>
+        <td>
+          <code class='expected'>21,23,33</code>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td>
+          <code>69,72,80,81,89</code>
+        </td>
+        <td>
+          <code class='expected'>23,24,33</code>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td>
+          <code>1,2,3</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "3,11,12,102,111,120", "1,10,100" );    
+/*1*/ test( "10,20,30,35,70", "many" );    
+/*2*/ test( "1,5,20,80", "none" );    
+/*3*/ test( "1,2,3,4,5,6,7,8,9,10,11,12,13,14", "many" );    
+/*4*/ test( "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15", "1,4,5" );    
+/*5*/ test( "1,2,3,4,5,6,7,8,9,10,11,12,13,14,17", "none" );    
+/*6*/ test( "1,2,3,4,5,6,7,8,9,10,11,12,13,14,18", "1,4,6" );    
+/*7*/ test( "5,6,7,8,9,10,11,12,13,14,15,16", "2,5,6" );    
+/*8*/ test( "9,10,11,12,13,14,15,16,17,18,19", "4,5,7" );    
+/*9*/ test( "11,36,37,45,55,70,71", "1,10,35" );    
+/*10*/ test( "92,93,94,95,96,97,98,99", "30,32,33" );    
+/*11*/ test( "95,96,97,98,99,100", "many" );    
+/*12*/ test( "27,30,34,37,43,44,46,51,57", "10,17,23" );    
+/*13*/ test( "6,10,13,17,65,73,76,80", "none" );    
+/*14*/ test( "12,19,21,29,85", "none" );    
+/*15*/ test( "1,2,8,10,14,23,58,62,64", "none" );    
+/*16*/ test( "4,22,25,31,44,50,58,69,71,72,73,77", "none" );    
+/*17*/ test( "8,16,26,27,42,53,65,69,81,83,88,99", "none" );    
+/*18*/ test( "9,10,23,24,28,33,38,39,58,68,84", "none" );    
+/*19*/ test( "11,16,24,26,88", "none" );    
+/*20*/ test( "24,33,47,56,63,66,75,78,89,93", "none" );    
+/*21*/ test( "7,26,72,77", "many" );    
+/*22*/ test( "69,88,95,97", "many" );    
+/*23*/ test( "9,14,48,89", "many" );    
+/*24*/ test( "69,76,77,83", "many" );    
+/*25*/ test( "11,14,24", "many" );    
+/*26*/ test( "8,25,75,93", "many" );    
+/*27*/ test( "11,55,93,98,99", "many" );    
+/*28*/ test( "71,83,87", "many" );    
+/*29*/ test( "22,76,77,92", "7,15,62" );    
+/*30*/ test( "33,61,66,83,95", "17,33,61" );    
+/*31*/ test( "6,16,49,55,72", "6,16,33" );    
+/*32*/ test( "62,85,97,98", "12,25,73" );    
+/*33*/ test( "54,60,67,70,72", "20,25,27" );    
+/*34*/ test( "54,61,68,84,87", "27,30,34" );    
+/*35*/ test( "65,67,69,75,79,89,99", "21,23,33" );    
+/*36*/ test( "69,72,80,81,89", "23,24,33" );    
+/*37*/ test( "1,2,3", "many" );</textarea>
+  </body>
+</html>

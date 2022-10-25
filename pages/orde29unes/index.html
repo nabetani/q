@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet'>
+<title>アンエスケープ 2018.12.8</title>
+<style>
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  img.large{
+    width:400px;
+  }
+  ul * {
+    line-height:160%;
+  }
+  td.center{ text-align:center; }
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    margin:1pt 1pt 1pt 1pt ;
+    border-radius:4px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    border-top : solid 1px #bbb;
+    border-left : solid 4px #bbb;
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Consolas","Courier New";
+  }
+  img.sample{
+    width:150px;
+    height:150px;
+  }
+  img.top{
+    width:320px;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  tr.sample{
+    height:2em;
+  }
+  td.sample{
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+  th.width3em{
+    width:3em;
+  }
+  .height2em{
+    height:2em;
+  }
+</style>
+</head>
+<body>
+<h1>アンエスケープ 2018.12.8</h1>
+<h2>問題の概要</h2>
+<p>
+あなたの知らない遠い世界。ここにもコンピュータがあり、ファイルシステムがあり、パスもある。
+</p>
+<p>
+パスは「エントリ」と呼ばれる文字列のリストになっている。例えば、
+<br>
+<code>foo/bar</code>
+<br>
+というパスがある場合、
+<code>foo</code>
+と
+<code>bar</code>
+がエントリである。
+</p>
+<p>
+しかし。
+<br>
+我々の世界と異なり、エントリ名にパス区切り文字と同じスラッシュ
+<code>/</code>
+が使える。
+</p>
+<p>
+というわけで、パスを文字列として表現しようとするとエスケープする必要がある。
+</p>
+<p>
+で。
+</p>
+<p>
+エスケープ済みのパス文字列を与えるので、アンエスケープしてほしい。
+</p>
+<h2>パス文字列とエスケープ</h2>
+<h3>生のエントリ</h3>
+<p>
+生のエントリには、以下の文字が使える：
+</p>
+<ul>
+<li>
+<code>A</code>
+〜
+<code>Z</code>
+</li>
+<li>
+<code>a</code>
+〜
+<code>z</code>
+</li>
+<li>
+<code>0</code>
+〜
+<code>9</code>
+</li>
+<li>
+<code>"</code>
+</li>
+<li>
+<code>'</code>
+</li>
+<li>
+<code>/</code>
+</li>
+</ul>
+<h3>スラッシュ</h3>
+<p>
+パスを文字列として表現する際には、区切り文字としてスラッシュ
+<code>/</code>
+を使う。
+<br>
+スラッシュはエントリ内にも登場するので、エントリ内のスラッシュは区切り文字でないことを明示する必要がある。
+<br>
+区切り文字でないことを示しつつスラッシュを表現する方法は、下記の3通りがある：
+</p>
+<ul>
+<li>
+ダブルクオート(
+<code>"</code>
+)
+で囲む。
+</li>
+<li>
+シングルクオート(
+<code>'</code>
+)
+で囲む。
+</li>
+<li>スラッシュを連続して2個書く</li>
+</ul>
+<p>
+以下に例を挙げる：
+</p>
+<table>
+<tr class='height2em'>
+<th>パス文字列</th>
+<th>エントリのリスト</th>
+</tr>
+<tr class='height2em'>
+<td>
+<code>foo/bar/baz</code>
+</td>
+<td>
+<code>foo</code>
+,
+<code>bar</code>
+,
+<code>baz</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>foo"/"bar/baz</code>
+</td>
+<td>
+<code>foo/bar</code>
+,
+<code>baz</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>foo/'/bar/'/baz</code>
+</td>
+<td>
+<code>foo</code>
+,
+<code>/bar/</code>
+,
+<code>baz</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>foo"/"bar/baz</code>
+</td>
+<td>
+<code>foo/bar</code>
+,
+<code>baz</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>foo//bar/baz</code>
+</td>
+<td>
+<code>foo/bar</code>
+,
+<code>baz</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>foo"//"bar/baz</code>
+</td>
+<td>
+<code>foo//bar</code>
+,
+<code>baz</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>foo///bar</code>
+</td>
+<td>
+<code>foo/</code>
+,
+<code>bar</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>foo/bar////baz</code>
+</td>
+<td>
+<code>foo</code>
+,
+<code>bar//baz</code>
+</td>
+</tr>
+</table>
+<h3>クオート文字</h3>
+<p>
+区切り文字でない
+<code>/</code>
+を表現するのにクオート文字を使うので、クオート文字をエスケープする必要がある：
+</p>
+<p>
+ダブルクオートで囲まれた範囲は、
+<ul>
+<li>ダブルクオートが書けない</li>
+<li>そのままエントリになる（スラッシュを書いてもパス区切り文字にならない、シングルクオートが書ける、など）</li>
+<li>エスケープ無効（スラッシュを2個書くと、スラッシュ2個になる）</li>
+</ul>
+シングルクオートも同様。
+<br>
+例を挙げる：
+</p>
+<table>
+<tr class='height2em'>
+<th>パス文字列</th>
+<th>エントリのリスト</th>
+</tr>
+<tr class='height2em'>
+<td>
+<code>"foo'"/"bar'"/"baz'"</code>
+</td>
+<td>
+<code>foo'</code>
+,
+<code>bar'</code>
+,
+<code>baz'</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>File/'I/O'</code>
+</td>
+<td>
+<code>File</code>
+,
+<code>I/O</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>'foo//bar'//baz/qux</code>
+</td>
+<td>
+<code>foo//bar/baz</code>
+,
+<code>qux</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>What/is/'"real"'</code>
+</td>
+<td>
+<code>What</code>
+,
+<code>is</code>
+,
+<code>"real"</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>"foo'bar"/'hoge"fuga'</code>
+</td>
+<td>
+<code>foo'bar</code>
+,
+<code>hoge"fuga</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>'"'a'"'/b</code>
+</td>
+<td>
+<code>"a"</code>
+,
+<code>b</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>hoge"//"fuga//piyo</code>
+</td>
+<td>
+<code>hoge//fuga/piyo</code>
+</td>
+</tr>
+<tr class='height2em'>
+<td>
+<code>'foo"""bar'</code>
+</td>
+<td>
+<code>foo"""bar</code>
+</td>
+</tr>
+</table>
+<h2>入力</h2>
+<p>
+入力はこんな感じ：
+<br>
+<code>foo/bar/baz</code>
+<br>
+パス文字列がそのまま来る。
+</p>
+<h2>出力</h2>
+<p>
+出力は、生のエントリのリストをコンマ区切りで。
+<br>
+こんな
+<br>
+<code>foo,bar,baz</code>
+<br>
+感じ。ただし、
+<br>
+<code>/foo/bar/baz'/</code>
+<br>
+のようなパス文字列として無効なもの（後述）に対しては、
+<br>
+<code>-</code>
+<br>
+を出力すること。
+</p>
+<h3>無効なパス文字列の条件</h3>
+<p>
+以下の場合は無効とする（とはいえ、前述の「生のエントリ」に含まれない文字が来た場合は不正な入力なので対処しなくてよい。下記のパターンに対処すれば良い。）
+</p>
+<ul>
+<li>
+エスケープ用のシングルクオートが閉じていない
+<br>
+例：
+<ul>
+<li>
+<code>foo'bar</code>
+</li>
+</ul>
+注意：エスケープ用ではないシングルクオートは閉じていなくて良い。
+<br>
+例：
+<ul>
+<li>
+<code>foo"'"bar</code>
+</li>
+</ul>
+</li>
+<li>
+エスケープ用のダブルクオートが閉じていない
+<br>
+例：
+<ul>
+<li>
+<code>foo"bar</code>
+</li>
+</ul>
+注意：エスケープ用ではないダブルクオートは閉じていなくて良い。
+<br>
+例：
+<ul>
+<li>
+<code>foo'"'bar</code>
+</li>
+</ul>
+</li>
+<li>
+空文字列のエントリがある
+<br>
+例：
+<ul>
+<li>
+<code>foo/''/bar</code>
+※ 真ん中のエントリが空文字列
+</li>
+<li>
+<code>foo/bar/</code>
+※ 末尾のエントリが空文字列
+</li>
+<li>
+<code>foo/bar/""</code>
+※ 末尾のエントリが空文字列
+</li>
+<li>
+<code>/foo/bar</code>
+※ 先頭のエントリが空文字列
+</li>
+<li>
+<code>''/foo/bar</code>
+※ 先頭のエントリが空文字列
+</li>
+</ul>
+</li>
+</ul>
+<h2>補足</h2>
+<ul>
+<li>上記の「無効なパス」には対応する必要があるが、不正な入力（全角スラッシュや「$」などの予期せぬ文字を含む入力など）に対処する必要はない。</li>
+<li>入力はJSONでもいいし、テスト関数でもいいし、標準入力でもいいし、それ以外のなにかでもいい。</li>
+<li>
+今回の「C/C++/Java 用のテストデータ」は、ダブルクオートがちゃんと「
+<code>\"</code>
+」と、エスケープされている。
+</li>
+<li>シングルクオートやダブルクオートの中身は空文字列かもしれない。</li>
+<li>スラッシュをエスケープする方法が3つもあるのは、今回の問題には含めなかった別の仕様に起因するという設定。</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/f2db9b916c0a301b744f'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+この問題は2018年12月8日に開催される オフラインリアルタイムどう書くE29 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/82699'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+</tr>
+<tr class='sample'>
+<td>0</td>
+<td class='sample'>
+<code class='src'>foo/bar/baz</code>
+</td>
+<td>
+<code class='expected'>foo,bar,baz</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>1</td>
+<td class='sample'>
+<code class='src'>/foo/bar/baz'/</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>2</td>
+<td class='sample'>
+<code class='src'>"</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>3</td>
+<td class='sample'>
+<code class='src'>'</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>4</td>
+<td class='sample'>
+<code class='src'>/</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>5</td>
+<td class='sample'>
+<code class='src'>""</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>6</td>
+<td class='sample'>
+<code class='src'>''</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>7</td>
+<td class='sample'>
+<code class='src'>//</code>
+</td>
+<td>
+<code class='expected'>/</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>8</td>
+<td class='sample'>
+<code class='src'>"/'</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>9</td>
+<td class='sample'>
+<code class='src'>'/"</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>10</td>
+<td class='sample'>
+<code class='src'>Qux</code>
+</td>
+<td>
+<code class='expected'>Qux</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>11</td>
+<td class='sample'>
+<code class='src'>Foo/Bar</code>
+</td>
+<td>
+<code class='expected'>Foo,Bar</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>12</td>
+<td class='sample'>
+<code class='src'>foo"bar</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>13</td>
+<td class='sample'>
+<code class='src'>foo'bar</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>14</td>
+<td class='sample'>
+<code class='src'>/foo/bar</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>15</td>
+<td class='sample'>
+<code class='src'>Foo//Bar</code>
+</td>
+<td>
+<code class='expected'>Foo/Bar</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>16</td>
+<td class='sample'>
+<code class='src'>foo/bar/</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>17</td>
+<td class='sample'>
+<code class='src'>'"'a'"'/b</code>
+</td>
+<td>
+<code class='expected'>"a",b</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>18</td>
+<td class='sample'>
+<code class='src'>Foo"/"Bar</code>
+</td>
+<td>
+<code class='expected'>Foo/Bar</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>19</td>
+<td class='sample'>
+<code class='src'>foo"'"bar</code>
+</td>
+<td>
+<code class='expected'>foo'bar</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>20</td>
+<td class='sample'>
+<code class='src'>foo'"'bar</code>
+</td>
+<td>
+<code class='expected'>foo"bar</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>21</td>
+<td class='sample'>
+<code class='src'>foo///bar</code>
+</td>
+<td>
+<code class='expected'>foo/,bar</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>22</td>
+<td class='sample'>
+<code class='src'>"Z""tO"uFM</code>
+</td>
+<td>
+<code class='expected'>ZtOuFM</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>23</td>
+<td class='sample'>
+<code class='src'>''/foo/bar</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>24</td>
+<td class='sample'>
+<code class='src'>////'/"//'</code>
+</td>
+<td>
+<code class='expected'>///"//</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>25</td>
+<td class='sample'>
+<code class='src'>File/'I/O'</code>
+</td>
+<td>
+<code class='expected'>File,I/O</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>26</td>
+<td class='sample'>
+<code class='src'>Foo'//'Bar</code>
+</td>
+<td>
+<code class='expected'>Foo//Bar</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>27</td>
+<td class='sample'>
+<code class='src'>foo/''/bar</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>28</td>
+<td class='sample'>
+<code class='src'>foo/bar/""</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>29</td>
+<td class='sample'>
+<code class='src'>'/////'////</code>
+</td>
+<td>
+<code class='expected'>///////</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>30</td>
+<td class='sample'>
+<code class='src'>'foo"""bar'</code>
+</td>
+<td>
+<code class='expected'>foo"""bar</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>31</td>
+<td class='sample'>
+<code class='src'>//'int'/V/c</code>
+</td>
+<td>
+<code class='expected'>/int,V,c</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>32</td>
+<td class='sample'>
+<code class='src'>foo/bar/baz</code>
+</td>
+<td>
+<code class='expected'>foo,bar,baz</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>33</td>
+<td class='sample'>
+<code class='src'>'H//Sg//zN'/</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>34</td>
+<td class='sample'>
+<code class='src'>//'//"/'/'"'</code>
+</td>
+<td>
+<code class='expected'>///"/,"</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>35</td>
+<td class='sample'>
+<code class='src'>foo//bar/baz</code>
+</td>
+<td>
+<code class='expected'>foo/bar,baz</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>36</td>
+<td class='sample'>
+<code class='src'>"""///"/'/'//</code>
+</td>
+<td>
+<code class='expected'>///,//</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>37</td>
+<td class='sample'>
+<code class='src'>58""N"//nIk'd</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>38</td>
+<td class='sample'>
+<code class='src'>foo"/"bar/baz</code>
+</td>
+<td>
+<code class='expected'>foo/bar,baz</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>39</td>
+<td class='sample'>
+<code class='src'>/////'"/'/'"/'</code>
+</td>
+<td>
+<code class='expected'>//,"/,"/</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>40</td>
+<td class='sample'>
+<code class='src'>f"//J"/O9o"//'</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>41</td>
+<td class='sample'>
+<code class='src'>foo"//"bar/baz</code>
+</td>
+<td>
+<code class='expected'>foo//bar,baz</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>42</td>
+<td class='sample'>
+<code class='src'>foo/bar////baz</code>
+</td>
+<td>
+<code class='expected'>foo,bar//baz</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>43</td>
+<td class='sample'>
+<code class='src'>"""'/'//'''/"//</code>
+</td>
+<td>
+<code class='expected'>'/'//'''//</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>44</td>
+<td class='sample'>
+<code class='src'>8//'/k///"3da"'</code>
+</td>
+<td>
+<code class='expected'>8//k///"3da"</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>45</td>
+<td class='sample'>
+<code class='src'>foo/'/bar/'/baz</code>
+</td>
+<td>
+<code class='expected'>foo,/bar/,baz</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>46</td>
+<td class='sample'>
+<code class='src'>///''"//""///"""</code>
+</td>
+<td>
+<code class='expected'>/,/////</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>47</td>
+<td class='sample'>
+<code class='src'>//wUJ8KNAk'n0//"</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>48</td>
+<td class='sample'>
+<code class='src'>What/is/'"real"'</code>
+</td>
+<td>
+<code class='expected'>What,is,"real"</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>49</td>
+<td class='sample'>
+<code class='src'>"//'/////"''/'//'</code>
+</td>
+<td>
+<code class='expected'>//'/////,//</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>50</td>
+<td class='sample'>
+<code class='src'>"8hKE"3Fx/4//Hk/J</code>
+</td>
+<td>
+<code class='expected'>8hKE3Fx,4/Hk,J</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>51</td>
+<td class='sample'>
+<code class='src'>'////''"'//'/"///'</code>
+</td>
+<td>
+<code class='expected'>////"//"///</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>52</td>
+<td class='sample'>
+<code class='src'>Ro"/j''/2u/f/r/"3n</code>
+</td>
+<td>
+<code class='expected'>Ro/j''/2u/f/r/3n</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>53</td>
+<td class='sample'>
+<code class='src'>hoge"//"fuga//piyo</code>
+</td>
+<td>
+<code class='expected'>hoge//fuga/piyo</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>54</td>
+<td class='sample'>
+<code class='src'>'foo//bar'//baz/qux</code>
+</td>
+<td>
+<code class='expected'>foo//bar/baz,qux</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>55</td>
+<td class='sample'>
+<code class='src'>//'//"'/"///'"/''//</code>
+</td>
+<td>
+<code class='expected'>///",///',/</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>56</td>
+<td class='sample'>
+<code class='src'>2/L'3'A8p/7//wP49Jb</code>
+</td>
+<td>
+<code class='expected'>2,L3A8p,7/wP49Jb</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>57</td>
+<td class='sample'>
+<code class='src'>"foo'"/"bar'"/"baz'"</code>
+</td>
+<td>
+<code class='expected'>foo',bar',baz'</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>58</td>
+<td class='sample'>
+<code class='src'>'//'"//'///'///''"//</code>
+</td>
+<td>
+<code class='expected'>////'///'///''/</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>59</td>
+<td class='sample'>
+<code class='src'>F6vX/q/Zu//5/'/H"/'w</code>
+</td>
+<td>
+<code class='expected'>F6vX,q,Zu/5,/H"/w</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>60</td>
+<td class='sample'>
+<code class='src'>"foo'bar"/'hoge"fuga'</code>
+</td>
+<td>
+<code class='expected'>foo'bar,hoge"fuga</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>61</td>
+<td class='sample'>
+<code class='src'>/"/'//'/"""''//'/"'''</code>
+</td>
+<td>
+<code class='expected'>-</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>62</td>
+<td class='sample'>
+<code class='src'>0gK"koYUb""S/p''z/"Et</code>
+</td>
+<td>
+<code class='expected'>0gKkoYUbS/p''z/Et</code>
+</td>
+</tr>
+<tr class='sample'>
+<td>63</td>
+<td class='sample'>
+<code class='src'>Foo/Bar/"Hoge'/'Fuga"</code>
+</td>
+<td>
+<code class='expected'>Foo,Bar,Hoge'/'Fuga</code>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "foo/bar/baz", "foo,bar,baz" );
+/*1*/ test( "/foo/bar/baz'/", "-" );
+/*2*/ test( "\"", "-" );
+/*3*/ test( "'", "-" );
+/*4*/ test( "/", "-" );
+/*5*/ test( "\"\"", "-" );
+/*6*/ test( "''", "-" );
+/*7*/ test( "//", "/" );
+/*8*/ test( "\"/'", "-" );
+/*9*/ test( "'/\"", "-" );
+/*10*/ test( "Qux", "Qux" );
+/*11*/ test( "Foo/Bar", "Foo,Bar" );
+/*12*/ test( "foo\"bar", "-" );
+/*13*/ test( "foo'bar", "-" );
+/*14*/ test( "/foo/bar", "-" );
+/*15*/ test( "Foo//Bar", "Foo/Bar" );
+/*16*/ test( "foo/bar/", "-" );
+/*17*/ test( "'\"'a'\"'/b", "\"a\",b" );
+/*18*/ test( "Foo\"/\"Bar", "Foo/Bar" );
+/*19*/ test( "foo\"'\"bar", "foo'bar" );
+/*20*/ test( "foo'\"'bar", "foo\"bar" );
+/*21*/ test( "foo///bar", "foo/,bar" );
+/*22*/ test( "\"Z\"\"tO\"uFM", "ZtOuFM" );
+/*23*/ test( "''/foo/bar", "-" );
+/*24*/ test( "////'/\"//'", "///\"//" );
+/*25*/ test( "File/'I/O'", "File,I/O" );
+/*26*/ test( "Foo'//'Bar", "Foo//Bar" );
+/*27*/ test( "foo/''/bar", "-" );
+/*28*/ test( "foo/bar/\"\"", "-" );
+/*29*/ test( "'/////'////", "///////" );
+/*30*/ test( "'foo\"\"\"bar'", "foo\"\"\"bar" );
+/*31*/ test( "//'int'/V/c", "/int,V,c" );
+/*32*/ test( "foo/bar/baz", "foo,bar,baz" );
+/*33*/ test( "'H//Sg//zN'/", "-" );
+/*34*/ test( "//'//\"/'/'\"'", "///\"/,\"" );
+/*35*/ test( "foo//bar/baz", "foo/bar,baz" );
+/*36*/ test( "\"\"\"///\"/'/'//", "///,//" );
+/*37*/ test( "58\"\"N\"//nIk'd", "-" );
+/*38*/ test( "foo\"/\"bar/baz", "foo/bar,baz" );
+/*39*/ test( "/////'\"/'/'\"/'", "//,\"/,\"/" );
+/*40*/ test( "f\"//J\"/O9o\"//'", "-" );
+/*41*/ test( "foo\"//\"bar/baz", "foo//bar,baz" );
+/*42*/ test( "foo/bar////baz", "foo,bar//baz" );
+/*43*/ test( "\"\"\"'/'//'''/\"//", "'/'//'''//" );
+/*44*/ test( "8//'/k///\"3da\"'", "8//k///\"3da\"" );
+/*45*/ test( "foo/'/bar/'/baz", "foo,/bar/,baz" );
+/*46*/ test( "///''\"//\"\"///\"\"\"", "/,/////" );
+/*47*/ test( "//wUJ8KNAk'n0//\"", "-" );
+/*48*/ test( "What/is/'\"real\"'", "What,is,\"real\"" );
+/*49*/ test( "\"//'/////\"''/'//'", "//'/////,//" );
+/*50*/ test( "\"8hKE\"3Fx/4//Hk/J", "8hKE3Fx,4/Hk,J" );
+/*51*/ test( "'////''\"'//'/\"///'", "////\"//\"///" );
+/*52*/ test( "Ro\"/j''/2u/f/r/\"3n", "Ro/j''/2u/f/r/3n" );
+/*53*/ test( "hoge\"//\"fuga//piyo", "hoge//fuga/piyo" );
+/*54*/ test( "'foo//bar'//baz/qux", "foo//bar/baz,qux" );
+/*55*/ test( "//'//\"'/\"///'\"/''//", "///\",///',/" );
+/*56*/ test( "2/L'3'A8p/7//wP49Jb", "2,L3A8p,7/wP49Jb" );
+/*57*/ test( "\"foo'\"/\"bar'\"/\"baz'\"", "foo',bar',baz'" );
+/*58*/ test( "'//'\"//'///'///''\"//", "////'///'///''/" );
+/*59*/ test( "F6vX/q/Zu//5/'/H\"/'w", "F6vX,q,Zu/5,/H\"/w" );
+/*60*/ test( "\"foo'bar\"/'hoge\"fuga'", "foo'bar,hoge\"fuga" );
+/*61*/ test( "/\"/'//'/\"\"\"''//'/\"'''", "-" );
+/*62*/ test( "0gK\"koYUb\"\"S/p''z/\"Et", "0gKkoYUbS/p''z/Et" );
+/*63*/ test( "Foo/Bar/\"Hoge'/'Fuga\"", "Foo,Bar,Hoge'/'Fuga" );</textarea>
+<h2>JSON 形式のテストデータ</h2>
+<p>
+<a href='data.json'>data.json</a>
+</p>
+</body>
+</html>

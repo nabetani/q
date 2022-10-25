@@ -1,0 +1,92 @@
+digraph graph_name {
+ graph[nodesep = 0.1];
+ edge[dir=none, style=bold];
+ node[ fontname = "Helvetica", shape = plaintext, width = 0.25, height = 0.25, fontsize=30];
+eh[label="100" ];
+eh->ei
+ei[label="40" ];
+ei->ej
+ej[label="10" ];
+ej->ek
+ek[label="6" ];
+ek->el
+el[label="4" ;shape=box];
+el->em
+em[label="2" ];
+em->en
+en[label="1" ];
+ei->eo
+eo[label="26" ];
+eo->ep
+ep[label="3" ];
+ep->eq
+eq[label="2" ];
+eq->er
+er[label="1" ];
+eo->es
+es[label="17" ];
+es->et
+et[label="11" ];
+et->eu
+eu[label="7" ];
+eu->ev
+ev[label="4" ;shape=box];
+ev->ew
+ew[label="2" ];
+ew->ex
+ex[label="1" ];
+eh->ey
+ey[label="66" ];
+ey->ez
+ez[label="23" ];
+ez->fa
+fa[label="1" ];
+ez->fb
+fb[label="15" ];
+fb->fc
+fc[label="10" ];
+fc->fd
+fd[label="6" ];
+fd->fe
+fe[label="4" ;shape=box];
+fe->ff
+ff[label="2" ];
+ff->fg
+fg[label="1" ];
+ey->fh
+fh[label="44" ];
+fh->fi
+fi[label="12" ];
+fi->fj
+fj[label="8" ];
+fj->fk
+fk[label="5" ];
+fk->fl
+fl[label="3" ];
+fl->fm
+fm[label="2" ];
+fm->fn
+fn[label="1" ];
+fh->fo
+fo[label="29" ];
+fo->fp
+fp[label="4" ;shape=box];
+fp->fq
+fq[label="2" ];
+fq->fr
+fr[label="1" ];
+fo->fs
+fs[label="19" ];
+fs->ft
+ft[label="12" ];
+ft->fu
+fu[label="8" ];
+fu->fv
+fv[label="5" ];
+fv->fw
+fw[label="3" ];
+fw->fx
+fx[label="2" ];
+fx->fy
+fy[label="1" ];
+}

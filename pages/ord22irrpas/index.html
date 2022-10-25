@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>上と左の合計〜 横へな 2014.6.7 問題</title>
+    <style>
+      body, textarea { 
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{ width:322px }
+      img.small{ width:82px }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      table code {
+        border:none
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+        max-height:160px;
+        max-width:160px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>上と左の合計〜 横へな 2014.6.7 問題</h1>
+    <h2>問題</h2>
+    <p>
+      下図のような具合に、長方形の領域が分割されている。
+      <br>
+      <img class='top' src='8x6_6214_3024_5213_5022_0223_7115.png'>
+      <br>
+      ご覧のとおり、セルの大きさはいろいろあって、どのマスにも2桁の数値が書かれている。
+      <br>
+      数値は以下のルールで決まっている：
+    </p>
+    <ul>
+      <li>
+        左上隅のセルは
+        <code>01</code>
+      </li>
+      <li>
+        それ以外のセルには、そのセルの左隣のセルと上隣のセルに書かれた数の合計の、下2桁が入る。
+      </li>
+    </ul>
+    <p>
+      たとえば、右下隅の「
+      <code>32</code>
+      」と書かれているセルは、左隣に
+      <code>19</code>
+      ,
+      <code>94</code>
+      、
+      上隣に
+      <code>19</code>
+      というセルがあるので、合計を計算すると
+      <br>
+      19+94+19=132
+      <br>
+      となり、下2桁が 32 となるので
+      <code>32</code>
+      が入っている。
+      <br>
+      で。
+      <br>
+      右下隅のセルの番号がいくつになるのか計算するプログラムを書け。
+    </p>
+    <h2>入力・出力・詳細</h2>
+    <p>
+      入力は
+      <br>
+      <code>8x6:6214,3024,5213,5022,0223,7115</code>
+      <br>
+      こんな感じ。
+      <br>
+      コロン(
+      <code>:</code>
+      ) の前は、すべてのセルを含む長方形の領域を表す。
+      <code>x</code>
+      の前が横方向、後が縦方向。いずれも10進数1桁になっている。
+      <br>
+      コロンの後は、コンマ(
+      <code>,</code>
+      ) 区切りで、1×1ではないセルの位置と大きさを示す。
+      <br>
+      各桁が left, top, width, height の順で並んでおり、こちらも10進数。
+      <br>
+      例えば
+      <code>6214</code>
+      は、左端の座標が
+      6
+      、上端の座標が
+      2
+      、セルの幅が
+      1
+      、セルの高さが
+      4
+      であることを示している。
+    </p>
+    <p>
+      出力は、右下隅を含むセルに書かれる数値。
+      <br>
+      <code>32</code>
+      <br>
+      こんな感じ。
+      <br>
+      出力すべき値が 10 未満になった場合は、
+      <code>00</code>
+      や
+      <code>09</code>
+      のようにゼロを頭につけて2桁にすること。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        セルは全て長方形である。念の為に書いておくと、正方形は長方形の一種である。
+      </li>
+      <li>
+        1×1 ではないセルについての情報に 1×1 のセルが含まれることはない。
+      </li>
+      <li>
+        全部のセルが 1×1 の場合、コロンの後にはなにもない。
+      </li>
+      <li>
+        1×1 ではないセルについての情報の順序に意味はない。率直にいって、シャッフルしてある。
+      </li>
+      <li>
+        セルとセルが重なることはない。重なる場合について考慮する必要はない。
+      </li>
+      <li>
+        セルが盤面をはみ出すことはない。そのような場合につても考慮する必要はない。
+      </li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/34bf2a05099a47e193b6'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2014年6月7日に開催される 第22回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='http://yhpg.doorkeeper.jp/events/11378'>
+          Doorkeeper のページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>画像</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code>8x6:6214,3024,5213,5022,0223,7115</code>
+        </td>
+        <td>
+          <code class='expected'>32</code>
+        </td>
+        <td>
+          <img class='sample' src='8x6_6214_3024_5213_5022_0223_7115.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code>1x1:</code>
+        </td>
+        <td>
+          <code class='expected'>01</code>
+        </td>
+        <td>
+          <img class='sample' src='1x1_.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code>2x3:</code>
+        </td>
+        <td>
+          <code class='expected'>03</code>
+        </td>
+        <td>
+          <img class='sample' src='2x3_.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code>9x7:</code>
+        </td>
+        <td>
+          <code class='expected'>03</code>
+        </td>
+        <td>
+          <img class='sample' src='9x7_.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code>2x3:0021</code>
+        </td>
+        <td>
+          <code class='expected'>03</code>
+        </td>
+        <td>
+          <img class='sample' src='2x3_0021.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code>2x3:1012</code>
+        </td>
+        <td>
+          <code class='expected'>03</code>
+        </td>
+        <td>
+          <img class='sample' src='2x3_1012.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code>2x3:0022</code>
+        </td>
+        <td>
+          <code class='expected'>02</code>
+        </td>
+        <td>
+          <img class='sample' src='2x3_0022.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code>9x9:1177</code>
+        </td>
+        <td>
+          <code class='expected'>98</code>
+        </td>
+        <td>
+          <img class='sample' src='9x9_1177.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code>7x7:2354</code>
+        </td>
+        <td>
+          <code class='expected'>02</code>
+        </td>
+        <td>
+          <img class='sample' src='7x7_2354.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code>3x6:1121,0333</code>
+        </td>
+        <td>
+          <code class='expected'>12</code>
+        </td>
+        <td>
+          <img class='sample' src='3x6_1121_0333.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code>8x1:4031,0031</code>
+        </td>
+        <td>
+          <code class='expected'>01</code>
+        </td>
+        <td>
+          <img class='sample' src='8x1_4031_0031.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code>8x2:3141,5031</code>
+        </td>
+        <td>
+          <code class='expected'>07</code>
+        </td>
+        <td>
+          <img class='sample' src='8x2_3141_5031.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code>1x6:0213,0012</code>
+        </td>
+        <td>
+          <code class='expected'>01</code>
+        </td>
+        <td>
+          <img class='sample' src='1x6_0213_0012.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code>3x3:1221,0021,0131</code>
+        </td>
+        <td>
+          <code class='expected'>04</code>
+        </td>
+        <td>
+          <img class='sample' src='3x3_1221_0021_0131.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code>9x2:1042,8012,6012</code>
+        </td>
+        <td>
+          <code class='expected'>18</code>
+        </td>
+        <td>
+          <img class='sample' src='9x2_1042_8012_6012.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code>3x6:0024,0432,2013</code>
+        </td>
+        <td>
+          <code class='expected'>03</code>
+        </td>
+        <td>
+          <img class='sample' src='3x6_0024_0432_2013.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code>4x3:1131,0221,2021</code>
+        </td>
+        <td>
+          <code class='expected'>10</code>
+        </td>
+        <td>
+          <img class='sample' src='4x3_1131_0221_2021.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code>8x4:3252,2121,6021</code>
+        </td>
+        <td>
+          <code class='expected'>48</code>
+        </td>
+        <td>
+          <img class='sample' src='8x4_3252_2121_6021.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code>3x3:2112,0022,0221</code>
+        </td>
+        <td>
+          <code class='expected'>03</code>
+        </td>
+        <td>
+          <img class='sample' src='3x3_2112_0022_0221.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code>9x9:1019,3019,5019,7019</code>
+        </td>
+        <td>
+          <code class='expected'>25</code>
+        </td>
+        <td>
+          <img class='sample' src='9x9_1019_3019_5019_7019.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code>4x3:3112,0013,1122,2021</code>
+        </td>
+        <td>
+          <code class='expected'>04</code>
+        </td>
+        <td>
+          <img class='sample' src='4x3_3112_0013_1122_2021.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code>4x8:1513,2028,0025,0612</code>
+        </td>
+        <td>
+          <code class='expected'>04</code>
+        </td>
+        <td>
+          <img class='sample' src='4x8_1513_2028_0025_0612.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code>9x6:2262,5432,8014,3151</code>
+        </td>
+        <td>
+          <code class='expected'>39</code>
+        </td>
+        <td>
+          <img class='sample' src='9x6_2262_5432_8014_3151.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code>5x2:2012,3121,3021,0121</code>
+        </td>
+        <td>
+          <code class='expected'>06</code>
+        </td>
+        <td>
+          <img class='sample' src='5x2_2012_3121_3021_0121.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code>3x4:1321,1121,1221,0012</code>
+        </td>
+        <td>
+          <code class='expected'>05</code>
+        </td>
+        <td>
+          <img class='sample' src='3x4_1321_1121_1221_0012.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code>5x3:0112,1122,4013,0041</code>
+        </td>
+        <td>
+          <code class='expected'>09</code>
+        </td>
+        <td>
+          <img class='sample' src='5x3_0112_1122_4013_0041.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code>8x7:3552,3451,5031,0162</code>
+        </td>
+        <td>
+          <code class='expected'>95</code>
+        </td>
+        <td>
+          <img class='sample' src='8x7_3552_3451_5031_0162.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code>9x9:2234,8412,0792,6421,1681</code>
+        </td>
+        <td>
+          <code class='expected'>52</code>
+        </td>
+        <td>
+          <img class='sample' src='9x9_2234_8412_0792_6421_1681.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code>4x7:0532,1012,3014,3512,2213</code>
+        </td>
+        <td>
+          <code class='expected'>60</code>
+        </td>
+        <td>
+          <img class='sample' src='4x7_0532_1012_3014_3512_2213.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code>8x5:4342,3033,0033,6122,1332</code>
+        </td>
+        <td>
+          <code class='expected'>08</code>
+        </td>
+        <td>
+          <img class='sample' src='8x5_4342_3033_0033_6122_1332.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code>6x7:1431,3331,1621,2531,4621</code>
+        </td>
+        <td>
+          <code class='expected'>36</code>
+        </td>
+        <td>
+          <img class='sample' src='6x7_1431_3331_1621_2531_4621.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code>4x9:1324,3116,0013,2722,2013,0712</code>
+        </td>
+        <td>
+          <code class='expected'>67</code>
+        </td>
+        <td>
+          <img class='sample' src='4x9_1324_3116_0013_2722_2013_0712.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code>7x6:3241,4531,1412,0214,3012,5321</code>
+        </td>
+        <td>
+          <code class='expected'>54</code>
+        </td>
+        <td>
+          <img class='sample' src='7x6_3241_4531_1412_0214_3012_5321.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code>2x9:1412,0021,0117,0821,1113,1612</code>
+        </td>
+        <td>
+          <code class='expected'>05</code>
+        </td>
+        <td>
+          <img class='sample' src='2x9_1412_0021_0117_0821_1113_1612.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code>9x9:2544,6034,1342,6524,0523,4022</code>
+        </td>
+        <td>
+          <code class='expected'>99</code>
+        </td>
+        <td>
+          <img class='sample' src='9x9_2544_6034_1342_6524_0523_4022.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code>5x6:0422,4113,2022,2313,4412,2221</code>
+        </td>
+        <td>
+          <code class='expected'>20</code>
+        </td>
+        <td>
+          <img class='sample' src='5x6_0422_4113_2022_2313_4412_2221.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code>7x4:6212,0012,6012,2331,3023,0321</code>
+        </td>
+        <td>
+          <code class='expected'>10</code>
+        </td>
+        <td>
+          <img class='sample' src='7x4_6212_0012_6012_2331_3023_0321.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code>4x4:3012,1321,2221,0212,0012,1022</code>
+        </td>
+        <td>
+          <code class='expected'>11</code>
+        </td>
+        <td>
+          <img class='sample' src='4x4_3012_1321_2221_0212_0012_1022.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code>5x7:1132,1332,0312,4013,0641,4512</code>
+        </td>
+        <td>
+          <code class='expected'>77</code>
+        </td>
+        <td>
+          <img class='sample' src='5x7_1132_1332_0312_4013_0641_4512.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code>5x5:0341,3221,3421,0221,1421,0151,1041</code>
+        </td>
+        <td>
+          <code class='expected'>54</code>
+        </td>
+        <td>
+          <img class='sample' src='5x5_0341_3221_3421_0221_1421_0151_1041.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code>9x9:6224,5642,0643,0333,3422,1033,4122</code>
+        </td>
+        <td>
+          <code class='expected'>36</code>
+        </td>
+        <td>
+          <img class='sample' src='9x9_6224_5642_0643_0333_3422_1033_4122.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code>6x8:0055,1642,5513,0531,5013,5312,0612</code>
+        </td>
+        <td>
+          <code class='expected'>12</code>
+        </td>
+        <td>
+          <img class='sample' src='6x8_0055_1642_5513_0531_5013_5312_0612.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code>9x9:4232,1465,7326,3042,1123,7122,0514,7021</code>
+        </td>
+        <td>
+          <code class='expected'>34</code>
+        </td>
+        <td>
+          <img class='sample' src='9x9_4232_1465_7326_3042_1123_7122_0514_7021.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code>8x9:0361,5732,6413,0431,7313,1722,2141,3524,7112</code>
+        </td>
+        <td>
+          <code class='expected'>22</code>
+        </td>
+        <td>
+          <img class='sample' src='8x9_0361_5732_6413_0431_7313_1722_2141_3524_7112.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code>8x6:6422,1053,6122,1422,3333,6021,0412,0013,6321</code>
+        </td>
+        <td>
+          <code class='expected'>22</code>
+        </td>
+        <td>
+          <img class='sample' src='8x6_6422_1053_6122_1422_3333_6021_0412_0013_6321.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code>9x9:3324,5217,8116,2312,7314,6414,3061,7721,1231,1514,3712</code>
+        </td>
+        <td>
+          <code class='expected'>17</code>
+        </td>
+        <td>
+          <img class='sample' src='9x9_3324_5217_8116_2312_7314_6414_3061_7721_1231_1514_3712.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code>9x9:7424,4423,0227,3722,4053,2324,5722,2013,7821,6321,2712,6512</code>
+        </td>
+        <td>
+          <code class='expected'>39</code>
+        </td>
+        <td>
+          <img class='sample' src='9x9_7424_4423_0227_3722_4053_2324_5722_2013_7821_6321_2712_6512.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td class='sample'>
+          <code>8x7:5422,6022,2262,1522,3422,0122,0322,2032,6621,4621,0512,7412,5012</code>
+        </td>
+        <td>
+          <code class='expected'>06</code>
+        </td>
+        <td>
+          <img class='sample' src='8x7_5422_6022_2262_1522_3422_0122_0322_2032_6621_4621_0512_7412_5012.png'>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "8x6:6214,3024,5213,5022,0223,7115", "32" );    
+/*1*/ test( "1x1:", "01" );    
+/*2*/ test( "2x3:", "03" );    
+/*3*/ test( "9x7:", "03" );    
+/*4*/ test( "2x3:0021", "03" );    
+/*5*/ test( "2x3:1012", "03" );    
+/*6*/ test( "2x3:0022", "02" );    
+/*7*/ test( "9x9:1177", "98" );    
+/*8*/ test( "7x7:2354", "02" );    
+/*9*/ test( "3x6:1121,0333", "12" );    
+/*10*/ test( "8x1:4031,0031", "01" );    
+/*11*/ test( "8x2:3141,5031", "07" );    
+/*12*/ test( "1x6:0213,0012", "01" );    
+/*13*/ test( "3x3:1221,0021,0131", "04" );    
+/*14*/ test( "9x2:1042,8012,6012", "18" );    
+/*15*/ test( "3x6:0024,0432,2013", "03" );    
+/*16*/ test( "4x3:1131,0221,2021", "10" );    
+/*17*/ test( "8x4:3252,2121,6021", "48" );    
+/*18*/ test( "3x3:2112,0022,0221", "03" );    
+/*19*/ test( "9x9:1019,3019,5019,7019", "25" );    
+/*20*/ test( "4x3:3112,0013,1122,2021", "04" );    
+/*21*/ test( "4x8:1513,2028,0025,0612", "04" );    
+/*22*/ test( "9x6:2262,5432,8014,3151", "39" );    
+/*23*/ test( "5x2:2012,3121,3021,0121", "06" );    
+/*24*/ test( "3x4:1321,1121,1221,0012", "05" );    
+/*25*/ test( "5x3:0112,1122,4013,0041", "09" );    
+/*26*/ test( "8x7:3552,3451,5031,0162", "95" );    
+/*27*/ test( "9x9:2234,8412,0792,6421,1681", "52" );    
+/*28*/ test( "4x7:0532,1012,3014,3512,2213", "60" );    
+/*29*/ test( "8x5:4342,3033,0033,6122,1332", "08" );    
+/*30*/ test( "6x7:1431,3331,1621,2531,4621", "36" );    
+/*31*/ test( "4x9:1324,3116,0013,2722,2013,0712", "67" );    
+/*32*/ test( "7x6:3241,4531,1412,0214,3012,5321", "54" );    
+/*33*/ test( "2x9:1412,0021,0117,0821,1113,1612", "05" );    
+/*34*/ test( "9x9:2544,6034,1342,6524,0523,4022", "99" );    
+/*35*/ test( "5x6:0422,4113,2022,2313,4412,2221", "20" );    
+/*36*/ test( "7x4:6212,0012,6012,2331,3023,0321", "10" );    
+/*37*/ test( "4x4:3012,1321,2221,0212,0012,1022", "11" );    
+/*38*/ test( "5x7:1132,1332,0312,4013,0641,4512", "77" );    
+/*39*/ test( "5x5:0341,3221,3421,0221,1421,0151,1041", "54" );    
+/*40*/ test( "9x9:6224,5642,0643,0333,3422,1033,4122", "36" );    
+/*41*/ test( "6x8:0055,1642,5513,0531,5013,5312,0612", "12" );    
+/*42*/ test( "9x9:4232,1465,7326,3042,1123,7122,0514,7021", "34" );    
+/*43*/ test( "8x9:0361,5732,6413,0431,7313,1722,2141,3524,7112", "22" );    
+/*44*/ test( "8x6:6422,1053,6122,1422,3333,6021,0412,0013,6321", "22" );    
+/*45*/ test( "9x9:3324,5217,8116,2312,7314,6414,3061,7721,1231,1514,3712", "17" );    
+/*46*/ test( "9x9:7424,4423,0227,3722,4053,2324,5722,2013,7821,6321,2712,6512", "39" );    
+/*47*/ test( "8x7:5422,6022,2262,1522,3422,0122,0322,2032,6621,4621,0512,7412,5012", "06" );</textarea>
+  </body>
+</html>

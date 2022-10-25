@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>くねくね増加列〜 横へな 2014.7.5 問題</title>
+    <style>
+      body, textarea { 
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{ width:322px }
+      img.small{ width:82px }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      table code {
+        border:none
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+        max-height:80px;
+        max-width:80px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>くねくね増加列〜 横へな 2014.7.5 問題</h1>
+    <h2>問題</h2>
+    <p>
+      下図のように、5×5 のマス目があり、どのマスにも 0〜9 の数字が入っている。
+      <br>
+      <img class='top' src='49w5fv1fsvs7c9tr1l.png'>
+      <br>
+      このマス目の適当な場所から上下左右にたどり、どんどん増えていく数列（狭義単調増加列）を作ることを考える。
+      <br>
+      たとえば、上図の緑や青の線のようにたどると狭義単調増加列になる。
+      <br>
+      で。
+      <br>
+      入力で与えられる数の配置の上で作ることができる狭義単調増加列のなかで、もっとも要素数が多いものの要素数を計算するプログラムを書け。
+    </p>
+    <h2>入力・出力・詳細</h2>
+    <p>
+      入力は
+      <br>
+      <code>01224/82925/69076/32298/21065</code>
+      <br>
+      こんな感じ。
+      <br>
+      マス目は 5×5 固定になっていて、横書きの普通の順序で数を並べてある。
+      <br>
+      行の境目にはスラッシュ
+      <code>/</code>
+      がある。
+    </p>
+    <p>
+      出力は、くねくねたとどって作ることができる狭義単調増加列のなかで、最長のものの長さ。
+      <br>
+      この例だと最長のものは
+      <br>
+      <code>0,1,2,3,6,8</code>
+      <br>
+      などなので、出力はふつうに 10 進数で。
+      <br>
+      <code>6</code>
+      <br>
+      こんな感じ。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        長さ 1 でも狭義単調増加列である。考えられる最小値は 1 となる。
+      </li>
+      <li>
+        くねくねたどれるのは、上下左右のみ。斜めにはたどれない。
+      </li>
+      <li>
+        ちゃんと増えること。1,2,3,4 は OK だけど、1, 2, 2, 4 は NG。
+      </li>
+      <li>
+        不正な入力に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/7ba11167ea28c929fcf2'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2014年7月5日に開催される 第23回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='http://yhpg.doorkeeper.jp/events/12339'>
+          Doorkeeper のページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>例</th>
+        <th>経路</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code>01224/82925/69076/32298/21065</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,6,8</code>
+        </td>
+        <td>
+          <img class='sample' src='49w5fv1fsvs7c9tr1l.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code>03478/12569/03478/12569/03478</code>
+        </td>
+        <td>
+          <code class='expected'>10</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,4,5,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='c53imwbhgde78ek3ee.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code>09900/28127/87036/76545/87650</code>
+        </td>
+        <td>
+          <code class='expected'>10</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,4,5,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='yk0p12ptwecozvyp6q.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code>77777/77777/77777/77777/77777</code>
+        </td>
+        <td>
+          <code class='expected'>1</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <img class='sample' src='7jgpyxu01ay5p1uozn5.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code>00000/11111/22222/33333/44444</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,4</code>
+        </td>
+        <td>
+          <img class='sample' src='37sqthke8d3gmgxo.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code>01234/12345/23456/34567/45678</code>
+        </td>
+        <td>
+          <code class='expected'>9</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,4,5,6,7,8</code>
+        </td>
+        <td>
+          <img class='sample' src='4b52d0z82j0k07kjv2.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code>10135/21245/43456/55567/77789</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,4,5,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='zdjnnhkjj02iij1qm5.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code>33333/33333/55555/55555/77777</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <code class='expected'>3,5</code>
+        </td>
+        <td>
+          <img class='sample' src='38ccxtpdzfsp0u68ooh.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code>01234/11234/22234/33334/44444</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,4</code>
+        </td>
+        <td>
+          <img class='sample' src='4b526iicvmnguo6np8.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code>98765/88765/77765/66665/55555</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>5,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='9kpulazpxstiuvze7c3.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code>01234/10325/23016/32107/45670</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,4,5,6,7</code>
+        </td>
+        <td>
+          <img class='sample' src='4b5216o7hci256c0w6.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code>34343/43434/34343/43434/34343</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          <code class='expected'>3,4</code>
+        </td>
+        <td>
+          <img class='sample' src='3bv9lcfgoekpnmqjsw7.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code>14714/41177/71141/17414/47141</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <code class='expected'>1,4,7</code>
+        </td>
+        <td>
+          <img class='sample' src='1fcw9y2q0ewpyxqghs5.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code>13891/31983/89138/98319/13891</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <code class='expected'>1,3,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='1chhhxdqguq7e5d5yeb.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code>01369/36901/90136/13690/69013</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,3,6,9</code>
+        </td>
+        <td>
+          <img class='sample' src='4s3tyhb4mcle3iib1x.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code>02468/24689/46898/68986/89864</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,4,6,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='8m6yqftp7zw3w2elt4.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code>86420/68642/46864/24686/02468</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,4,6,8</code>
+        </td>
+        <td>
+          <img class='sample' src='8dmpg72wwq0qctczc04.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code>77777/75557/75357/75557/77777</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <code class='expected'>3,5,7</code>
+        </td>
+        <td>
+          <img class='sample' src='7jgpykthhy6roasz8fl.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code>53135/33133/11111/33133/53135</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          <code class='expected'>1,3,5</code>
+        </td>
+        <td>
+          <img class='sample' src='55ggse9t1aqkgg8d9v3.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code>01356/23501/45024/61246/13461</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,3,5,6</code>
+        </td>
+        <td>
+          <img class='sample' src='4qgyu4ef3wemxumoad.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code>46803/68025/91358/34792/78136</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <code class='expected'>0,3,5,8</code>
+        </td>
+        <td>
+          <img class='sample' src='4jcuxy6ibx5qbtpwuxk.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code>66788/56789/55799/43210/33211</code>
+        </td>
+        <td>
+          <code class='expected'>9</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,5,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='6h3yiplek1fee7fs0wr.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code>40000/94321/96433/97644/98654</code>
+        </td>
+        <td>
+          <code class='expected'>9</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,3,4,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='3vm2jrw0zejpfw1n54u.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code>58950/01769/24524/24779/17069</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,4,5,7,9</code>
+        </td>
+        <td>
+          <img class='sample' src='5pr42ds46q4qq1xny6l.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code>97691/01883/98736/51934/81403</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <code class='expected'>0,3,4,6</code>
+        </td>
+        <td>
+          <img class='sample' src='9gyw3ffh5dwu1fhzm57.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code>92049/27798/69377/45936/80277</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>3,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='8x9zc4leia0elodvv1x.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code>97308/77113/08645/62578/44774</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,4,6,8</code>
+        </td>
+        <td>
+          <img class='sample' src='9fmrzee1m3uyt00bj5y.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code>90207/17984/01982/31272/60926</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='8quj8k4eyjbx5mh39zy.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code>62770/65146/06512/15407/89570</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,6</code>
+        </td>
+        <td>
+          <img class='sample' src='6333n2zg4hil426z476.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code>93914/46889/27554/58581/18703</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>2,4,6,7,8</code>
+        </td>
+        <td>
+          <img class='sample' src='93sbik6gur3lbk4oaen.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code>42035/12430/60728/30842/90381</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,3,4,7,8</code>
+        </td>
+        <td>
+          <img class='sample' src='42pr8t87hswl2zpfe25.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code>90347/53880/67954/95256/68777</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <code class='expected'>0,3,5,6,7,9</code>
+        </td>
+        <td>
+          <img class='sample' src='8rc4o7imsx6rzs37xmx.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code>05986/60473/01606/16425/46292</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,4,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='kw8ctivvtbvzwo8os4.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code>18053/90486/24320/04250/03853</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,3,4,8</code>
+        </td>
+        <td>
+          <img class='sample' src='1r0g1m2q326nm8220a5.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code>36865/13263/67280/18600/12774</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,3,5,6,8</code>
+        </td>
+        <td>
+          <img class='sample' src='3ko5elgcqa5rzf6d64m.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code>72456/72052/79971/14656/41151</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>1,2,5,7,9</code>
+        </td>
+        <td>
+          <img class='sample' src='70w52lfn700gvx6ayhr.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code>94888/28649/05561/76571/97567</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,5,6,7,9</code>
+        </td>
+        <td>
+          <img class='sample' src='976p76874q4xwoynltr.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code>50214/94693/88718/78922/55359</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,6,7,8</code>
+        </td>
+        <td>
+          <img class='sample' src='4v9gaiiolf1ikk04oin.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code>76502/99325/17987/31737/93874</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,3,5,6,7,9</code>
+        </td>
+        <td>
+          <img class='sample' src='7f0irl3y38mot89cz0y.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code>87142/14764/13014/00248/73105</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,3,4,7,8</code>
+        </td>
+        <td>
+          <img class='sample' src='8g5f2yh6tpwwdscy9rl.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code>24573/71679/48704/19786/91834</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <code class='expected'>1,4,5,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='2drocvgv9xvnnc4ivfe.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code>20347/61889/06074/61263/20519</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <code class='expected'>0,1,2,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='1z0oj9m9bt03qphjrrb.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code>74344/97459/97302/14439/35689</code>
+        </td>
+        <td>
+          <code class='expected'>6</code>
+        </td>
+        <td>
+          <code class='expected'>0,3,4,6,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='77hdberxbtq2k75h5zd.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code>04794/52198/50294/09340/24160</code>
+        </td>
+        <td>
+          <code class='expected'>5</code>
+        </td>
+        <td>
+          <code class='expected'>1,2,4,7,9</code>
+        </td>
+        <td>
+          <img class='sample' src='gqggg967vfgcaekxc0.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code>41065/69344/64698/54167/43348</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <code class='expected'>1,3,4,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='3zbvtv2gr6g18r63984.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code>39947/15696/03482/19574/70235</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <code class='expected'>0,3,4,5,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='3vfegdgjenpsgzka723.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code>92767/16790/84897/69765/75734</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <code class='expected'>3,4,5,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='8zs72i4y7hu2t5gbcs6.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td class='sample'>
+          <code>09654/79610/05070/23456/74687</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,3,4,5,6,7,8</code>
+        </td>
+        <td>
+          <img class='sample' src='xp46ewoky7wf5z5ogv.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td class='sample'>
+          <code>73998/98799/98707/05633/23915</code>
+        </td>
+        <td>
+          <code class='expected'>8</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,3,5,6,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='769w8heavjc3e035de3.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td class='sample'>
+          <code>35661/17480/89723/64335/27217</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <code class='expected'>1,2,3,4,6,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='3ggva5wkyrb1179tb3l.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td class='sample'>
+          <code>02489/77571/84873/03879/84460</code>
+        </td>
+        <td>
+          <code class='expected'>7</code>
+        </td>
+        <td>
+          <code class='expected'>0,2,4,5,7,8,9</code>
+        </td>
+        <td>
+          <img class='sample' src='8ou70ldl5y0y0gygi4.png'>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "01224/82925/69076/32298/21065", "6" );    
+/*1*/ test( "03478/12569/03478/12569/03478", "10" );    
+/*2*/ test( "09900/28127/87036/76545/87650", "10" );    
+/*3*/ test( "77777/77777/77777/77777/77777", "1" );    
+/*4*/ test( "00000/11111/22222/33333/44444", "5" );    
+/*5*/ test( "01234/12345/23456/34567/45678", "9" );    
+/*6*/ test( "10135/21245/43456/55567/77789", "8" );    
+/*7*/ test( "33333/33333/55555/55555/77777", "2" );    
+/*8*/ test( "01234/11234/22234/33334/44444", "5" );    
+/*9*/ test( "98765/88765/77765/66665/55555", "5" );    
+/*10*/ test( "01234/10325/23016/32107/45670", "8" );    
+/*11*/ test( "34343/43434/34343/43434/34343", "2" );    
+/*12*/ test( "14714/41177/71141/17414/47141", "3" );    
+/*13*/ test( "13891/31983/89138/98319/13891", "4" );    
+/*14*/ test( "01369/36901/90136/13690/69013", "5" );    
+/*15*/ test( "02468/24689/46898/68986/89864", "6" );    
+/*16*/ test( "86420/68642/46864/24686/02468", "5" );    
+/*17*/ test( "77777/75557/75357/75557/77777", "3" );    
+/*18*/ test( "53135/33133/11111/33133/53135", "3" );    
+/*19*/ test( "01356/23501/45024/61246/13461", "5" );    
+/*20*/ test( "46803/68025/91358/34792/78136", "4" );    
+/*21*/ test( "66788/56789/55799/43210/33211", "9" );    
+/*22*/ test( "40000/94321/96433/97644/98654", "9" );    
+/*23*/ test( "58950/01769/24524/24779/17069", "6" );    
+/*24*/ test( "97691/01883/98736/51934/81403", "4" );    
+/*25*/ test( "92049/27798/69377/45936/80277", "5" );    
+/*26*/ test( "97308/77113/08645/62578/44774", "5" );    
+/*27*/ test( "90207/17984/01982/31272/60926", "6" );    
+/*28*/ test( "62770/65146/06512/15407/89570", "4" );    
+/*29*/ test( "93914/46889/27554/58581/18703", "5" );    
+/*30*/ test( "42035/12430/60728/30842/90381", "5" );    
+/*31*/ test( "90347/53880/67954/95256/68777", "6" );    
+/*32*/ test( "05986/60473/01606/16425/46292", "5" );    
+/*33*/ test( "18053/90486/24320/04250/03853", "5" );    
+/*34*/ test( "36865/13263/67280/18600/12774", "5" );    
+/*35*/ test( "72456/72052/79971/14656/41151", "5" );    
+/*36*/ test( "94888/28649/05561/76571/97567", "5" );    
+/*37*/ test( "50214/94693/88718/78922/55359", "5" );    
+/*38*/ test( "76502/99325/17987/31737/93874", "7" );    
+/*39*/ test( "87142/14764/13014/00248/73105", "6" );    
+/*40*/ test( "24573/71679/48704/19786/91834", "7" );    
+/*41*/ test( "20347/61889/06074/61263/20519", "7" );    
+/*42*/ test( "74344/97459/97302/14439/35689", "6" );    
+/*43*/ test( "04794/52198/50294/09340/24160", "5" );    
+/*44*/ test( "41065/69344/64698/54167/43348", "7" );    
+/*45*/ test( "39947/15696/03482/19574/70235", "7" );    
+/*46*/ test( "92767/16790/84897/69765/75734", "7" );    
+/*47*/ test( "09654/79610/05070/23456/74687", "8" );    
+/*48*/ test( "73998/98799/98707/05633/23915", "8" );    
+/*49*/ test( "35661/17480/89723/64335/27217", "7" );    
+/*50*/ test( "02489/77571/84873/03879/84460", "7" );</textarea>
+  </body>
+</html>
