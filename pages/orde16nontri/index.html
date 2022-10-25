@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>非三連数 2017.8.5</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        background-color: #d8d8d8;
+        font-family:monospace;
+        padding:2pt 2pt 2pt 2pt ;
+        border-radius:4px;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      float_right{
+       float:right;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+      td.bigcell{
+        width:25mm;
+        height:25mm;
+        font-size:18mm;
+        border:solid black 0.5mm
+      }
+      table.big td{
+        font-size:9mm;
+        border:solid black 0.5mm
+      }
+      div.top img{
+        width:80px;
+      }
+      table.big img{
+        width:120px;
+        height:120px;
+       }
+       td.sample{
+       }
+      table.nabenum tr td
+      {
+        background-color:#444;
+        padding:0 0 0 0;
+        margin:0 0 0 0;
+      }
+      table.nabenum
+      {
+        padding:1mm 2mm 1mm 2mm;
+        background-color:#444;
+      }
+      table.nabenum .c0{
+        width:4px;
+      }
+      table.nabenum .c1{
+        width:15px;
+      }
+      table.nabenum .c2{
+        width:4px;
+      }
+      table.nabenum tr.n0 td{
+        height:4px;
+      }
+      table.nabenum tr.n1 td{
+        height:15px;
+      }
+      table.nabenum tr.n2 td{
+        height:4px;
+      }
+      table.nabenum tr.n3 td{
+        height:15px;
+      }
+      table.nabenum tr.n4 td{
+        height:4px;
+      }
+      table.nabenum td.off{
+        background-color:black;
+      }
+      table.nabenum td.on{
+        background-color:white;
+      }
+      table.nabenum td.nazo{
+        background-color:#f00;
+      }
+      table.outer > tbody > tr > td{
+        border-left: black solid 1px;
+        vertical-align:top;
+      }
+      table.tet tr{
+        background-color:white;
+      }
+      div.nabe{
+        float:right;
+        width:200px;
+        background-color:#eee;
+        text-align:center;
+      }
+      .nabe_c{
+        text-align:center;
+        }
+      div.main_fig{
+       float:right;
+       background-color:white;
+      }
+    </style>
+    <body></body>
+    <h1>非三連数 2017.8.5</h1>
+    <h2>問題の概要</h2>
+    <p>
+      正の整数を 2進数で表現したときに、1や0が3つ以上続く部分を含む数を「三連数」と呼ぶ。
+      <br>
+      例えば下表のとおり：
+    </p>
+    <table>
+      <tr>
+        <th>数(2進数表示)</th>
+        <th>三連数?</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>非三連数</td>
+      </tr>
+      <tr>
+        <td>1001001100</td>
+        <td>非三連数</td>
+      </tr>
+      <tr>
+        <td>1000</td>
+        <td>三連数</td>
+      </tr>
+      <tr>
+        <td>111</td>
+        <td>三連数</td>
+      </tr>
+      <tr>
+        <td>110001110101</td>
+        <td>三連数</td>
+      </tr>
+    </table>
+    <p>
+      で。
+      <br>
+      入力より大きな<b>非</b>三連数のうち、もっとも小さいものを出力するプログラムを書け。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>1441</code>
+      <br>
+      こんな感じ。
+      <br>
+      ふつうに 10進数。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、2進数にすると非三連数になる数を、10進数で。
+    </p>
+    <p>
+      先ほどの入力の場合、
+      <br>
+      <code>1444</code>
+      <br>
+      と出力すればよい。
+      <br>
+      1444
+      は、2進数では
+      10110100100
+      となる。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/3525da55601bdf55316e'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        この問題は2017年8月5日に開催される オフラインリアルタイムどう書くE15 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/62497'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>期待の2進数表示</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>1441</code>
+        </td>
+        <td>
+          <code class='expected'>1444</code>
+        </td>
+        <td>
+          10110100100
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>1</code>
+        </td>
+        <td>
+          <code class='expected'>2</code>
+        </td>
+        <td>
+          10
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>2</code>
+        </td>
+        <td>
+          <code class='expected'>3</code>
+        </td>
+        <td>
+          11
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>3</code>
+        </td>
+        <td>
+          <code class='expected'>4</code>
+        </td>
+        <td>
+          100
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>7</code>
+        </td>
+        <td>
+          <code class='expected'>9</code>
+        </td>
+        <td>
+          1001
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>43690</code>
+        </td>
+        <td>
+          <code class='expected'>43691</code>
+        </td>
+        <td>
+          1010101010101011
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>349525</code>
+        </td>
+        <td>
+          <code class='expected'>349526</code>
+        </td>
+        <td>
+          1010101010101010110
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>209715</code>
+        </td>
+        <td>
+          <code class='expected'>209716</code>
+        </td>
+        <td>
+          110011001100110100
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>209919</code>
+        </td>
+        <td>
+          <code class='expected'>210066</code>
+        </td>
+        <td>
+          110011010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>209664</code>
+        </td>
+        <td>
+          <code class='expected'>209700</code>
+        </td>
+        <td>
+          110011001100100100
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>65536</code>
+        </td>
+        <td>
+          <code class='expected'>74898</code>
+        </td>
+        <td>
+          10010010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>1048575</code>
+        </td>
+        <td>
+          <code class='expected'>1198372</code>
+        </td>
+        <td>
+          100100100100100100100
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>14</code>
+        </td>
+        <td>
+          <code class='expected'>18</code>
+        </td>
+        <td>
+          10010
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>13</code>
+        </td>
+        <td>
+          <code class='expected'>18</code>
+        </td>
+        <td>
+          10010
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>27</code>
+        </td>
+        <td>
+          <code class='expected'>36</code>
+        </td>
+        <td>
+          100100
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>44</code>
+        </td>
+        <td>
+          <code class='expected'>45</code>
+        </td>
+        <td>
+          101101
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>136</code>
+        </td>
+        <td>
+          <code class='expected'>146</code>
+        </td>
+        <td>
+          10010010
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>383</code>
+        </td>
+        <td>
+          <code class='expected'>402</code>
+        </td>
+        <td>
+          110010010
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>649</code>
+        </td>
+        <td>
+          <code class='expected'>658</code>
+        </td>
+        <td>
+          1010010010
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>1227</code>
+        </td>
+        <td>
+          <code class='expected'>1228</code>
+        </td>
+        <td>
+          10011001100
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>2693</code>
+        </td>
+        <td>
+          <code class='expected'>2706</code>
+        </td>
+        <td>
+          101010010010
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>4943</code>
+        </td>
+        <td>
+          <code class='expected'>4946</code>
+        </td>
+        <td>
+          1001101010010
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>9152</code>
+        </td>
+        <td>
+          <code class='expected'>9362</code>
+        </td>
+        <td>
+          10010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>8336</code>
+        </td>
+        <td>
+          <code class='expected'>9362</code>
+        </td>
+        <td>
+          10010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>36993</code>
+        </td>
+        <td>
+          <code class='expected'>37449</code>
+        </td>
+        <td>
+          1001001001001001
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>81868</code>
+        </td>
+        <td>
+          <code class='expected'>84260</code>
+        </td>
+        <td>
+          10100100100100100
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>73287</code>
+        </td>
+        <td>
+          <code class='expected'>74898</code>
+        </td>
+        <td>
+          10010010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>305901</code>
+        </td>
+        <td>
+          <code class='expected'>305956</code>
+        </td>
+        <td>
+          1001010101100100100
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>555516</code>
+        </td>
+        <td>
+          <code class='expected'>599186</code>
+        </td>
+        <td>
+          10010010010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>691590</code>
+        </td>
+        <td>
+          <code class='expected'>692809</code>
+        </td>
+        <td>
+          10101001001001001001
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>3112217</code>
+        </td>
+        <td>
+          <code class='expected'>3295524</code>
+        </td>
+        <td>
+          1100100100100100100100
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>5235890</code>
+        </td>
+        <td>
+          <code class='expected'>5392676</code>
+        </td>
+        <td>
+          10100100100100100100100
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>6804756</code>
+        </td>
+        <td>
+          <code class='expected'>6890642</code>
+        </td>
+        <td>
+          11010010010010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>13653246</code>
+        </td>
+        <td>
+          <code class='expected'>13781284</code>
+        </td>
+        <td>
+          110100100100100100100100
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>20099429</code>
+        </td>
+        <td>
+          <code class='expected'>20099657</code>
+        </td>
+        <td>
+          1001100101011001001001001
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>107304545</code>
+        </td>
+        <td>
+          <code class='expected'>107304548</code>
+        </td>
+        <td>
+          110011001010101011001100100
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>227978622</code>
+        </td>
+        <td>
+          <code class='expected'>227978642</code>
+        </td>
+        <td>
+          1101100101101010110110010010
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code class='src'>380810157</code>
+        </td>
+        <td>
+          <code class='expected'>380810386</code>
+        </td>
+        <td>
+          10110101100101011010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code class='src'>268435455</code>
+        </td>
+        <td>
+          <code class='expected'>306783378</code>
+        </td>
+        <td>
+          10010010010010010010010010010
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code class='src'>536870912</code>
+        </td>
+        <td>
+          <code class='expected'>613566756</code>
+        </td>
+        <td>
+          100100100100100100100100100100
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code class='src'>1072693248</code>
+        </td>
+        <td>
+          <code class='expected'>1227133513</code>
+        </td>
+        <td>
+          1001001001001001001001001001001
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "1441", "1444" );    
+/*1*/ test( "1", "2" );    
+/*2*/ test( "2", "3" );    
+/*3*/ test( "3", "4" );    
+/*4*/ test( "7", "9" );    
+/*5*/ test( "43690", "43691" );    
+/*6*/ test( "349525", "349526" );    
+/*7*/ test( "209715", "209716" );    
+/*8*/ test( "209919", "210066" );    
+/*9*/ test( "209664", "209700" );    
+/*10*/ test( "65536", "74898" );    
+/*11*/ test( "1048575", "1198372" );    
+/*12*/ test( "14", "18" );    
+/*13*/ test( "13", "18" );    
+/*14*/ test( "27", "36" );    
+/*15*/ test( "44", "45" );    
+/*16*/ test( "136", "146" );    
+/*17*/ test( "383", "402" );    
+/*18*/ test( "649", "658" );    
+/*19*/ test( "1227", "1228" );    
+/*20*/ test( "2693", "2706" );    
+/*21*/ test( "4943", "4946" );    
+/*22*/ test( "9152", "9362" );    
+/*23*/ test( "8336", "9362" );    
+/*24*/ test( "36993", "37449" );    
+/*25*/ test( "81868", "84260" );    
+/*26*/ test( "73287", "74898" );    
+/*27*/ test( "305901", "305956" );    
+/*28*/ test( "555516", "599186" );    
+/*29*/ test( "691590", "692809" );    
+/*30*/ test( "3112217", "3295524" );    
+/*31*/ test( "5235890", "5392676" );    
+/*32*/ test( "6804756", "6890642" );    
+/*33*/ test( "13653246", "13781284" );    
+/*34*/ test( "20099429", "20099657" );    
+/*35*/ test( "107304545", "107304548" );    
+/*36*/ test( "227978622", "227978642" );    
+/*37*/ test( "380810157", "380810386" );    
+/*38*/ test( "268435455", "306783378" );    
+/*39*/ test( "536870912", "613566756" );    
+/*40*/ test( "1072693248", "1227133513" );</textarea>
+  </head>
+</html>

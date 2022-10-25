@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>ビットボンバーマン   〜 横へな 2013.3.1</title>
+    <link href='style.css' rel='stylesheet'>
+  </head>
+  <body>
+    <h1>ビットボンバーマン   〜 横へな 2013.3.1</h1>
+    <h2>問題</h2>
+    <p>
+      6✕5マスのフィールドがある。<br/>
+      フィールド内には壁と爆弾がある。<br/>
+      爆弾からは上下左右に爆風が出る。壁があるとそこで爆風が止まる。<br/>
+      爆風が吹き荒れる場所の地図を作成せよ。
+    </p>
+    <h2>計算の例</h2>
+    <p>
+      入力は
+      <code>802b1200/01400c20</code>
+      のような文字列で与えられる。<br />
+      <code>/</code>
+      の前が壁、後が爆弾を示す。<br/>
+      これらを16進数とみなし、2進数に変換すると<br/>
+      <code>10000000001010110001001000000000</code>
+      /
+      <code>00000001010000000000110000100000</code>
+      となる。<br/>
+      これを、6✕5 のマス目に入れる。
+      <br>
+      使用するビットの順序は最上位ビット(MSB)から。
+      <br>
+      マス目の順序は左上から右へ進み、右端に達したら一つ下の行へ、という普通の順序。
+      <br>
+      ビットが 1 の場所には壁/爆弾 があることを意味し、ビットが 0 の場合にはそれらが無いことを意味する。
+      <br>
+      ※ 入力が 32bit でマス目が30個なので下位(LSB)の 2bit が余るが、ここには必ず 0 が入っているものとする。<br/>
+      すると：
+      <table>
+        <tr>
+          <th>壁</th>
+          <th>爆弾</th>
+        </tr>
+        <tr>
+          <td>
+<table class='fieldmap'>
+  <tr>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+</table>
+          </td>
+          <td>
+<table class='fieldmap'>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+</table>
+          </td>
+        </tr>
+      </table>
+      となる。<br/>
+      ここで
+      5
+      個の爆弾をすべて爆発させる。<br/>
+      爆風は爆弾そのものを含み、爆弾から上下左右にまっすぐしか進まない。<br/>
+      爆風は壁によって遮られる。<br/>
+      すると、
+      爆風の位置は
+      <table>
+        <tr>
+          <th>爆風</th>
+        </tr>
+        <tr>
+          <td>
+<table class='fieldmap'>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='empty'>0</td>
+    <td class='empty'>0</td>
+  </tr>
+  <tr>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+    <td class='filled'>1</td>
+  </tr>
+</table>
+          </td>
+        </tr>
+      </table>
+      となる。この爆風の位置を左上から集め、先頭から4桁ずつ16進数に変換する(最後に足りない2bit はさらに 00 が続くものとして 16 進数にする)と
+      <br>
+      <code>53c40cfc</code>
+      <br>
+      となるので、これを出力すればよい。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>
+        不正な入力（爆弾が壁の中にある、下位2bitが 00 ではない、など）に対処する必要はない。
+      </li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/items/709d61dff282cff7a890'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <p>
+      サンプルデータの「状況」項目の図は下表通りの意味である：
+    </p>
+    <table>
+      <tr>
+        <th>記号</th>
+        <td>茶色のマス</td>
+        <td>青い点</td>
+        <td>橙のマス</td>
+      </tr>
+      <tr>
+        <th>意味</th>
+        <td>壁</td>
+        <td>爆弾</td>
+        <td>爆風</td>
+      </tr>
+    </table>
+    <br>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>
+          <code>802b1200/01400c20</code>
+        </td>
+        <td>
+          <code>53c40cfc</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/802b1200-01400c20-53c40cfc.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <code>28301068/84080504</code>
+        </td>
+        <td>
+          <code>d64fef94</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/28301068-84080504-d64fef94.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <code>100a4010/80010004</code>
+        </td>
+        <td>
+          <code>e241850c</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/100a4010-80010004-e241850c.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <code>81020400/000000fc</code>
+        </td>
+        <td>
+          <code>0e3cfbfc</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/81020400-000000fc-0e3cfbfc.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <code>80225020/7e082080</code>
+        </td>
+        <td>
+          <code>7fdd24d0</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/80225020-7e082080-7fdd24d0.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <code>01201200/40102008</code>
+        </td>
+        <td>
+          <code>fe1861fc</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/01201200-40102008-fe1861fc.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <code>00201000/01000200</code>
+        </td>
+        <td>
+          <code>43c48f08</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00201000-01000200-43c48f08.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <code>00891220/81020408</code>
+        </td>
+        <td>
+          <code>ff060c1c</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00891220-81020408-ff060c1c.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <code>410033c0/0c300000</code>
+        </td>
+        <td>
+          <code>3cf0c000</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/410033c0-0c300000-3cf0c000.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <code>00000000/01400a00</code>
+        </td>
+        <td>
+          <code>7bf7bf78</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00000000-01400a00-7bf7bf78.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <code>00000000/20000a00</code>
+        </td>
+        <td>
+          <code>fca2bf28</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00000000-20000a00-fca2bf28.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <code>00000000/00000000</code>
+        </td>
+        <td>
+          <code>00000000</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00000000-00000000-00000000.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <code>00cafe00/00000000</code>
+        </td>
+        <td>
+          <code>00000000</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00cafe00-00000000-00000000.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <code>aaabaaaa/50000000</code>
+        </td>
+        <td>
+          <code>51441040</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/aaabaaaa-50000000-51441040.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <code>a95a95a8/56a56a54</code>
+        </td>
+        <td>
+          <code>56a56a54</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/a95a95a8-56a56a54-56a56a54.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <code>104fc820/80201010</code>
+        </td>
+        <td>
+          <code>ea30345c</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/104fc820-80201010-ea30345c.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <code>4a940214/05000008</code>
+        </td>
+        <td>
+          <code>05000008</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/4a940214-05000008-05000008.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <code>00908000/05000200</code>
+        </td>
+        <td>
+          <code>ff043f48</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00908000-05000200-ff043f48.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <code>00c48c00/fe1861fc</code>
+        </td>
+        <td>
+          <code>ff3873fc</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00c48c00-fe1861fc-ff3873fc.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <code>00000004/81020400</code>
+        </td>
+        <td>
+          <code>fffffff0</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00000004-81020400-fffffff0.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <code>111028b0/40021100</code>
+        </td>
+        <td>
+          <code>e08fd744</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/111028b0-40021100-e08fd744.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <code>6808490c/01959000</code>
+        </td>
+        <td>
+          <code>17f7b650</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/6808490c-01959000-17f7b650.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <code>30821004/81014040</code>
+        </td>
+        <td>
+          <code>c75de5f8</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/30821004-81014040-c75de5f8.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <code>0004c810/10003100</code>
+        </td>
+        <td>
+          <code>fe4937c4</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/0004c810-10003100-fe4937c4.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <code>12022020/88200000</code>
+        </td>
+        <td>
+          <code>edf08208</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/12022020-88200000-edf08208.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <code>2aa92098/01160000</code>
+        </td>
+        <td>
+          <code>45165964</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/2aa92098-01160000-45165964.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <code>00242940/10010004</code>
+        </td>
+        <td>
+          <code>fc43c43c</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/00242940-10010004-fc43c43c.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <code>483c2120/11004c00</code>
+        </td>
+        <td>
+          <code>33c3de10</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/483c2120-11004c00-33c3de10.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td>
+          <code>10140140/44004a04</code>
+        </td>
+        <td>
+          <code>eda3fe3c</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/10140140-44004a04-eda3fe3c.png' width='58'>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td>
+          <code>0c901d38/72602200</code>
+        </td>
+        <td>
+          <code>f36da280</code>
+        </td>
+        <td class='fig'>
+          <img height='48' src='images/0c901d38-72602200-f36da280.png' width='58'>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "802b1200/01400c20", "53c40cfc" );&#x000A;/*1*/ test( "28301068/84080504", "d64fef94" );&#x000A;/*2*/ test( "100a4010/80010004", "e241850c" );&#x000A;/*3*/ test( "81020400/000000fc", "0e3cfbfc" );&#x000A;/*4*/ test( "80225020/7e082080", "7fdd24d0" );&#x000A;/*5*/ test( "01201200/40102008", "fe1861fc" );&#x000A;/*6*/ test( "00201000/01000200", "43c48f08" );&#x000A;/*7*/ test( "00891220/81020408", "ff060c1c" );&#x000A;/*8*/ test( "410033c0/0c300000", "3cf0c000" );&#x000A;/*9*/ test( "00000000/01400a00", "7bf7bf78" );&#x000A;/*10*/ test( "00000000/20000a00", "fca2bf28" );&#x000A;/*11*/ test( "00000000/00000000", "00000000" );&#x000A;/*12*/ test( "00cafe00/00000000", "00000000" );&#x000A;/*13*/ test( "aaabaaaa/50000000", "51441040" );&#x000A;/*14*/ test( "a95a95a8/56a56a54", "56a56a54" );&#x000A;/*15*/ test( "104fc820/80201010", "ea30345c" );&#x000A;/*16*/ test( "4a940214/05000008", "05000008" );&#x000A;/*17*/ test( "00908000/05000200", "ff043f48" );&#x000A;/*18*/ test( "00c48c00/fe1861fc", "ff3873fc" );&#x000A;/*19*/ test( "00000004/81020400", "fffffff0" );&#x000A;/*20*/ test( "111028b0/40021100", "e08fd744" );&#x000A;/*21*/ test( "6808490c/01959000", "17f7b650" );&#x000A;/*22*/ test( "30821004/81014040", "c75de5f8" );&#x000A;/*23*/ test( "0004c810/10003100", "fe4937c4" );&#x000A;/*24*/ test( "12022020/88200000", "edf08208" );&#x000A;/*25*/ test( "2aa92098/01160000", "45165964" );&#x000A;/*26*/ test( "00242940/10010004", "fc43c43c" );&#x000A;/*27*/ test( "483c2120/11004c00", "33c3de10" );&#x000A;/*28*/ test( "10140140/44004a04", "eda3fe3c" );&#x000A;/*29*/ test( "0c901d38/72602200", "f36da280" );</textarea>
+  </body>
+</html>

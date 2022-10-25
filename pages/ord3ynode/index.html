@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Y字路巡り 〜 横へな 2012.9.7</title>
+    <link href='style.css' rel='stylesheet' />
+  </head>
+  <body>
+    <h1>Y字路巡り 〜 横へな 2012.9.7</h1>
+    <h2>問題</h2>
+    <p>
+      下図の通りの地図がある。<br/>
+      BからAへ向かう道の途中からスタート。<br/>
+      Y字路に到達するたびに、入力文字列の指示に従って右折/左折/後戻り のいずれかを選択する。<br/>
+      通過したY字路名前を順に出力せよ。<br clear="all"/>
+      <img src='map3.png' width='303' />
+      <br clear='all' />
+    </p>
+    <p>
+      入力は「rrllbrbl」のような形式。各文字の意味は下記の通り：
+    </p>
+    <ul>
+      <li>r : 右へ曲がる</li>
+      <li>l : 左へ曲がる</li>
+      <li>b : 元に戻る</li>
+    </ul>
+    <p>
+      例えば入力データが「rbrl」の場合。
+    </p>
+    <ul>
+      <li>B→A と進むところからスタート。</li>
+      <li>A に着いたら右に曲がるので、Cへ向かう。</li>
+      <li>C に着いたらAに戻る。</li>
+      <li>再び A に着いたら 右に曲がるので、Dへ向かう。</li>
+      <li>Dに着いたら 左に曲がるので、Eへ向かう。</li>
+      <li>E に着いたらそれ以上指示がないので終了。</li>
+      <li>たどった Y字路は順に、「ACADE」となるので、これを出力する。</li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>出力</th>
+      </tr>
+      <tr><td>#0</td><td>b</td><td>AB</td></tr>
+      <tr><td>#1</td><td>l</td><td>AD</td></tr>
+      <tr><td>#2</td><td>r</td><td>AC</td></tr>
+      <tr><td>#3</td><td>bbb</td><td>ABAB</td></tr>
+      <tr><td>#4</td><td>rrr</td><td>ACBA</td></tr>
+      <tr><td>#5</td><td>blll</td><td>ABCAB</td></tr>
+      <tr><td>#6</td><td>llll</td><td>ADEBA</td></tr>
+      <tr><td>#7</td><td>rbrl</td><td>ACADE</td></tr>
+      <tr><td>#8</td><td>brrrr</td><td>ABEDAB</td></tr>
+      <tr><td>#9</td><td>llrrr</td><td>ADEFDE</td></tr>
+      <tr><td>#10</td><td>lrlll</td><td>ADFEDF</td></tr>
+      <tr><td>#11</td><td>lrrrr</td><td>ADFCAD</td></tr>
+      <tr><td>#12</td><td>rllll</td><td>ACFDAC</td></tr>
+      <tr><td>#13</td><td>blrrrr</td><td>ABCFEBC</td></tr>
+      <tr><td>#14</td><td>brllll</td><td>ABEFCBE</td></tr>
+      <tr><td>#15</td><td>bbbrrlrl</td><td>ABABEDFCB</td></tr>
+      <tr><td>#16</td><td>rbllrrrr</td><td>ACABCFEBC</td></tr>
+      <tr><td>#17</td><td>lbrlrrblr</td><td>ADABCFEFCA</td></tr>
+      <tr><td>#18</td><td>rlbrrrrbl</td><td>ACFCADFCFD</td></tr>
+      <tr><td>#19</td><td>bllrlrbrrb</td><td>ABCADEFEBCB</td></tr>
+      <tr><td>#20</td><td>rllrllllbb</td><td>ACFDEBADEDE</td></tr>
+      <tr><td>#21</td><td>blblrlrrlbr</td><td>ABCBEDFCABAC</td></tr>
+      <tr><td>#22</td><td>lrlrrrrrbrb</td><td>ADFEBCFEBEDE</td></tr>
+      <tr><td>#23</td><td>rblllrlrrlrr</td><td>ACABCADEFDABE</td></tr>
+      <tr><td>#24</td><td>rbrrlrblrllb</td><td>ACADFEBEFDACA</td></tr>
+      <tr><td>#25</td><td>lrrrlrllrrllr</td><td>ADFCABEFCADEBC</td></tr>
+      <tr><td>#26</td><td>rrlblllrrlrrb</td><td>ACBEBADEFDABEB</td></tr>
+      <tr><td>#27</td><td>brbllrrbbrlrll</td><td>ABEBADFCFCABEFC</td></tr>
+      <tr><td>#28</td><td>rrrbbrlbrlblrb</td><td>ACBABACFCABADFD</td></tr>
+      <tr><td>#29</td><td>lllllllllllblrr</td><td>ADEBADEBADEBEFDE</td></tr>
+      <tr><td>#30</td><td>llllllrllrlbrrr</td><td>ADEBADEFCBADABED</td></tr>
+    </table>
+    <hr noshade/>
+    <h3>C/C++/Java 用データ</h3>
+    <textarea>/*0*/ {"b", "AB" },&#x000A;/*1*/ {"l", "AD" },&#x000A;/*2*/ {"r", "AC" },&#x000A;/*3*/ {"bbb", "ABAB" },&#x000A;/*4*/ {"rrr", "ACBA" },&#x000A;/*5*/ {"blll", "ABCAB" },&#x000A;/*6*/ {"llll", "ADEBA" },&#x000A;/*7*/ {"rbrl", "ACADE" },&#x000A;/*8*/ {"brrrr", "ABEDAB" },&#x000A;/*9*/ {"llrrr", "ADEFDE" },&#x000A;/*10*/ {"lrlll", "ADFEDF" },&#x000A;/*11*/ {"lrrrr", "ADFCAD" },&#x000A;/*12*/ {"rllll", "ACFDAC" },&#x000A;/*13*/ {"blrrrr", "ABCFEBC" },&#x000A;/*14*/ {"brllll", "ABEFCBE" },&#x000A;/*15*/ {"bbrllrrr", "ABACFDEFD" },&#x000A;/*16*/ {"rrrrblll", "ACBACABCA" },&#x000A;/*17*/ {"llrlrrbrb", "ADEFCADABA" },&#x000A;/*18*/ {"rrrbrllrr", "ACBABEFCAD" },&#x000A;/*19*/ {"llrllblrll", "ADEFCBCADEB" },&#x000A;/*20*/ {"lrrlllrbrl", "ADFCBEFDFCB" },&#x000A;/*21*/ {"lllrbrrlbrl", "ADEBCBACFCAB" },&#x000A;/*22*/ {"rrrrrrlrbrl", "ACBACBADFDEB" },&#x000A;/*23*/ {"lbrbbrbrbbrr", "ADABABEBCBCFE" },&#x000A;/*24*/ {"rrrrlbrblllr", "ACBACFCACFDAB" },&#x000A;/*25*/ {"lbbrblrlrlbll", "ADADFDABCFDFED" },&#x000A;/*26*/ {"rrbbrlrlrblrl", "ACBCBADFEBEFDA" },&#x000A;/*27*/ {"blrllblbrrrrll", "ABCFDADEDABEDFE" },&#x000A;/*28*/ {"blrllrlbllrrbr", "ABCFDABCBEFDEDA" },&#x000A;/*29*/ {"lbrbbrllllrblrr", "ADABABEFCBEDEBCF" },&#x000A;/*30*/ {"rrrrbllrlrbrbrr", "ACBACABCFDEDADFC" },</textarea>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>のんびり座りたい 〜 横へな 2013.2.2</title>
+    <link href='style.css' rel='stylesheet' />
+  </head>
+  <body>
+    <h1>のんびり座りたい 〜 横へな 2013.2.2</h1>
+    <h2>問題</h2>
+    <p>
+      いくつかの椅子がある。そこにひとりずつ人が現れ、あるいは立ち去る。<br/>
+      椅子は一列に並んでいる。<br/>
+      人が座る席は以下のルールで決まる:
+      <ol>
+        <li>どちら側の隣にも人が座っていない席を選ぶ。</li>
+        <li>それが無理なら、片側にしか人が座っていない席を選ぶ。</li>
+        <li>それも無理なら、両側に人が座っている席を選ぶ。</li>
+        <li>上記の条件で一つに決まらない場合は、候補のうち最も左にある席を選ぶ。</li>
+        <li>一度座ったら立ち去るまでその場を動かない。</li>
+      </ol>
+      指定された順序で人が来たり立ち去ったりした結果、それぞれの椅子に誰が座っているのかを出力せよ。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <code>6:NABEbBZn</code>
+      のような形式になっている。
+      <br />
+      「
+      <code>:</code>
+      」の前(上記の例では
+      <code>6</code>
+      ) は椅子の数を示す。
+      <br />
+      「
+      <code>:</code>
+      」の後(上記の例では
+      <code>NABEbBZn</code>
+      ) は人の出入りを示す。A〜Z は、それぞれの人の到着を意味し、a〜z は、対応する大文字の人が立ち去ったことを意味する。<br/>
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、席に座っている人を左から順に並べる。誰も座っていない席は
+      <code>-</code>
+      で示す。
+      <br />
+      入力が 6:NABEbBZn の場合、
+      <table class='calc'>
+        <tr>
+          <th>記号</th>
+          <th>説明</th>
+          <th>席の状態</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>初期状態</td>
+          <td>
+            <pre>------</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td>N があらわれた</td>
+          <td>
+            <pre>N-----</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>A があらわれた</td>
+          <td>
+            <pre>N-A---</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>B があらわれた</td>
+          <td>
+            <pre>N-A-B-</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>E</td>
+          <td>E があらわれた</td>
+          <td>
+            <pre>N-A-BE</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>b</td>
+          <td>B が立ち去った</td>
+          <td>
+            <pre>N-A--E</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>B があらわれた</td>
+          <td>
+            <pre>N-AB-E</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>Z</td>
+          <td>Z があらわれた</td>
+          <td>
+            <pre>NZAB-E</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>n</td>
+          <td>N が立ち去った</td>
+          <td>
+            <pre>-ZAB-E</pre>
+          </td>
+        </tr>
+      </table>
+      となるので、文字列
+      <code>-ZAB-E</code>
+      を出力すれば良い。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>空席がない状態で人が来ることを考慮する必要はない。</li>
+      <li>席の数は 30 ぐらいまで対応できれば良い。</li>
+      <li>
+        不正な入力（
+        <code>4:ABCxyz</code>
+        のように座っていない人が退席した、
+        <code>:2:ABC@%$</code>
+        のような不正な書式のもの、など）には対処しなくてよい。
+      </li>
+      <li>両端の処理に注意かも。</li>
+    </ul>
+    <p>
+      実装ができた方は
+      <a href='http://qiita.com/items/4364285801d1c9f370a1'>Qiitaの記事</a>
+      のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+    </p>
+    <h2>サンプルデータ</h2>
+    <table class='exa'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td class='num'>1</td>
+        <td class='data'>6:NABEbBZn</td>
+        <td class='data'>-ZAB-E</td>
+      </tr>
+      <tr>
+        <td class='num'>2</td>
+        <td class='data'>1:A</td>
+        <td class='data'>A</td>
+      </tr>
+      <tr>
+        <td class='num'>3</td>
+        <td class='data'>1:Aa</td>
+        <td class='data'>-</td>
+      </tr>
+      <tr>
+        <td class='num'>4</td>
+        <td class='data'>2:AB</td>
+        <td class='data'>AB</td>
+      </tr>
+      <tr>
+        <td class='num'>5</td>
+        <td class='data'>2:AaB</td>
+        <td class='data'>B-</td>
+      </tr>
+      <tr>
+        <td class='num'>6</td>
+        <td class='data'>2:AZa</td>
+        <td class='data'>-Z</td>
+      </tr>
+      <tr>
+        <td class='num'>7</td>
+        <td class='data'>2:AZz</td>
+        <td class='data'>A-</td>
+      </tr>
+      <tr>
+        <td class='num'>8</td>
+        <td class='data'>3:ABC</td>
+        <td class='data'>ACB</td>
+      </tr>
+      <tr>
+        <td class='num'>9</td>
+        <td class='data'>3:ABCa</td>
+        <td class='data'>-CB</td>
+      </tr>
+      <tr>
+        <td class='num'>10</td>
+        <td class='data'>4:ABCD</td>
+        <td class='data'>ADBC</td>
+      </tr>
+      <tr>
+        <td class='num'>11</td>
+        <td class='data'>4:ABCbBD</td>
+        <td class='data'>ABDC</td>
+      </tr>
+      <tr>
+        <td class='num'>12</td>
+        <td class='data'>4:ABCDabcA</td>
+        <td class='data'>-D-A</td>
+      </tr>
+      <tr>
+        <td class='num'>13</td>
+        <td class='data'>5:NEXUS</td>
+        <td class='data'>NUESX</td>
+      </tr>
+      <tr>
+        <td class='num'>14</td>
+        <td class='data'>5:ZYQMyqY</td>
+        <td class='data'>ZM-Y-</td>
+      </tr>
+      <tr>
+        <td class='num'>15</td>
+        <td class='data'>5:ABCDbdXYc</td>
+        <td class='data'>AYX--</td>
+      </tr>
+      <tr>
+        <td class='num'>16</td>
+        <td class='data'>6:FUTSAL</td>
+        <td class='data'>FAULTS</td>
+      </tr>
+      <tr>
+        <td class='num'>17</td>
+        <td class='data'>6:ABCDEbcBC</td>
+        <td class='data'>AECB-D</td>
+      </tr>
+      <tr>
+        <td class='num'>18</td>
+        <td class='data'>7:FMTOWNS</td>
+        <td class='data'>FWMNTSO</td>
+      </tr>
+      <tr>
+        <td class='num'>19</td>
+        <td class='data'>7:ABCDEFGabcdfXYZ</td>
+        <td class='data'>YE-X-GZ</td>
+      </tr>
+      <tr>
+        <td class='num'>20</td>
+        <td class='data'>10:ABCDEFGHIJ</td>
+        <td class='data'>AGBHCIDJEF</td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*1*/ test( "6:NABEbBZn", "-ZAB-E" );
+/*2*/ test( "1:A", "A" );
+/*3*/ test( "1:Aa", "-" );
+/*4*/ test( "2:AB", "AB" );
+/*5*/ test( "2:AaB", "B-" );
+/*6*/ test( "2:AZa", "-Z" );
+/*7*/ test( "2:AZz", "A-" );
+/*8*/ test( "3:ABC", "ACB" );
+/*9*/ test( "3:ABCa", "-CB" );
+/*10*/ test( "4:ABCD", "ADBC" );
+/*11*/ test( "4:ABCbBD", "ABDC" );
+/*12*/ test( "4:ABCDabcA", "-D-A" );
+/*13*/ test( "5:NEXUS", "NUESX" );
+/*14*/ test( "5:ZYQMyqY", "ZM-Y-" );
+/*15*/ test( "5:ABCDbdXYc", "AYX--" );
+/*16*/ test( "6:FUTSAL", "FAULTS" );
+/*17*/ test( "6:ABCDEbcBC", "AECB-D" );
+/*18*/ test( "7:FMTOWNS", "FWMNTSO" );
+/*19*/ test( "7:ABCDEFGabcdfXYZ", "YE-X-GZ" );
+/*20*/ test( "10:ABCDEFGHIJ", "AGBHCIDJEF" );</textarea>
+  </body>
+</html>

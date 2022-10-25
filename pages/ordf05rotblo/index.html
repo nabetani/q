@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>ブロックを回す 2017.5.24 問題</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      float_right{
+       float:right;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+      td.bigcell{
+        width:25mm;
+        height:25mm;
+        font-size:18mm;
+        border:solid black 0.5mm
+      }
+      table.big td{
+        font-size:9mm;
+        border:solid black 0.5mm
+      }
+      div.top img{
+        width:80px;
+      }
+      table.big img{
+        width:120px;
+        height:120px;
+       }
+       td.sample{
+       }
+      table.nabenum tr td
+      {
+        background-color:#444;
+        padding:0 0 0 0;
+        margin:0 0 0 0;
+      }
+      table.nabenum
+      {
+        padding:1mm 2mm 1mm 2mm;
+        background-color:#444;
+      }
+      table.nabenum .c0{
+        width:4px;
+      }
+      table.nabenum .c1{
+        width:15px;
+      }
+      table.nabenum .c2{
+        width:4px;
+      }
+      table.nabenum tr.n0 td{
+        height:4px;
+      }
+      table.nabenum tr.n1 td{
+        height:15px;
+      }
+      table.nabenum tr.n2 td{
+        height:4px;
+      }
+      table.nabenum tr.n3 td{
+        height:15px;
+      }
+      table.nabenum tr.n4 td{
+        height:4px;
+      }
+      table.nabenum td.off{
+        background-color:black;
+      }
+      table.nabenum td.on{
+        background-color:white;
+      }
+      table.nabenum td.nazo{
+        background-color:#f00;
+      }
+      div.nabe{
+        float:right;
+        width:200px;
+        background-color:#eee;
+        text-align:center;
+      }
+      .nabe_c{
+        text-align:center;
+        }
+      div.main_fig{
+       float:right;
+       background-color:white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ブロックを回す 2017.5.24 問題</h1>
+    <h2>問題の概要</h2>
+    <div class='main_fig'>
+      <svg height='400px' viewBox='-10 -10 420 420' width='400px'>
+        <g font-family='Arial' font-size='40' text-anchor='middle'>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='4.0' y='4.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='84.0' y='4.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='164.0' y='4.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='244.0' y='4.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='324.0' y='4.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='4.0' y='84.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='84.0' y='84.0'></rect>
+          <rect fill='#000' height='72.0' stroke='#ddd' width='72.0' x='164.0' y='84.0'></rect>
+          <rect fill='#000' height='72.0' stroke='#ddd' width='72.0' x='244.0' y='84.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='324.0' y='84.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='4.0' y='164.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='84.0' y='164.0'></rect>
+          <rect fill='#000' height='72.0' stroke='#ddd' width='72.0' x='164.0' y='164.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='244.0' y='164.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='324.0' y='164.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='4.0' y='244.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='84.0' y='244.0'></rect>
+          <rect fill='#000' height='72.0' stroke='#ddd' width='72.0' x='164.0' y='244.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='244.0' y='244.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='324.0' y='244.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='4.0' y='324.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='84.0' y='324.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='164.0' y='324.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='244.0' y='324.0'></rect>
+          <rect fill='#eee' height='72.0' stroke='#ddd' width='72.0' x='324.0' y='324.0'></rect>
+          <circle cx='120.0' cy='200.0' fill='#f00' r='8'></circle>
+          <text fill='#f00' x='120.0' y='240'>a</text>
+          <circle cx='160' cy='160' fill='#0c0' r='8'></circle>
+          <text fill='#0c0' x='183.99999999999997' y='160'>b</text>
+        </g>
+      </svg>
+    </div>
+    <p>
+      5×5 のマス目にブロックが埋まっている。
+      <br>
+      中心を指定するので、そこを中心にブロックを時計回りに 90度回せ。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>a:00000/00110/00100/00100/00000</code>
+      <br>
+      こんな感じ。
+      コロンの前は中心を示す記号。右図の a, b のいずれか。
+      <br>
+      コロンのあとは、マス目の状況を示す。スラッシュ区切りで各行が上から順に。
+      <br>
+      1がブロックあり。0がブロックなしを示す。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、回転したあとのブロックの状況を
+      <br>
+      <code>00000/00000/00000/11100/00100</code>
+      <br>
+      のような感じで。
+    </p>
+    <p>
+      ただし。
+      <br>
+      <code>b:00000/00000/00000/00011/00011</code>
+      のように、回転すると 5×5のマス目からはみ出してしまう場合は
+      <code>-</code>
+      を出力すること。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/a6ed674166a151fd0a0a'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        ブロックは連結とは限らないけど気にしない気にしない。
+      </li>
+      <li>
+        入力も出力も文字列ないしは標準入出力にするのが望ましい。パースも仕事のうち。
+      </li>
+      <li>
+        この問題は2017年5月24日に開催される オフラインリアルタイムどう書くF05 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/60171'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況へのリンク</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>a:00000/00110/00100/00100/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/00000/11100/00100</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/00110/00100/00100/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>b:00000/00000/00000/00011/00011</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/00000/00000/00011/00011'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>a:00000/00000/00000/00011/00011</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/00000/00000/00011/00011'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>b:00000/00000/00100/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/01000/00000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/00000/00100/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>a:00000/00000/00100/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/00000/01000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/00000/00100/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>b:00000/00110/00100/00100/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/11100/00100/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/00110/00100/00100/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>b:00000/00000/00011/00011/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/00000/11000/11000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/00000/00011/00011/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>a:00000/00000/00011/00011/00000</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/00000/00011/00011/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>a:01110/00100/00000/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/00010/00110/00010</code>
+        </td>
+        <td>
+          <a href='figs.html#a:01110/00100/00000/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>b:01110/00100/00000/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00010/00110/00010/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:01110/00100/00000/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>a:00000/11110/00000/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00100/00100/00100/00100</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/11110/00000/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>b:00000/11110/00000/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00100/00100/00100/00100/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/11110/00000/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>a:00000/00011/00110/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/00011/00110/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>b:00000/00011/00110/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/01000/01100/00100</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/00011/00110/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>a:00000/11100/11100/11100/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/11100/11100/11100/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/11100/11100/11100/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>b:00000/11100/11100/11100/00000</code>
+        </td>
+        <td>
+          <code class='expected'>11100/11100/11100/00000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/11100/11100/11100/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>a:01000/00000/00101/10010/10001</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:01000/00000/00101/10010/10001'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>b:01000/00000/00101/10010/10001</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:01000/00000/00101/10010/10001'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>b:10000/00000/10010/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>01010/00000/00000/01000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:10000/00000/10010/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>a:10000/00000/10010/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/01010/00000/00000/01000</code>
+        </td>
+        <td>
+          <a href='figs.html#a:10000/00000/10010/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>a:00000/10101/11010/11010/01000</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/10101/11010/11010/01000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>b:00000/10101/11010/11010/01000</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/10101/11010/11010/01000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>b:01101/00011/01101/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/01010/01010/00100/01110</code>
+        </td>
+        <td>
+          <a href='figs.html#b:01101/00011/01101/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>a:01101/00011/01101/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:01101/00011/01101/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>a:00001/00000/00000/00100/00010</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00001/00000/00000/00100/00010'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>b:00001/00000/00000/00100/00010</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00001/00000/00000/00100/00010'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>b:00100/00000/00100/01000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/10000/01010/00000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00100/00000/00100/01000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>a:00100/00000/00100/01000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/10000/01010/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00100/00000/00100/01000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>a:00010/00100/00000/10000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/10000/00000/00100/00010</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00010/00100/00000/10000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>b:00010/00100/00000/10000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>10000/00000/00100/00010/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00010/00100/00000/10000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>b:11010/00011/10101/00001/00001</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:11010/00011/10101/00001/00001'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>a:11010/00011/10101/00001/00001</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:11010/00011/10101/00001/00001'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>a:00100/00010/00000/11000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/10000/10000/00010/00100</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00100/00010/00000/11000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>b:00100/00010/00000/11000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>10000/10000/00010/00100/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00100/00010/00000/11000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>b:01010/00000/00000/01000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/10010/00000/00010/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:01010/00000/00000/01000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>a:01010/00000/00000/01000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/10010/00000/00010</code>
+        </td>
+        <td>
+          <a href='figs.html#a:01010/00000/00000/01000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>a:00000/00000/00100/10100/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/10000/00000/11000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/00000/00100/10100/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code class='src'>b:00000/00000/00100/10100/00000</code>
+        </td>
+        <td>
+          <code class='expected'>10000/00000/11000/00000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/00000/00100/10100/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code class='src'>b:10000/01101/01000/01100/10011</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:10000/01101/01000/01100/10011'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code class='src'>a:10000/01101/01000/01100/10011</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:10000/01101/01000/01100/10011'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code class='src'>a:00010/00000/00110/01000/10001</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00010/00000/00110/01000/10001'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code class='src'>b:00010/00000/00110/01000/10001</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00010/00000/00110/01000/10001'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code class='src'>b:00000/01000/01100/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/01100/01000/00000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/01000/01100/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code class='src'>a:00000/01000/01100/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00000/01100/01000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/01000/01100/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code class='src'>a:01000/00000/00000/10000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/10000/00010/00000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#a:01000/00000/00000/10000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code class='src'>b:01000/00000/00000/10000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>10000/00010/00000/00000/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:01000/00000/00000/10000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code class='src'>b:00000/01101/00000/01010/11010</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/01101/00000/01010/11010'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td class='sample'>
+          <code class='src'>a:00000/01101/00000/01010/11010</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/01101/00000/01010/11010'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td class='sample'>
+          <code class='src'>a:00110/00101/00000/10100/00100</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00110/00101/00000/10100/00100'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td class='sample'>
+          <code class='src'>b:00110/00101/00000/10100/00100</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00110/00101/00000/10100/00100'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td class='sample'>
+          <code class='src'>b:11000/10110/00000/00110/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00110/00010/10100/10100/00000</code>
+        </td>
+        <td>
+          <a href='figs.html#b:11000/10110/00000/00110/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td class='sample'>
+          <code class='src'>a:11000/10110/00000/00110/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00000/00110/00010/10100/10100</code>
+        </td>
+        <td>
+          <a href='figs.html#a:11000/10110/00000/00110/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>52</td>
+        <td class='sample'>
+          <code class='src'>a:00000/00000/00000/00001/00110</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:00000/00000/00000/00001/00110'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td class='sample'>
+          <code class='src'>b:00000/00000/00000/00001/00110</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#b:00000/00000/00000/00001/00110'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>54</td>
+        <td class='sample'>
+          <code class='src'>b:01011/10001/00000/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>00100/00010/00000/00010/00110</code>
+        </td>
+        <td>
+          <a href='figs.html#b:01011/10001/00000/00000/00000'>リンク</a>
+        </td>
+      </tr>
+      <tr>
+        <td>55</td>
+        <td class='sample'>
+          <code class='src'>a:01011/10001/00000/00000/00000</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td>
+          <a href='figs.html#a:01011/10001/00000/00000/00000'>リンク</a>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "a:00000/00110/00100/00100/00000", "00000/00000/00000/11100/00100" );    
+/*1*/ test( "b:00000/00000/00000/00011/00011", "-" );    
+/*2*/ test( "a:00000/00000/00000/00011/00011", "-" );    
+/*3*/ test( "b:00000/00000/00100/00000/00000", "00000/00000/01000/00000/00000" );    
+/*4*/ test( "a:00000/00000/00100/00000/00000", "00000/00000/00000/01000/00000" );    
+/*5*/ test( "b:00000/00110/00100/00100/00000", "00000/00000/11100/00100/00000" );    
+/*6*/ test( "b:00000/00000/00011/00011/00000", "00000/00000/00000/11000/11000" );    
+/*7*/ test( "a:00000/00000/00011/00011/00000", "-" );    
+/*8*/ test( "a:01110/00100/00000/00000/00000", "00000/00000/00010/00110/00010" );    
+/*9*/ test( "b:01110/00100/00000/00000/00000", "00000/00010/00110/00010/00000" );    
+/*10*/ test( "a:00000/11110/00000/00000/00000", "00000/00100/00100/00100/00100" );    
+/*11*/ test( "b:00000/11110/00000/00000/00000", "00100/00100/00100/00100/00000" );    
+/*12*/ test( "a:00000/00011/00110/00000/00000", "-" );    
+/*13*/ test( "b:00000/00011/00110/00000/00000", "00000/00000/01000/01100/00100" );    
+/*14*/ test( "a:00000/11100/11100/11100/00000", "00000/11100/11100/11100/00000" );    
+/*15*/ test( "b:00000/11100/11100/11100/00000", "11100/11100/11100/00000/00000" );    
+/*16*/ test( "a:01000/00000/00101/10010/10001", "-" );    
+/*17*/ test( "b:01000/00000/00101/10010/10001", "-" );    
+/*18*/ test( "b:10000/00000/10010/00000/00000", "01010/00000/00000/01000/00000" );    
+/*19*/ test( "a:10000/00000/10010/00000/00000", "00000/01010/00000/00000/01000" );    
+/*20*/ test( "a:00000/10101/11010/11010/01000", "-" );    
+/*21*/ test( "b:00000/10101/11010/11010/01000", "-" );    
+/*22*/ test( "b:01101/00011/01101/00000/00000", "00000/01010/01010/00100/01110" );    
+/*23*/ test( "a:01101/00011/01101/00000/00000", "-" );    
+/*24*/ test( "a:00001/00000/00000/00100/00010", "-" );    
+/*25*/ test( "b:00001/00000/00000/00100/00010", "-" );    
+/*26*/ test( "b:00100/00000/00100/01000/00000", "00000/10000/01010/00000/00000" );    
+/*27*/ test( "a:00100/00000/00100/01000/00000", "00000/00000/10000/01010/00000" );    
+/*28*/ test( "a:00010/00100/00000/10000/00000", "00000/10000/00000/00100/00010" );    
+/*29*/ test( "b:00010/00100/00000/10000/00000", "10000/00000/00100/00010/00000" );    
+/*30*/ test( "b:11010/00011/10101/00001/00001", "-" );    
+/*31*/ test( "a:11010/00011/10101/00001/00001", "-" );    
+/*32*/ test( "a:00100/00010/00000/11000/00000", "00000/10000/10000/00010/00100" );    
+/*33*/ test( "b:00100/00010/00000/11000/00000", "10000/10000/00010/00100/00000" );    
+/*34*/ test( "b:01010/00000/00000/01000/00000", "00000/10010/00000/00010/00000" );    
+/*35*/ test( "a:01010/00000/00000/01000/00000", "00000/00000/10010/00000/00010" );    
+/*36*/ test( "a:00000/00000/00100/10100/00000", "00000/10000/00000/11000/00000" );    
+/*37*/ test( "b:00000/00000/00100/10100/00000", "10000/00000/11000/00000/00000" );    
+/*38*/ test( "b:10000/01101/01000/01100/10011", "-" );    
+/*39*/ test( "a:10000/01101/01000/01100/10011", "-" );    
+/*40*/ test( "a:00010/00000/00110/01000/10001", "-" );    
+/*41*/ test( "b:00010/00000/00110/01000/10001", "-" );    
+/*42*/ test( "b:00000/01000/01100/00000/00000", "00000/01100/01000/00000/00000" );    
+/*43*/ test( "a:00000/01000/01100/00000/00000", "00000/00000/01100/01000/00000" );    
+/*44*/ test( "a:01000/00000/00000/10000/00000", "00000/10000/00010/00000/00000" );    
+/*45*/ test( "b:01000/00000/00000/10000/00000", "10000/00010/00000/00000/00000" );    
+/*46*/ test( "b:00000/01101/00000/01010/11010", "-" );    
+/*47*/ test( "a:00000/01101/00000/01010/11010", "-" );    
+/*48*/ test( "a:00110/00101/00000/10100/00100", "-" );    
+/*49*/ test( "b:00110/00101/00000/10100/00100", "-" );    
+/*50*/ test( "b:11000/10110/00000/00110/00000", "00110/00010/10100/10100/00000" );    
+/*51*/ test( "a:11000/10110/00000/00110/00000", "00000/00110/00010/10100/10100" );    
+/*52*/ test( "a:00000/00000/00000/00001/00110", "-" );    
+/*53*/ test( "b:00000/00000/00000/00001/00110", "-" );    
+/*54*/ test( "b:01011/10001/00000/00000/00000", "00100/00010/00000/00010/00110" );    
+/*55*/ test( "a:01011/10001/00000/00000/00000", "-" );</textarea>
+  </body>
+</html>

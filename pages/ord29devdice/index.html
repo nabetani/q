@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>サイコロの展開図 横へな 2015.3.7 問題</title>
+    <script>
+      function show(me){
+        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
+        me.parentElement.removeChild(me);
+      }
+    </script>
+    <style>
+      body, textarea {
+          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+        float: right;
+        margin-left: 2em;
+        margin-bottom: 1em;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        border-top : solid 1px #bbb;
+        border-left : solid 4px #bbb;
+        background-color: #f8f8f8;
+      }
+      h4{
+        border-top : solid 1px #bbb;
+        border-left : solid 2px #bbb;
+        background-color: #f8f8f8;
+      }
+      code.expected{
+        word-break: break-all;
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      td.sample code{
+      font-size:8pt;
+      }
+      .weight{
+      font-family:"Georgia";
+      padding-left:8px;
+      padding-right:8px;
+      }
+      img.smallDice{
+        width:12pt;
+        border:solid 1pt black;
+      }
+      img.sampleDice{
+        width:12pt;
+        border:solid 1pt black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>サイコロの展開図 横へな 2015.3.7 問題</h1>
+    <h2>問題</h2>
+    <p>
+      一部空欄になっているサイコロの展開図がある。
+      <br>
+      たとえば、右図の通り。
+      <img class='large' src='sample_dev.png'>
+      <br>
+      各マス目の目の形はいろいろあるけど、全体的な形は右図と同じように
+    </p>
+    <ul>
+      <li>上段に3マス、下段に3マス。</li>
+      <li>上段の右端の下に、下段の左端がある。</li>
+    </ul>
+    <p>
+      という形の一種類しか扱わない。
+      <br>
+      展開図は、見えている面が外側になるように折る。言い換えると。点線は全て山折り。
+      <br>
+      完成形は右下の写真の通り。（
+      <img class='smallDice' src='d2.png'>
+      、
+      <img class='smallDice' src='d3.png'>
+      、
+      <img class='smallDice' src='d6.png'>
+      の向きに注意）
+      <br>
+      <img class='large' src='dices.jpg'>
+      空欄に入る図形を記号で示せ。
+    </p>
+    <h2>入力</h2>
+    <p>
+      例えば上にある展開図を示す入力は
+      <br>
+      <code>Tx4/5yz</code>
+      <br>
+      こんな感じ。展開図の上段の3マスと下段の3マスを、スラッシュ区切りで記している。
+      <br>
+      それぞれ左から順。つまり見ての通り。
+      <br>
+      使われる記号は下表の通り：
+    </p>
+    <table>
+      <tr>
+        <th>記号</th>
+        <th>1</th>
+        <th>2</th>
+        <th>D</th>
+        <th>3</th>
+        <th>T</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>S</th>
+        <th>w, x, y, z</th>
+      </tr>
+      <tr>
+        <th>意味</th>
+        <td>
+          <img class='sampleDice' src='d1.png'>
+        </td>
+        <td>
+          <img class='sampleDice' src='d2.png'>
+        </td>
+        <td>
+          <img class='sampleDice' src='dD.png'>
+        </td>
+        <td>
+          <img class='sampleDice' src='d3.png'>
+        </td>
+        <td>
+          <img class='sampleDice' src='dT.png'>
+        </td>
+        <td>
+          <img class='sampleDice' src='d4.png'>
+        </td>
+        <td>
+          <img class='sampleDice' src='d5.png'>
+        </td>
+        <td>
+          <img class='sampleDice' src='d6.png'>
+        </td>
+        <td>
+          <img class='sampleDice' src='dS.png'>
+        </td>
+        <td>空欄</td>
+      </tr>
+    </table>
+    <p>
+      <img class='smallDice' src='d2.png'>
+      と
+      <img class='smallDice' src='dD.png'>
+      などを区別するために、D, T, S が導入されている。
+    </p>
+    <h2>出力</h2>
+    <p>
+      各空欄に入れるべき図形を、空欄の名前とセットにして出力する。
+      <br>
+      <code>x=1,y=S,z=2</code>
+      <br>
+      こんな感じ。
+      <br>
+      空欄の名前と、空欄に対応する図形の間には等号を入れる。
+      <br>
+      各対応関係の間には、コンマを挟む。
+      <br>
+      ただし。
+      <br>
+      空欄に何を入れても最初の方に示した完成形にならない場合( 例えば
+      <code>14S/xyz</code>
+      ) は、そのことを示すために
+      <br>
+      <code>none</code>
+      <br>
+      を出力すること。
+      <br>
+      また、答えがひと通りに決まらない場合( 例えば
+      <code>1w6/xyz</code>
+      ) は、そのことを示すために
+      <br>
+      <code>many</code>
+      <br>
+      を出力すること。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はない。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/4c21127f07bfa68fa1f8'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        入力も出力も、空欄の名前はアルファベット順になっている。このことを利用してもよい。
+      </li>
+      <li>
+        <img class='smallDice' src='d2.png'>
+        、
+        <img class='smallDice' src='d3.png'>
+        や
+        <img class='smallDice' src='d6.png'>
+        の向きの違いは厳しくチェックするが、
+        <img class='smallDice' src='d1.png'>
+        の、色や丸の大きさは 気にしない 気にしない。
+      </li>
+      <li>
+        この問題は2015年3月7日に開催される 第29回オフラインリアルタイムどう書く の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/20844'>
+          Doorkeeper のページ
+        </a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code>Tx4/5yz</code>
+        </td>
+        <td>
+          <code class='expected'>x=1,y=S,z=2</code>
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code>14S/xyz</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code>1w6/xyz</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code>4w3/12S</code>
+        </td>
+        <td>
+          <code class='expected'>w=5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code>4w3/S51</code>
+        </td>
+        <td>
+          <code class='expected'>w=D</code>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code>15S/wD4</code>
+        </td>
+        <td>
+          <code class='expected'>w=3</code>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code>54D/6Tw</code>
+        </td>
+        <td>
+          <code class='expected'>w=1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code>S21/35w</code>
+        </td>
+        <td>
+          <code class='expected'>w=4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code>w2x/354</code>
+        </td>
+        <td>
+          <code class='expected'>w=S,x=1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code>wx1/54D</code>
+        </td>
+        <td>
+          <code class='expected'>w=6,x=T</code>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code>45w/12x</code>
+        </td>
+        <td>
+          <code class='expected'>w=3,x=S</code>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code>5w2/x14</code>
+        </td>
+        <td>
+          <code class='expected'>w=S,x=T</code>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code>Dw5/x41</code>
+        </td>
+        <td>
+          <code class='expected'>w=3,x=6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code>w4x/1y6</code>
+        </td>
+        <td>
+          <code class='expected'>w=D,x=5,y=T</code>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code>15w/xy4</code>
+        </td>
+        <td>
+          <code class='expected'>w=S,x=3,y=D</code>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code>D35/wxy</code>
+        </td>
+        <td>
+          <code class='expected'>w=6,x=4,y=1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code>4wx/51y</code>
+        </td>
+        <td>
+          <code class='expected'>w=6,x=T,y=2</code>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code>wTx/D4y</code>
+        </td>
+        <td>
+          <code class='expected'>w=1,x=6,y=5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code>wxy/z3D</code>
+        </td>
+        <td>
+          <code class='expected'>w=1,x=4,y=6,z=5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code>wx5/1yz</code>
+        </td>
+        <td>
+          <code class='expected'>w=D,x=4,y=T,z=6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code>w53/xyz</code>
+        </td>
+        <td>
+          <code class='expected'>w=4,x=1,y=2,z=S</code>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code>wx1/yzD</code>
+        </td>
+        <td>
+          <code class='expected'>w=6,x=T,y=5,z=4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code>wxS/3yz</code>
+        </td>
+        <td>
+          <code class='expected'>w=1,x=5,y=D,z=4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code>wx2/y1z</code>
+        </td>
+        <td>
+          <code class='expected'>w=5,x=S,y=T,z=4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code>4wx/2yz</code>
+        </td>
+        <td>
+          <code class='expected'>w=1,x=T,y=S,z=5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code>T6w/xyz</code>
+        </td>
+        <td>
+          <code class='expected'>w=4,x=2,y=1,z=5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code>Swx/yDz</code>
+        </td>
+        <td>
+          <code class='expected'>w=5,x=1,y=4,z=3</code>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code>wDx/yzS</code>
+        </td>
+        <td>
+          <code class='expected'>w=3,x=4,y=1,z=5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code>wxy/5Sz</code>
+        </td>
+        <td>
+          <code class='expected'>w=T,x=1,y=4,z=2</code>
+        </td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code>wSx/4yz</code>
+        </td>
+        <td>
+          <code class='expected'>w=2,x=5,y=1,z=T</code>
+        </td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code>wxS/y5z</code>
+        </td>
+        <td>
+          <code class='expected'>w=1,x=2,y=4,z=3</code>
+        </td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code>wxy/35z</code>
+        </td>
+        <td>
+          <code class='expected'>w=S,x=2,y=1,z=4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code>wxy/T6z</code>
+        </td>
+        <td>
+          <code class='expected'>w=2,x=1,y=5,z=4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code>wxD/yz1</code>
+        </td>
+        <td>
+          <code class='expected'>w=5,x=4,y=6,z=T</code>
+        </td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code>1wx/yz5</code>
+        </td>
+        <td>
+          <code class='expected'>w=T,x=6,y=D,z=4</code>
+        </td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code>wx3/y5z</code>
+        </td>
+        <td>
+          <code class='expected'>w=4,x=D,y=S,z=1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code>6wx/y3z</code>
+        </td>
+        <td>
+          <code class='expected'>w=4,x=1,y=D,z=5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>37</td>
+        <td class='sample'>
+          <code>5wx/4yz</code>
+        </td>
+        <td>
+          <code class='expected'>w=1,x=2,y=6,z=T</code>
+        </td>
+      </tr>
+      <tr>
+        <td>38</td>
+        <td class='sample'>
+          <code>wx4/Syz</code>
+        </td>
+        <td>
+          <code class='expected'>w=3,x=5,y=2,z=1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>39</td>
+        <td class='sample'>
+          <code>w3D/xyz</code>
+        </td>
+        <td>
+          <code class='expected'>w=5,x=1,y=4,z=6</code>
+        </td>
+      </tr>
+      <tr>
+        <td>40</td>
+        <td class='sample'>
+          <code>w3x/6yz</code>
+        </td>
+        <td>
+          <code class='expected'>w=D,x=5,y=4,z=1</code>
+        </td>
+      </tr>
+      <tr>
+        <td>41</td>
+        <td class='sample'>
+          <code>wxy/z12</code>
+        </td>
+        <td>
+          <code class='expected'>w=4,x=6,y=T,z=5</code>
+        </td>
+      </tr>
+      <tr>
+        <td>42</td>
+        <td class='sample'>
+          <code>1wS/xyz</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>43</td>
+        <td class='sample'>
+          <code>wxy/Dz5</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>44</td>
+        <td class='sample'>
+          <code>3w4/xyz</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>45</td>
+        <td class='sample'>
+          <code>wxy/5zD</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>46</td>
+        <td class='sample'>
+          <code>wxy/Tz4</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>47</td>
+        <td class='sample'>
+          <code>5wD/xyz</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>48</td>
+        <td class='sample'>
+          <code>wDx/y5z</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>49</td>
+        <td class='sample'>
+          <code>wxy/3z4</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td class='sample'>
+          <code>wxy/5z2</code>
+        </td>
+        <td>
+          <code class='expected'>many</code>
+        </td>
+      </tr>
+      <tr>
+        <td>51</td>
+        <td class='sample'>
+          <code>Dyz/S1x</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>52</td>
+        <td class='sample'>
+          <code>w1z/xyS</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>53</td>
+        <td class='sample'>
+          <code>15x/T6y</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>54</td>
+        <td class='sample'>
+          <code>zy4/5x6</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>55</td>
+        <td class='sample'>
+          <code>2xy/4Tz</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>56</td>
+        <td class='sample'>
+          <code>xzS/y1w</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>57</td>
+        <td class='sample'>
+          <code>Syx/4z5</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>58</td>
+        <td class='sample'>
+          <code>xwS/Tzy</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>59</td>
+        <td class='sample'>
+          <code>D5z/xwy</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+      <tr>
+        <td>60</td>
+        <td class='sample'>
+          <code>yxD/z35</code>
+        </td>
+        <td>
+          <code class='expected'>none</code>
+        </td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "Tx4/5yz", "x=1,y=S,z=2" );    
+/*1*/ test( "14S/xyz", "none" );    
+/*2*/ test( "1w6/xyz", "many" );    
+/*3*/ test( "4w3/12S", "w=5" );    
+/*4*/ test( "4w3/S51", "w=D" );    
+/*5*/ test( "15S/wD4", "w=3" );    
+/*6*/ test( "54D/6Tw", "w=1" );    
+/*7*/ test( "S21/35w", "w=4" );    
+/*8*/ test( "w2x/354", "w=S,x=1" );    
+/*9*/ test( "wx1/54D", "w=6,x=T" );    
+/*10*/ test( "45w/12x", "w=3,x=S" );    
+/*11*/ test( "5w2/x14", "w=S,x=T" );    
+/*12*/ test( "Dw5/x41", "w=3,x=6" );    
+/*13*/ test( "w4x/1y6", "w=D,x=5,y=T" );    
+/*14*/ test( "15w/xy4", "w=S,x=3,y=D" );    
+/*15*/ test( "D35/wxy", "w=6,x=4,y=1" );    
+/*16*/ test( "4wx/51y", "w=6,x=T,y=2" );    
+/*17*/ test( "wTx/D4y", "w=1,x=6,y=5" );    
+/*18*/ test( "wxy/z3D", "w=1,x=4,y=6,z=5" );    
+/*19*/ test( "wx5/1yz", "w=D,x=4,y=T,z=6" );    
+/*20*/ test( "w53/xyz", "w=4,x=1,y=2,z=S" );    
+/*21*/ test( "wx1/yzD", "w=6,x=T,y=5,z=4" );    
+/*22*/ test( "wxS/3yz", "w=1,x=5,y=D,z=4" );    
+/*23*/ test( "wx2/y1z", "w=5,x=S,y=T,z=4" );    
+/*24*/ test( "4wx/2yz", "w=1,x=T,y=S,z=5" );    
+/*25*/ test( "T6w/xyz", "w=4,x=2,y=1,z=5" );    
+/*26*/ test( "Swx/yDz", "w=5,x=1,y=4,z=3" );    
+/*27*/ test( "wDx/yzS", "w=3,x=4,y=1,z=5" );    
+/*28*/ test( "wxy/5Sz", "w=T,x=1,y=4,z=2" );    
+/*29*/ test( "wSx/4yz", "w=2,x=5,y=1,z=T" );    
+/*30*/ test( "wxS/y5z", "w=1,x=2,y=4,z=3" );    
+/*31*/ test( "wxy/35z", "w=S,x=2,y=1,z=4" );    
+/*32*/ test( "wxy/T6z", "w=2,x=1,y=5,z=4" );    
+/*33*/ test( "wxD/yz1", "w=5,x=4,y=6,z=T" );    
+/*34*/ test( "1wx/yz5", "w=T,x=6,y=D,z=4" );    
+/*35*/ test( "wx3/y5z", "w=4,x=D,y=S,z=1" );    
+/*36*/ test( "6wx/y3z", "w=4,x=1,y=D,z=5" );    
+/*37*/ test( "5wx/4yz", "w=1,x=2,y=6,z=T" );    
+/*38*/ test( "wx4/Syz", "w=3,x=5,y=2,z=1" );    
+/*39*/ test( "w3D/xyz", "w=5,x=1,y=4,z=6" );    
+/*40*/ test( "w3x/6yz", "w=D,x=5,y=4,z=1" );    
+/*41*/ test( "wxy/z12", "w=4,x=6,y=T,z=5" );    
+/*42*/ test( "1wS/xyz", "many" );    
+/*43*/ test( "wxy/Dz5", "many" );    
+/*44*/ test( "3w4/xyz", "many" );    
+/*45*/ test( "wxy/5zD", "many" );    
+/*46*/ test( "wxy/Tz4", "many" );    
+/*47*/ test( "5wD/xyz", "many" );    
+/*48*/ test( "wDx/y5z", "many" );    
+/*49*/ test( "wxy/3z4", "many" );    
+/*50*/ test( "wxy/5z2", "many" );    
+/*51*/ test( "Dyz/S1x", "none" );    
+/*52*/ test( "w1z/xyS", "none" );    
+/*53*/ test( "15x/T6y", "none" );    
+/*54*/ test( "zy4/5x6", "none" );    
+/*55*/ test( "2xy/4Tz", "none" );    
+/*56*/ test( "xzS/y1w", "none" );    
+/*57*/ test( "Syx/4z5", "none" );    
+/*58*/ test( "xwS/Tzy", "none" );    
+/*59*/ test( "D5z/xwy", "none" );    
+/*60*/ test( "yxD/z35", "none" );</textarea>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+
+body, textarea { 
+    font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; 
+    font-size:11pt;
+}
+input, select { 
+    font-family: Arial, "ＭＳ Ｐゴシック", sans-serif; 
+    font-size:11pt;
+}
+
+
+table
+{
+    padding-left:3em;
+}
+
+table.seq
+{
+    padding: 0 0 0 0;
+    background-color: #fff;
+    border-spacing: 0;
+    border: 1px #ccc solid;
+    border-left:none;
+}
+table.seq > tbody > tr >  td
+{
+    background-color: #fff;
+    border-left: 1px #ccc solid;
+    text-align: center;    
+}
+table.seq table
+{
+    padding: 0 0 0 0;
+}
+table.seq table td, 
+table.seq table th
+{
+    font-size:8pt;
+}
+table:not(.seq) th
+{
+    background-color: #eee;
+    font-size:11pt;
+}
+table:not(.seq) td
+{
+    background-color: #f8f8f8;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size:11pt;
+}
+textarea
+{
+    width:80%;
+    height:7em;
+}

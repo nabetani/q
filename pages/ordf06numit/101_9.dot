@@ -1,0 +1,92 @@
+digraph graph_name {
+ graph[nodesep = 0.1];
+ edge[dir=none, style=bold];
+ node[ fontname = "Helvetica", shape = plaintext, width = 0.25, height = 0.25, fontsize=30];
+fz[label="101" ];
+fz->ga
+ga[label="40" ];
+ga->gb
+gb[label="10" ];
+gb->gc
+gc[label="6" ];
+gc->gd
+gd[label="4" ];
+gd->ge
+ge[label="2" ];
+ge->gf
+gf[label="1" ];
+ga->gg
+gg[label="26" ];
+gg->gh
+gh[label="3" ];
+gh->gi
+gi[label="2" ];
+gi->gj
+gj[label="1" ];
+gg->gk
+gk[label="17" ];
+gk->gl
+gl[label="11" ];
+gl->gm
+gm[label="7" ];
+gm->gn
+gn[label="4" ];
+gn->go
+go[label="2" ];
+go->gp
+gp[label="1" ];
+fz->gq
+gq[label="67" ];
+gq->gr
+gr[label="23" ];
+gr->gs
+gs[label="1" ];
+gr->gt
+gt[label="15" ];
+gt->gu
+gu[label="10" ];
+gu->gv
+gv[label="6" ];
+gv->gw
+gw[label="4" ];
+gw->gx
+gx[label="2" ];
+gx->gy
+gy[label="1" ];
+gq->gz
+gz[label="44" ];
+gz->ha
+ha[label="12" ];
+ha->hb
+hb[label="8" ];
+hb->hc
+hc[label="5" ];
+hc->hd
+hd[label="3" ];
+hd->he
+he[label="2" ];
+he->hf
+hf[label="1" ];
+gz->hg
+hg[label="29" ];
+hg->hh
+hh[label="4" ];
+hh->hi
+hi[label="2" ];
+hi->hj
+hj[label="1" ];
+hg->hk
+hk[label="19" ];
+hk->hl
+hl[label="12" ];
+hl->hm
+hm[label="8" ];
+hm->hn
+hn[label="5" ];
+hn->ho
+ho[label="3" ];
+ho->hp
+hp[label="2" ];
+hp->hq
+hq[label="1" ];
+}

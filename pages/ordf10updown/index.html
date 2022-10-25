@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>ぐねぐねスクエア 2017.3.7 問題</title>
+<style>
+  body, textarea {
+      font-family: sans-serif;
+      font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  img.large{
+    width:400px;
+  }
+  
+  td.center{ text-align:center; }
+  
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    border-radius:4px;
+    margin:1pt 1pt 1pt 1pt;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Courier New";
+    padding:1pt 1pt 1pt 1pt;
+  }
+  img.sample{
+  width:150px;
+  height:150px;
+  }
+  img.top{
+  width:320px;
+  }
+  .weight{
+    font-family:"Georgia";
+    padding-left:8px;
+    padding-right:8px;
+  }
+  table.float_right
+  {
+    float: right;
+  }
+  table.float_right td{
+    background-color:white;
+    text-align:center;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  float_right{
+   float:right;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  td.bigcell{
+    width:25mm;
+    height:25mm;
+    font-size:18mm;
+    border:solid black 0.5mm
+  }
+  table.big td{
+    font-size:9mm;
+    border:solid black 0.5mm
+  }
+  div.top img{
+    width:80px;
+  }
+  table.big img{
+    width:120px;
+    height:120px;
+   }
+   td.sample{
+   }
+  table.nabenum tr td
+  {
+    background-color:#444;
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+  }
+  table.nabenum
+  {
+    padding:1mm 2mm 1mm 2mm;
+    background-color:#444;
+  }
+  table.nabenum .c0{
+    width:4px;
+  }
+  table.nabenum .c1{
+    width:15px;
+  }
+  table.nabenum .c2{
+    width:4px;
+  }
+  table.nabenum tr.n0 td{
+    height:4px;
+  }
+  table.nabenum tr.n1 td{
+    height:15px;
+  }
+  table.nabenum tr.n2 td{
+    height:4px;
+  }
+  table.nabenum tr.n3 td{
+    height:15px;
+  }
+  table.nabenum tr.n4 td{
+    height:4px;
+  }
+  table.nabenum td.off{
+    background-color:black;
+  }
+  table.nabenum td.on{
+    background-color:white;
+  }
+  table.nabenum td.nazo{
+    background-color:#f00;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+  table.cells{
+    margin:10pt 10pt 10pt 10pt;
+  }
+  table.cells tr td{
+    border:solid #888 1px;
+    background-color:white;
+    width:20pt;
+    height:20pt;
+    text-align:center;
+    font-size:18pt;
+  }
+  table.scell tr td{
+    border:solid #888 1px;
+    width:10pt;
+    height:10pt;
+    text-align:center;
+    font-size:9pt;
+  }
+  table.scell tr td.vis{
+    background-color:#fcc;
+  }
+  table.scell tr td.not_vis{
+    background-color:white;
+  }
+</style>
+</head>
+<body>
+<div class='main_fig'>
+<svg height='400.0px' viewBox='0 0 400.0 400.0' width='400.0px'>
+<g font-family='Arial' font-size='20.0' text-anchor='middle'>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='0.0'></rect>
+<text x='20.0' y='28.0'>1</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='0.0'></rect>
+<text x='60.0' y='28.0'>4</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='0.0'></rect>
+<text x='100.0' y='28.0'>5</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='0.0'></rect>
+<text x='140.0' y='28.0'>16</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='0.0'></rect>
+<text x='180.0' y='28.0'>17</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='0.0'></rect>
+<text x='220.0' y='28.0'>36</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='0.0'></rect>
+<text x='260.0' y='28.0'>37</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='0.0'></rect>
+<text x='300.0' y='28.0'>64</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='0.0'></rect>
+<text x='340.0' y='28.0'>65</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='0.0'></rect>
+<text x='380.0' y='28.0'>100</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='40.0'></rect>
+<text x='20.0' y='68.0'>2</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='40.0'></rect>
+<text x='60.0' y='68.0'>3</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='40.0'></rect>
+<text x='100.0' y='68.0'>6</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='40.0'></rect>
+<text x='140.0' y='68.0'>15</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='40.0'></rect>
+<text x='180.0' y='68.0'>18</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='40.0'></rect>
+<text x='220.0' y='68.0'>35</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='40.0'></rect>
+<text x='260.0' y='68.0'>38</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='40.0'></rect>
+<text x='300.0' y='68.0'>63</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='40.0'></rect>
+<text x='340.0' y='68.0'>66</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='40.0'></rect>
+<text x='380.0' y='68.0'>99</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='80.0'></rect>
+<text x='20.0' y='108.0'>9</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='80.0'></rect>
+<text x='60.0' y='108.0'>8</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='80.0'></rect>
+<text x='100.0' y='108.0'>7</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='80.0'></rect>
+<text x='140.0' y='108.0'>14</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='80.0'></rect>
+<text x='180.0' y='108.0'>19</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='80.0'></rect>
+<text x='220.0' y='108.0'>34</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='80.0'></rect>
+<text x='260.0' y='108.0'>39</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='80.0'></rect>
+<text x='300.0' y='108.0'>62</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='80.0'></rect>
+<text x='340.0' y='108.0'>67</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='80.0'></rect>
+<text x='380.0' y='108.0'>98</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='120.0'></rect>
+<text x='20.0' y='148.0'>10</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='120.0'></rect>
+<text x='60.0' y='148.0'>11</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='120.0'></rect>
+<text x='100.0' y='148.0'>12</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='120.0'></rect>
+<text x='140.0' y='148.0'>13</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='120.0'></rect>
+<text x='180.0' y='148.0'>20</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='120.0'></rect>
+<text x='220.0' y='148.0'>33</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='120.0'></rect>
+<text x='260.0' y='148.0'>40</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='120.0'></rect>
+<text x='300.0' y='148.0'>61</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='120.0'></rect>
+<text x='340.0' y='148.0'>68</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='120.0'></rect>
+<text x='380.0' y='148.0'>97</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='160.0'></rect>
+<text x='20.0' y='188.0'>25</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='160.0'></rect>
+<text x='60.0' y='188.0'>24</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='160.0'></rect>
+<text x='100.0' y='188.0'>23</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='160.0'></rect>
+<text x='140.0' y='188.0'>22</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='160.0'></rect>
+<text x='180.0' y='188.0'>21</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='160.0'></rect>
+<text x='220.0' y='188.0'>32</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='160.0'></rect>
+<text x='260.0' y='188.0'>41</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='160.0'></rect>
+<text x='300.0' y='188.0'>60</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='160.0'></rect>
+<text x='340.0' y='188.0'>69</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='160.0'></rect>
+<text x='380.0' y='188.0'>96</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='200.0'></rect>
+<text x='20.0' y='228.0'>26</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='200.0'></rect>
+<text x='60.0' y='228.0'>27</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='200.0'></rect>
+<text x='100.0' y='228.0'>28</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='200.0'></rect>
+<text x='140.0' y='228.0'>29</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='200.0'></rect>
+<text x='180.0' y='228.0'>30</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='200.0'></rect>
+<text x='220.0' y='228.0'>31</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='200.0'></rect>
+<text x='260.0' y='228.0'>42</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='200.0'></rect>
+<text x='300.0' y='228.0'>59</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='200.0'></rect>
+<text x='340.0' y='228.0'>70</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='200.0'></rect>
+<text x='380.0' y='228.0'>95</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='240.0'></rect>
+<text x='20.0' y='268.0'>49</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='240.0'></rect>
+<text x='60.0' y='268.0'>48</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='240.0'></rect>
+<text x='100.0' y='268.0'>47</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='240.0'></rect>
+<text x='140.0' y='268.0'>46</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='240.0'></rect>
+<text x='180.0' y='268.0'>45</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='240.0'></rect>
+<text x='220.0' y='268.0'>44</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='240.0'></rect>
+<text x='260.0' y='268.0'>43</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='240.0'></rect>
+<text x='300.0' y='268.0'>58</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='240.0'></rect>
+<text x='340.0' y='268.0'>71</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='240.0'></rect>
+<text x='380.0' y='268.0'>94</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='280.0'></rect>
+<text x='20.0' y='308.0'>50</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='280.0'></rect>
+<text x='60.0' y='308.0'>51</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='280.0'></rect>
+<text x='100.0' y='308.0'>52</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='280.0'></rect>
+<text x='140.0' y='308.0'>53</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='280.0'></rect>
+<text x='180.0' y='308.0'>54</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='280.0'></rect>
+<text x='220.0' y='308.0'>55</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='280.0'></rect>
+<text x='260.0' y='308.0'>56</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='280.0'></rect>
+<text x='300.0' y='308.0'>57</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='280.0'></rect>
+<text x='340.0' y='308.0'>72</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='280.0'></rect>
+<text x='380.0' y='308.0'>93</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='320.0'></rect>
+<text x='20.0' y='347.99999999999994'>81</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='320.0'></rect>
+<text x='60.0' y='347.99999999999994'>80</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='320.0'></rect>
+<text x='100.0' y='347.99999999999994'>79</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='320.0'></rect>
+<text x='140.0' y='347.99999999999994'>78</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='320.0'></rect>
+<text x='180.0' y='347.99999999999994'>77</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='320.0'></rect>
+<text x='220.0' y='347.99999999999994'>76</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='320.0'></rect>
+<text x='260.0' y='347.99999999999994'>75</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='320.0'></rect>
+<text x='300.0' y='347.99999999999994'>74</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='320.0'></rect>
+<text x='340.0' y='347.99999999999994'>73</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='320.0'></rect>
+<text x='380.0' y='347.99999999999994'>92</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='0.0' y='360.0'></rect>
+<text x='20.0' y='387.99999999999994'>82</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='40.0' y='360.0'></rect>
+<text x='60.0' y='387.99999999999994'>83</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='80.0' y='360.0'></rect>
+<text x='100.0' y='387.99999999999994'>84</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='120.0' y='360.0'></rect>
+<text x='140.0' y='387.99999999999994'>85</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='160.0' y='360.0'></rect>
+<text x='180.0' y='387.99999999999994'>86</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='200.0' y='360.0'></rect>
+<text x='220.0' y='387.99999999999994'>87</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='240.0' y='360.0'></rect>
+<text x='260.0' y='387.99999999999994'>88</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='280.0' y='360.0'></rect>
+<text x='300.0' y='387.99999999999994'>89</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='320.0' y='360.0'></rect>
+<text x='340.0' y='387.99999999999994'>90</text>
+<rect fill='#eee' height='40.0' stroke-width='3' stroke='white' width='40.0' x='360.0' y='360.0'></rect>
+<text x='380.0' y='387.99999999999994'>91</text>
+</g>
+</svg>
+</div>
+<h1>ぐねぐねスクエア 2017.3.7 問題</h1>
+<h2>問題の概要</h2>
+<p>
+右図のように、1以上の整数が全て並んでいる。
+<br>
+※ 右図は紙面の都合で 100までの数しか並んでいないが本当は正の整数が全て並んでいる。
+<br>
+数をひとつ指定する。上下左右の隣がいくつなのかを、計算せよ。
+</p>
+<h2>入力</h2>
+<p>
+入力は
+<br>
+<code>10</code>
+<br>
+こんな感じ。説明不要でしょう。
+</p>
+<h2>出力</h2>
+<p>
+出力は、上下左右の隣のマスに入る数を、上下左右の順に。コンマ区切りで。
+<br>
+隣がない場合には「
+<code>-</code>
+」を出力すること。
+<br>
+先ほどの入力の場合、
+</p>
+<p>
+<code>9,25,-,11</code>
+<br>
+と出力すればよい。
+</p>
+<h2>補足</h2>
+<ul>
+<li>不正な入力に対処する必要はない。</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/dae474bc17827f9b1537'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+入力も出力も文字列ないしは標準入出力にするのが望ましい。パースも仕事のうち。まあ今回はパースというほどのことはないけれど。
+</li>
+<li>
+この問題は2017年3月7日に開催される オフラインリアルタイムどう書くF10 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/70864'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+</tr>
+<tr>
+<td>0</td>
+<td class='sample'>
+<code class='src'>10</code>
+</td>
+<td>
+<code class='expected'>9,25,-,11</code>
+</td>
+</tr>
+<tr>
+<td>1</td>
+<td class='sample'>
+<code class='src'>1</code>
+</td>
+<td>
+<code class='expected'>-,2,-,4</code>
+</td>
+</tr>
+<tr>
+<td>2</td>
+<td class='sample'>
+<code class='src'>2</code>
+</td>
+<td>
+<code class='expected'>1,9,-,3</code>
+</td>
+</tr>
+<tr>
+<td>3</td>
+<td class='sample'>
+<code class='src'>4</code>
+</td>
+<td>
+<code class='expected'>-,3,1,5</code>
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td class='sample'>
+<code class='src'>26</code>
+</td>
+<td>
+<code class='expected'>25,49,-,27</code>
+</td>
+</tr>
+<tr>
+<td>5</td>
+<td class='sample'>
+<code class='src'>43</code>
+</td>
+<td>
+<code class='expected'>42,56,44,58</code>
+</td>
+</tr>
+<tr>
+<td>6</td>
+<td class='sample'>
+<code class='src'>72</code>
+</td>
+<td>
+<code class='expected'>71,73,57,93</code>
+</td>
+</tr>
+<tr>
+<td>7</td>
+<td class='sample'>
+<code class='src'>82</code>
+</td>
+<td>
+<code class='expected'>81,121,-,83</code>
+</td>
+</tr>
+<tr>
+<td>8</td>
+<td class='sample'>
+<code class='src'>91</code>
+</td>
+<td>
+<code class='expected'>92,112,90,110</code>
+</td>
+</tr>
+<tr>
+<td>9</td>
+<td class='sample'>
+<code class='src'>100</code>
+</td>
+<td>
+<code class='expected'>-,99,65,101</code>
+</td>
+</tr>
+<tr>
+<td>10</td>
+<td class='sample'>
+<code class='src'>122</code>
+</td>
+<td>
+<code class='expected'>121,169,-,123</code>
+</td>
+</tr>
+<tr>
+<td>11</td>
+<td class='sample'>
+<code class='src'>141</code>
+</td>
+<td>
+<code class='expected'>142,140,104,148</code>
+</td>
+</tr>
+<tr>
+<td>12</td>
+<td class='sample'>
+<code class='src'>145</code>
+</td>
+<td>
+<code class='expected'>-,146,144,196</code>
+</td>
+</tr>
+<tr>
+<td>13</td>
+<td class='sample'>
+<code class='src'>320</code>
+</td>
+<td>
+<code class='expected'>321,319,261,329</code>
+</td>
+</tr>
+<tr>
+<td>14</td>
+<td class='sample'>
+<code class='src'>504</code>
+</td>
+<td>
+<code class='expected'>503,505,465,557</code>
+</td>
+</tr>
+<tr>
+<td>15</td>
+<td class='sample'>
+<code class='src'>563</code>
+</td>
+<td>
+<code class='expected'>564,562,498,590</code>
+</td>
+</tr>
+<tr>
+<td>16</td>
+<td class='sample'>
+<code class='src'>906</code>
+</td>
+<td>
+<code class='expected'>905,907,895,1019</code>
+</td>
+</tr>
+<tr>
+<td>17</td>
+<td class='sample'>
+<code class='src'>1047</code>
+</td>
+<td>
+<code class='expected'>1046,1048,1002,1134</code>
+</td>
+</tr>
+<tr>
+<td>18</td>
+<td class='sample'>
+<code class='src'>1111</code>
+</td>
+<td>
+<code class='expected'>1068,1204,1110,1112</code>
+</td>
+</tr>
+<tr>
+<td>19</td>
+<td class='sample'>
+<code class='src'>1338</code>
+</td>
+<td>
+<code class='expected'>1257,1401,1339,1337</code>
+</td>
+</tr>
+<tr>
+<td>20</td>
+<td class='sample'>
+<code class='src'>1613</code>
+</td>
+<td>
+<code class='expected'>1612,1614,1588,1752</code>
+</td>
+</tr>
+<tr>
+<td>21</td>
+<td class='sample'>
+<code class='src'>1845</code>
+</td>
+<td>
+<code class='expected'>1686,1854,1846,1844</code>
+</td>
+</tr>
+<tr>
+<td>22</td>
+<td class='sample'>
+<code class='src'>1921</code>
+</td>
+<td>
+<code class='expected'>1922,1920,1780,1952</code>
+</td>
+</tr>
+<tr>
+<td>23</td>
+<td class='sample'>
+<code class='src'>2517</code>
+</td>
+<td>
+<code class='expected'>2516,2518,2484,2688</code>
+</td>
+</tr>
+<tr>
+<td>24</td>
+<td class='sample'>
+<code class='src'>2670</code>
+</td>
+<td>
+<code class='expected'>2671,2669,2535,2739</code>
+</td>
+</tr>
+<tr>
+<td>25</td>
+<td class='sample'>
+<code class='src'>2798</code>
+</td>
+<td>
+<code class='expected'>2613,2821,2799,2797</code>
+</td>
+</tr>
+<tr>
+<td>26</td>
+<td class='sample'>
+<code class='src'>2841</code>
+</td>
+<td>
+<code class='expected'>2778,2994,2840,2842</code>
+</td>
+</tr>
+<tr>
+<td>27</td>
+<td class='sample'>
+<code class='src'>2896</code>
+</td>
+<td>
+<code class='expected'>2897,2895,2725,2937</code>
+</td>
+</tr>
+<tr>
+<td>28</td>
+<td class='sample'>
+<code class='src'>3050</code>
+</td>
+<td>
+<code class='expected'>3001,3225,3049,3051</code>
+</td>
+</tr>
+<tr>
+<td>29</td>
+<td class='sample'>
+<code class='src'>3354</code>
+</td>
+<td>
+<code class='expected'>3355,3353,3147,3375</code>
+</td>
+</tr>
+<tr>
+<td>30</td>
+<td class='sample'>
+<code class='src'>3563</code>
+</td>
+<td>
+<code class='expected'>3564,3562,3402,3638</code>
+</td>
+</tr>
+<tr>
+<td>31</td>
+<td class='sample'>
+<code class='src'>4454</code>
+</td>
+<td>
+<code class='expected'>4261,4525,4455,4453</code>
+</td>
+</tr>
+<tr>
+<td>32</td>
+<td class='sample'>
+<code class='src'>5397</code>
+</td>
+<td>
+<code class='expected'>5262,5558,5396,5398</code>
+</td>
+</tr>
+<tr>
+<td>33</td>
+<td class='sample'>
+<code class='src'>5592</code>
+</td>
+<td>
+<code class='expected'>5363,5659,5593,5591</code>
+</td>
+</tr>
+<tr>
+<td>34</td>
+<td class='sample'>
+<code class='src'>6122</code>
+</td>
+<td>
+<code class='expected'>6121,6123,6047,6363</code>
+</td>
+</tr>
+<tr>
+<td>35</td>
+<td class='sample'>
+<code class='src'>6772</code>
+</td>
+<td>
+<code class='expected'>6771,6773,6677,7009</code>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "10", "9,25,-,11" );
+/*1*/ test( "1", "-,2,-,4" );
+/*2*/ test( "2", "1,9,-,3" );
+/*3*/ test( "4", "-,3,1,5" );
+/*4*/ test( "26", "25,49,-,27" );
+/*5*/ test( "43", "42,56,44,58" );
+/*6*/ test( "72", "71,73,57,93" );
+/*7*/ test( "82", "81,121,-,83" );
+/*8*/ test( "91", "92,112,90,110" );
+/*9*/ test( "100", "-,99,65,101" );
+/*10*/ test( "122", "121,169,-,123" );
+/*11*/ test( "141", "142,140,104,148" );
+/*12*/ test( "145", "-,146,144,196" );
+/*13*/ test( "320", "321,319,261,329" );
+/*14*/ test( "504", "503,505,465,557" );
+/*15*/ test( "563", "564,562,498,590" );
+/*16*/ test( "906", "905,907,895,1019" );
+/*17*/ test( "1047", "1046,1048,1002,1134" );
+/*18*/ test( "1111", "1068,1204,1110,1112" );
+/*19*/ test( "1338", "1257,1401,1339,1337" );
+/*20*/ test( "1613", "1612,1614,1588,1752" );
+/*21*/ test( "1845", "1686,1854,1846,1844" );
+/*22*/ test( "1921", "1922,1920,1780,1952" );
+/*23*/ test( "2517", "2516,2518,2484,2688" );
+/*24*/ test( "2670", "2671,2669,2535,2739" );
+/*25*/ test( "2798", "2613,2821,2799,2797" );
+/*26*/ test( "2841", "2778,2994,2840,2842" );
+/*27*/ test( "2896", "2897,2895,2725,2937" );
+/*28*/ test( "3050", "3001,3225,3049,3051" );
+/*29*/ test( "3354", "3355,3353,3147,3375" );
+/*30*/ test( "3563", "3564,3562,3402,3638" );
+/*31*/ test( "4454", "4261,4525,4455,4453" );
+/*32*/ test( "5397", "5262,5558,5396,5398" );
+/*33*/ test( "5592", "5363,5659,5593,5591" );
+/*34*/ test( "6122", "6121,6123,6047,6363" );
+/*35*/ test( "6772", "6771,6773,6677,7009" );</textarea>
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>迷路 2017.12.2</title>
+<style>
+  body, textarea {
+    font-family: sans-serif;
+    font-size:11pt;
+  }
+  textarea {
+    font-size:7pt;
+    width:80%;
+    height:7em;
+  }
+  img.large{
+    width:400px;
+  }
+  
+  td.center{ text-align:center; }
+  
+  tr:nth-child(even) { background-color: #fafafa }
+  tr:nth-child(odd) { background-color: #f0f0f0 }
+  code {
+    background-color: #d8d8d8;
+    font-family:monospace;
+    padding:2pt 2pt 2pt 2pt ;
+    border-radius:4px;
+  }
+  h1{
+    border-top : solid 2px #bbb;
+    border-left : solid 16px #bbb;
+    background-color: #f8f8f8;
+  }
+  h2{
+    border-top : solid 2px #bbb;
+    border-left : solid 8px #bbb;
+    background-color: #f8f8f8;
+  }
+  h3{
+    background-color: #f8f8f8;
+  }
+  h4{
+    background-color: #f8f8f8;
+  }
+  code.src, code.expected{
+    word-break: break-all;
+    font-family:"Ricty","Courier New";
+  }
+  img.sample{
+  width:150px;
+  height:150px;
+  }
+  img.top{
+  width:320px;
+  }
+  .weight{
+    font-family:"Georgia";
+    padding-left:8px;
+    padding-right:8px;
+  }
+  table.float_right
+  {
+    float: right;
+  }
+  table.float_right td{
+    background-color:white;
+    text-align:center;
+  }
+  .narrow{
+    font-family:"Ricty","Courier New";
+    font-size:9pt;
+  }
+  float_right{
+   float:right;
+  }
+  div.svg{
+   float:right;
+   background-color:white;
+  }
+  td.bigcell{
+    width:25mm;
+    height:25mm;
+    font-size:18mm;
+    border:solid black 0.5mm
+  }
+  table.big td{
+    font-size:9mm;
+    border:solid black 0.5mm
+  }
+  div.top img{
+    width:80px;
+  }
+  table.big img{
+    width:120px;
+    height:120px;
+   }
+   td.sample{
+   }
+  table.nabenum tr td
+  {
+    background-color:#444;
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+  }
+  table.nabenum
+  {
+    padding:1mm 2mm 1mm 2mm;
+    background-color:#444;
+  }
+  table.nabenum .c0{
+    width:4px;
+  }
+  table.nabenum .c1{
+    width:15px;
+  }
+  table.nabenum .c2{
+    width:4px;
+  }
+  table.nabenum tr.n0 td{
+    height:4px;
+  }
+  table.nabenum tr.n1 td{
+    height:15px;
+  }
+  table.nabenum tr.n2 td{
+    height:4px;
+  }
+  table.nabenum tr.n3 td{
+    height:15px;
+  }
+  table.nabenum tr.n4 td{
+    height:4px;
+  }
+  table.nabenum td.off{
+    background-color:black;
+  }
+  table.nabenum td.on{
+    background-color:white;
+  }
+  table.nabenum td.nazo{
+    background-color:#f00;
+  }
+  table.outer > tbody > tr > td{
+    border-left: black solid 1px;
+    vertical-align:top;
+  }
+  table.tet tr{
+    background-color:white;
+  }
+  div.nabe{
+    float:right;
+    width:200px;
+    background-color:#eee;
+    text-align:center;
+  }
+  .nabe_c{
+    text-align:center;
+    }
+  div.main_fig{
+   float:right;
+   background-color:white;
+  }
+</style>
+</head>
+<body>
+<h1>迷路 2017.12.2</h1>
+<div class='main_fig'>
+<img src='maze.png' style='width:400px'>
+</div>
+<h2>問題の概要</h2>
+<p>
+右図のような迷路がある。
+<br>
+一歩で、上下左右にすすめるが、太線は壁なので超えられない。
+<br>
+スタート地点とゴールを指定する。
+<br>
+スタートからゴールに行くには最低何歩必要なのかを計算せよ。
+</p>
+<h2>入力</h2>
+<p>
+入力は
+<br>
+<code>DE</code>
+<br>
+こんな感じ。
+<br>
+スタート地点とゴール地点を示す記号が区切り文字なしで並んでいる。
+</p>
+<h2>出力</h2>
+<p>
+スタート地点からゴール地点まで何歩なのかを普通に10進数で。
+</p>
+<p>
+先ほどの入力の場合、D から E までは 13歩 で行けるので、
+<br>
+<code>13</code>
+<br>
+と出力すれば良い。
+</p>
+<h2>補足</h2>
+<ul>
+<li>不正な入力に対処する必要はない。</li>
+<li>
+実装ができた方は
+<a href='https://qiita.com/Nabetani/items/7baf181b4a1b7eacc79a'>Qiitaの記事</a>
+のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+</li>
+<li>
+この問題は2017年12月2日に開催される オフラインリアルタイムどう書くE20 の問題です。イベントについては
+<a href='https://yhpg.doorkeeper.jp/events/67049'>Doorkeeper のページ</a>
+の方を御覧下さい。
+</li>
+</ul>
+<h2>サンプルデータ</h2>
+<table class='sample'>
+<tr>
+<th>#</th>
+<th>入力</th>
+<th>期待</th>
+<th>状況へのリンク</th>
+</tr>
+<tr>
+<td>0</td>
+<td class='sample'>
+<code class='src'>DE</code>
+</td>
+<td>
+<code class='expected'>13</code>
+</td>
+<td>
+<a href='figs.html#0'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>1</td>
+<td class='sample'>
+<code class='src'>EK</code>
+</td>
+<td>
+<code class='expected'>1</code>
+</td>
+<td>
+<a href='figs.html#1'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>2</td>
+<td class='sample'>
+<code class='src'>01</code>
+</td>
+<td>
+<code class='expected'>1</code>
+</td>
+<td>
+<a href='figs.html#2'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>3</td>
+<td class='sample'>
+<code class='src'>LG</code>
+</td>
+<td>
+<code class='expected'>2</code>
+</td>
+<td>
+<a href='figs.html#3'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td class='sample'>
+<code class='src'>A1</code>
+</td>
+<td>
+<code class='expected'>4</code>
+</td>
+<td>
+<a href='figs.html#4'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>5</td>
+<td class='sample'>
+<code class='src'>GJ</code>
+</td>
+<td>
+<code class='expected'>4</code>
+</td>
+<td>
+<a href='figs.html#5'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>6</td>
+<td class='sample'>
+<code class='src'>FK</code>
+</td>
+<td>
+<code class='expected'>4</code>
+</td>
+<td>
+<a href='figs.html#6'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>7</td>
+<td class='sample'>
+<code class='src'>LV</code>
+</td>
+<td>
+<code class='expected'>4</code>
+</td>
+<td>
+<a href='figs.html#7'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>8</td>
+<td class='sample'>
+<code class='src'>27</code>
+</td>
+<td>
+<code class='expected'>4</code>
+</td>
+<td>
+<a href='figs.html#8'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>9</td>
+<td class='sample'>
+<code class='src'>0O</code>
+</td>
+<td>
+<code class='expected'>4</code>
+</td>
+<td>
+<a href='figs.html#9'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>10</td>
+<td class='sample'>
+<code class='src'>G1</code>
+</td>
+<td>
+<code class='expected'>5</code>
+</td>
+<td>
+<a href='figs.html#10'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>11</td>
+<td class='sample'>
+<code class='src'>ZH</code>
+</td>
+<td>
+<code class='expected'>5</code>
+</td>
+<td>
+<a href='figs.html#11'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>12</td>
+<td class='sample'>
+<code class='src'>AB</code>
+</td>
+<td>
+<code class='expected'>5</code>
+</td>
+<td>
+<a href='figs.html#12'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>13</td>
+<td class='sample'>
+<code class='src'>KX</code>
+</td>
+<td>
+<code class='expected'>5</code>
+</td>
+<td>
+<a href='figs.html#13'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>14</td>
+<td class='sample'>
+<code class='src'>1G</code>
+</td>
+<td>
+<code class='expected'>5</code>
+</td>
+<td>
+<a href='figs.html#14'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>15</td>
+<td class='sample'>
+<code class='src'>WX</code>
+</td>
+<td>
+<code class='expected'>5</code>
+</td>
+<td>
+<a href='figs.html#15'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>16</td>
+<td class='sample'>
+<code class='src'>3L</code>
+</td>
+<td>
+<code class='expected'>5</code>
+</td>
+<td>
+<a href='figs.html#16'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>17</td>
+<td class='sample'>
+<code class='src'>9Y</code>
+</td>
+<td>
+<code class='expected'>5</code>
+</td>
+<td>
+<a href='figs.html#17'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>18</td>
+<td class='sample'>
+<code class='src'>EX</code>
+</td>
+<td>
+<code class='expected'>6</code>
+</td>
+<td>
+<a href='figs.html#18'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>19</td>
+<td class='sample'>
+<code class='src'>BG</code>
+</td>
+<td>
+<code class='expected'>6</code>
+</td>
+<td>
+<a href='figs.html#19'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>20</td>
+<td class='sample'>
+<code class='src'>7K</code>
+</td>
+<td>
+<code class='expected'>7</code>
+</td>
+<td>
+<a href='figs.html#20'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>21</td>
+<td class='sample'>
+<code class='src'>E3</code>
+</td>
+<td>
+<code class='expected'>7</code>
+</td>
+<td>
+<a href='figs.html#21'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>22</td>
+<td class='sample'>
+<code class='src'>SW</code>
+</td>
+<td>
+<code class='expected'>7</code>
+</td>
+<td>
+<a href='figs.html#22'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>23</td>
+<td class='sample'>
+<code class='src'>BM</code>
+</td>
+<td>
+<code class='expected'>7</code>
+</td>
+<td>
+<a href='figs.html#23'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>24</td>
+<td class='sample'>
+<code class='src'>3C</code>
+</td>
+<td>
+<code class='expected'>7</code>
+</td>
+<td>
+<a href='figs.html#24'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>25</td>
+<td class='sample'>
+<code class='src'>H9</code>
+</td>
+<td>
+<code class='expected'>7</code>
+</td>
+<td>
+<a href='figs.html#25'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>26</td>
+<td class='sample'>
+<code class='src'>J3</code>
+</td>
+<td>
+<code class='expected'>7</code>
+</td>
+<td>
+<a href='figs.html#26'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>27</td>
+<td class='sample'>
+<code class='src'>GX</code>
+</td>
+<td>
+<code class='expected'>8</code>
+</td>
+<td>
+<a href='figs.html#27'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>28</td>
+<td class='sample'>
+<code class='src'>2Z</code>
+</td>
+<td>
+<code class='expected'>8</code>
+</td>
+<td>
+<a href='figs.html#28'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>29</td>
+<td class='sample'>
+<code class='src'>8H</code>
+</td>
+<td>
+<code class='expected'>8</code>
+</td>
+<td>
+<a href='figs.html#29'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>30</td>
+<td class='sample'>
+<code class='src'>Z7</code>
+</td>
+<td>
+<code class='expected'>8</code>
+</td>
+<td>
+<a href='figs.html#30'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>31</td>
+<td class='sample'>
+<code class='src'>0B</code>
+</td>
+<td>
+<code class='expected'>8</code>
+</td>
+<td>
+<a href='figs.html#31'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>32</td>
+<td class='sample'>
+<code class='src'>U9</code>
+</td>
+<td>
+<code class='expected'>9</code>
+</td>
+<td>
+<a href='figs.html#32'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>33</td>
+<td class='sample'>
+<code class='src'>Z0</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+<td>
+<a href='figs.html#33'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>34</td>
+<td class='sample'>
+<code class='src'>0N</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+<td>
+<a href='figs.html#34'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>35</td>
+<td class='sample'>
+<code class='src'>U8</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+<td>
+<a href='figs.html#35'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>36</td>
+<td class='sample'>
+<code class='src'>XZ</code>
+</td>
+<td>
+<code class='expected'>10</code>
+</td>
+<td>
+<a href='figs.html#36'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>37</td>
+<td class='sample'>
+<code class='src'>H0</code>
+</td>
+<td>
+<code class='expected'>11</code>
+</td>
+<td>
+<a href='figs.html#37'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>38</td>
+<td class='sample'>
+<code class='src'>CH</code>
+</td>
+<td>
+<code class='expected'>13</code>
+</td>
+<td>
+<a href='figs.html#38'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>39</td>
+<td class='sample'>
+<code class='src'>WB</code>
+</td>
+<td>
+<code class='expected'>13</code>
+</td>
+<td>
+<a href='figs.html#39'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>40</td>
+<td class='sample'>
+<code class='src'>0R</code>
+</td>
+<td>
+<code class='expected'>13</code>
+</td>
+<td>
+<a href='figs.html#40'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>41</td>
+<td class='sample'>
+<code class='src'>DZ</code>
+</td>
+<td>
+<code class='expected'>13</code>
+</td>
+<td>
+<a href='figs.html#41'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>42</td>
+<td class='sample'>
+<code class='src'>NI</code>
+</td>
+<td>
+<code class='expected'>13</code>
+</td>
+<td>
+<a href='figs.html#42'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>43</td>
+<td class='sample'>
+<code class='src'>QC</code>
+</td>
+<td>
+<code class='expected'>14</code>
+</td>
+<td>
+<a href='figs.html#43'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>44</td>
+<td class='sample'>
+<code class='src'>6U</code>
+</td>
+<td>
+<code class='expected'>14</code>
+</td>
+<td>
+<a href='figs.html#44'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>45</td>
+<td class='sample'>
+<code class='src'>PO</code>
+</td>
+<td>
+<code class='expected'>15</code>
+</td>
+<td>
+<a href='figs.html#45'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>46</td>
+<td class='sample'>
+<code class='src'>RI</code>
+</td>
+<td>
+<code class='expected'>16</code>
+</td>
+<td>
+<a href='figs.html#46'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>47</td>
+<td class='sample'>
+<code class='src'>UO</code>
+</td>
+<td>
+<code class='expected'>17</code>
+</td>
+<td>
+<a href='figs.html#47'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>48</td>
+<td class='sample'>
+<code class='src'>WO</code>
+</td>
+<td>
+<code class='expected'>17</code>
+</td>
+<td>
+<a href='figs.html#48'>リンク</a>
+</td>
+</tr>
+<tr>
+<td>49</td>
+<td class='sample'>
+<code class='src'>OX</code>
+</td>
+<td>
+<code class='expected'>18</code>
+</td>
+<td>
+<a href='figs.html#49'>リンク</a>
+</td>
+</tr>
+</table>
+<h2>C/C++/Java 用のテストデータ</h2>
+<textarea>/*0*/ test( "DE", "13" );
+/*1*/ test( "EK", "1" );
+/*2*/ test( "01", "1" );
+/*3*/ test( "LG", "2" );
+/*4*/ test( "A1", "4" );
+/*5*/ test( "GJ", "4" );
+/*6*/ test( "FK", "4" );
+/*7*/ test( "LV", "4" );
+/*8*/ test( "27", "4" );
+/*9*/ test( "0O", "4" );
+/*10*/ test( "G1", "5" );
+/*11*/ test( "ZH", "5" );
+/*12*/ test( "AB", "5" );
+/*13*/ test( "KX", "5" );
+/*14*/ test( "1G", "5" );
+/*15*/ test( "WX", "5" );
+/*16*/ test( "3L", "5" );
+/*17*/ test( "9Y", "5" );
+/*18*/ test( "EX", "6" );
+/*19*/ test( "BG", "6" );
+/*20*/ test( "7K", "7" );
+/*21*/ test( "E3", "7" );
+/*22*/ test( "SW", "7" );
+/*23*/ test( "BM", "7" );
+/*24*/ test( "3C", "7" );
+/*25*/ test( "H9", "7" );
+/*26*/ test( "J3", "7" );
+/*27*/ test( "GX", "8" );
+/*28*/ test( "2Z", "8" );
+/*29*/ test( "8H", "8" );
+/*30*/ test( "Z7", "8" );
+/*31*/ test( "0B", "8" );
+/*32*/ test( "U9", "9" );
+/*33*/ test( "Z0", "10" );
+/*34*/ test( "0N", "10" );
+/*35*/ test( "U8", "10" );
+/*36*/ test( "XZ", "10" );
+/*37*/ test( "H0", "11" );
+/*38*/ test( "CH", "13" );
+/*39*/ test( "WB", "13" );
+/*40*/ test( "0R", "13" );
+/*41*/ test( "DZ", "13" );
+/*42*/ test( "NI", "13" );
+/*43*/ test( "QC", "14" );
+/*44*/ test( "6U", "14" );
+/*45*/ test( "PO", "15" );
+/*46*/ test( "RI", "16" );
+/*47*/ test( "UO", "17" );
+/*48*/ test( "WO", "17" );
+/*49*/ test( "OX", "18" );</textarea>
+</body>
+</html>

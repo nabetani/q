@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>どきどきトロッコ 横へな2016.7.2 問題</title>
+    <style>
+      body, textarea {
+          font-family: sans-serif;
+          font-size:11pt;
+      }
+      textarea {
+        font-size:7pt;
+        width:80%;
+        height:7em;
+      }
+      img.large{
+        width:400px;
+      }
+      
+      td.center{ text-align:center; }
+      
+      tr:nth-child(even) { background-color: #fafafa }
+      tr:nth-child(odd) { background-color: #f0f0f0 }
+      code {
+        border:solid #ccc 1px;
+        font-family:monospace;
+      }
+      h1{
+        border-top : solid 2px #bbb;
+        border-left : solid 16px #bbb;
+        background-color: #f8f8f8;
+      }
+      h2{
+        border-top : solid 2px #bbb;
+        border-left : solid 8px #bbb;
+        background-color: #f8f8f8;
+      }
+      h3{
+        background-color: #f8f8f8;
+      }
+      h4{
+        background-color: #f8f8f8;
+      }
+      code.src, code.expected{
+        word-break: break-all;
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      img.sample{
+      width:150px;
+      height:150px;
+      }
+      img.top{
+      width:320px;
+      }
+      .weight{
+        font-family:"Georgia";
+        padding-left:8px;
+        padding-right:8px;
+      }
+      table.float_right
+      {
+        float: right;
+      }
+      table.float_right td{
+        background-color:white;
+        text-align:center;
+      }
+      .narrow{
+        font-family:"Ricty","Courier New";
+        font-size:9pt;
+      }
+      float_right{
+       float:right;
+      }
+      div.svg{
+       float:right;
+       background-color:white;
+      }
+      td.bigcell{
+        width:25mm;
+        height:25mm;
+        font-size:18mm;
+        border:solid black 0.5mm
+      }
+      table.big td{
+        font-size:9mm;
+        border:solid black 0.5mm
+      }
+      div.top img{
+        width:80px;
+      }
+      table.big img{
+        width:120px;
+        height:120px;
+       }
+       td.sample img{
+        width:60px;
+        height:60px;
+       }
+    </style>
+  </head>
+  <body>
+    <h1>どきどきトロッコ 横へな2016.7.2 問題</h1>
+    <h2>問題の概要</h2>
+    <p>
+      あなたはトロッコに乗っています。
+      <br>
+      目の前には分かれ道が！
+      <br>
+      生き残るためにはどの道に行けばよいでしょうか？
+      <br>
+      <div class='top'><img src='0.png'><img src='1.png'><img src='7.png'><img src='2.png'><img src='8.png'><img src='3.png'><img src='9.png'><img src='8.png'></div>
+    </p>
+    <h2>詳細</h2>
+    <table class='float_right big'>
+      <tr>
+        <td>
+          1
+          <img class='sample' src='1.png'>
+        </td>
+        <td>
+          2
+          <img class='sample' src='2.png'>
+        </td>
+        <td>
+          3
+          <img class='sample' src='3.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          4
+          <img class='sample' src='4.png'>
+        </td>
+        <td>
+          5
+          <img class='sample' src='5.png'>
+        </td>
+        <td>
+          6
+          <img class='sample' src='6.png'>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          7
+          <img class='sample' src='7.png'>
+        </td>
+        <td>
+          8
+          <img class='sample' src='8.png'>
+        </td>
+        <td>
+          9
+          <img class='sample' src='9.png'>
+        </td>
+      </tr>
+    </table>
+    <p>
+      (a), (b), (c) の3つの道をえらぶことが出来ます。無事に ゴールまでたどり着けるのがどの選択肢なのかを答えて下さい。
+      <br>
+      行く手には、右図の 1番から9番にあるようなコースが並んでいます。7, 8, 9 のコースにある ☓ に到達すると死亡です。
+      <br>
+      1〜6 のコースには、分岐が二箇所ずつあります。分岐に到達した場合、好きな方に行くことが出来ます。
+      <br>
+      例えば。3番のコースに上段から入った場合、上段または下段へ行くことが出来ますが、中段には行くことができません。
+      3番のコースに中段から入った場合、上段または中段へ行くことが出来ますが、下段には行くことができません。
+    </p>
+    <h2>入力</h2>
+    <p>
+      入力は
+      <br>
+      <code>1728398</code>
+      <br>
+      こんな感じ。コースの番号が左から順に区切り文字なしで並んでいます。
+    </p>
+    <h2>出力</h2>
+    <p>
+      出力は、a, b, c のうち、ゴールにたどり着ける可能性があるものを区切り文字なしで昇順に。
+      <br>
+      <code>bc</code>
+      <br>
+      こんな感じ。
+      <br>
+      a, b, c のどれを選んでも死を免れられない場合は
+      <code>-</code>
+      を。
+    </p>
+    <h2>補足</h2>
+    <ul>
+      <li>不正な入力に対処する必要はありません。</li>
+      <li>
+        実装ができた方は
+        <a href='http://qiita.com/Nabetani/items/c516875b13a4d282affe'>Qiitaの記事</a>
+        のコメント欄からリンクを張っていただくと見つけやすくて助かります。
+      </li>
+      <li>
+        トロッコは坂道をくだっています。引き返すことはできません。
+      </li>
+      <li>
+        この問題は2016年7月2日に開催される オフラインリアルタイムどう書くE05 の問題です。イベントについては
+        <a href='https://yhpg.doorkeeper.jp/events/46668'>Doorkeeper のページ</a>
+        の方を御覧下さい。
+      </li>
+    </ul>
+    <h2>サンプルデータ</h2>
+    <table class='sample'>
+      <tr>
+        <th>#</th>
+        <th>入力</th>
+        <th>期待</th>
+        <th>状況</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class='sample'>
+          <code class='src'>1728398</code>
+        </td>
+        <td>
+          <code class='expected'>bc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='7.png'><img src='2.png'><img src='8.png'><img src='3.png'><img src='9.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td class='sample'>
+          <code class='src'>789</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='7.png'><img src='8.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td class='sample'>
+          <code class='src'>274</code>
+        </td>
+        <td>
+          <code class='expected'>ac</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='2.png'><img src='7.png'><img src='4.png'></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class='sample'>
+          <code class='src'>185</code>
+        </td>
+        <td>
+          <code class='expected'>abc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='8.png'><img src='5.png'></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td class='sample'>
+          <code class='src'>396</code>
+        </td>
+        <td>
+          <code class='expected'>ab</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='3.png'><img src='9.png'><img src='6.png'></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td class='sample'>
+          <code class='src'>1278</code>
+        </td>
+        <td>
+          <code class='expected'>abc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='2.png'><img src='7.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td class='sample'>
+          <code class='src'>7659832</code>
+        </td>
+        <td>
+          <code class='expected'>a</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='7.png'><img src='6.png'><img src='5.png'><img src='9.png'><img src='8.png'><img src='3.png'><img src='2.png'></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td class='sample'>
+          <code class='src'>178</code>
+        </td>
+        <td>
+          <code class='expected'>bc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='7.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td class='sample'>
+          <code class='src'>189</code>
+        </td>
+        <td>
+          <code class='expected'>ab</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='8.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td class='sample'>
+          <code class='src'>197</code>
+        </td>
+        <td>
+          <code class='expected'>a</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='9.png'><img src='7.png'></td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td class='sample'>
+          <code class='src'>278</code>
+        </td>
+        <td>
+          <code class='expected'>ac</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='2.png'><img src='7.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td class='sample'>
+          <code class='src'>289</code>
+        </td>
+        <td>
+          <code class='expected'>bc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='2.png'><img src='8.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td class='sample'>
+          <code class='src'>297</code>
+        </td>
+        <td>
+          <code class='expected'>a</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='2.png'><img src='9.png'><img src='7.png'></td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td class='sample'>
+          <code class='src'>378</code>
+        </td>
+        <td>
+          <code class='expected'>ac</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='3.png'><img src='7.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td class='sample'>
+          <code class='src'>389</code>
+        </td>
+        <td>
+          <code class='expected'>b</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='3.png'><img src='8.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td class='sample'>
+          <code class='src'>397</code>
+        </td>
+        <td>
+          <code class='expected'>ab</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='3.png'><img src='9.png'><img src='7.png'></td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td class='sample'>
+          <code class='src'>478</code>
+        </td>
+        <td>
+          <code class='expected'>c</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='4.png'><img src='7.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td class='sample'>
+          <code class='src'>489</code>
+        </td>
+        <td>
+          <code class='expected'>bc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='4.png'><img src='8.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td class='sample'>
+          <code class='src'>497</code>
+        </td>
+        <td>
+          <code class='expected'>ab</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='4.png'><img src='9.png'><img src='7.png'></td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td class='sample'>
+          <code class='src'>578</code>
+        </td>
+        <td>
+          <code class='expected'>bc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='5.png'><img src='7.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td class='sample'>
+          <code class='src'>589</code>
+        </td>
+        <td>
+          <code class='expected'>b</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='5.png'><img src='8.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td class='sample'>
+          <code class='src'>597</code>
+        </td>
+        <td>
+          <code class='expected'>ac</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='5.png'><img src='9.png'><img src='7.png'></td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td class='sample'>
+          <code class='src'>678</code>
+        </td>
+        <td>
+          <code class='expected'>c</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='6.png'><img src='7.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td class='sample'>
+          <code class='src'>689</code>
+        </td>
+        <td>
+          <code class='expected'>ab</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='6.png'><img src='8.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td class='sample'>
+          <code class='src'>697</code>
+        </td>
+        <td>
+          <code class='expected'>ac</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='6.png'><img src='9.png'><img src='7.png'></td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td class='sample'>
+          <code class='src'>899</code>
+        </td>
+        <td>
+          <code class='expected'>b</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='8.png'><img src='9.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td class='sample'>
+          <code class='src'>7172</code>
+        </td>
+        <td>
+          <code class='expected'>ac</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='7.png'><img src='1.png'><img src='7.png'><img src='2.png'></td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td class='sample'>
+          <code class='src'>54787</code>
+        </td>
+        <td>
+          <code class='expected'>bc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='5.png'><img src='4.png'><img src='7.png'><img src='8.png'><img src='7.png'></td>
+      </tr>
+      <tr>
+        <td>28</td>
+        <td class='sample'>
+          <code class='src'>83713</code>
+        </td>
+        <td>
+          <code class='expected'>bc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='8.png'><img src='3.png'><img src='7.png'><img src='1.png'><img src='3.png'></td>
+      </tr>
+      <tr>
+        <td>29</td>
+        <td class='sample'>
+          <code class='src'>149978</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='4.png'><img src='9.png'><img src='9.png'><img src='7.png'><img src='8.png'></td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td class='sample'>
+          <code class='src'>159735</code>
+        </td>
+        <td>
+          <code class='expected'>abc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='5.png'><img src='9.png'><img src='7.png'><img src='3.png'><img src='5.png'></td>
+      </tr>
+      <tr>
+        <td>31</td>
+        <td class='sample'>
+          <code class='src'>1449467</code>
+        </td>
+        <td>
+          <code class='expected'>abc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='1.png'><img src='4.png'><img src='4.png'><img src='9.png'><img src='4.png'><img src='6.png'><img src='7.png'></td>
+      </tr>
+      <tr>
+        <td>32</td>
+        <td class='sample'>
+          <code class='src'>9862916</code>
+        </td>
+        <td>
+          <code class='expected'>b</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='9.png'><img src='8.png'><img src='6.png'><img src='2.png'><img src='9.png'><img src='1.png'><img src='6.png'></td>
+      </tr>
+      <tr>
+        <td>33</td>
+        <td class='sample'>
+          <code class='src'>96112873</code>
+        </td>
+        <td>
+          <code class='expected'>ab</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='9.png'><img src='6.png'><img src='1.png'><img src='1.png'><img src='2.png'><img src='8.png'><img src='7.png'><img src='3.png'></td>
+      </tr>
+      <tr>
+        <td>34</td>
+        <td class='sample'>
+          <code class='src'>311536789</code>
+        </td>
+        <td>
+          <code class='expected'>-</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='3.png'><img src='1.png'><img src='1.png'><img src='5.png'><img src='3.png'><img src='6.png'><img src='7.png'><img src='8.png'><img src='9.png'></td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td class='sample'>
+          <code class='src'>281787212994</code>
+        </td>
+        <td>
+          <code class='expected'>abc</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='2.png'><img src='8.png'><img src='1.png'><img src='7.png'><img src='8.png'><img src='7.png'><img src='2.png'><img src='1.png'><img src='2.png'><img src='9.png'><img src='9.png'><img src='4.png'></td>
+      </tr>
+      <tr>
+        <td>36</td>
+        <td class='sample'>
+          <code class='src'>697535114542</code>
+        </td>
+        <td>
+          <code class='expected'>ac</code>
+        </td>
+        <td class='sample'><img src='0.png'><img src='6.png'><img src='9.png'><img src='7.png'><img src='5.png'><img src='3.png'><img src='5.png'><img src='1.png'><img src='1.png'><img src='4.png'><img src='5.png'><img src='4.png'><img src='2.png'></td>
+      </tr>
+    </table>
+    <h2>C/C++/Java 用のテストデータ</h2>
+    <textarea>/*0*/ test( "1728398", "bc" );    
+/*1*/ test( "789", "-" );    
+/*2*/ test( "274", "ac" );    
+/*3*/ test( "185", "abc" );    
+/*4*/ test( "396", "ab" );    
+/*5*/ test( "1278", "abc" );    
+/*6*/ test( "7659832", "a" );    
+/*7*/ test( "178", "bc" );    
+/*8*/ test( "189", "ab" );    
+/*9*/ test( "197", "a" );    
+/*10*/ test( "278", "ac" );    
+/*11*/ test( "289", "bc" );    
+/*12*/ test( "297", "a" );    
+/*13*/ test( "378", "ac" );    
+/*14*/ test( "389", "b" );    
+/*15*/ test( "397", "ab" );    
+/*16*/ test( "478", "c" );    
+/*17*/ test( "489", "bc" );    
+/*18*/ test( "497", "ab" );    
+/*19*/ test( "578", "bc" );    
+/*20*/ test( "589", "b" );    
+/*21*/ test( "597", "ac" );    
+/*22*/ test( "678", "c" );    
+/*23*/ test( "689", "ab" );    
+/*24*/ test( "697", "ac" );    
+/*25*/ test( "899", "b" );    
+/*26*/ test( "7172", "ac" );    
+/*27*/ test( "54787", "bc" );    
+/*28*/ test( "83713", "bc" );    
+/*29*/ test( "149978", "-" );    
+/*30*/ test( "159735", "abc" );    
+/*31*/ test( "1449467", "abc" );    
+/*32*/ test( "9862916", "b" );    
+/*33*/ test( "96112873", "ab" );    
+/*34*/ test( "311536789", "-" );    
+/*35*/ test( "281787212994", "abc" );    
+/*36*/ test( "697535114542", "ac" );</textarea>
+  </body>
+</html>
