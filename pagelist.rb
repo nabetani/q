@@ -21,8 +21,8 @@ def category(fn)
     [:ord_e, $1.to_i]
   when /^ordf(\d+)/
     [:ord_f, $1.to_i]
-  when /^kawasakirb/
-    [:kawasaki_rb, 1]
+  when /^kanagawarb/
+    [:kanagawa_rb, 1]
   when /^yokohamarb/
     nums=key.scan( /\d+/ ).map(&:to_i)
     [:yokohama_rb, yokohama_rb_remap(nums)]
