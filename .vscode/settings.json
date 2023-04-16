@@ -1,0 +1,12 @@
+{
+    "editor.formatOnSave": true,
+    "files.associations": {
+        "bitset": "cpp",
+        "cstdio": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "ostream": "cpp",
+        "locale": "cpp",
+        "*.tcc": "cpp"
+    }
+}
