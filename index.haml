@@ -1,0 +1,35 @@
+!!!
+%head
+  %meta{ charset:'utf-8'}
+  %link{ rel:"stylesheet", type:"text/css", href:"./pages/2022.css" }
+  -TITLE="鍋谷武典が作ったプログラミング課題リスト"
+  %title=TITLE
+- require_relative "./pagelist"
+%body
+  %h1=TITLE
+  %h2 これは何？
+  -cat_names={ord:"横へな(無印)",ord_e:"横へな(E)", ord_f:"横へな(F)", kawasaki_rb:"kawasaki.rb", yokohama_rb:"yokohama.rb", r:"regeneration" }
+  %p
+    これは、今まで横浜へなちょこプログラミング勉強会などのために私が作った問題をまとめたもの。
+    %br
+    CoreIQ への出題は含まれない。他にも含まれてないものがある。
+    %br
+  %p
+    ここにあるのは出来上がった HTML や画像だけ。HTML や画像を生成するソースやロジックはない。
+    %br
+    分類は下記の通り。分類内は作成順になっていると思うけど自信がない。
+  %ul
+    -cat_names.each do |k,name|
+      %li
+        %a{ href:"##{k}" }=name
+  %h2 問題リスト
+  -indices = collect_indices
+  -cat_names.each do |cat,name|
+    -items = indices[cat]
+    %h3
+      %a{ name:cat}=name
+    %p
+      %ul
+        -items.each do |item|
+          %li
+            %a{ href:item[:path] }=item[:name]
