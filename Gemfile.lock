@@ -1,14 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    haml (6.0.12)
+    haml (6.1.1)
       temple (>= 0.8.2)
       thor
       tilt
     rake (13.0.6)
-    temple (0.9.1)
+    temple (0.10.0)
     thor (1.2.1)
-    tilt (2.0.11)
+    tilt (2.1.0)
 
 PLATFORMS
   arm64-darwin-21
