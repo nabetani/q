@@ -1,644 +1,669 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <title>めぐるセル(簡易版) yokohama.rb 2014.10.11 問題</title>
-    <script>
-      function show(me){
-        me.insertAdjacentHTML( "afterend", "<img src="+me.id+"/>" );
-        me.parentElement.removeChild(me);
-      }
-    </script>
-    <style>
-      body, textarea {
-          font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
-          font-size:11pt;
-      }
-      textarea {
-        font-size:7pt;
-        width:80%;
-        height:7em;
-      }
-      img{ width:120px }
-      img.large{ width:360px }
-      
-      td.center{ text-align:center; }
-      
-      tr:nth-child(even) { background-color: #fafafa }
-      tr:nth-child(odd) { background-color: #f0f0f0 }
-      code {
-        border:solid #ccc 1px;
-        font-family:monospace;
-      }
-      h1{
-        border-top : solid 2px #bbb;
-        border-left : solid 16px #bbb;
-        background-color: #f8f8f8;
-      }
-      h2{
-        border-top : solid 2px #bbb;
-        border-left : solid 8px #bbb;
-        background-color: #f8f8f8;
-      }
-      h3{
-        border-top : solid 1px #bbb;
-        border-left : solid 4px #bbb;
-        background-color: #f8f8f8;
-      }
-      h4{
-        border-top : solid 1px #bbb;
-        border-left : solid 2px #bbb;
-        background-color: #f8f8f8;
-      }
-      code.expected{
-        word-break: break-all;
-      }
-      img.sample{
-        max-height:80px;
-        max-width:80px;
-      }
-      img.top{
-      width:320px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>めぐるセル(簡易版) yokohama.rb 2014.10.11 問題</h1>
-    <h2>問題</h2>
-    <p>
-      5×5 の盤面に、左上から順に a〜y の文字が振られている。
-      <br>
-      <code>YokoHamarb</code>
-      のような形で盤面に対する一連の操作が与えられる。
-      <br>
-      最初の文字から順に処理をする。
-      <br>
-      文字が小文字の場合は、この文字があるセルに隣接（斜め含む）するセルを、時計回りに回す。
-      <br>
-      文字が大文字の場合は、対応する小文字があるセルに隣接（斜め含む）するセルを、反時計回りに回す。
-      <br>
-      ……という操作を繰り返す。
-      <br>
-      下図のような感じ：
-      <br>
-      <img class='large' src='LY!okoH!amarb.gif'>
-      <br>
-      で。
-      <br>
-      最後の操作によって位置が変わったセルの名前を、アルファベット順に答えよ。
-    </p>
-    <h2>入力と詳細</h2>
-    <p>
-      入力は
-      <br>
-      <code>YokoHamarb</code>
-      <br>
-      こんな感じ。この入力は上記のアニメーションに対応している。
-      <br>
-      見ての通り、区切り文字なしで操作を示す文字が並んでいる。
-    </p>
-    <h2>出力</h2>
-    <p>
-      最後の操作によって位置が変わったセルの名前を、アルファベット順に整列したもの。
-    </p>
-    <h2>補足</h2>
-    <ul>
-      <li>
-        操作は必ずひとつ以上ある。
-      </li>
-      <li>
-        <code>ginzarb</code>
-        <small>( z が含まれるので不正 )</small>
-        や
-        <code>横浜PHP</code>
-        のような不正な入力に対処する必要はない。
-      </li>
-      <li>
-        この問題は 2014年10月11日に開催される
-        <a href='http://yokohamarb.doorkeeper.jp/events/14228'>Yokohama.rb Monthly Meetup #49</a>
-        用の問題です。
-      </li>
-      <li>
-        この問題は、
-        <a href='http://yhpg.doorkeeper.jp/events/13947'>オフラインリアルタイムどう書く#25</a>
-        用の問題をちょっと簡単にしたものです。どう書くもよろしく。
-      </li>
-    </ul>
-    <h2>サンプルデータ</h2>
-    <table class='sample'>
-      <tr>
-        <th>#</th>
-        <th>入力</th>
-        <th>期待</th>
-        <th>状況</th>
-      </tr>
-      <tr>
-        <td>0</td>
-        <td class='sample'>
-          <code>YokoHamarb</code>
-        </td>
-        <td>
-          <code class='expected'>acdfp</code>
-        </td>
-        <td>
-          <button id='Y!okoH!amarb.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td class='sample'>
-          <code>Ruby</code>
-        </td>
-        <td>
-          <code class='expected'>twx</code>
-        </td>
-        <td>
-          <button id='R!uby.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td class='sample'>
-          <code>ruby</code>
-        </td>
-        <td>
-          <code class='expected'>nst</code>
-        </td>
-        <td>
-          <button id='ruby.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td class='sample'>
-          <code>PHP</code>
-        </td>
-        <td>
-          <code class='expected'>gkluv</code>
-        </td>
-        <td>
-          <button id='P!H!P!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td class='sample'>
-          <code>a</code>
-        </td>
-        <td>
-          <code class='expected'>bfg</code>
-        </td>
-        <td>
-          <button id='a.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td class='sample'>
-          <code>b</code>
-        </td>
-        <td>
-          <code class='expected'>acfgh</code>
-        </td>
-        <td>
-          <button id='b.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td class='sample'>
-          <code>m</code>
-        </td>
-        <td>
-          <code class='expected'>ghilnqrs</code>
-        </td>
-        <td>
-          <button id='m.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td class='sample'>
-          <code>mg</code>
-        </td>
-        <td>
-          <code class='expected'>bcdhilmq</code>
-        </td>
-        <td>
-          <button id='mg.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td class='sample'>
-          <code>Mg</code>
-        </td>
-        <td>
-          <code class='expected'>fhiklmpq</code>
-        </td>
-        <td>
-          <button id='M!g.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td class='sample'>
-          <code>MS</code>
-        </td>
-        <td>
-          <code class='expected'>ijmnoqrt</code>
-        </td>
-        <td>
-          <button id='M!S!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td class='sample'>
-          <code>mG</code>
-        </td>
-        <td>
-          <code class='expected'>bcdhilmq</code>
-        </td>
-        <td>
-          <button id='mG!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>11</td>
-        <td class='sample'>
-          <code>lf</code>
-        </td>
-        <td>
-          <code class='expected'>abcghklp</code>
-        </td>
-        <td>
-          <button id='lf.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>12</td>
-        <td class='sample'>
-          <code>paq</code>
-        </td>
-        <td>
-          <code class='expected'>lprvw</code>
-        </td>
-        <td>
-          <button id='paq.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>13</td>
-        <td class='sample'>
-          <code>bFH</code>
-        </td>
-        <td>
-          <code class='expected'>abcfg</code>
-        </td>
-        <td>
-          <button id='bF!H!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>14</td>
-        <td class='sample'>
-          <code>Agh</code>
-        </td>
-        <td>
-          <code class='expected'>abcfgklm</code>
-        </td>
-        <td>
-          <button id='A!gh.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>15</td>
-        <td class='sample'>
-          <code>Msul</code>
-        </td>
-        <td>
-          <code class='expected'>pruvw</code>
-        </td>
-        <td>
-          <button id='M!sul.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>16</td>
-        <td class='sample'>
-          <code>RSRX</code>
-        </td>
-        <td>
-          <code class='expected'>jorty</code>
-        </td>
-        <td>
-          <button id='R!S!R!X!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>17</td>
-        <td class='sample'>
-          <code>xTsn</code>
-        </td>
-        <td>
-          <code class='expected'>ijmos</code>
-        </td>
-        <td>
-          <button id='xT!sn.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>18</td>
-        <td class='sample'>
-          <code>FHwnQ</code>
-        </td>
-        <td>
-          <code class='expected'>lmorsvwx</code>
-        </td>
-        <td>
-          <button id='F!H!wnQ!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>19</td>
-        <td class='sample'>
-          <code>jIDIb</code>
-        </td>
-        <td>
-          <code class='expected'>cfghilmo</code>
-        </td>
-        <td>
-          <button id='jI!D!I!b.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>20</td>
-        <td class='sample'>
-          <code>rLGPq</code>
-        </td>
-        <td>
-          <code class='expected'>ilmnprvx</code>
-        </td>
-        <td>
-          <button id='rL!G!P!q.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>21</td>
-        <td class='sample'>
-          <code>WRiFhd</code>
-        </td>
-        <td>
-          <code class='expected'>ceg</code>
-        </td>
-        <td>
-          <button id='W!R!iF!hd.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>22</td>
-        <td class='sample'>
-          <code>gkfLfh</code>
-        </td>
-        <td>
-          <code class='expected'>cfglmpqr</code>
-        </td>
-        <td>
-          <button id='gkfL!fh.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>23</td>
-        <td class='sample'>
-          <code>STydYQ</code>
-        </td>
-        <td>
-          <code class='expected'>hklmpruv</code>
-        </td>
-        <td>
-          <button id='S!T!ydY!Q!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>24</td>
-        <td class='sample'>
-          <code>spaeAWJ</code>
-        </td>
-        <td>
-          <code class='expected'>cdehimns</code>
-        </td>
-        <td>
-          <button id='spaeA!W!J!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>25</td>
-        <td class='sample'>
-          <code>xTxTXwY</code>
-        </td>
-        <td>
-          <code class='expected'>mwx</code>
-        </td>
-        <td>
-          <button id='xT!xT!X!wY!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>26</td>
-        <td class='sample'>
-          <code>xyQMkMi</code>
-        </td>
-        <td>
-          <code class='expected'>cdejlnow</code>
-        </td>
-        <td>
-          <button id='xyQ!M!kM!i.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>27</td>
-        <td class='sample'>
-          <code>HJkxpWxA</code>
-        </td>
-        <td>
-          <code class='expected'>cdhkp</code>
-        </td>
-        <td>
-          <button id='H!J!kxpW!xA!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>28</td>
-        <td class='sample'>
-          <code>hgaGDodg</code>
-        </td>
-        <td>
-          <code class='expected'>djo</code>
-        </td>
-        <td>
-          <button id='hgaG!D!odg.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>29</td>
-        <td class='sample'>
-          <code>abKBmkBc</code>
-        </td>
-        <td>
-          <code class='expected'>bdfik</code>
-        </td>
-        <td>
-          <button id='abK!B!mkB!c.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>30</td>
-        <td class='sample'>
-          <code>mCvlhnilm</code>
-        </td>
-        <td>
-          <code class='expected'>adfgikqr</code>
-        </td>
-        <td>
-          <button id='mC!vlhnilm.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>31</td>
-        <td class='sample'>
-          <code>StyxTYsIh</code>
-        </td>
-        <td>
-          <code class='expected'>imnostxy</code>
-        </td>
-        <td>
-          <button id='S!tyxT!Y!sI!h.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>32</td>
-        <td class='sample'>
-          <code>HLHnhLMLC</code>
-        </td>
-        <td>
-          <code class='expected'>ahlmn</code>
-        </td>
-        <td>
-          <button id='H!L!H!nhL!M!L!C!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>33</td>
-        <td class='sample'>
-          <code>DuHmbFQysI</code>
-        </td>
-        <td>
-          <code class='expected'>ehj</code>
-        </td>
-        <td>
-          <button id='D!uH!mbF!Q!ysI!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>34</td>
-        <td class='sample'>
-          <code>cGfGCaLgCq</code>
-        </td>
-        <td>
-          <code class='expected'>acguv</code>
-        </td>
-        <td>
-          <button id='cG!fG!C!aL!gC!q.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>35</td>
-        <td class='sample'>
-          <code>OisYOrOXwq</code>
-        </td>
-        <td>
-          <code class='expected'>ilnstvwx</code>
-        </td>
-        <td>
-          <button id='O!isY!O!rO!X!wq.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>36</td>
-        <td class='sample'>
-          <code>wMnYIukHAvO</code>
-        </td>
-        <td>
-          <code class='expected'>bdefhjmn</code>
-        </td>
-        <td>
-          <button id='wM!nY!I!ukH!A!vO!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>37</td>
-        <td class='sample'>
-          <code>HCfBhKHkhDF</code>
-        </td>
-        <td>
-          <code class='expected'>abdghikn</code>
-        </td>
-        <td>
-          <button id='H!C!fB!hK!H!khD!F!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>38</td>
-        <td class='sample'>
-          <code>pUPmwrHsYSH</code>
-        </td>
-        <td>
-          <code class='expected'>morsy</code>
-        </td>
-        <td>
-          <button id='pU!P!mwrH!sY!S!H!.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>39</td>
-        <td class='sample'>
-          <code>PnCYYWnPoUxq</code>
-        </td>
-        <td>
-          <code class='expected'>bfopv</code>
-        </td>
-        <td>
-          <button id='P!nC!Y!Y!W!nP!oU!xq.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>40</td>
-        <td class='sample'>
-          <code>DiojiYXowowr</code>
-        </td>
-        <td>
-          <code class='expected'>cilmnstw</code>
-        </td>
-        <td>
-          <button id='D!iojiY!X!owowr.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-      <tr>
-        <td>41</td>
-        <td class='sample'>
-          <code>HLNsiNMnbAnn</code>
-        </td>
-        <td>
-          <code class='expected'>abdkm</code>
-        </td>
-        <td>
-          <button id='H!L!N!siN!M!nbA!nn.gif' onclick='show(this)'>GIF を表示</button>
-        </td>
-      </tr>
-    </table>
-    <h2>C/C++/Java 用のテストデータ</h2>
-    <textarea>/*0*/ test( "YokoHamarb", "acdfp" );    
+
+<head>
+  <meta charset='utf-8'>
+  <title>めぐるセル(簡易版) yokohama.rb 2014.10.11 問題</title>
+  <script>
+    function show(me) {
+      me.insertAdjacentHTML("afterend", "<img src='" + me.id + "'/>");
+      me.parentElement.removeChild(me);
+    }
+  </script>
+  <style>
+    body,
+    textarea {
+      font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+      font-size: 11pt;
+    }
+
+    textarea {
+      font-size: 7pt;
+      width: 80%;
+      height: 7em;
+    }
+
+    img {
+      width: 120px
+    }
+
+    img.large {
+      width: 360px
+    }
+
+    td.center {
+      text-align: center;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafafa
+    }
+
+    tr:nth-child(odd) {
+      background-color: #f0f0f0
+    }
+
+    code {
+      border: solid #ccc 1px;
+      font-family: monospace;
+    }
+
+    h1 {
+      border-top: solid 2px #bbb;
+      border-left: solid 16px #bbb;
+      background-color: #f8f8f8;
+    }
+
+    h2 {
+      border-top: solid 2px #bbb;
+      border-left: solid 8px #bbb;
+      background-color: #f8f8f8;
+    }
+
+    h3 {
+      border-top: solid 1px #bbb;
+      border-left: solid 4px #bbb;
+      background-color: #f8f8f8;
+    }
+
+    h4 {
+      border-top: solid 1px #bbb;
+      border-left: solid 2px #bbb;
+      background-color: #f8f8f8;
+    }
+
+    code.expected {
+      word-break: break-all;
+    }
+
+    img.sample {
+      max-height: 80px;
+      max-width: 80px;
+    }
+
+    img.top {
+      width: 320px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>めぐるセル(簡易版) yokohama.rb 2014.10.11 問題</h1>
+  <h2>問題</h2>
+  <p>
+    5×5 の盤面に、左上から順に a〜y の文字が振られている。
+    <br>
+    <code>YokoHamarb</code>
+    のような形で盤面に対する一連の操作が与えられる。
+    <br>
+    最初の文字から順に処理をする。
+    <br>
+    文字が小文字の場合は、この文字があるセルに隣接（斜め含む）するセルを、時計回りに回す。
+    <br>
+    文字が大文字の場合は、対応する小文字があるセルに隣接（斜め含む）するセルを、反時計回りに回す。
+    <br>
+    ……という操作を繰り返す。
+    <br>
+    下図のような感じ：
+    <br>
+    <img class='large' src='LY!okoH!amarb.gif'>
+    <br>
+    で。
+    <br>
+    最後の操作によって位置が変わったセルの名前を、アルファベット順に答えよ。
+  </p>
+  <h2>入力と詳細</h2>
+  <p>
+    入力は
+    <br>
+    <code>YokoHamarb</code>
+    <br>
+    こんな感じ。この入力は上記のアニメーションに対応している。
+    <br>
+    見ての通り、区切り文字なしで操作を示す文字が並んでいる。
+  </p>
+  <h2>出力</h2>
+  <p>
+    最後の操作によって位置が変わったセルの名前を、アルファベット順に整列したもの。
+  </p>
+  <h2>補足</h2>
+  <ul>
+    <li>
+      操作は必ずひとつ以上ある。
+    </li>
+    <li>
+      <code>ginzarb</code>
+      <small>( z が含まれるので不正 )</small>
+      や
+      <code>横浜PHP</code>
+      のような不正な入力に対処する必要はない。
+    </li>
+    <li>
+      この問題は 2014年10月11日に開催される
+      <a href='http://yokohamarb.doorkeeper.jp/events/14228'>Yokohama.rb Monthly Meetup #49</a>
+      用の問題です。
+    </li>
+    <li>
+      この問題は、
+      <a href='http://yhpg.doorkeeper.jp/events/13947'>オフラインリアルタイムどう書く#25</a>
+      用の問題をちょっと簡単にしたものです。どう書くもよろしく。
+    </li>
+  </ul>
+  <h2>サンプルデータ</h2>
+  <table class='sample'>
+    <tr>
+      <th>#</th>
+      <th>入力</th>
+      <th>期待</th>
+      <th>状況</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td class='sample'>
+        <code>YokoHamarb</code>
+      </td>
+      <td>
+        <code class='expected'>acdfp</code>
+      </td>
+      <td>
+        <button id='Y!okoH!amarb.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td class='sample'>
+        <code>Ruby</code>
+      </td>
+      <td>
+        <code class='expected'>twx</code>
+      </td>
+      <td>
+        <button id='R!uby.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td class='sample'>
+        <code>ruby</code>
+      </td>
+      <td>
+        <code class='expected'>nst</code>
+      </td>
+      <td>
+        <button id='ruby.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td class='sample'>
+        <code>PHP</code>
+      </td>
+      <td>
+        <code class='expected'>gkluv</code>
+      </td>
+      <td>
+        <button id='P!H!P!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td class='sample'>
+        <code>a</code>
+      </td>
+      <td>
+        <code class='expected'>bfg</code>
+      </td>
+      <td>
+        <button id='a.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td class='sample'>
+        <code>b</code>
+      </td>
+      <td>
+        <code class='expected'>acfgh</code>
+      </td>
+      <td>
+        <button id='b.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td class='sample'>
+        <code>m</code>
+      </td>
+      <td>
+        <code class='expected'>ghilnqrs</code>
+      </td>
+      <td>
+        <button id='m.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td class='sample'>
+        <code>mg</code>
+      </td>
+      <td>
+        <code class='expected'>bcdhilmq</code>
+      </td>
+      <td>
+        <button id='mg.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td class='sample'>
+        <code>Mg</code>
+      </td>
+      <td>
+        <code class='expected'>fhiklmpq</code>
+      </td>
+      <td>
+        <button id='M!g.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td class='sample'>
+        <code>MS</code>
+      </td>
+      <td>
+        <code class='expected'>ijmnoqrt</code>
+      </td>
+      <td>
+        <button id='M!S!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td class='sample'>
+        <code>mG</code>
+      </td>
+      <td>
+        <code class='expected'>bcdhilmq</code>
+      </td>
+      <td>
+        <button id='mG!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td class='sample'>
+        <code>lf</code>
+      </td>
+      <td>
+        <code class='expected'>abcghklp</code>
+      </td>
+      <td>
+        <button id='lf.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td class='sample'>
+        <code>paq</code>
+      </td>
+      <td>
+        <code class='expected'>lprvw</code>
+      </td>
+      <td>
+        <button id='paq.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td class='sample'>
+        <code>bFH</code>
+      </td>
+      <td>
+        <code class='expected'>abcfg</code>
+      </td>
+      <td>
+        <button id='bF!H!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td class='sample'>
+        <code>Agh</code>
+      </td>
+      <td>
+        <code class='expected'>abcfgklm</code>
+      </td>
+      <td>
+        <button id='A!gh.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td class='sample'>
+        <code>Msul</code>
+      </td>
+      <td>
+        <code class='expected'>pruvw</code>
+      </td>
+      <td>
+        <button id='M!sul.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td class='sample'>
+        <code>RSRX</code>
+      </td>
+      <td>
+        <code class='expected'>jorty</code>
+      </td>
+      <td>
+        <button id='R!S!R!X!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td class='sample'>
+        <code>xTsn</code>
+      </td>
+      <td>
+        <code class='expected'>ijmos</code>
+      </td>
+      <td>
+        <button id='xT!sn.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td class='sample'>
+        <code>FHwnQ</code>
+      </td>
+      <td>
+        <code class='expected'>lmorsvwx</code>
+      </td>
+      <td>
+        <button id='F!H!wnQ!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td class='sample'>
+        <code>jIDIb</code>
+      </td>
+      <td>
+        <code class='expected'>cfghilmo</code>
+      </td>
+      <td>
+        <button id='jI!D!I!b.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td class='sample'>
+        <code>rLGPq</code>
+      </td>
+      <td>
+        <code class='expected'>ilmnprvx</code>
+      </td>
+      <td>
+        <button id='rL!G!P!q.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td class='sample'>
+        <code>WRiFhd</code>
+      </td>
+      <td>
+        <code class='expected'>ceg</code>
+      </td>
+      <td>
+        <button id='W!R!iF!hd.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td class='sample'>
+        <code>gkfLfh</code>
+      </td>
+      <td>
+        <code class='expected'>cfglmpqr</code>
+      </td>
+      <td>
+        <button id='gkfL!fh.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td class='sample'>
+        <code>STydYQ</code>
+      </td>
+      <td>
+        <code class='expected'>hklmpruv</code>
+      </td>
+      <td>
+        <button id='S!T!ydY!Q!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td class='sample'>
+        <code>spaeAWJ</code>
+      </td>
+      <td>
+        <code class='expected'>cdehimns</code>
+      </td>
+      <td>
+        <button id='spaeA!W!J!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td class='sample'>
+        <code>xTxTXwY</code>
+      </td>
+      <td>
+        <code class='expected'>mwx</code>
+      </td>
+      <td>
+        <button id='xT!xT!X!wY!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td class='sample'>
+        <code>xyQMkMi</code>
+      </td>
+      <td>
+        <code class='expected'>cdejlnow</code>
+      </td>
+      <td>
+        <button id='xyQ!M!kM!i.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td class='sample'>
+        <code>HJkxpWxA</code>
+      </td>
+      <td>
+        <code class='expected'>cdhkp</code>
+      </td>
+      <td>
+        <button id='H!J!kxpW!xA!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td class='sample'>
+        <code>hgaGDodg</code>
+      </td>
+      <td>
+        <code class='expected'>djo</code>
+      </td>
+      <td>
+        <button id='hgaG!D!odg.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td class='sample'>
+        <code>abKBmkBc</code>
+      </td>
+      <td>
+        <code class='expected'>bdfik</code>
+      </td>
+      <td>
+        <button id='abK!B!mkB!c.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td class='sample'>
+        <code>mCvlhnilm</code>
+      </td>
+      <td>
+        <code class='expected'>adfgikqr</code>
+      </td>
+      <td>
+        <button id='mC!vlhnilm.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td class='sample'>
+        <code>StyxTYsIh</code>
+      </td>
+      <td>
+        <code class='expected'>imnostxy</code>
+      </td>
+      <td>
+        <button id='S!tyxT!Y!sI!h.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td class='sample'>
+        <code>HLHnhLMLC</code>
+      </td>
+      <td>
+        <code class='expected'>ahlmn</code>
+      </td>
+      <td>
+        <button id='H!L!H!nhL!M!L!C!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td class='sample'>
+        <code>DuHmbFQysI</code>
+      </td>
+      <td>
+        <code class='expected'>ehj</code>
+      </td>
+      <td>
+        <button id='D!uH!mbF!Q!ysI!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td class='sample'>
+        <code>cGfGCaLgCq</code>
+      </td>
+      <td>
+        <code class='expected'>acguv</code>
+      </td>
+      <td>
+        <button id='cG!fG!C!aL!gC!q.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td class='sample'>
+        <code>OisYOrOXwq</code>
+      </td>
+      <td>
+        <code class='expected'>ilnstvwx</code>
+      </td>
+      <td>
+        <button id='O!isY!O!rO!X!wq.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td class='sample'>
+        <code>wMnYIukHAvO</code>
+      </td>
+      <td>
+        <code class='expected'>bdefhjmn</code>
+      </td>
+      <td>
+        <button id='wM!nY!I!ukH!A!vO!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td class='sample'>
+        <code>HCfBhKHkhDF</code>
+      </td>
+      <td>
+        <code class='expected'>abdghikn</code>
+      </td>
+      <td>
+        <button id='H!C!fB!hK!H!khD!F!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td class='sample'>
+        <code>pUPmwrHsYSH</code>
+      </td>
+      <td>
+        <code class='expected'>morsy</code>
+      </td>
+      <td>
+        <button id='pU!P!mwrH!sY!S!H!.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td class='sample'>
+        <code>PnCYYWnPoUxq</code>
+      </td>
+      <td>
+        <code class='expected'>bfopv</code>
+      </td>
+      <td>
+        <button id='P!nC!Y!Y!W!nP!oU!xq.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td class='sample'>
+        <code>DiojiYXowowr</code>
+      </td>
+      <td>
+        <code class='expected'>cilmnstw</code>
+      </td>
+      <td>
+        <button id='D!iojiY!X!owowr.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td class='sample'>
+        <code>HLNsiNMnbAnn</code>
+      </td>
+      <td>
+        <code class='expected'>abdkm</code>
+      </td>
+      <td>
+        <button id='H!L!N!siN!M!nbA!nn.gif' onclick='show(this)'>GIF を表示</button>
+      </td>
+    </tr>
+  </table>
+  <h2>C/C++/Java 用のテストデータ</h2>
+  <textarea>/*0*/ test( "YokoHamarb", "acdfp" );    
 /*1*/ test( "Ruby", "twx" );    
 /*2*/ test( "ruby", "nst" );    
 /*3*/ test( "PHP", "gkluv" );    
@@ -680,5 +705,6 @@
 /*39*/ test( "PnCYYWnPoUxq", "bfopv" );    
 /*40*/ test( "DiojiYXowowr", "cilmnstw" );    
 /*41*/ test( "HLNsiNMnbAnn", "abdkm" );</textarea>
-  </body>
+</body>
+
 </html>
